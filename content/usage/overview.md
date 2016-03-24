@@ -16,7 +16,7 @@ Example .drone.yml configuration:
 ```yaml
 ---
 build:
-  image: teaci/mingw32
+  image: teaci/msys32
   shell: mingw32
   pull: true
   commands:
@@ -34,7 +34,7 @@ When Drone receives a hook it fetches the `.drone.yml` from your repository and 
 ```yaml
 ---
 build:
-  image: teaci/mingw32
+  image: teaci/msys32
   shell: mingw32
   pull: true
   commands:
@@ -59,15 +59,15 @@ git checkout 7fd1a60
 
 Drone executes your build inside an ephemeral Docker image. This means you don't have to setup or install any repository dependencies on your host machine. Use any valid Docker image in any Docker registry as your build environment.
 
-Example .drone.yml configuration uses the Tea CI official mingw32 image:
+Example .drone.yml configuration uses the Tea CI official msys32 image:
 
 ```yaml
 ---
 build:
-  image: teaci/mingw32
+  image: teaci/msys32
 ```
 
-The Tea CI project maintains several official docker images for our users. Currently we have teaci/mingw32, teaci/cygwin32, and teaci/msys32. 64 bit support is ongoing.
+The Tea CI project maintains several official docker images for our users. Currently we support two images teaci/cygwin32 and teaci/msys32. 64 bit support is ongoing.
 
 # Shell
 
@@ -78,18 +78,20 @@ Example .drone.yml configuration uses the Tea CI official mingw32 image using mi
 ```yaml
 ---
 build:
-  image: teaci/mingw32
+  image: teaci/msys32
   shell: mingw32
 ```
 
+For teaci/cygwin32 image, cygwin32 shell is supported, which is used for building i686-pc-cygwin packages. For teaci/msys32 image, we support mingw32 shell and msys32 shell. The mingw32 shell is used for building i686-w64-mingw32 packages, the msys32 shell is used for i686-pc-msys packages. mingw32 shell and msys32 shell share the same image. Usually Win32 application developers might only need the mingw32 shell to build "native" programes. The msys32 shell is mostly for msys32 maintainers.
+
 # Pull
 
-Use the `pull` attribute to instruct Drone to always pull the latest Docker image. This helps ensure you are always testing your code against the latest image. We recommend you always using `pull: true` with the mingw32 Docker image.
+Use the `pull` attribute to instruct Drone to always pull the latest Docker image. This helps ensure you are always testing your code against the latest image. We recommend you always using `pull: true` with our official Docker image like teaci/msys32 and teaci/cygwin32.
 
 ```yaml
 ---
 build:
-  image: teaci/mingw32
+  image: teaci/msys32
   shell: mingw32
   pull: true
 ```
@@ -103,7 +105,7 @@ Drone executes the following bash commands inside your build container:
 ```yaml
 ---
 build:
-  image: teaci/mingw32
+  image: teaci/msys32
   shell: mingw32
   pull: true
   commands:
@@ -121,7 +123,7 @@ Example .drone.yml configuration with a Postgres database:
 ```yaml
 ---
 build:
-  image: teaci/mingw32
+  image: teaci/msys32
   shell: mingw32
   pull: true
   commands:
@@ -146,7 +148,7 @@ Example .drone.yml configuration with the Docker publish plugin:
 ```yaml
 ---
 build:
-  image: teaci/mingw32
+  image: teaci/msys32
   shell: mingw32
   pull: true
   commands:
@@ -162,12 +164,12 @@ publish:
     repo: octocat/hello-world
 ```
 
-First Drone runs your build commands inside the teaci/mingw32 container:
+First Drone runs your build commands inside the teaci/msys32 container:
 
 ```yaml
 ---
 build:
-  image: teaci/mingw32
+  image: teaci/msys32
   shell: mingw32
   pull: true
   commands:
