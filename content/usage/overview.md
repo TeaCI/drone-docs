@@ -16,8 +16,8 @@ Example .drone.yml configuration:
 ```yaml
 ---
 build:
-  image: teaci/msys32
-  shell: msys32
+  image: teaci/mingw32
+  shell: mingw32
   pull: true
   commands:
     - ./configure
@@ -34,8 +34,8 @@ When Drone receives a hook it fetches the `.drone.yml` from your repository and 
 ```yaml
 ---
 build:
-  image: teaci/msys32
-  shell: msys32
+  image: teaci/mingw32
+  shell: mingw32
   pull: true
   commands:
     - ./configure
@@ -64,22 +64,22 @@ Example .drone.yml configuration uses the Tea CI official 32 bit Msys2 image:
 ```yaml
 ---
 build:
-  image: teaci/msys32
+  image: teaci/mingw32
 ```
 
-The Tea CI project maintains several official docker images for our users. Currently we have teaci/cygwin32, teaci/msys32 and teaci/mingw32. 64 bit support is ongoing.
+The Tea CI project maintains several official docker images for our users. Currently we have teaci/cygwin32, teaci/mingw32 and teaci/mingw32. 64 bit support is ongoing.
 
 # Shell
 
 Drone executes your build using a custom shell you specified.
 
-Example .drone.yml configuration uses the Tea CI official 32 bit Msys2 image using the official msys32 shell:
+Example .drone.yml configuration uses the Tea CI official 32 bit Msys2 image using the official mingw32 shell:
 
 ```yaml
 ---
 build:
-  image: teaci/msys32
-  shell: msys32
+  image: teaci/mingw32
+  shell: mingw32
 ```
 
 # Pull
@@ -89,8 +89,8 @@ Use the `pull` attribute to instruct Drone to always pull the latest Docker imag
 ```yaml
 ---
 build:
-  image: teaci/msys32
-  shell: msys32
+  image: teaci/mingw32
+  shell: mingw32
   pull: true
 ```
 
@@ -103,8 +103,8 @@ Drone executes the following bash commands inside your build container:
 ```yaml
 ---
 build:
-  image: teaci/msys32
-  shell: msys32
+  image: teaci/mingw32
+  shell: mingw32
   pull: true
   commands:
     - ./configure
@@ -121,8 +121,8 @@ Example .drone.yml configuration with a Postgres database:
 ```yaml
 ---
 build:
-  image: teaci/msys32
-  shell: msys32
+  image: teaci/mingw32
+  shell: mingw32
   pull: true
   commands:
     - ./configure
@@ -146,8 +146,8 @@ Example .drone.yml configuration with the Docker publish plugin:
 ```yaml
 ---
 build:
-  image: teaci/msys32
-  shell: msys32
+  image: teaci/mingw32
+  shell: mingw32
   pull: true
   commands:
     - ./configure
@@ -162,13 +162,13 @@ publish:
     repo: octocat/hello-world
 ```
 
-First Drone runs your build commands inside the teaci/msys32 container:
+First Drone runs your build commands inside the teaci/mingw32 container:
 
 ```yaml
 ---
 build:
-  image: teaci/msys32
-  shell: msys32
+  image: teaci/mingw32
+  shell: mingw32
   pull: true
   commands:
     - ./configure
