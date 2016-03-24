@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Node on Drone</title>
+    <link>http://docs.tea-ci.org/tags/node/</link>
+    <description>Recent content in Node on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 08:59:09 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/node/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>NPM</title>
+      <link>http://docs.tea-ci.org/plugins/npm/</link>
+      <pubDate>Sat, 13 Feb 2016 08:59:09 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/npm/</guid>
+      <description>&lt;p&gt;Use the NPM plugin to publish a library to a NPM registry.&lt;/p&gt;
+
+&lt;p&gt;The following parameters are used to configuration the publishing:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;username&lt;/strong&gt; - the username for the account to publish with.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;password&lt;/strong&gt; - the password for the account to publish with.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;email&lt;/strong&gt; - the email address associated with the account to publish with.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;registry&lt;/strong&gt; - the registry URL to use (&lt;a href=&#34;https://registry.npmjs.org&#34;&gt;https://registry.npmjs.org&lt;/a&gt; by default)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;folder&lt;/strong&gt; - the folder, relative to the workspace, containing the library
+(uses the workspace directory, by default)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;always_auth&lt;/strong&gt; - forces npm to require authentication when accessing the
+registry (false by default)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample NPM configuration in your .drone.yml file which
+can publish to the global npm registry:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  npm:
+    username: $$NPM_USERNAME
+    password: $$NPM_PASSWORD
+    email: $$NPM_EMAIL
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For a private npm registry, such as
+&lt;a href=&#34;https://github.com/rlidwka/sinopia&#34;&gt;Sinopia&lt;/a&gt; the following config can be used:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  npm:
+    username: $$NPM_USERNAME
+    password: $$NPM_PASSWORD
+    email: $$NPM_EMAIL
+    registry: &amp;quot;http://myregistry:4873&amp;quot;
+    always_auth: true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

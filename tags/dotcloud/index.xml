@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dotcloud on Drone</title>
+    <link>http://docs.tea-ci.org/tags/dotcloud/</link>
+    <description>Recent content in Dotcloud on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 09:00:02 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/dotcloud/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>dotCloud</title>
+      <link>http://docs.tea-ci.org/plugins/dotcloud/</link>
+      <pubDate>Sat, 13 Feb 2016 09:00:02 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/dotcloud/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to dotCloud. You can override
+the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;app&lt;/code&gt; - Application name, defaults to repo name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;deployment&lt;/code&gt; - Deployment name, defaults to &lt;code&gt;default&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;email&lt;/code&gt; - Email address to authenticate&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - Password to authenticate&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;force&lt;/code&gt; - Force a push, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;commit&lt;/code&gt; - Commit local changes, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:1ceeaa78fbf957ddcdbd279447780971&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  dotcloud:
+    app: helloworld
+    deployment: default
+    email: octocat@github.com
+    password: my_password
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Overview · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview"  class="current-item">Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main>
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>Overview</h1>
+						<nav id="TableOfContents">
+						
+						<nav id="TableOfContents">
+<ul>
+<li><a href="#download:68f80267fa3a50980dbb745a782b8dca">Download</a></li>
+<li><a href="#configure:68f80267fa3a50980dbb745a782b8dca">Configure</a></li>
+<li><a href="#select-and-configure-a-remote-driver:68f80267fa3a50980dbb745a782b8dca">Select and Configure a Remote Driver</a></li>
+<li><a href="#select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca">Select and Configure a Database</a></li>
+<li><a href="#create-and-run-a-drone-container:68f80267fa3a50980dbb745a782b8dca">Create and Run a Drone Container</a></li>
+<li><a href="#advanced-configuration:68f80267fa3a50980dbb745a782b8dca">Advanced Configuration</a></li>
+<li><a href="#troubleshooting:68f80267fa3a50980dbb745a782b8dca">Troubleshooting</a></li>
+<li><a href="#common-errors:68f80267fa3a50980dbb745a782b8dca">Common Errors</a></li>
+</ul>
+</nav>
+						
+						</nav>
+						<section>
+
+<h1 id="download:68f80267fa3a50980dbb745a782b8dca">Download</h1>
+
+<p>Drone ships as a single binary file and is distributed as a minimalist 20 MB Docker image. Download the official Drone image from DockerHub:</p>
+
+<pre><code>sudo docker pull drone/drone:0.4
+</code></pre>
+
+<p>For a full list of available tags, see the <a href="https://hub.docker.com/r/drone/drone/">drone/drone</a> Docker Hub repo.</p>
+
+<h1 id="configure:68f80267fa3a50980dbb745a782b8dca">Configure</h1>
+
+<p>Create a <code>/etc/drone/dronerc</code> file to store configuration variables in <code>KEY=VALUE</code> format. Docker will use this file to load environment variables from disk. Please note these variables should never be quoted. For example:</p>
+
+<pre><code>REMOTE_DRIVER=github
+REMOTE_CONFIG=https://github.com?client_id=....&amp;client_secret=....
+</code></pre>
+
+<p>We&rsquo;ll be adding to this file as we progress through the setup process.</p>
+
+<h1 id="select-and-configure-a-remote-driver:68f80267fa3a50980dbb745a782b8dca">Select and Configure a Remote Driver</h1>
+
+<p>With your <code>dronerc</code> file created, it&rsquo;s time to configure your <a href="/setup/remotes/">Remote Drivers</a>. We currently have support for <a href="/setup/remotes/github/">GitHub</a>, <a href="/setup/remotes/bitbucket/">Bitbucket</a>, <a href="/setup/remotes/gitlab/">GitLab</a>, and <a href="/setup/remotes/gogs/">Gogs</a>.</p>
+
+<h1 id="select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca">Select and Configure a Database</h1>
+
+<p>Now that you have configured your Remote Driver, you are ready to set up the Database that Drone will use for storing state. See the <a href="/setup/database/">Databases</a> article for a walkthrough.</p>
+
+<h1 id="create-and-run-a-drone-container:68f80267fa3a50980dbb745a782b8dca">Create and Run a Drone Container</h1>
+
+<p>Create and run your container:</p>
+
+<pre><code>sudo docker run \
+	--volume /var/lib/drone:/var/lib/drone \
+	--volume /var/run/docker.sock:/var/run/docker.sock \
+	--env-file /etc/drone/dronerc \
+	--restart=always \
+	--publish=80:8000 \
+	--detach=true \
+	--name=drone \
+	drone/drone:0.4
+</code></pre>
+
+<p>Please note configuration parameters are provided to Docker using the <code>--env-file</code> flag. Any changes to the <code>dronerc</code> file require you to stop, remove and re-create the container:</p>
+
+<pre><code>sudo docker stop drone
+sudo docker rm drone
+sudo docker run ...
+</code></pre>
+
+<p>At this point, you should have a running Drone instance. If you are running into issues, read the following <em>Troubleshooting</em> and <em>Common Errors</em> sections. If that fails, see <a href="/community/overview/#getting-help:68f80267fa3a50980dbb745a782b8dca">Getting Help</a>.</p>
+
+<p>Assuming everything went well, you are ready to look at our <a href="/usage/overview/">Usage</a> documentation and get some builds going.</p>
+
+<h1 id="advanced-configuration:68f80267fa3a50980dbb745a782b8dca">Advanced Configuration</h1>
+
+<ul>
+<li>For a full list of configuration options for Drone itself, see <a href="/setup/settings/">Settings Reference</a>.</li>
+<li>If your Drone instance needs to go through a proxy server, see <a href="/setup/proxy_network/">Network Proxy</a>.</li>
+<li>If you&rsquo;d like to park Drone behind a reverse proxy, see <a href="/setup/proxy_reverse/">Reverse Proxy</a>.</li>
+</ul>
+
+<h1 id="troubleshooting:68f80267fa3a50980dbb745a782b8dca">Troubleshooting</h1>
+
+<p>Please use the Drone logs troubleshoot issues:</p>
+
+<pre><code>sudo docker logs drone
+</code></pre>
+
+<p>For more verbose logging add <code>DEBUG</code> to your <code>dronerc</code> file:</p>
+
+<pre><code>DEBUG=true
+</code></pre>
+
+<h1 id="common-errors:68f80267fa3a50980dbb745a782b8dca">Common Errors</h1>
+
+<p>The below error indicates you did not setup your GitHub (or GitLab, Gogs, Bitbucket) integration prior to starting Drone. Please configure version control integration per the above installation instructions.</p>
+
+<pre><code>FATA[0000] unknown remote driver
+</code></pre>
+
+<p>The below error indicates you forgot to run Drone with <code>--volume /var/lib/drone:/var/lib/drone</code> per the above installation guide. This is important because you need to mount your database on the host machine.</p>
+
+<pre><code>INFO[0000] using database driver sqlite3
+INFO[0000] using database config /var/lib/drone/drone.sqlite
+ERRO[0000] unable to open database file
+FATA[0000] migration failed
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								
+								<li>
+									<a href="/setup/overview/" class=" current-item">Overview</a>
+								</li>
+								
+								<li>
+									<a href="/setup/remotes/" class="">Remote Drivers</a>
+								</li>
+								
+								<li>
+									<a href="/setup/database/" class="">Database</a>
+								</li>
+								
+								<li>
+									<a href="/setup/settings/" class="">Settings Reference</a>
+								</li>
+								
+								<li>
+									<a href="/setup/upgrades/" class="">Upgrades</a>
+								</li>
+								
+								<li>
+									<a href="/setup/proxy_network/" class="">Network Proxy</a>
+								</li>
+								
+								<li>
+									<a href="/setup/proxy_reverse/" class="">Reverse Proxy</a>
+								</li>
+								
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

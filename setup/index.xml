@@ -1,0 +1,854 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Setups on Drone</title>
+    <link>http://docs.tea-ci.org/setup/</link>
+    <description>Recent content in Setups on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 05 Dec 2015 16:00:21 -0800</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/setup/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Bitbucket Cloud</title>
+      <link>http://docs.tea-ci.org/setup/remotes/bitbucket/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/setup/remotes/bitbucket/</guid>
+      <description>
+
+&lt;p&gt;Drone comes with built-in support for Bitbucket Cloud. Bitbucket Server is not yet supported. To enable Bitbucket Cloud you should configure the Bitbucket driver using the following environment variables:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;REMOTE_DRIVER=bitbucket
+REMOTE_CONFIG=https://bitbucket.org?client_id=${client_id}&amp;amp;client_secret=${client_secret}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;bitbucket-configuration:217ff7ed75501b6aa8d4f1057fed857c&#34;&gt;Bitbucket configuration&lt;/h1&gt;
+
+&lt;p&gt;The following is the standard URI connection scheme:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;scheme://host[?options]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The components of this string are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;scheme&lt;/code&gt; server protocol &lt;code&gt;http&lt;/code&gt; or &lt;code&gt;https&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;host&lt;/code&gt; server address to connect to.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;?options&lt;/code&gt; connection specific options.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;bitbucket-options:217ff7ed75501b6aa8d4f1057fed857c&#34;&gt;Bitbucket options&lt;/h1&gt;
+
+&lt;p&gt;This section lists all connection options used in the connection string format. Connection options are pairs in the following form: &lt;code&gt;name=value&lt;/code&gt;. The value is always case sensitive. Separate options with the ampersand (i.e. &amp;amp;) character:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;client_id&lt;/code&gt; oauth client id for registered application.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;client_secret&lt;/code&gt; oauth client secret for registered application.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;open=false&lt;/code&gt; allows users to self-register. Defaults to false.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;orgs=drone&amp;amp;orgs=docker&lt;/code&gt; restricts access to these Bitbucket organizations. &lt;strong&gt;Optional&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;bitbucket-registration:217ff7ed75501b6aa8d4f1057fed857c&#34;&gt;Bitbucket registration&lt;/h1&gt;
+
+&lt;p&gt;You must register your application with Bitbucket in order to generate a Client and Secret. Navigate to your account settings and choose OAuth from the menu, and click Add Consumer.&lt;/p&gt;
+
+&lt;p&gt;Please use &lt;code&gt;http://drone.mycompany.com/authorize&lt;/code&gt; as the Authorization callback URL. You will also need to check the following permissions:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Account:Email&lt;/li&gt;
+&lt;li&gt;Account:Read&lt;/li&gt;
+&lt;li&gt;Team Membership:Read&lt;/li&gt;
+&lt;li&gt;Repositories:Read&lt;/li&gt;
+&lt;li&gt;Webhooks:Read and Write&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;remote-driver-feature-chart:217ff7ed75501b6aa8d4f1057fed857c&#34;&gt;Remote Driver Feature Chart&lt;/h1&gt;
+
+&lt;p&gt;Drone currently only supports BitBucket Cloud (hosted BitBucket).
+Contributions for BitBucket Server are welcomed.&lt;/p&gt;
+
+&lt;p&gt;Also, we only support git on BitBucket Cloud. While we do have a Mercurial
+Drone Plugin, the webhook output is slightly different for Hg projects. We&amp;rsquo;d
+love to see pull requests for this as well.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Feature/Remote&lt;/th&gt;
+&lt;th&gt;BitBucket Cloud&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Supported version&lt;/td&gt;
+&lt;td&gt;BitBucket Cloud Only&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;VCS&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;git ( only )&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Auth method&lt;/td&gt;
+&lt;td&gt;oauth2&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Push events&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Push tags events&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Merge requests&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;partially&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Commit statuses&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Restrict by organizations&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&#34;next-steps:217ff7ed75501b6aa8d4f1057fed857c&#34;&gt;Next Steps&lt;/h1&gt;
+
+&lt;p&gt;Once you have configured your Remote Driver, it&amp;rsquo;s time to &lt;a href=&#34;http://docs.tea-ci.org/setup/overview/#select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Select and
+Configure a Database&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Overview</title>
+      <link>http://docs.tea-ci.org/setup/overview/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/setup/overview/</guid>
+      <description>
+
+&lt;h1 id=&#34;download:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Download&lt;/h1&gt;
+
+&lt;p&gt;Drone ships as a single binary file and is distributed as a minimalist 20 MB Docker image. Download the official Drone image from DockerHub:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo docker pull drone/drone:0.4
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For a full list of available tags, see the &lt;a href=&#34;https://hub.docker.com/r/drone/drone/&#34;&gt;drone/drone&lt;/a&gt; Docker Hub repo.&lt;/p&gt;
+
+&lt;h1 id=&#34;configure:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Configure&lt;/h1&gt;
+
+&lt;p&gt;Create a &lt;code&gt;/etc/drone/dronerc&lt;/code&gt; file to store configuration variables in &lt;code&gt;KEY=VALUE&lt;/code&gt; format. Docker will use this file to load environment variables from disk. Please note these variables should never be quoted. For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;REMOTE_DRIVER=github
+REMOTE_CONFIG=https://github.com?client_id=....&amp;amp;client_secret=....
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We&amp;rsquo;ll be adding to this file as we progress through the setup process.&lt;/p&gt;
+
+&lt;h1 id=&#34;select-and-configure-a-remote-driver:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Select and Configure a Remote Driver&lt;/h1&gt;
+
+&lt;p&gt;With your &lt;code&gt;dronerc&lt;/code&gt; file created, it&amp;rsquo;s time to configure your &lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/&#34;&gt;Remote Drivers&lt;/a&gt;. We currently have support for &lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/github/&#34;&gt;GitHub&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/bitbucket/&#34;&gt;Bitbucket&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/gitlab/&#34;&gt;GitLab&lt;/a&gt;, and &lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/gogs/&#34;&gt;Gogs&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Select and Configure a Database&lt;/h1&gt;
+
+&lt;p&gt;Now that you have configured your Remote Driver, you are ready to set up the Database that Drone will use for storing state. See the &lt;a href=&#34;http://docs.tea-ci.org/setup/database/&#34;&gt;Databases&lt;/a&gt; article for a walkthrough.&lt;/p&gt;
+
+&lt;h1 id=&#34;create-and-run-a-drone-container:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Create and Run a Drone Container&lt;/h1&gt;
+
+&lt;p&gt;Create and run your container:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo docker run \
+	--volume /var/lib/drone:/var/lib/drone \
+	--volume /var/run/docker.sock:/var/run/docker.sock \
+	--env-file /etc/drone/dronerc \
+	--restart=always \
+	--publish=80:8000 \
+	--detach=true \
+	--name=drone \
+	drone/drone:0.4
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Please note configuration parameters are provided to Docker using the &lt;code&gt;--env-file&lt;/code&gt; flag. Any changes to the &lt;code&gt;dronerc&lt;/code&gt; file require you to stop, remove and re-create the container:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo docker stop drone
+sudo docker rm drone
+sudo docker run ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;At this point, you should have a running Drone instance. If you are running into issues, read the following &lt;em&gt;Troubleshooting&lt;/em&gt; and &lt;em&gt;Common Errors&lt;/em&gt; sections. If that fails, see &lt;a href=&#34;http://docs.tea-ci.org/community/overview/#getting-help:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Getting Help&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Assuming everything went well, you are ready to look at our &lt;a href=&#34;http://docs.tea-ci.org/usage/overview/&#34;&gt;Usage&lt;/a&gt; documentation and get some builds going.&lt;/p&gt;
+
+&lt;h1 id=&#34;advanced-configuration:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Advanced Configuration&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;For a full list of configuration options for Drone itself, see &lt;a href=&#34;http://docs.tea-ci.org/setup/settings/&#34;&gt;Settings Reference&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;If your Drone instance needs to go through a proxy server, see &lt;a href=&#34;http://docs.tea-ci.org/setup/proxy_network/&#34;&gt;Network Proxy&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;If you&amp;rsquo;d like to park Drone behind a reverse proxy, see &lt;a href=&#34;http://docs.tea-ci.org/setup/proxy_reverse/&#34;&gt;Reverse Proxy&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;troubleshooting:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Troubleshooting&lt;/h1&gt;
+
+&lt;p&gt;Please use the Drone logs troubleshoot issues:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo docker logs drone
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For more verbose logging add &lt;code&gt;DEBUG&lt;/code&gt; to your &lt;code&gt;dronerc&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;DEBUG=true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;common-errors:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Common Errors&lt;/h1&gt;
+
+&lt;p&gt;The below error indicates you did not setup your GitHub (or GitLab, Gogs, Bitbucket) integration prior to starting Drone. Please configure version control integration per the above installation instructions.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;FATA[0000] unknown remote driver
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The below error indicates you forgot to run Drone with &lt;code&gt;--volume /var/lib/drone:/var/lib/drone&lt;/code&gt; per the above installation guide. This is important because you need to mount your database on the host machine.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;INFO[0000] using database driver sqlite3
+INFO[0000] using database config /var/lib/drone/drone.sqlite
+ERRO[0000] unable to open database file
+FATA[0000] migration failed
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>GitHub</title>
+      <link>http://docs.tea-ci.org/setup/remotes/github/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/setup/remotes/github/</guid>
+      <description>
+
+&lt;p&gt;Drone comes with built-in support for GitHub and GitHub Enterprise. To enable GitHub you should configure the GitHub driver using the following environment variables:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;REMOTE_DRIVER=github
+REMOTE_CONFIG=https://github.com?client_id=${client_id}&amp;amp;client_secret=${client_secret}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;github-configuration:93ed8abeb42c248f3c551d1cb44159d4&#34;&gt;GitHub configuration&lt;/h1&gt;
+
+&lt;p&gt;The following is the standard URI connection scheme:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;scheme://host[:port][?options]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The components of this string are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;scheme&lt;/code&gt; server protocol &lt;code&gt;http&lt;/code&gt; or &lt;code&gt;https&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;host&lt;/code&gt; server address to connect to. The default value is github.com if not specified.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:port&lt;/code&gt; optional. The default value is :80 if not specified.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;?options&lt;/code&gt; connection specific options.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;github-options:93ed8abeb42c248f3c551d1cb44159d4&#34;&gt;GitHub options&lt;/h1&gt;
+
+&lt;p&gt;This section lists all connection options used in the connection string format. Connection options are pairs in the following form: &lt;code&gt;name=value&lt;/code&gt;. The value is always case sensitive. Separate options with the ampersand (i.e. &amp;amp;) character:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;client_id&lt;/code&gt; oauth client id for registered application.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;client_secret&lt;/code&gt; oauth client secret for registered application.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;open=false&lt;/code&gt; allows users to self-register. Defaults to false..&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;orgs=drone&amp;amp;orgs=docker&lt;/code&gt; restricts access to these GitHub organizations. &lt;strong&gt;Optional&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;private_mode=false&lt;/code&gt; indicates GitHub Enterprise is running in private mode.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;skip_verify=false&lt;/code&gt; skip ca verification if self-signed certificate. Defaults to false.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;merge_ref=merge&lt;/code&gt; configure pull requests to use head vs merge ref. Defaults to merge.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;github-registration:93ed8abeb42c248f3c551d1cb44159d4&#34;&gt;GitHub registration&lt;/h1&gt;
+
+&lt;p&gt;You must register your application with GitHub in order to generate a Client and Secret. Navigate to your account settings and choose Applications from the menu, and click Register new application.&lt;/p&gt;
+
+&lt;p&gt;Please use &lt;code&gt;http://drone.mycompany.com/authorize&lt;/code&gt; as the Authorization callback URL.&lt;/p&gt;
+
+&lt;h1 id=&#34;remote-driver-feature-chart:93ed8abeb42c248f3c551d1cb44159d4&#34;&gt;Remote Driver Feature Chart&lt;/h1&gt;
+
+&lt;p&gt;Since the majority of our users (including Drone itself) use GitHub, the
+GitHub remote is in great shape. At any given time, Drone should work well
+with both GitHub and GitHub Enterprise.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Feature/Remote&lt;/th&gt;
+&lt;th&gt;GitHub&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Supported versions&lt;/td&gt;
+&lt;td&gt;GitHub and GitHub Enterprise&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;VCS&lt;/td&gt;
+&lt;td&gt;git&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Auth method&lt;/td&gt;
+&lt;td&gt;ouath2&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Push events&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Push tags events&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Merge requests&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Commit statuses&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Restrict by organizations&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&#34;next-steps:93ed8abeb42c248f3c551d1cb44159d4&#34;&gt;Next Steps&lt;/h1&gt;
+
+&lt;p&gt;Once you have configured your Remote Driver, it&amp;rsquo;s time to &lt;a href=&#34;http://docs.tea-ci.org/setup/overview/#select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Select and
+Configure a Database&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Remote Drivers</title>
+      <link>http://docs.tea-ci.org/setup/remotes/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/setup/remotes/</guid>
+      <description>
+
+&lt;p&gt;Drone uses Remote Drivers to integrate and execute builds against your code hosting system of choice. Some things that the remote driver handles include:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Deploy key or credential management (to allow Drone to pull code)&lt;/li&gt;
+&lt;li&gt;Webhook configuration (so Drone knows when pushes happen)&lt;/li&gt;
+&lt;li&gt;Authenticating users against the remote driver (typically through oauth2)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;configuring-a-remote-driver:0240f7545353d4fff82654a2b3e8f1e5&#34;&gt;Configuring a Remote Driver&lt;/h1&gt;
+
+&lt;p&gt;Depending on which service or system you are hosting your code on, you&amp;rsquo;ll want to refer to the corresponding Remote Driver sub-page for details on configuration:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/bitbucket/&#34;&gt;Bitbucket&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/github/&#34;&gt;GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/gitlab/&#34;&gt;GitLab&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/gogs/&#34;&gt;Gogs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;next-steps:0240f7545353d4fff82654a2b3e8f1e5&#34;&gt;Next Steps&lt;/h1&gt;
+
+&lt;p&gt;Once you have configured your Remote Driver, it&amp;rsquo;s time to &lt;a href=&#34;http://docs.tea-ci.org/setup/overview/#select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Select and
+Configure a Database&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Database</title>
+      <link>http://docs.tea-ci.org/setup/database/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/setup/database/</guid>
+      <description>
+
+&lt;p&gt;Drone supports several relational databases. If you don&amp;rsquo;t have a strong preference, SQLite is a great starting point. Once you have configured your database, continue onward to &lt;a href=&#34;http://docs.tea-ci.org/setup/overview/#create-and-run-a-drone-container:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Create and Run a Drone Container&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;sqlite:1e080c892326e5bba749587eba8bcf9e&#34;&gt;SQLite&lt;/h1&gt;
+
+&lt;p&gt;Drone uses an embedded SQLite as the &lt;strong&gt;default&lt;/strong&gt; database with zero configuration required. In order to customize the SQLite database configuration you should specify the following environment variables:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;DATABASE_DRIVER=sqlite3
+DATABASE_CONFIG=/var/lib/drone/drone.sqlite
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;postgres:1e080c892326e5bba749587eba8bcf9e&#34;&gt;Postgres&lt;/h1&gt;
+
+&lt;p&gt;Configure a Postgres database backend:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;DATABASE_DRIVER=postgres
+DATABASE_CONFIG=postgres://root:pa55word@127.0.0.1:5432/postgres?sslmode=disable
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;See the official postgres connection string &lt;a href=&#34;http://www.postgresql.org/docs/current/static/libpq-connect.html#LIBPQ-CONNSTRING&#34;&gt;documentation&lt;/a&gt; for a complete set of configuration options and examples.&lt;/p&gt;
+
+&lt;h1 id=&#34;mysql:1e080c892326e5bba749587eba8bcf9e&#34;&gt;MySQL&lt;/h1&gt;
+
+&lt;p&gt;Configure a Mysql database backend:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;DATABASE_DRIVER=&amp;quot;mysql&amp;quot;
+DATABASE_CONFIG=&amp;quot;root:pa55word@tcp(localhost:3306)/drone?parseTime=true&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;See the driver &lt;a href=&#34;https://github.com/go-sql-driver/mysql#dsn-data-source-name&#34;&gt;documentation&lt;/a&gt; for a complete set of configuration options and examples.&lt;/p&gt;
+
+&lt;p&gt;Note that Drone does not automatically create the mysql database. You should use the mysql command line utility or your preferred management console to create the database:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mysql -P 3306 --protocol=tcp -u root -e &#39;create database if not exists drone;&#39;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>GitLab</title>
+      <link>http://docs.tea-ci.org/setup/remotes/gitlab/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/setup/remotes/gitlab/</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;GitLab support is experimental and unstable due to high variation in GitLab configurations and versions. We highly recommend using &lt;a href=&#34;https://github.com/gogits/gogs&#34;&gt;Gogs&lt;/a&gt; as an alternative to GitLab.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Drone comes with built-in support for GitLab version 8.0 and higher. To enable Gitlab you should configure the Gitlab driver using the following environment variables:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;REMOTE_DRIVER=gitlab
+REMOTE_CONFIG=https://gitlab.hooli.com?client_id=${client_id}&amp;amp;client_secret=${client_secret}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;gitlab-configuration:dd87d86ac28472949397c68a306dd605&#34;&gt;Gitlab configuration&lt;/h1&gt;
+
+&lt;p&gt;The following is the standard URI connection scheme:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;scheme://host[:port][?options]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The components of this string are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;scheme&lt;/code&gt; server protocol &lt;code&gt;http&lt;/code&gt; or &lt;code&gt;https&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;host&lt;/code&gt; server address to connect to. The default value is github.com if not specified.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:port&lt;/code&gt; optional. The default value is :80 if not specified.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;?options&lt;/code&gt; connection specific options.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;gitlab-options:dd87d86ac28472949397c68a306dd605&#34;&gt;GitLab options&lt;/h1&gt;
+
+&lt;p&gt;This section lists all connection options used in the connection string format. Connection options are pairs in the following form: &lt;code&gt;name=value&lt;/code&gt;. The value is always case sensitive. Separate options with the ampersand (i.e. &amp;amp;) character:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;client_id&lt;/code&gt; oauth client id for registered application&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;client_secret&lt;/code&gt; oauth client secret for registered application&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;open=false&lt;/code&gt; allows users to self-register. Defaults to false for security reasons.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;orgs=drone&amp;amp;orgs=docker&lt;/code&gt; restricts access to these GitLab organizations. &lt;strong&gt;Optional&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;skip_verify=false&lt;/code&gt; skip ca verification if self-signed certificate. Defaults to false for security reasons.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hide_archives=false&lt;/code&gt; hide projects archived in GitLab from the listing.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;clone_mode=token&lt;/code&gt; a strategy for clone authorization, by default use repo token, but can be changed to &lt;code&gt;oauth&lt;/code&gt; ( This is not secure, because your user token, with full access to your gitlab account will be written to .netrc, and it can be read by all who have access to project builds )&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;search=true&lt;/code&gt; a strategy for search project, by default &lt;code&gt;false&lt;/code&gt;, use if you have apache without &lt;code&gt;AllowEncodedSlashes NoDecode&lt;/code&gt; option&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;gitlab-registration:dd87d86ac28472949397c68a306dd605&#34;&gt;Gitlab registration&lt;/h1&gt;
+
+&lt;p&gt;You must register your application with GitLab in order to generate a Client and Secret. Navigate to your account settings and choose Applications from the menu, and click New Application.&lt;/p&gt;
+
+&lt;p&gt;Please use &lt;code&gt;http://drone.mycompany.com/authorize&lt;/code&gt; as the Authorization callback URL.&lt;/p&gt;
+
+&lt;h1 id=&#34;remote-driver-feature-chart:dd87d86ac28472949397c68a306dd605&#34;&gt;Remote Driver Feature Chart&lt;/h1&gt;
+
+&lt;p&gt;Drone is relatively well-supported on GitLab, though compatibility is is
+sometimes broken due to changes in GitLab from version to version.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Feature/Remote&lt;/th&gt;
+&lt;th&gt;GitLab&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Supported version&lt;/td&gt;
+&lt;td&gt;8.2+&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;VCS&lt;/td&gt;
+&lt;td&gt;git&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Auth method&lt;/td&gt;
+&lt;td&gt;oauth2&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Push events&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Push tags events&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Merge requests&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Commit statuses&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Restrict by organizations&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&#34;next-steps:dd87d86ac28472949397c68a306dd605&#34;&gt;Next Steps&lt;/h1&gt;
+
+&lt;p&gt;Once you have configured your Remote Driver, it&amp;rsquo;s time to &lt;a href=&#34;http://docs.tea-ci.org/setup/overview/#select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Select and
+Configure a Database&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Settings Reference</title>
+      <link>http://docs.tea-ci.org/setup/settings/</link>
+      <pubDate>Fri, 05 Feb 2016 18:20:44 -0600</pubDate>
+      
+      <guid>http://docs.tea-ci.org/setup/settings/</guid>
+      <description>
+
+&lt;p&gt;Unless otherwise specified, the settings described below are all environment variables.&lt;/p&gt;
+
+&lt;h1 id=&#34;remote-driver-settings:fa1a9aa7bf3e774ccda21a0a7b1222dd&#34;&gt;Remote Driver Settings&lt;/h1&gt;
+
+&lt;h2 id=&#34;remote-driver:fa1a9aa7bf3e774ccda21a0a7b1222dd&#34;&gt;REMOTE_DRIVER&lt;/h2&gt;
+
+&lt;p&gt;Set this to whichever remote driver you&amp;rsquo;re using. Drone will use your remote for authentication, and will add webhooks to your projects to facilitate the build process. See &lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/&#34;&gt;Remote Drivers&lt;/a&gt; for possible values.&lt;/p&gt;
+
+&lt;h2 id=&#34;remote-config:fa1a9aa7bf3e774ccda21a0a7b1222dd&#34;&gt;REMOTE_CONFIG&lt;/h2&gt;
+
+&lt;p&gt;The value of this setting is highly dependent upon the remote driver chosen. See &lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/&#34;&gt;Remote Drivers&lt;/a&gt; for more details.&lt;/p&gt;
+
+&lt;h1 id=&#34;database-settings:fa1a9aa7bf3e774ccda21a0a7b1222dd&#34;&gt;Database Settings&lt;/h1&gt;
+
+&lt;p&gt;See the &lt;a href=&#34;http://docs.tea-ci.org/setup/database/&#34;&gt;Database&lt;/a&gt; page for more details on selecting and configuring a database engine for Drone.&lt;/p&gt;
+
+&lt;h2 id=&#34;database-driver:fa1a9aa7bf3e774ccda21a0a7b1222dd&#34;&gt;DATABASE_DRIVER&lt;/h2&gt;
+
+&lt;p&gt;One of the following values:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sqlite3&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;postgres&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mysql&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;database-config:fa1a9aa7bf3e774ccda21a0a7b1222dd&#34;&gt;DATABASE_CONFIG&lt;/h2&gt;
+
+&lt;p&gt;Differs based on the selected database engine. See See the &lt;a href=&#34;http://docs.tea-ci.org/setup/database/&#34;&gt;Database&lt;/a&gt; for a list of possible values for each DB.&lt;/p&gt;
+
+&lt;h1 id=&#34;plugin-settings:fa1a9aa7bf3e774ccda21a0a7b1222dd&#34;&gt;Plugin Settings&lt;/h1&gt;
+
+&lt;h2 id=&#34;plugin-filter:fa1a9aa7bf3e774ccda21a0a7b1222dd&#34;&gt;PLUGIN_FILTER&lt;/h2&gt;
+
+&lt;p&gt;Default: &lt;code&gt;plugins/*&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This setting contains a space-separated list of patterns for determining which plugins can be pulled an ran. By disallowing open season on plugins, we prevent some classes of malicious plugins sneaking into builds.&lt;/p&gt;
+
+&lt;p&gt;To use an example, let&amp;rsquo;s say you&amp;rsquo;ve created an organization on Docker
+Hub called &lt;code&gt;myorg&lt;/code&gt;. Here&amp;rsquo;s a REMOTE_DRIVER setting value that would allow the standard Drone plugins plus your org:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;PLUGIN_FILTER=plugins/* myorg/*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or perhaps your org is on Quay instead of Docker Hub:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;PLUGIN_FILTER=plugins/* quay.io/myorg/*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;plugin-params:fa1a9aa7bf3e774ccda21a0a7b1222dd&#34;&gt;PLUGIN_PARAMS&lt;/h2&gt;
+
+&lt;p&gt;This setting may be used to define some global parameters to pass into all plugins on all repositories.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Be careful what you put in here, since it will be trivial for a malicious developer to obtain the values found in this setting.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Key/value pairs are separated by spaces:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;PLUGIN_PARAMS=MYSETTING=value1 ANOTHER=value2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;general-drone-settings:fa1a9aa7bf3e774ccda21a0a7b1222dd&#34;&gt;General Drone Settings&lt;/h1&gt;
+
+&lt;h2 id=&#34;public-mode:fa1a9aa7bf3e774ccda21a0a7b1222dd&#34;&gt;PUBLIC_MODE&lt;/h2&gt;
+
+&lt;p&gt;Drone restricts the build history to authenticated users with pull access to the source repository. In some deployments it may be desirable to make the build history visible to all users on the network. Public mode permits unauthenticated users to access the build history for every repository, &lt;em&gt;including private repositories&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Add the following configuration to &lt;code&gt;/etc/drone/dronerc&lt;/code&gt; to enable public mode:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;PUBLIC_MODE=true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Enabling this feature on a public network will leak sensitive information in the build logs.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Gogs</title>
+      <link>http://docs.tea-ci.org/setup/remotes/gogs/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/setup/remotes/gogs/</guid>
+      <description>
+
+&lt;p&gt;Drone comes with built-in support for Gogs version &lt;code&gt;0.6.16.1022&lt;/code&gt; and higher. Please ensure you are running the latest version of Gogs to avoid compatibility issues. To enable Gogs you should configure the Gogs driver using the following environment variables:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;REMOTE_DRIVER=gogs
+REMOTE_CONFIG=https://gogs.hooli.com?open=false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;gogs-configuration:774b6f23ce9f6a15436a591e1fc61630&#34;&gt;Gogs configuration&lt;/h1&gt;
+
+&lt;p&gt;The following is the standard URI connection scheme:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;scheme://host[:port][?options]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The components of this string are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;scheme&lt;/code&gt; server protocol &lt;code&gt;http&lt;/code&gt; or &lt;code&gt;https&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;host&lt;/code&gt; server address to connect to. The default value is github.com if not specified.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:port&lt;/code&gt; optional. The default value is :80 if not specified.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;?options&lt;/code&gt; connection specific options.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;gogs-options:774b6f23ce9f6a15436a591e1fc61630&#34;&gt;Gogs options&lt;/h1&gt;
+
+&lt;p&gt;This section lists all connection options used in the connection string format. Connection options are pairs in the following form: &lt;code&gt;name=value&lt;/code&gt;. The value is always case sensitive. Separate options with the ampersand (i.e. &amp;amp;) character:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;open=false&lt;/code&gt; allows users to self-register. Defaults to false for security reasons.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;skip_verify=false&lt;/code&gt; skip ca verification if self-signed certificate. Defaults to false for security reasons.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;remote-driver-feature-chart:774b6f23ce9f6a15436a591e1fc61630&#34;&gt;Remote Driver Feature Chart&lt;/h1&gt;
+
+&lt;p&gt;While Gogs and Drone&amp;rsquo;s support for Gogs are still developing, this is an
+excellent option for teams with very simple hosting needs.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Feature/Remote&lt;/th&gt;
+&lt;th&gt;Gogs&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Supported version&lt;/td&gt;
+&lt;td&gt;0.6.16.1022+&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;VCS&lt;/td&gt;
+&lt;td&gt;git&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Auth method&lt;/td&gt;
+&lt;td&gt;manual&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Push events&lt;/td&gt;
+&lt;td&gt;yes&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Push tags events&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;no&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Merge requests&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;no&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Commit statuses&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;no&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;Restrict by organizations&lt;/td&gt;
+&lt;td&gt;&lt;strong&gt;no&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&#34;next-steps:774b6f23ce9f6a15436a591e1fc61630&#34;&gt;Next Steps&lt;/h1&gt;
+
+&lt;p&gt;Once you have configured your Remote Driver, it&amp;rsquo;s time to &lt;a href=&#34;http://docs.tea-ci.org/setup/overview/#select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Select and
+Configure a Database&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Upgrades</title>
+      <link>http://docs.tea-ci.org/setup/upgrades/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/setup/upgrades/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Warning. There is no automated migration from 0.3 to 0.4 due to substantial changes in database structure.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Drone is built continuously, with updates available daily. In order to upgrade Drone you must first stop and remove your running Drone instance:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo docker stop drone
+sudo docker rm drone
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Pull the latest Drone image:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo docker pull drone/drone:0.4
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Re-run the container using the latest Drone image:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo docker run \
+	--volume /var/lib/drone:/var/lib/drone \
+	--volume /var/run/docker.sock:/var/run/docker.sock \
+	--env-file /etc/drone/dronerc \
+	--restart=always \
+	--publish=80:8000 \
+	--detach=true \
+	--name=drone \
+	drone/drone:0.4
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Database schema updates are applied automatically when Drone is starting.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Network Proxy</title>
+      <link>http://docs.tea-ci.org/setup/proxy_network/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/setup/proxy_network/</guid>
+      <description>
+
+&lt;h1 id=&#34;overview:03d7a38123f4e132328f9d4604b68ecf&#34;&gt;Overview&lt;/h1&gt;
+
+&lt;p&gt;This document provides high-level instructions for configuring Drone to work with a corporate proxy server. This may be required when running Drone behind a &lt;strong&gt;corporate firewall&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;http-proxy:03d7a38123f4e132328f9d4604b68ecf&#34;&gt;HTTP Proxy&lt;/h1&gt;
+
+&lt;p&gt;The HTTP_PROXY environment variable holds the hostname or IP address of your proxy server. You can specify the HTTP_PROXY variables in your server configuration file or as an environment variable.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;HTTPS_PROXY=https://proxy.example.com
+HTTP_PROXY=http://proxy.example.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;These variables are propagated throughout your build environment, including build and plugin containers. To verify the environment variables are being set in your build container you can add the &lt;code&gt;env&lt;/code&gt; command to your build script.&lt;/p&gt;
+
+&lt;p&gt;We also recommend you provide both uppercase and lowercase environment variables. We&amp;rsquo;ve found that certain common unix tools are case-sensitive:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;HTTP_PROXY=http://proxy.example.com
+http_proxy=http://proxy.example.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;no-proxy:03d7a38123f4e132328f9d4604b68ecf&#34;&gt;No Proxy&lt;/h1&gt;
+
+&lt;p&gt;The &lt;code&gt;NO_PROXY&lt;/code&gt; variable should contain a comma-separated list of domain extensions the proxy should not be used for. This typically includes resources inside your network, such as your GitHub Enterprise server.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;NO_PROXY=.example.com, *.docker.example.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You may also need to add your Docker daemon hostnames to the above list.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Reverse Proxy</title>
+      <link>http://docs.tea-ci.org/setup/proxy_reverse/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/setup/proxy_reverse/</guid>
+      <description>
+
+&lt;h1 id=&#34;overview:baa01b1708de72451d6b303294ce3cc6&#34;&gt;Overview&lt;/h1&gt;
+
+&lt;p&gt;Using a reverse proxy with Drone is entirely optional. When using a reverse proxy with Drone it is extremely important to properly configure the &lt;code&gt;X-Forwarded-Proto&lt;/code&gt; and &lt;code&gt;X-Forwarded-For&lt;/code&gt; header variables. You must also change the Drone container&amp;rsquo;s port mapping from &lt;code&gt;--publish=80:8000&lt;/code&gt; to &lt;code&gt;--publish=8000:8000&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;caddy:baa01b1708de72451d6b303294ce3cc6&#34;&gt;Caddy&lt;/h1&gt;
+
+&lt;p&gt;Example &lt;a href=&#34;https://caddyserver.com/&#34;&gt;caddy server&lt;/a&gt; reverse proxy configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;drone.mycomopany.com {
+    proxy / localhost:8000 {
+        proxy_header X-Forwarded-Proto {scheme}
+        proxy_header X-Forwarded-For {host}
+        proxy_header Host {host}
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;nginx:baa01b1708de72451d6b303294ce3cc6&#34;&gt;Nginx&lt;/h1&gt;
+
+&lt;p&gt;Example nginx reverse proxy configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;location / {
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Host $http_host;
+    proxy_set_header Origin &amp;quot;&amp;quot;;
+
+    proxy_pass http://127.0.0.1:8000;
+    proxy_redirect off;
+    proxy_http_version 1.1;
+    proxy_buffering off;
+
+    chunked_transfer_encoding off;
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

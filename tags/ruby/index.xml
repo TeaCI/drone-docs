@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ruby on Drone</title>
+    <link>http://docs.tea-ci.org/tags/ruby/</link>
+    <description>Recent content in Ruby on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 09:00:59 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/ruby/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Rubygems</title>
+      <link>http://docs.tea-ci.org/plugins/rubygems/</link>
+      <pubDate>Sat, 13 Feb 2016 09:00:59 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/rubygems/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for publishing gems to a Rubygems server. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;api_key&lt;/code&gt; - Rubygems API Key, get it &lt;a href=&#34;https://rubygems.org/profile/edit&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;username&lt;/code&gt; - Username, only required without API key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - Password, only required without API key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;name&lt;/code&gt; - Name of the gem, defaults to repo name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gemspec&lt;/code&gt; - Path to gemspec, defaults to repo name with &lt;code&gt;.gemspec&lt;/code&gt; suffix&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;host&lt;/code&gt; - Rubygems host, only required for a selfhosted gem server&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;skip_cleanup&lt;/code&gt; - Flag to deploy from the current file state&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:eceb8a3ed4c8857573832541ce065cfe&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  rubygems:
+    api_key: e123f83113f79eb17308bbf1ca8885bb
+    when:
+      branch: master
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

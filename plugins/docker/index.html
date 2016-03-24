@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Docker · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Build and publish images to a Docker registry" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins" class="current-item">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="plugins">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1 class="plugin-header"><img src="/logos/docker.svg" /> Docker Plugin</h1>
+						<section>
+
+<p>Use the Docker plugin to build and push Docker images to a registry.
+The following parameters are used to configure this plugin:</p>
+
+<ul>
+<li><code>registry</code> - authenticates to this registry</li>
+<li><code>username</code> - authenticates with this username</li>
+<li><code>password</code> - authenticates with this password</li>
+<li><code>email</code> - authenticates with this email</li>
+<li><code>repo</code> - repository name for the image</li>
+<li><code>tag</code> - repository tag for the image</li>
+<li><code>file</code> - dockerfile to be used, defaults to Dockerfile</li>
+<li><code>auth</code> - auth token for the registry</li>
+<li><code>context</code> - the context path to use, defaults to root of the git repo</li>
+<li><code>force_tag</code> - replace existing matched image tags</li>
+<li><code>insecure</code> - enable insecure communication to this registry</li>
+<li><code>mirror</code> - use a mirror registry instead of pulling images directly from the central Hub</li>
+<li><code>bip</code> - use for pass bridge ip</li>
+<li><code>dns</code> - set custom dns servers for the container</li>
+<li><code>storage_driver</code> - use <code>aufs</code>, <code>devicemapper</code>, <code>btrfs</code> or <code>overlay</code> driver</li>
+<li><code>save</code> - save image layers to the specified tar file (see <a href="https://docs.docker.com/engine/reference/commandline/save/">docker save</a>)
+
+<ul>
+<li><code>destination</code> - absolute / relative destination path</li>
+<li><code>tag</code> - cherry-pick tags to save (optional)</li>
+</ul></li>
+<li><code>load</code> - restore image layers from the specified tar file</li>
+<li><code>build_args</code> - <a href="https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables-build-arg">build arguments</a> to pass to <code>docker build</code></li>
+</ul>
+
+<p>The following is a sample Docker configuration in your .drone.yml file:</p>
+
+<pre><code class="language-yaml">publish:
+  docker:
+    username: kevinbacon
+    password: pa55word
+    email: kevin.bacon@mail.com
+    repo: foo/bar
+    tag: latest
+    file: Dockerfile
+    insecure: false
+</code></pre>
+
+<p>You may want to dynamically tag your image. Use the <code>$$BRANCH</code>, <code>$$COMMIT</code> and <code>$$BUILD_NUMBER</code> variables to tag your image with the branch, commit sha or build number:</p>
+
+<pre><code class="language-yaml">publish:
+  docker:
+    username: kevinbacon
+    password: pa55word
+    email: kevin.bacon@mail.com
+    repo: foo/bar
+    tag: $$BRANCH
+</code></pre>
+
+<p>Or you may prefer to build an image with multiple tags:</p>
+
+<pre><code class="language-yaml">publish:
+  docker:
+    username: kevinbacon
+    password: pa55word
+    email: kevin.bacon@mail.com
+    repo: foo/bar
+    tag:
+      - latest
+      - &quot;1.0.1&quot;
+      - &quot;1.0&quot;
+</code></pre>
+
+<p>Note that in the above example we quote the version numbers. If the yaml parser interprets the value as a number it will cause a parsing error.</p>
+
+<p>It&rsquo;s also possible to pass build arguments to docker:</p>
+
+<pre><code class="language-yaml">publish:
+  docker:
+    username: kevinbacon
+    password: pa55word
+    email: kevin.bacon@mail.com
+    repo: foo/bar
+    build_args:
+      - HTTP_PROXY=http://yourproxy.com
+</code></pre>
+
+<h2 id="layer-caching:69e60651f42783a7df723575c4088b5b">Layer Caching</h2>
+
+<p>The Drone build environment is, by default, ephemeral meaning that you layers are not saved between builds. The below example combines Drone&rsquo;s caching feature and Docker&rsquo;s <code>save</code> and <code>load</code> capabilities to cache and restore image layers between builds:</p>
+
+<pre><code class="language-yaml">publish:
+  docker:
+    username: kevinbacon
+    password: pa55word
+    email: kevin.bacon@mail.com
+    repo: foo/bar
+    tag:
+      - latest
+      - &quot;1.0.1&quot;
+    load: docker/image.tar
+    save:
+      destination: docker/image.tar
+      tag: latest
+
+cache:
+  mount:
+    - docker/image.tar
+</code></pre>
+
+<p>You might also want to create a <code>.dockerignore</code> file in your repo to exclude <code>image.tar</code> from Docker build context:</p>
+
+<pre><code>docker/*
+</code></pre>
+
+<p>In some cases caching will greatly improve build performance, however, the tradeoff is that caching Docker image layers may consume very large amounts of disk space.</p>
+
+<h2 id="troubleshooting:69e60651f42783a7df723575c4088b5b">Troubleshooting</h2>
+
+<p>For detailed output you can set the <code>DOCKER_LAUNCH_DEBUG</code> environment variable in your plugin configuration. This starts Docker with verbose logging enabled.</p>
+
+<pre><code class="language-yaml">publish:
+  docker:
+    environment:
+      - DOCKER_LAUNCH_DEBUG=true
+</code></pre>
+
+<h2 id="known-issues:69e60651f42783a7df723575c4088b5b">Known Issues</h2>
+
+<p>There are known issues when attempting to run this plugin on CentOS, RedHat, and Linux installations that do not have a supported storage driver installed. You can check by running <code>docker info | grep 'Storage Driver:'</code> on your host machine. If the storage driver is not <code>aufs</code> or <code>overlay</code> you will need to re-configure your host machine.</p>
+
+<p>This error occurs when trying to use the default <code>aufs</code> storage Driver but aufs is not installed:</p>
+
+<pre><code>level=fatal msg=&quot;Error starting daemon: error initializing graphdriver: driver not supported
+</code></pre>
+
+<p>This error occurs when trying to use the <code>overlay</code> storage Driver but overlay is not installed:</p>
+
+<pre><code>level=error msg=&quot;'overlay' not found as a supported filesystem on this host.
+Please ensure kernel is new enough and has overlay support loaded.&quot;
+level=fatal msg=&quot;Error starting daemon: error initializing graphdriver: driver not supported&quot;
+</code></pre>
+
+<p>This error occurs when using CentOS or RedHat which default to the <code>devicemapper</code> storage driver:</p>
+
+<pre><code>level=error msg=&quot;There are no more loopback devices available.&quot;
+level=fatal msg=&quot;Error starting daemon: error initializing graphdriver: loopback mounting failed&quot;
+Cannot connect to the Docker daemon. Is 'docker -d' running on this host?
+</code></pre>
+
+<p>The above issue can be resolved by setting <code>storage_driver: vfs</code> in the <code>.drone.yml</code> file. This may work, but will have very poor performance as discussed <a href="https://github.com/rancher/docker-from-scratch/issues/20">here</a>.</p>
+
+<p>This error occurs when using Debian wheezy or jessie and cgroups memory features are not configured at the kernel level:</p>
+
+<pre><code>time=&quot;2015-12-17T08:06:57Z&quot; level=debug msg=&quot;Mounting none /sys/fs/cgroup/blkio cgroup blkio&quot;
+time=&quot;2015-12-17T08:06:57Z&quot; level=debug msg=&quot;Mounting none /sys/fs/cgroup/perf_event cgroup perf_event&quot;
+time=&quot;2015-12-17T08:06:57Z&quot; level=debug msg=&quot;Mounting none /sys/fs/cgroup/cpuset cgroup cpuset&quot;
+time=&quot;2015-12-17T08:06:57Z&quot; level=debug msg=&quot;Mounting none /sys/fs/cgroup/cpu,cpuacct cgroup cpu,cpuacct&quot;
+time=&quot;2015-12-17T08:06:57Z&quot; level=debug msg=&quot;Creating /sys/fs/cgroup/memory&quot;
+time=&quot;2015-12-17T08:06:57Z&quot; level=debug msg=&quot;Mounting none /sys/fs/cgroup/memory cgroup memory&quot;
+time=&quot;2015-12-17T08:06:57Z&quot; level=fatal msg=&quot;no such file or directory&quot;
+</code></pre>
+
+<p>The above issue can be resolved by editing your <code>grub.cfg</code> and adding <code>cgroup_enable=memory swapaccount=1</code> to you kernel image. This change should look like that afterwards:</p>
+
+<pre><code>menuentry 'Debian GNU/Linux, avec Linux 3.16.0-0.bpo.4-amd64' --class debian --class gnu-linux --class gnu --class os {
+        load_video
+        insmod gzio
+        insmod raid
+        insmod mdraid09
+        insmod part_msdos
+        insmod part_msdos
+        insmod part_msdos
+        insmod ext2
+        set root='(mduuid/dab6cffad124a3d7a4d2adc226fd5302)'
+        search --no-floppy --fs-uuid --set=root a4085974-c507-4993-a9ed-bdc17e375cad
+        echo    'Chargement de Linux 3.16.0-0.bpo.4-amd64 ...'
+        linux   /boot/vmlinuz-3.16.0-0.bpo.4-amd64 root=/dev/md1 ro  cgroup_enable=memory swapaccount=1 quiet
+        echo    'Chargement du disque mémoire initial ...'
+        initrd  /boot/initrd.img-3.16.0-0.bpo.4-amd64
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<h3>Plugin Links</h3>
+							
+							<ul class='list-unstyled side-nav'>
+								<li>
+									<a href="http://discuss.drone.io/c/help">
+										Get Help
+									</a>
+								</li>
+								<li>
+									<a href="https://github.com/drone-plugins/drone-docker/">
+										Source Code
+									</a>
+								</li>
+								<li>
+									<a href="https://hub.docker.com/r/plugins/drone-docker/">
+										Docker Image
+									</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

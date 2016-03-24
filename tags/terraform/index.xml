@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Terraform on Drone</title>
+    <link>http://docs.tea-ci.org/tags/terraform/</link>
+    <description>Recent content in Terraform on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Feb 2016 08:37:46 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/terraform/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Terraform</title>
+      <link>http://docs.tea-ci.org/plugins/terraform/</link>
+      <pubDate>Sun, 21 Feb 2016 08:37:46 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/terraform/</guid>
+      <description>
+
+&lt;p&gt;Use the Terraform plugin to apply the infrastructure configuration contained within the repository. The following parameters are used to configure this plugin:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;plan&lt;/code&gt; - if true, calculates a plan but does &lt;strong&gt;NOT&lt;/strong&gt; apply it.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;remote&lt;/code&gt; - contains the configuration for the Terraform remote state tracking.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;backend&lt;/code&gt; - the Terraform remote state backend to use.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;config&lt;/code&gt; - a map of configuration parameters for the remote state backend. Each value is passed as a &lt;code&gt;-backend-config=&amp;lt;key&amp;gt;=&amp;lt;value&amp;gt;&lt;/code&gt; option.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;vars&lt;/code&gt; - a map of variables to pass to the Terraform &lt;code&gt;plan&lt;/code&gt; and &lt;code&gt;apply&lt;/code&gt; commands. Each value is passed as a &lt;code&gt;-var
+&amp;lt;key&amp;gt;=&amp;lt;value&amp;gt;&lt;/code&gt; option.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ca_cert&lt;/code&gt; - ca cert to add to your environment to allow terraform to use internal/private resources&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sensitive&lt;/code&gt; (default: &lt;code&gt;false&lt;/code&gt;) - Whether or not to suppress terraform commands to stdout.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample Terraform configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  terraform:
+    plan: false
+    remote:
+      backend: S3
+      config:
+        bucket: my-terraform-config-bucket
+        key: tf-states/my-project
+        region: us-east-1
+    vars:
+      app_name: my-project
+      app_version: 1.0.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;advanced-configuration:c7e4204570a5d4c4ebde5f04b26ae8dc&#34;&gt;Advanced Configuration&lt;/h1&gt;
+
+&lt;h2 id=&#34;ca-certs:c7e4204570a5d4c4ebde5f04b26ae8dc&#34;&gt;CA Certs&lt;/h2&gt;
+
+&lt;p&gt;You may want to run terraform against internal resources, like an internal
+OpenStack deployment.  Usually these resources are signed by an internal
+CA Certificate.  You can inject your CA Certificate into the plugin by using
+&lt;code&gt;ca_certs&lt;/code&gt; key as described above.  Below is an example.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  terraform:
+    plan: false
+    remote:
+      backend: swift
+      config:
+        path: drone/terraform
+    vars:
+      app_name: my-project
+      app_version: 1.0.0
+    ca_cert: |
+      -----BEGIN CERTIFICATE-----
+      asdfsadf
+      asdfsadf
+      -----END CERTIFICATE-----
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;suppress-sensitive-output:c7e4204570a5d4c4ebde5f04b26ae8dc&#34;&gt;Suppress Sensitive Output&lt;/h2&gt;
+
+&lt;p&gt;You may be passing sensitive vars to your terraform commands.  If you do not want
+the terraform commands to display in your drone logs then set &lt;code&gt;sensitive&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;.
+The output from the commands themselves will still display, it just won&amp;rsquo;t show
+want command is actually being ran.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  terraform:
+    plan: false
+    sensitive: true
+    remote:
+      backend: S3
+      config:
+        bucket: my-terraform-config-bucket
+        key: tf-states/my-project
+        region: us-east-1
+      vars:
+        app_name: my-project
+        app_version: 1.0.0
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

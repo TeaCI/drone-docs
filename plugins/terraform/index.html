@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Terraform · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Execute Terraform plan and apply" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins" class="current-item">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="plugins">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1 class="plugin-header"><img src="/logos/terraform.svg" /> Terraform Plugin</h1>
+						<section>
+
+<p>Use the Terraform plugin to apply the infrastructure configuration contained within the repository. The following parameters are used to configure this plugin:</p>
+
+<ul>
+<li><code>plan</code> - if true, calculates a plan but does <strong>NOT</strong> apply it.</li>
+<li><code>remote</code> - contains the configuration for the Terraform remote state tracking.
+
+<ul>
+<li><code>backend</code> - the Terraform remote state backend to use.</li>
+<li><code>config</code> - a map of configuration parameters for the remote state backend. Each value is passed as a <code>-backend-config=&lt;key&gt;=&lt;value&gt;</code> option.</li>
+</ul></li>
+<li><code>vars</code> - a map of variables to pass to the Terraform <code>plan</code> and <code>apply</code> commands. Each value is passed as a <code>-var
+&lt;key&gt;=&lt;value&gt;</code> option.</li>
+<li><code>ca_cert</code> - ca cert to add to your environment to allow terraform to use internal/private resources</li>
+<li><code>sensitive</code> (default: <code>false</code>) - Whether or not to suppress terraform commands to stdout.</li>
+</ul>
+
+<p>The following is a sample Terraform configuration in your .drone.yml file:</p>
+
+<pre><code class="language-yaml">deploy:
+  terraform:
+    plan: false
+    remote:
+      backend: S3
+      config:
+        bucket: my-terraform-config-bucket
+        key: tf-states/my-project
+        region: us-east-1
+    vars:
+      app_name: my-project
+      app_version: 1.0.0
+</code></pre>
+
+<h1 id="advanced-configuration:c7e4204570a5d4c4ebde5f04b26ae8dc">Advanced Configuration</h1>
+
+<h2 id="ca-certs:c7e4204570a5d4c4ebde5f04b26ae8dc">CA Certs</h2>
+
+<p>You may want to run terraform against internal resources, like an internal
+OpenStack deployment.  Usually these resources are signed by an internal
+CA Certificate.  You can inject your CA Certificate into the plugin by using
+<code>ca_certs</code> key as described above.  Below is an example.</p>
+
+<pre><code class="language-yaml">deploy:
+  terraform:
+    plan: false
+    remote:
+      backend: swift
+      config:
+        path: drone/terraform
+    vars:
+      app_name: my-project
+      app_version: 1.0.0
+    ca_cert: |
+      -----BEGIN CERTIFICATE-----
+      asdfsadf
+      asdfsadf
+      -----END CERTIFICATE-----
+</code></pre>
+
+<h2 id="suppress-sensitive-output:c7e4204570a5d4c4ebde5f04b26ae8dc">Suppress Sensitive Output</h2>
+
+<p>You may be passing sensitive vars to your terraform commands.  If you do not want
+the terraform commands to display in your drone logs then set <code>sensitive</code> to <code>true</code>.
+The output from the commands themselves will still display, it just won&rsquo;t show
+want command is actually being ran.</p>
+
+<pre><code class="language-yaml">deploy:
+  terraform:
+    plan: false
+    sensitive: true
+    remote:
+      backend: S3
+      config:
+        bucket: my-terraform-config-bucket
+        key: tf-states/my-project
+        region: us-east-1
+      vars:
+        app_name: my-project
+        app_version: 1.0.0
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<h3>Plugin Links</h3>
+							
+							<ul class='list-unstyled side-nav'>
+								<li>
+									<a href="http://discuss.drone.io/c/help">
+										Get Help
+									</a>
+								</li>
+								<li>
+									<a href="https://github.com/drone-plugins/drone-terraform/">
+										Source Code
+									</a>
+								</li>
+								<li>
+									<a href="https://hub.docker.com/r/plugins/drone-terraform/">
+										Docker Image
+									</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

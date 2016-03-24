@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Users · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs" class="current-item">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>Users</h1>
+						<nav id="TableOfContents">
+						
+						<nav id="TableOfContents">
+<ul>
+<li><a href="#get-all-users:f0f8c2ffd220340c61a6efb6a9323904">Get all users</a></li>
+<li><a href="#get-a-user:f0f8c2ffd220340c61a6efb6a9323904">Get a user</a></li>
+<li><a href="#create-a-user:f0f8c2ffd220340c61a6efb6a9323904">Create a user</a></li>
+<li><a href="#update-a-user:f0f8c2ffd220340c61a6efb6a9323904">Update a user</a></li>
+<li><a href="#delete-a-user:f0f8c2ffd220340c61a6efb6a9323904">Delete a user</a></li>
+</ul>
+</nav>
+						
+						</nav>
+						<section>
+
+<h1 id="get-all-users:f0f8c2ffd220340c61a6efb6a9323904">Get all users</h1>
+
+<p>Returns all registered, active users in the system.</p>
+
+<pre><code>GET /api/users
+</code></pre>
+
+<p>Example Response Body:</p>
+
+<pre><code class="language-js">[{
+  &quot;id&quot;: 1,
+  &quot;login&quot;: &quot;octocat&quot;,
+  &quot;email&quot;: &quot;octocat@github.com&quot;,
+  &quot;avatar_url&quot;: &quot;http://www.gravatar.com/avatar/7194e8d48fa1d2b689f99443b767316c&quot;,
+  &quot;admin&quot;: false,
+  &quot;active&quot;: true
+}
+]
+</code></pre>
+
+<h1 id="get-a-user:f0f8c2ffd220340c61a6efb6a9323904">Get a user</h1>
+
+<p>Returns a user with the specified login name.</p>
+
+<pre><code>GET /api/users/{login}
+</code></pre>
+
+<p>Example Response Body:</p>
+
+<pre><code class="language-js">{
+  &quot;id&quot;: 1,
+  &quot;login&quot;: &quot;octocat&quot;,
+  &quot;email&quot;: &quot;octocat@github.com&quot;,
+  &quot;avatar_url&quot;: &quot;http://www.gravatar.com/avatar/7194e8d48fa1d2b689f99443b767316c&quot;,
+  &quot;admin&quot;: false,
+  &quot;active&quot;: true
+}
+
+</code></pre>
+
+<h1 id="create-a-user:f0f8c2ffd220340c61a6efb6a9323904">Create a user</h1>
+
+<p>Creates a new user account with the specified external login.</p>
+
+<pre><code>POST /api/users/{login}
+</code></pre>
+
+<p>Example Response Body:</p>
+
+<pre><code class="language-js">{
+  &quot;id&quot;: 1,
+  &quot;login&quot;: &quot;octocat&quot;,
+  &quot;email&quot;: &quot;octocat@github.com&quot;,
+  &quot;avatar_url&quot;: &quot;http://www.gravatar.com/avatar/7194e8d48fa1d2b689f99443b767316c&quot;,
+  &quot;admin&quot;: false,
+  &quot;active&quot;: true
+}
+
+</code></pre>
+
+<h1 id="update-a-user:f0f8c2ffd220340c61a6efb6a9323904">Update a user</h1>
+
+<p>Updates an existing user account.</p>
+
+<pre><code>PATCH /api/users/{login}
+</code></pre>
+
+<p>Example Request Body:</p>
+
+<pre><code class="language-js">{
+  &quot;email&quot;: &quot;octocat@github.com&quot;,
+  &quot;admin&quot;: false,
+  &quot;active&quot;: true
+}
+
+</code></pre>
+
+<p>Example Response Body:</p>
+
+<pre><code class="language-js">{
+  &quot;id&quot;: 1,
+  &quot;login&quot;: &quot;octocat&quot;,
+  &quot;email&quot;: &quot;octocat@github.com&quot;,
+  &quot;avatar_url&quot;: &quot;http://www.gravatar.com/avatar/7194e8d48fa1d2b689f99443b767316c&quot;,
+  &quot;admin&quot;: false,
+  &quot;active&quot;: true
+}
+
+</code></pre>
+
+<h1 id="delete-a-user:f0f8c2ffd220340c61a6efb6a9323904">Delete a user</h1>
+
+<p>Deletes the user with the specified login name.</p>
+
+<pre><code>DELETE /api/users/{login}
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								<li>
+									<a href="/devs/libraries/" class="">Libraries</a>
+								</li>
+								
+								<li>
+									<a href="/devs/plugins/" class="">Plugins</a>
+								</li>
+								
+								<li>
+									<a href="/devs/guides/" class="">Guides</a>
+								</li>
+								
+								<li>
+									<a href="/devs/cli/" class="">CLI Reference</a>
+								</li>
+								
+								<li>
+									
+									
+									<a href="/devs/api/builds">API Reference</a>
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									<ul>
+										
+										
+										
+										
+										<li>
+											<a href="/devs/api/builds/" class="">Builds</a>
+										</li>
+										
+										
+										
+										<li>
+											<a href="/devs/api/repos/" class="">Repos</a>
+										</li>
+										
+										
+										
+										<li>
+											<a href="/devs/api/user/" class="">User</a>
+										</li>
+										
+										
+										
+										<li>
+											<a href="/devs/api/users/" class=" current-item">Users</a>
+										</li>
+										
+										
+									</ul>
+								</li>
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

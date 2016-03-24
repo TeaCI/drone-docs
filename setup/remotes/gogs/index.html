@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Gogs · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main>
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>Gogs</h1>
+						<nav id="TableOfContents">
+						
+						<nav id="TableOfContents">
+<ul>
+<li><a href="#gogs-configuration:774b6f23ce9f6a15436a591e1fc61630">Gogs configuration</a></li>
+<li><a href="#gogs-options:774b6f23ce9f6a15436a591e1fc61630">Gogs options</a></li>
+<li><a href="#remote-driver-feature-chart:774b6f23ce9f6a15436a591e1fc61630">Remote Driver Feature Chart</a></li>
+<li><a href="#next-steps:774b6f23ce9f6a15436a591e1fc61630">Next Steps</a></li>
+</ul>
+</nav>
+						
+						</nav>
+						<section>
+
+<p>Drone comes with built-in support for Gogs version <code>0.6.16.1022</code> and higher. Please ensure you are running the latest version of Gogs to avoid compatibility issues. To enable Gogs you should configure the Gogs driver using the following environment variables:</p>
+
+<pre><code class="language-bash">REMOTE_DRIVER=gogs
+REMOTE_CONFIG=https://gogs.hooli.com?open=false
+</code></pre>
+
+<h1 id="gogs-configuration:774b6f23ce9f6a15436a591e1fc61630">Gogs configuration</h1>
+
+<p>The following is the standard URI connection scheme:</p>
+
+<pre><code>scheme://host[:port][?options]
+</code></pre>
+
+<p>The components of this string are:</p>
+
+<ul>
+<li><code>scheme</code> server protocol <code>http</code> or <code>https</code>.</li>
+<li><code>host</code> server address to connect to. The default value is github.com if not specified.</li>
+<li><code>:port</code> optional. The default value is :80 if not specified.</li>
+<li><code>?options</code> connection specific options.</li>
+</ul>
+
+<h1 id="gogs-options:774b6f23ce9f6a15436a591e1fc61630">Gogs options</h1>
+
+<p>This section lists all connection options used in the connection string format. Connection options are pairs in the following form: <code>name=value</code>. The value is always case sensitive. Separate options with the ampersand (i.e. &amp;) character:</p>
+
+<ul>
+<li><code>open=false</code> allows users to self-register. Defaults to false for security reasons.</li>
+<li><code>skip_verify=false</code> skip ca verification if self-signed certificate. Defaults to false for security reasons.</li>
+</ul>
+
+<h1 id="remote-driver-feature-chart:774b6f23ce9f6a15436a591e1fc61630">Remote Driver Feature Chart</h1>
+
+<p>While Gogs and Drone&rsquo;s support for Gogs are still developing, this is an
+excellent option for teams with very simple hosting needs.</p>
+
+<table>
+<thead>
+<tr>
+<th>Feature/Remote</th>
+<th>Gogs</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Supported version</td>
+<td>0.6.16.1022+</td>
+</tr>
+
+<tr>
+<td>VCS</td>
+<td>git</td>
+</tr>
+
+<tr>
+<td>Auth method</td>
+<td>manual</td>
+</tr>
+
+<tr>
+<td>Push events</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td>Push tags events</td>
+<td><strong>no</strong></td>
+</tr>
+
+<tr>
+<td>Merge requests</td>
+<td><strong>no</strong></td>
+</tr>
+
+<tr>
+<td>Commit statuses</td>
+<td><strong>no</strong></td>
+</tr>
+
+<tr>
+<td>Restrict by organizations</td>
+<td><strong>no</strong></td>
+</tr>
+</tbody>
+</table>
+
+<h1 id="next-steps:774b6f23ce9f6a15436a591e1fc61630">Next Steps</h1>
+
+<p>Once you have configured your Remote Driver, it&rsquo;s time to <a href="/setup/overview/#select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca">Select and
+Configure a Database</a>.</p>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								
+								<li>
+									<a href="/setup/overview/" class="">Overview</a>
+								</li>
+								
+								<li>
+									<a href="/setup/remotes/" class="">Remote Drivers</a>
+								</li>
+								
+								<li>
+									<a href="/setup/database/" class="">Database</a>
+								</li>
+								
+								<li>
+									<a href="/setup/settings/" class="">Settings Reference</a>
+								</li>
+								
+								<li>
+									<a href="/setup/upgrades/" class="">Upgrades</a>
+								</li>
+								
+								<li>
+									<a href="/setup/proxy_network/" class="">Network Proxy</a>
+								</li>
+								
+								<li>
+									<a href="/setup/proxy_reverse/" class="">Reverse Proxy</a>
+								</li>
+								
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

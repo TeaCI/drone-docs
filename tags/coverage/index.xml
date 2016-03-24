@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Coverage on Drone</title>
+    <link>http://docs.tea-ci.org/tags/coverage/</link>
+    <description>Recent content in Coverage on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 09:01:52 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/coverage/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Coverage</title>
+      <link>http://docs.tea-ci.org/plugins/coverage/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:52 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/coverage/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

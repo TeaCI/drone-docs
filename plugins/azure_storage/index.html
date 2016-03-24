@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Azure Storage · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Publish files and artifacts to Azure Storage" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins" class="current-item">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="plugins">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1 class="plugin-header"><img src="/logos/azure-storage.svg" /> Azure Storage Plugin</h1>
+						<section>
+
+<p>Use this plugin for publishing files and artifacts to Azure Storage. The plugin is power by <a href="https://github.com/Azure/azure-batch-samples/tree/master/Python/Storage">blobxfer</a> - an upload tool from the Microsoft HFC team. The following parameters are required:</p>
+
+<ul>
+<li><code>account_key</code> - Storage Account Key, required for authentication</li>
+<li><code>storage_account</code> - Storage Account name</li>
+<li><code>container</code> - The target storage container</li>
+<li><code>source</code> - Location of folder to sync relative to the workspace root</li>
+</ul>
+
+<h2 id="example:9ccb7c2a637233469f6725a42b8b6fbb">Example</h2>
+
+<p>The following is a sample configuration in your .drone.yml file:</p>
+
+<pre><code class="language-yaml">publish:
+  azure_storage:
+    account_key: 123889asd89u8hsfdjh98128hh
+    storage_account: my-storage-account
+    container: my-storage-container
+    source: folder/to/upload
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<h3>Plugin Links</h3>
+							
+							<ul class='list-unstyled side-nav'>
+								<li>
+									<a href="http://discuss.drone.io/c/help">
+										Get Help
+									</a>
+								</li>
+								<li>
+									<a href="https://github.com/drone-plugins/drone-azure-storage/">
+										Source Code
+									</a>
+								</li>
+								<li>
+									<a href="https://hub.docker.com/r/plugins/drone-azure-storage/">
+										Docker Image
+									</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

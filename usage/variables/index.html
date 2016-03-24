@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Variables · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview" class="current-item">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main>
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>Variables</h1>
+						<nav id="TableOfContents">
+						
+						<nav id="TableOfContents">
+<ul>
+<li><a href="#environment:2b8b8ac4006be88c769f5e3fd99b009a">Environment</a></li>
+<li><a href="#string-interpolation:2b8b8ac4006be88c769f5e3fd99b009a">String Interpolation</a></li>
+<li><a href="#string-operations:2b8b8ac4006be88c769f5e3fd99b009a">String Operations</a></li>
+</ul>
+</nav>
+						
+						</nav>
+						<section>
+
+<h1 id="environment:2b8b8ac4006be88c769f5e3fd99b009a">Environment</h1>
+
+<p>Drone injects the following namespaced environment variables into every build:</p>
+
+<ul>
+<li><code>DRONE=true</code></li>
+<li><code>DRONE_REPO</code> - repository name for the current build</li>
+<li><code>DRONE_BRANCH</code> - branch name for the current build</li>
+<li><code>DRONE_COMMIT</code> - git sha for the current build</li>
+<li><code>DRONE_DIR</code> - working directory for the current build</li>
+<li><code>DRONE_BUILD_NUMBER</code> - build number for the current build</li>
+<li><code>DRONE_PULL_REQUEST</code> - pull request number fo the current build</li>
+<li><code>DRONE_JOB_NUMBER</code> - job number for the current build</li>
+<li><code>DRONE_TAG</code> - tag name for the current build</li>
+</ul>
+
+<p>Drone also injects <code>CI_</code> prefixed variables for compatibility with other systems:</p>
+
+<ul>
+<li><code>CI=true</code></li>
+<li><code>CI_NAME=drone</code></li>
+<li><code>CI_REPO</code> - repository name of the current build</li>
+<li><code>CI_BRANCH</code> - branch name for the current build</li>
+<li><code>CI_COMMIT</code> - git sha for the current build</li>
+<li><code>CI_BUILD_NUMBER</code> - build number for the current build</li>
+<li><code>CI_PULL_REQUEST</code> - pull request number fo the current build</li>
+<li><code>CI_JOB_NUMBER</code> - job number for the current build</li>
+<li><code>CI_BUILD_DIR</code> - working directory for the current build</li>
+<li><code>CI_BUILD_URL</code> - url for the current build</li>
+<li><code>CI_TAG</code> - tag name for the current build</li>
+</ul>
+
+<h1 id="string-interpolation:2b8b8ac4006be88c769f5e3fd99b009a">String Interpolation</h1>
+
+<p>A subset of variables may be substituted directly into the YAML at runtime using the <code>$$</code> notation:</p>
+
+<ul>
+<li><code>$$BUILD_NUMBER</code> build number for the current build</li>
+<li><code>$$COMMIT</code> git sha for the current build, long format</li>
+<li><code>$$BRANCH</code> git branch for the current build</li>
+<li><code>$$TAG</code> tag name</li>
+</ul>
+
+<p>This is useful when you need to dynamically configure your plugin based on the current build. For example, we can alter an artifact name to include the branch:</p>
+
+<pre><code class="language-yaml">---
+publish:
+  s3:
+    source: ./foo.tar.gz
+    target: ./foo-$$BRANCH.tar.gz
+</code></pre>
+
+<h1 id="string-operations:2b8b8ac4006be88c769f5e3fd99b009a">String Operations</h1>
+
+<p>A subset of bash string substitution operations are also emulated:</p>
+
+<ul>
+<li><code>$$param</code> parameter substitution</li>
+<li><code>$${param}</code> parameter substitution (same as above)</li>
+<li><code>&quot;$$param&quot;</code> parameter substitution with escaping</li>
+<li><code>$${param:pos}</code> parameter substition with substring</li>
+<li><code>$${param:pos:len}</code> parameter substition with substring</li>
+<li><code>$${param=default}</code> parameter substition with default</li>
+<li><code>$${param##prefix}</code> parameter substition with prefix removal</li>
+<li><code>$${param%%suffix}</code> parameter substition with suffix removal</li>
+<li><code>$${param/old/new}</code> parameter substition with find and replace</li>
+</ul>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								<li>
+									<a href="/usage/overview/" class="">Quick Start</a>
+								</li>
+								
+								<li>
+									<a href="/usage/variables/" class=" current-item">Variables</a>
+								</li>
+								
+								<li>
+									<a href="/usage/secrets/" class="">Secrets</a>
+								</li>
+								
+								<li>
+									<a href="/usage/cloning/" class="">Cloning</a>
+								</li>
+								
+								<li>
+									<a href="/usage/caching/" class="">Caching</a>
+								</li>
+								
+								<li>
+									<a href="/usage/services/" class="">Service Containers</a>
+								</li>
+								
+								<li>
+									<a href="/usage/build_test/" class="">Build &amp; Test</a>
+								</li>
+								
+								<li>
+									<a href="/usage/deploy/" class="">Deployments</a>
+								</li>
+								
+								<li>
+									<a href="/usage/notify/" class="">Notifications</a>
+								</li>
+								
+								<li>
+									<a href="/usage/matrix/" class="">Matrix</a>
+								</li>
+								
+								<li>
+									<a href="/usage/artifacts/" class="">Publishing Artifacts</a>
+								</li>
+								
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

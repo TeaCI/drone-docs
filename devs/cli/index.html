@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>CLI Reference · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs" class="current-item">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>CLI Reference</h1>
+						<nav id="TableOfContents">
+						
+						<nav id="TableOfContents">
+<ul>
+<li><a href="#install:b659b046131d4024ab5e2d3675716bf0">Install</a></li>
+<li><a href="#setup:b659b046131d4024ab5e2d3675716bf0">Setup</a></li>
+<li><a href="#repo-commands:b659b046131d4024ab5e2d3675716bf0">Repo Commands</a></li>
+<li><a href="#build-commands:b659b046131d4024ab5e2d3675716bf0">Build Commands</a></li>
+<li><a href="#user-commands:b659b046131d4024ab5e2d3675716bf0">User Commands</a></li>
+<li><a href="#worker-commands:b659b046131d4024ab5e2d3675716bf0">Worker Commands</a></li>
+<li><a href="#secret-management:b659b046131d4024ab5e2d3675716bf0">Secret Management</a></li>
+<li><a href="#local-testing:b659b046131d4024ab5e2d3675716bf0">Local Testing</a></li>
+</ul>
+</nav>
+						
+						</nav>
+						<section>
+
+<h1 id="install:b659b046131d4024ab5e2d3675716bf0">Install</h1>
+
+<p>This tool requires Docker 1.6 or higher. If you are using Windows or Mac we recommend installing the <a href="https://www.docker.com/docker-toolbox">Docker Toolbox</a>.</p>
+
+<p><strong>Linux</strong> binary installation instructions:</p>
+
+<pre><code class="language-bash">curl http://downloads.drone.io/drone-cli/drone_linux_amd64.tar.gz | tar zx
+sudo install -t /usr/local/bin drone
+</code></pre>
+
+<p><strong>OSX</strong> binary installation instructions:</p>
+
+<pre><code class="language-bash">curl http://downloads.drone.io/drone-cli/drone_darwin_amd64.tar.gz | tar zx
+sudo cp drone /usr/local/bin
+</code></pre>
+
+<h1 id="setup:b659b046131d4024ab5e2d3675716bf0">Setup</h1>
+
+<p>You will need to provide the Drone command line tools with the location of your Drone installation as well as an access token for authentication. You can retrieve a Drone personal access token from your user profile screen.</p>
+
+<pre><code class="language-bash">export DRONE_SERVER=&lt;http://&gt;
+export DRONE_TOKEN=&lt;token&gt;
+</code></pre>
+
+<h1 id="repo-commands:b659b046131d4024ab5e2d3675716bf0">Repo Commands</h1>
+
+<p>The <code>drone repo</code> commands help you manage repositories, including activation and de-activation. Run <code>drone build help</code> for the usage documentation:</p>
+
+<pre><code>NAME:
+   drone repo - manage repos
+
+USAGE:
+   drone repo [global options] command [command options] [arguments...]
+
+COMMANDS:
+   ls		lists repositories
+   info		show repository details
+   add		add a repository
+   rm		remove a repository
+   help, h	Shows a list of commands or help for one command
+</code></pre>
+
+<p>Activates a repository:</p>
+
+<pre><code>drone repo add hello-world/octocat
+</code></pre>
+
+<p>Remove a repository:</p>
+
+<pre><code>drone repo rm hello-world/octocat
+</code></pre>
+
+<p>List all activated repositories:</p>
+
+<pre><code>drone repo ls
+</code></pre>
+
+<h1 id="build-commands:b659b046131d4024ab5e2d3675716bf0">Build Commands</h1>
+
+<p>The <code>drone build</code> commands help you manage builds, including starting, stopping and inspecting running builds. This could be used with CRON to schedule nighty builds, for example. Run <code>drone build help</code> for the usage documentation:</p>
+
+<pre><code>NAME:
+   drone build - manage builds
+
+USAGE:
+   drone build [global options] command [command options] [arguments...]
+
+COMMANDS:
+   info		show build information
+   list		list recent builds
+   last		last build (push only)
+   logs		show build logs
+   start	start a stopped build
+   stop		stop a running build job
+   help, h	Shows a list of commands or help for one command
+</code></pre>
+
+<p>List recent builds for a repository:</p>
+
+<pre><code>drone build list octocat/hello-world
+</code></pre>
+
+<p>Get the last build for a repository:</p>
+
+<pre><code>drone build last octocat/hello-world
+</code></pre>
+
+<p>Restart a previously executed build by build number:</p>
+
+<pre><code>drone build start octocat/hello-world 35
+</code></pre>
+
+<h1 id="user-commands:b659b046131d4024ab5e2d3675716bf0">User Commands</h1>
+
+<p>The <code>drone user</code> commands help the system administrator manage registered users, including adding and removing user access. Run <code>drone user help</code> for the usage documentation:</p>
+
+<pre><code>NAME:
+   drone user - manage users
+
+USAGE:
+   drone user [global options] command [command options] [arguments...]
+
+COMMANDS:
+   ls		list all users
+   info		show user details
+   add		adds a user
+   rm		remove a user
+   self		show the current user details
+   help, h	Shows a list of commands or help for one command
+</code></pre>
+
+<p>Setup a new user by login:</p>
+
+<pre><code>drone user add octocat
+</code></pre>
+
+<p>Remove a user by login:</p>
+
+<pre><code>drone user rm octocat
+</code></pre>
+
+<p>List all registered users:</p>
+
+<pre><code>drone user ls
+</code></pre>
+
+<h1 id="worker-commands:b659b046131d4024ab5e2d3675716bf0">Worker Commands</h1>
+
+<p>TODO</p>
+
+<h1 id="secret-management:b659b046131d4024ab5e2d3675716bf0">Secret Management</h1>
+
+<p>TODO</p>
+
+<h1 id="local-testing:b659b046131d4024ab5e2d3675716bf0">Local Testing</h1>
+
+<p>Drone gives you the ability to run your build locally, on your personal computer, without a Drone server. Local builds use Docker for build isolation and container orchestration. The local build process is almost identical to the server build process, making it very convenient for setup or troubleshooting failed builds.</p>
+
+<p>First ensure you have a running Docker instance. Navigate to the root of your git repository, where the <code>.drone.yml</code> file is located, and run the following command:</p>
+
+<pre><code>drone exec
+</code></pre>
+
+<p>Run your build with the SSH key injected into your build environment. This may be useful if your build script fetches private repositories or connects to remote servers:</p>
+
+<pre><code>drone exec -i ~/.ssh/id_rsa
+</code></pre>
+
+<p>Run your build with the trusted flag to enable privileged mode and volume mounting:</p>
+
+<pre><code>drone exec --trusted
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								<li>
+									<a href="/devs/libraries/" class="">Libraries</a>
+								</li>
+								
+								<li>
+									<a href="/devs/plugins/" class="">Plugins</a>
+								</li>
+								
+								<li>
+									<a href="/devs/guides/" class="">Guides</a>
+								</li>
+								
+								<li>
+									<a href="/devs/cli/" class=" current-item">CLI Reference</a>
+								</li>
+								
+								<li>
+									
+									
+									<a href="/devs/api/builds">API Reference</a>
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									<ul>
+										
+										
+										
+										
+										<li>
+											<a href="/devs/api/builds/" class="">Builds</a>
+										</li>
+										
+										
+										
+										<li>
+											<a href="/devs/api/repos/" class="">Repos</a>
+										</li>
+										
+										
+										
+										<li>
+											<a href="/devs/api/user/" class="">User</a>
+										</li>
+										
+										
+										
+										<li>
+											<a href="/devs/api/users/" class="">Users</a>
+										</li>
+										
+										
+									</ul>
+								</li>
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

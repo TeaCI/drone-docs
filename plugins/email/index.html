@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Email · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Send build status notifications via Email" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins" class="current-item">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="plugins">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1 class="plugin-header"><img src="/logos/email.svg" /> Email Plugin</h1>
+						<section>
+
+<p>Use this plugin for sending build status notifications via Email. You can
+override the default configuration with the following parameters:</p>
+
+<ul>
+<li><code>from</code> - Send notifications from this address</li>
+<li><code>host</code> - SMTP server host</li>
+<li><code>port</code> - SMTP server port, defaults to <code>587</code></li>
+<li><code>username</code> - SMTP username</li>
+<li><code>password</code> - SMTP password</li>
+<li><code>recipients</code> - List of recipients, defaults to commit email</li>
+</ul>
+
+<h2 id="example:8cbe6fdacc355e0e29b05b303dd46e82">Example</h2>
+
+<p>The following is a sample configuration in your .drone.yml file:</p>
+
+<pre><code class="language-yaml">notify:
+  email:
+    from: noreply@github.com
+    host: smtp.mailgun.org
+    username: octocat
+    password: 12345
+    recipients:
+      - octocat@github.com
+</code></pre>
+
+<h3 id="custom-templates:8cbe6fdacc355e0e29b05b303dd46e82">Custom Templates</h3>
+
+<p>In some cases you may want to customize the look and feel of the email message
+so you can use custom templates. For the use case we expose the following
+additional parameters, all of the accept a custom handlebars template, directly
+provided as a string or as a remote URL which gets fetched and parsed:</p>
+
+<ul>
+<li><code>subject</code> - A handlebars template to create a custom subject. For more
+details take a look at the <a href="http://handlebarsjs.com/">docs</a>. You can see the
+default template <a href="https://github.com/drone-plugins/drone-email/blob/master/template.go#L4">here</a></li>
+<li><code>template</code> - A handlebars template to create a custom template. For more
+details take a look at the <a href="http://handlebarsjs.com/">docs</a>. You can see the
+default template <a href="https://github.com/drone-plugins/drone-email/blob/master/template.go#L8-L292">here</a></li>
+</ul>
+
+<p>Example configuration that generate a custom email:</p>
+
+<pre><code class="language-yaml">notify:
+  email:
+    from: noreply@github.com
+    host: smtp.mailgun.org
+    username: octocat
+    password: 12345
+    recipients:
+      - octocat@github.com
+    subject: &gt;
+      [{{ build.status }}]
+      {{ repo.owner }}/{{ repo.name }}
+      ({{ build.branch }} - {{ truncate build.commit 8 }})
+    template: &gt;
+      https://git.io/vgvPz
+</code></pre>
+
+<h3 id="skip-ssl-verify:8cbe6fdacc355e0e29b05b303dd46e82">Skip SSL verify</h3>
+
+<p>In some cases you may want to skip SSL verification, even if we discourage that
+as it leads to an unsecure environment. Please use this option only within your
+intranet and/or with truested resources. For this use case we expose the
+following additional parameter:</p>
+
+<ul>
+<li><code>skip_verify</code> - Skip verification of SSL certificates</li>
+</ul>
+
+<p>Example configuration that skips SSL verification:</p>
+
+<pre><code class="language-yaml">notify:
+  email:
+    from: noreply@github.com
+    host: smtp.mailgun.org
+    username: octocat
+    password: 12345
+    skip_verify: true
+    recipients:
+      - octocat@github.com
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<h3>Plugin Links</h3>
+							
+							<ul class='list-unstyled side-nav'>
+								<li>
+									<a href="http://discuss.drone.io/c/help">
+										Get Help
+									</a>
+								</li>
+								<li>
+									<a href="https://github.com/drone-plugins/drone-email/">
+										Source Code
+									</a>
+								</li>
+								<li>
+									<a href="https://hub.docker.com/r/plugins/drone-email/">
+										Docker Image
+									</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

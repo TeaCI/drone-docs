@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hipchat on Drone</title>
+    <link>http://docs.tea-ci.org/tags/hipchat/</link>
+    <description>Recent content in Hipchat on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 08:58:14 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/hipchat/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>HipChat</title>
+      <link>http://docs.tea-ci.org/plugins/hipchat/</link>
+      <pubDate>Sat, 13 Feb 2016 08:58:14 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/hipchat/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for sending build status notifications via HipChat. You will
+need to supply Drone with a HipChat authentication token. You can learn more
+about authentication tokens &lt;a href=&#34;https://www.hipchat.com/docs/apiv2/auth&#34;&gt;here&lt;/a&gt;. You
+can override the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;url&lt;/code&gt; - HipChat server URL, defaults to &lt;code&gt;https://api.hipchat.com&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;auth_token&lt;/code&gt; - HipChat API token&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;room_id_or_name&lt;/code&gt; - ID or URL encoded name of the room&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;from&lt;/code&gt; - A label to be shown, defaults to &lt;code&gt;drone&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;notify&lt;/code&gt; - Whether this message should trigger a user notification (change the
+tab color, play a sound, notify mobile phones, etc). Each recipient&amp;rsquo;s
+notification preferences are taken into account, defaults to false&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:0c8ca3737f111d26045d603d98c2fb99&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  hipchat:
+    auth_token: xxxxxxxxxxxxxxx
+    room_id_or_name: 1234567
+    notify: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;custom-messages:0c8ca3737f111d26045d603d98c2fb99&#34;&gt;Custom Messages&lt;/h3&gt;
+
+&lt;p&gt;In some cases you may want to customize the body of the HipChat message you can
+use custom templates. For the use case we expose the following additional
+parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;template&lt;/code&gt; - A handlebars template to create a custom payload body. For more
+details take a look at the &lt;a href=&#34;http://handlebarsjs.com/&#34;&gt;docs&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Example configuration that generate a custom message:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  hipchat:
+    auth_token: xxxxxxxxxxxxxxx
+    room_id_or_name: 1234567
+    from: drone
+    notify: true
+    template: &amp;gt;
+      &amp;lt;strong&amp;gt;{{ uppercasefirst build.status }}&amp;lt;/strong&amp;gt; &amp;lt;a href=\&amp;quot;{{ system.link_url }}/{{ repo.owner }}/{{ repo.name }}/{{ build.number }}\&amp;quot;&amp;gt;{{ repo.owner }}/{{ repo.name }}#{{ truncate build.commit 8 }}&amp;lt;/a&amp;gt; ({{ build.branch }}) by {{ build.author }} in {{ duration build.started_at build.finished_at }} &amp;lt;/br&amp;gt; - {{ build.message }}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

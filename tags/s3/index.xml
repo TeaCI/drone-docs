@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>S3 on Drone</title>
+    <link>http://docs.tea-ci.org/tags/s3/</link>
+    <description>Recent content in S3 on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 08:59:18 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/s3/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>S3 Sync</title>
+      <link>http://docs.tea-ci.org/plugins/s3_sync/</link>
+      <pubDate>Sat, 13 Feb 2016 08:59:18 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/s3_sync/</guid>
+      <description>&lt;p&gt;Use the S3 sync plugin to synchronize files and folders with an Amazon S3 bucket. The following parameters are used to configure this plugin:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - amazon key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - amazon secret key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket&lt;/code&gt; - bucket name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;region&lt;/code&gt; - bucket region (&lt;code&gt;us-east-1&lt;/code&gt;, &lt;code&gt;eu-west-1&lt;/code&gt;, etc)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acl&lt;/code&gt; - access to files that are uploaded (&lt;code&gt;private&lt;/code&gt;, &lt;code&gt;public-read&lt;/code&gt;, etc)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;source&lt;/code&gt; - location of folder to sync&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;target&lt;/code&gt; - target folder in your S3 bucket&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;delete&lt;/code&gt; - deletes files in the target not found in the source&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;content_type&lt;/code&gt; - override default mime-types to use this value&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;metadata&lt;/code&gt; - set custom metadata&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;redirects&lt;/code&gt; - targets that should redirect elsewhere&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample S3 configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  s3_sync:
+    acl: public-read
+    region: &amp;quot;us-east-1&amp;quot;
+    bucket: &amp;quot;my-bucket.s3-website-us-east-1.amazonaws.com&amp;quot;
+    access_key: &amp;quot;970d28f4dd477bc184fbd10b376de753&amp;quot;
+    secret_key: &amp;quot;9c5785d3ece6a9cdefa42eb99b58986f9095ff1c&amp;quot;
+    source: folder/to/archive
+    target: /target/location
+    delete: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Both &lt;code&gt;acl&lt;/code&gt; and &lt;code&gt;content_type&lt;/code&gt; can be passed as a string value to apply to all files, or as a map to apply to a subset of files.&lt;/p&gt;
+
+&lt;p&gt;For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  s3_sync:
+    acl:
+      &amp;quot;public/*&amp;quot;: public-read
+      &amp;quot;private/*&amp;quot;: private
+    content_type:
+      &amp;quot;.svg&amp;quot;: image/svg+xml
+    region: &amp;quot;us-east-1&amp;quot;
+    bucket: &amp;quot;my-bucket.s3-website-us-east-1.amazonaws.com&amp;quot;
+    access_key: &amp;quot;970d28f4dd477bc184fbd10b376de753&amp;quot;
+    secret_key: &amp;quot;9c5785d3ece6a9cdefa42eb99b58986f9095ff1c&amp;quot;
+    source: folder/to/archive
+    target: /target/location
+    delete: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the case of &lt;code&gt;acl&lt;/code&gt; the key of the map is a glob. If there are no matches in your settings for a given file, the default is &lt;code&gt;&amp;quot;private&amp;quot;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;content_type&lt;/code&gt; field the key is an extension including the leading dot &lt;code&gt;.&lt;/code&gt;. If you want to set a content type for files with no extension, set the key to the empty string &lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt;. If there are no matches for the &lt;code&gt;content_type&lt;/code&gt; of any file, one will automatically be determined for you.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;metadata&lt;/code&gt; field can be set as either an object where the keys are the metadata headers:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  s3_sync:
+    acl: public-read
+    region: &amp;quot;us-east-1&amp;quot;
+    bucket: &amp;quot;my-bucket.s3-website-us-east-1.amazonaws.com&amp;quot;
+    access_key: &amp;quot;970d28f4dd477bc184fbd10b376de753&amp;quot;
+    secret_key: &amp;quot;9c5785d3ece6a9cdefa42eb99b58986f9095ff1c&amp;quot;
+    source: folder/to/archive
+    target: /target/location
+    delete: true
+    metadata:
+      Cache-Control: &amp;quot;max-age: 10000&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or you can specify metadata for file patterns by using a glob:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  s3_sync:
+    acl: public-read
+    region: &amp;quot;us-east-1&amp;quot;
+    bucket: &amp;quot;my-bucket.s3-website-us-east-1.amazonaws.com&amp;quot;
+    access_key: &amp;quot;970d28f4dd477bc184fbd10b376de753&amp;quot;
+    secret_key: &amp;quot;9c5785d3ece6a9cdefa42eb99b58986f9095ff1c&amp;quot;
+    source: folder/to/archive
+    target: /target/location
+    delete: true
+    metadata:
+      &amp;quot;*.png&amp;quot;:
+        Cache-Control: &amp;quot;max-age: 10000000&amp;quot;
+      &amp;quot;*.html&amp;quot;:
+        Cache-Control: &amp;quot;max-age: 1000&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Additionally, you can specify redirect targets for files that don&amp;rsquo;t exist by using the &lt;code&gt;redirects&lt;/code&gt; key:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  s3_sync:
+    acl: public-read
+    region: &amp;quot;us-east-1&amp;quot;
+    bucket: &amp;quot;my-bucket.s3-website-us-east-1.amazonaws.com&amp;quot;
+    access_key: &amp;quot;970d28f4dd477bc184fbd10b376de753&amp;quot;
+    secret_key: &amp;quot;9c5785d3ece6a9cdefa42eb99b58986f9095ff1c&amp;quot;
+    source: folder/to/archive
+    target: /target/location
+    delete: true
+    redirects:
+      some/missing/file: /somewhere/that/actually/exists
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>S3</title>
+      <link>http://docs.tea-ci.org/plugins/s3/</link>
+      <pubDate>Sat, 13 Feb 2016 08:58:38 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/s3/</guid>
+      <description>&lt;p&gt;Use the S3 plugin to upload files and build artifacts to an S3 bucket. The following parameters are used to configure this plugin:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;access_key&lt;/strong&gt; - amazon key (optional)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;secret_key&lt;/strong&gt; - amazon secret key (optional)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;bucket&lt;/strong&gt; - bucket name&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;region&lt;/strong&gt; - bucket region (&lt;code&gt;us-east-1&lt;/code&gt;, &lt;code&gt;eu-west-1&lt;/code&gt;, etc)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;acl&lt;/strong&gt; - access to files that are uploaded (&lt;code&gt;private&lt;/code&gt;, &lt;code&gt;public-read&lt;/code&gt;, etc)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;source&lt;/strong&gt; - location of files to upload&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;target&lt;/strong&gt; - target location of files in your S3 bucket&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;recursive&lt;/strong&gt; - if true, recursively upload files&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample Slack configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  s3:
+    acl: public-read
+    region: &amp;quot;us-east-1&amp;quot;
+    bucket: &amp;quot;my-bucket-name&amp;quot;
+    access_key: &amp;quot;970d28f4dd477bc184fbd10b376de753&amp;quot;
+    secret_key: &amp;quot;9c5785d3ece6a9cdefa42eb99b58986f9095ff1c&amp;quot;
+    source: files/to/archive
+    target: /target/location
+    recursive: true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

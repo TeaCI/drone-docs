@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Webhook · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Send build status notifications via Webhook" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins" class="current-item">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="plugins">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1 class="plugin-header"><img src="/logos/webhook.svg" /> Webhook Plugin</h1>
+						<section>
+
+<p>Use the Webhook plugin to notify services via Webhook when a build completes.
+You will need to supply Drone with outgoing Webhook URLs. You can override the
+default configuration with the following parameters:</p>
+
+<ul>
+<li><code>urls</code> - JSON payloads are sent to each URL</li>
+<li><code>method</code> - HTTP request method. Defaults to <code>POST</code></li>
+<li><code>header</code> - HTTP request header map</li>
+</ul>
+
+<h2 id="example:95424174b467660d9d29374c13638004">Example</h2>
+
+<p>The following is a sample configuration in your .drone.yml file:</p>
+
+<pre><code class="language-yaml">notify:
+  webhook:
+    urls:
+      - https://your.webhook/...
+      - https://your.other.webhook/...
+    header:
+      Authorization: pa55word
+</code></pre>
+
+<h3 id="custom-body:95424174b467660d9d29374c13638004">Custom Body</h3>
+
+<p>In some cases you may want to submit a custom payload in the body of your hook.
+For the use case we expose the following additional parameters:</p>
+
+<ul>
+<li><code>template</code> - Handlebars template to create a custom payload body. See <a href="http://handlebarsjs.com/">docs</a></li>
+<li><code>content_type</code> - HTTP request content type</li>
+</ul>
+
+<p>Example configuration that generate a custom Yaml payload:</p>
+
+<pre><code class="language-yaml">notify:
+  webhook:
+    urls:
+      - https://your.webhook/...
+      - https://your.other.webhook/...
+    content_type: application/yaml
+    template: &gt;
+      repo: {{repo.full_name}}
+      build: {{build.number}}
+      commit: {{build.commit}}
+</code></pre>
+
+<h3 id="basic-authentication:95424174b467660d9d29374c13638004">Basic Authentication</h3>
+
+<blockquote>
+<p>It is important to note that with HTTP Basic Authentication the provided
+username and password are not encrypted.</p>
+</blockquote>
+
+<p>In some cases your webhook may need to authenticate with another service. You
+can set the basic <code>Authentication</code> header with a username and password. For
+these use cases we expose the following additional parameters:</p>
+
+<ul>
+<li><code>auth</code> - Sets the request&rsquo;s <code>Authorization</code> header to use HTTP Basic Authentication with the provided username and password below
+
+<ul>
+<li><code>username</code> - The username as a string</li>
+<li><code>password</code> - The password as a string</li>
+</ul></li>
+</ul>
+
+<p>Example configuration to include HTTP Basic Authentication:</p>
+
+<pre><code class="language-yaml">notify:
+  webhook:
+    method: POST
+    auth:
+      username: $$USERNAME
+      password: $$PASSWORD
+    urls:
+      - https://tower.example.com/...
+</code></pre>
+
+<h3 id="debugging-webhooks:95424174b467660d9d29374c13638004">Debugging Webhooks</h3>
+
+<blockquote>
+<p>If you have private variables that are encrypted and hidden in <code>.drone.sec</code>,
+remember that the <code>debug</code> flag may print out those sensitive values. Please
+use <code>debug: true</code> wisely.</p>
+</blockquote>
+
+<p>In some cases complicated webhooks may need debugging to ensure <code>urls</code>,
+<code>template</code>, <code>auth</code> and more a properly configured. For these use cases we expose
+the following <code>debug</code> parameter:</p>
+
+<ul>
+<li><code>debug</code> - If <code>true</code> it will print out each URL request and response information</li>
+</ul>
+
+<p>Example configuration to include the <code>debug</code> parameter:</p>
+
+<pre><code class="language-yaml">notify:
+  webhook:
+    debug: true
+    method: POST
+    auth:
+      username: $$TOWER_USER
+      password: $$TOWER_PASS
+    urls:
+      - http://tower.example.com/api/v1/job_templates/44/launch/
+      - http://tower.example.com/api/v1/job_templates/45/launch/
+      content_type: application/json
+      template: '{&quot;name&quot;: &quot;project.deploy&quot;,&quot;extra_vars&quot;: &quot;{\&quot;env\&quot;: \&quot;dev\&quot;,\&quot;git_branch\&quot;: \&quot;{{ build.branch }}\&quot;,\&quot;hipchat_token\&quot;: \&quot;$$HIPCHAT_TOKEN\&quot;}&quot;}'
+</code></pre>
+
+<p>Example of a debug print result:</p>
+
+<pre><code>[debug] Webhook 1
+  URL: http://tower.example.com/api/v1/job_templates/44/launch/
+  METHOD: POST
+  HEADERS: map[Content-Type:[application/json] Authorization:[Basic EMfNB3fakB8EMfNB3fakB8==]]
+  REQUEST BODY: {&quot;name&quot;: &quot;project.deploy&quot;,&quot;extra_vars&quot;: &quot;{\&quot;env\&quot;: \&quot;dev\&quot;,\&quot;git_branch\&quot;: \&quot;develop\&quot;,\&quot;hipchat_token\&quot;: \&quot;h1pchatT0k3n\&quot;}&quot;}
+  RESPONSE STATUS: 202 ACCEPTED
+  RESPONSE BODY: {&quot;job&quot;: 236}
+
+[debug] Webhook 2
+  URL: http://tower.example.com/api/v1/job_templates/45/launch/
+  METHOD: POST
+  HEADERS: map[Content-Type:[application/json] Authorization:[Basic EMfNB3fakB8EMfNB3fakB8==]]
+  REQUEST BODY: {&quot;name&quot;: &quot;project.deploy&quot;,&quot;extra_vars&quot;: &quot;{\&quot;env\&quot;: \&quot;dev\&quot;,\&quot;git_branch\&quot;: \&quot;develop\&quot;,\&quot;hipchat_token\&quot;: \&quot;h1pchatT0k3n\&quot;}&quot;}
+  RESPONSE STATUS: 202 ACCEPTED
+  RESPONSE BODY: {&quot;job&quot;: 406}
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<h3>Plugin Links</h3>
+							
+							<ul class='list-unstyled side-nav'>
+								<li>
+									<a href="http://discuss.drone.io/c/help">
+										Get Help
+									</a>
+								</li>
+								<li>
+									<a href="https://github.com/drone-plugins/drone-webhook/">
+										Source Code
+									</a>
+								</li>
+								<li>
+									<a href="https://hub.docker.com/r/plugins/drone-webhook/">
+										Docker Image
+									</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

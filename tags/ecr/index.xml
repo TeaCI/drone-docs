@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ecr on Drone</title>
+    <link>http://docs.tea-ci.org/tags/ecr/</link>
+    <description>Recent content in Ecr on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Feb 2016 08:37:26 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/ecr/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ECR</title>
+      <link>http://docs.tea-ci.org/plugins/ecr/</link>
+      <pubDate>Sun, 21 Feb 2016 08:37:26 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/ecr/</guid>
+      <description>
+
+&lt;p&gt;Use the Docker plugin to build and push Docker images to an AWS Elastic Container Registry.
+The following parameters are used to configure this plugin:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - authenticates with this username&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - authenticates with this password&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;region&lt;/code&gt; - authenticates with this email&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;repo&lt;/code&gt; - repository name for the image&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tag&lt;/code&gt; - repository tag for the image&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;force_tag&lt;/code&gt; - replace existing matched image tags&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;create_repository&lt;/code&gt; - automatically create repository in ECR&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mirror&lt;/code&gt; - use a mirror registry instead of pulling images directly from the central Hub&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bip&lt;/code&gt; - use for pass bridge ip&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;storage_driver&lt;/code&gt; - use &lt;code&gt;aufs&lt;/code&gt;, &lt;code&gt;devicemapper&lt;/code&gt;, &lt;code&gt;btrfs&lt;/code&gt; or &lt;code&gt;overlay&lt;/code&gt; driver&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;save&lt;/code&gt; - save image layers to the specified tar file (see &lt;a href=&#34;https://docs.docker.com/engine/reference/commandline/save/&#34;&gt;docker save&lt;/a&gt;)
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;destination&lt;/code&gt; - absolute / relative destination path&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tag&lt;/code&gt; - cherry-pick tags to save (optional)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;load&lt;/code&gt; - restore image layers from the specified tar file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;build_args&lt;/code&gt; - &lt;a href=&#34;https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables-build-arg&#34;&gt;build arguments&lt;/a&gt; to pass to &lt;code&gt;docker build&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample Docker configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  ecr:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    tag: latest
+    file: Dockerfile
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You may want to dynamically tag your image. Use the &lt;code&gt;$$BRANCH&lt;/code&gt;, &lt;code&gt;$$COMMIT&lt;/code&gt; and &lt;code&gt;$$BUILD_NUMBER&lt;/code&gt; variables to tag your image with the branch, commit sha or build number:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  ecr:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    tag: $$BRANCH
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or you may prefer to build an image with multiple tags:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  ecr:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    tag:
+      - latest
+      - &amp;quot;1.0.1&amp;quot;
+      - &amp;quot;1.0&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that in the above example we quote the version numbers. If the yaml parser interprets the value as a number it will cause a parsing error.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s also possible to pass build arguments to docker:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  ecr:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    build_args:
+      - HTTP_PROXY=http://yourproxy.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;layer-caching:0c23c8ffedfa36132711a1d77a3f0542&#34;&gt;Layer Caching&lt;/h2&gt;
+
+&lt;p&gt;The Drone build environment is, by default, ephemeral meaning that you layers are not saved between builds. The below example combines Drone&amp;rsquo;s caching feature and Docker&amp;rsquo;s &lt;code&gt;save&lt;/code&gt; and &lt;code&gt;load&lt;/code&gt; capabilities to cache and restore image layers between builds:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  erc:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    tag:
+      - latest
+      - &amp;quot;1.0.1&amp;quot;
+    load: docker/image.tar
+    save:
+      destination: docker/image.tar
+      tag: latest
+
+cache:
+  mount:
+    - docker/image.tar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You might also want to create a &lt;code&gt;.dockerignore&lt;/code&gt; file in your repo to exclude &lt;code&gt;image.tar&lt;/code&gt; from Docker build context:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;docker/*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In some cases caching will greatly improve build performance, however, the tradeoff is that caching Docker image layers may consume very large amounts of disk space.&lt;/p&gt;
+
+&lt;h2 id=&#34;troubleshooting:0c23c8ffedfa36132711a1d77a3f0542&#34;&gt;Troubleshooting&lt;/h2&gt;
+
+&lt;p&gt;For detailed output you can set the &lt;code&gt;DOCKER_LAUNCH_DEBUG&lt;/code&gt; environment variable in your plugin configuration. This starts Docker with verbose logging enabled.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  docker:
+    environment:
+      - DOCKER_LAUNCH_DEBUG=true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;known-issues:0c23c8ffedfa36132711a1d77a3f0542&#34;&gt;Known Issues&lt;/h2&gt;
+
+&lt;p&gt;There are known issues when attempting to run this plugin on CentOS, RedHat, and Linux installations that do not have a supported storage driver installed. You can check by running &lt;code&gt;docker info | grep &#39;Storage Driver:&#39;&lt;/code&gt; on your host machine. If the storage driver is not &lt;code&gt;aufs&lt;/code&gt; or &lt;code&gt;overlay&lt;/code&gt; you will need to re-configure your host machine.&lt;/p&gt;
+
+&lt;p&gt;This error occurs when trying to use the default &lt;code&gt;aufs&lt;/code&gt; storage Driver but aufs is not installed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;level=fatal msg=&amp;quot;Error starting daemon: error initializing graphdriver: driver not supported
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This error occurs when trying to use the &lt;code&gt;overlay&lt;/code&gt; storage Driver but overlay is not installed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;level=error msg=&amp;quot;&#39;overlay&#39; not found as a supported filesystem on this host.
+Please ensure kernel is new enough and has overlay support loaded.&amp;quot;
+level=fatal msg=&amp;quot;Error starting daemon: error initializing graphdriver: driver not supported&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This error occurs when using CentOS or RedHat which default to the &lt;code&gt;devicemapper&lt;/code&gt; storage driver:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;level=error msg=&amp;quot;There are no more loopback devices available.&amp;quot;
+level=fatal msg=&amp;quot;Error starting daemon: error initializing graphdriver: loopback mounting failed&amp;quot;
+Cannot connect to the Docker daemon. Is &#39;docker -d&#39; running on this host?
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above issue can be resolved by setting &lt;code&gt;storage_driver: vfs&lt;/code&gt; in the &lt;code&gt;.drone.yml&lt;/code&gt; file. This may work, but will have very poor performance as discussed &lt;a href=&#34;https://github.com/rancher/docker-from-scratch/issues/20&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

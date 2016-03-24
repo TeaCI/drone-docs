@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Tutum · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Deploy or update a project on Tutum" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins" class="current-item">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="plugins">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1 class="plugin-header"><img src="/logos/tutum.svg" /> Tutum Plugin</h1>
+						<section><p>Use the tutum plugin to redeploy or update a service in <a href="https://tutum.co">tutum</a>.</p>
+
+<p>The following parameters are used to configure this plugin:</p>
+
+<ul>
+<li><code>username</code> - username</li>
+<li><code>api_key</code> - tutum api key</li>
+<li><code>service</code> - name of tutum service to act on</li>
+<li><code>docker_image</code> - new image to assign to service, including tag (<code>drone/drone:latest</code>)</li>
+<li><code>redeploy</code> - should the service be redeployed after updating</li>
+<li><code>reuse_volumes</code> - whether or not to reuse volumes when redeploying (defaults to <code>true</code>)</li>
+</ul>
+
+<p>The following is a sample Tutum configuration in your <code>.drone.yml</code> file:</p>
+
+<pre><code class="language-yaml">deploy:
+  tutum:
+    username: somebody
+    api_key: abcdefg1234567
+    service: drone
+    image: drone/drone:latest
+    redeploy: true
+    reuse_volumes: true
+</code></pre>
+
+<p>Note that if your <code>service</code> is part of a stack, you should use the notation <code>servicename.stackname</code> as this will make sure that the found service is part of the correct stack.</p>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<h3>Plugin Links</h3>
+							
+							<ul class='list-unstyled side-nav'>
+								<li>
+									<a href="http://discuss.drone.io/c/help">
+										Get Help
+									</a>
+								</li>
+								<li>
+									<a href="https://github.com/drone-plugins/drone-tutum/">
+										Source Code
+									</a>
+								</li>
+								<li>
+									<a href="https://hub.docker.com/r/plugins/drone-tutum/">
+										Docker Image
+									</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

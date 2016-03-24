@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Drone on Drone</title>
+    <link>http://docs.tea-ci.org/tags/drone/</link>
+    <description>Recent content in Drone on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Feb 2016 08:35:06 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/drone/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Trigger</title>
+      <link>http://docs.tea-ci.org/plugins/downstream/</link>
+      <pubDate>Sun, 21 Feb 2016 08:35:06 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/downstream/</guid>
+      <description>&lt;p&gt;Use this plugin to trigger builds for a list of downstream repositories. This is useful when updates to a repository have downstream impacts that should also be tested. These are the configuration options:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;repositories&lt;/code&gt; - list of repositories to trigger&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;token&lt;/code&gt; - drone API token from your user setttings&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  downstream:
+    repositories:
+      - octocat/Hello-World
+      - octocat/Spoon-Knife
+    token: e3b0c44298fc1c149afbf4
+    when:
+      event: push
+      branch: master
+      success: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In some cases you may want to trigger specific branches:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;notify:
+  downstream:
+    repositories:
+      - octocat/Hello-World@develop
+      - octocat/Spoon-Knife@master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Please be sure to include the &lt;code&gt;when&lt;/code&gt; section in your &lt;code&gt;.drone.yml&lt;/code&gt; to avoid triggering builds for pull requests, tags and failed builds.&lt;/p&gt;
+
+&lt;p&gt;You can also trigger a new build for a repository using &lt;code&gt;fork: true&lt;/code&gt; :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  downstream:
+    repositories:
+      - octocat/Hello-World
+      - octocat/Spoon-Knife
+    token: e3b0c44298fc1c149afbf4
+    fork: true
+    when:
+      event: push
+      branch: master
+      success: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you want to trigger a drone build on a custom server, you can use the &lt;code&gt;server&lt;/code&gt; argument. Do not forget to include the protocol for it to work.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  downstream:
+    repositories:
+      - octocat/Hello-World
+      - octocat/Spoon-Knife
+    token: e3b0c44298fc1c149afbf4
+    fork: true
+    server: https://ci.exmaple.com
+    when:
+      event: push
+      branch: master
+      success: true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

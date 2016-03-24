@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Server on Drone</title>
+    <link>http://docs.tea-ci.org/tags/server/</link>
+    <description>Recent content in Server on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 09:02:03 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/server/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>SFTP</title>
+      <link>http://docs.tea-ci.org/plugins/sftp/</link>
+      <pubDate>Sat, 13 Feb 2016 09:02:03 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/sftp/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin to publish artifacts from the build to an SFTP server
+You can override the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;host&lt;/code&gt; - Server host&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;port&lt;/code&gt; - Server port, default to 22&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;username&lt;/code&gt; - Server username, default to blank&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - Password for password-based authentication&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;destination_path&lt;/code&gt; - Target path on the server, default to &amp;lsquo;/&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;files&lt;/code&gt; - List of files to upload&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All file paths must be relative to current project sources&lt;/p&gt;
+
+&lt;h2 id=&#34;example:43cc3f1f2ddc6998f4a7f7d05b6b4680&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  sftp:
+    host: sftp.company.com
+    port: 2222
+    username: user
+    password: pa$$word
+    files: 
+      - *.nupkg
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

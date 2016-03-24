@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>ECR · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Build and publish images to a AWS ECR" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins" class="current-item">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="plugins">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1 class="plugin-header"><img src="/logos/ecr.svg" /> ECR Plugin</h1>
+						<section>
+
+<p>Use the Docker plugin to build and push Docker images to an AWS Elastic Container Registry.
+The following parameters are used to configure this plugin:</p>
+
+<ul>
+<li><code>access_key</code> - authenticates with this username</li>
+<li><code>secret_key</code> - authenticates with this password</li>
+<li><code>region</code> - authenticates with this email</li>
+<li><code>repo</code> - repository name for the image</li>
+<li><code>tag</code> - repository tag for the image</li>
+<li><code>force_tag</code> - replace existing matched image tags</li>
+<li><code>create_repository</code> - automatically create repository in ECR</li>
+<li><code>mirror</code> - use a mirror registry instead of pulling images directly from the central Hub</li>
+<li><code>bip</code> - use for pass bridge ip</li>
+<li><code>storage_driver</code> - use <code>aufs</code>, <code>devicemapper</code>, <code>btrfs</code> or <code>overlay</code> driver</li>
+<li><code>save</code> - save image layers to the specified tar file (see <a href="https://docs.docker.com/engine/reference/commandline/save/">docker save</a>)
+
+<ul>
+<li><code>destination</code> - absolute / relative destination path</li>
+<li><code>tag</code> - cherry-pick tags to save (optional)</li>
+</ul></li>
+<li><code>load</code> - restore image layers from the specified tar file</li>
+<li><code>build_args</code> - <a href="https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables-build-arg">build arguments</a> to pass to <code>docker build</code></li>
+</ul>
+
+<p>The following is a sample Docker configuration in your .drone.yml file:</p>
+
+<pre><code class="language-yaml">publish:
+  ecr:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    tag: latest
+    file: Dockerfile
+</code></pre>
+
+<p>You may want to dynamically tag your image. Use the <code>$$BRANCH</code>, <code>$$COMMIT</code> and <code>$$BUILD_NUMBER</code> variables to tag your image with the branch, commit sha or build number:</p>
+
+<pre><code class="language-yaml">publish:
+  ecr:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    tag: $$BRANCH
+</code></pre>
+
+<p>Or you may prefer to build an image with multiple tags:</p>
+
+<pre><code class="language-yaml">publish:
+  ecr:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    tag:
+      - latest
+      - &quot;1.0.1&quot;
+      - &quot;1.0&quot;
+</code></pre>
+
+<p>Note that in the above example we quote the version numbers. If the yaml parser interprets the value as a number it will cause a parsing error.</p>
+
+<p>It&rsquo;s also possible to pass build arguments to docker:</p>
+
+<pre><code class="language-yaml">publish:
+  ecr:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    build_args:
+      - HTTP_PROXY=http://yourproxy.com
+</code></pre>
+
+<h2 id="layer-caching:0c23c8ffedfa36132711a1d77a3f0542">Layer Caching</h2>
+
+<p>The Drone build environment is, by default, ephemeral meaning that you layers are not saved between builds. The below example combines Drone&rsquo;s caching feature and Docker&rsquo;s <code>save</code> and <code>load</code> capabilities to cache and restore image layers between builds:</p>
+
+<pre><code class="language-yaml">publish:
+  erc:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    tag:
+      - latest
+      - &quot;1.0.1&quot;
+    load: docker/image.tar
+    save:
+      destination: docker/image.tar
+      tag: latest
+
+cache:
+  mount:
+    - docker/image.tar
+</code></pre>
+
+<p>You might also want to create a <code>.dockerignore</code> file in your repo to exclude <code>image.tar</code> from Docker build context:</p>
+
+<pre><code>docker/*
+</code></pre>
+
+<p>In some cases caching will greatly improve build performance, however, the tradeoff is that caching Docker image layers may consume very large amounts of disk space.</p>
+
+<h2 id="troubleshooting:0c23c8ffedfa36132711a1d77a3f0542">Troubleshooting</h2>
+
+<p>For detailed output you can set the <code>DOCKER_LAUNCH_DEBUG</code> environment variable in your plugin configuration. This starts Docker with verbose logging enabled.</p>
+
+<pre><code class="language-yaml">publish:
+  docker:
+    environment:
+      - DOCKER_LAUNCH_DEBUG=true
+</code></pre>
+
+<h2 id="known-issues:0c23c8ffedfa36132711a1d77a3f0542">Known Issues</h2>
+
+<p>There are known issues when attempting to run this plugin on CentOS, RedHat, and Linux installations that do not have a supported storage driver installed. You can check by running <code>docker info | grep 'Storage Driver:'</code> on your host machine. If the storage driver is not <code>aufs</code> or <code>overlay</code> you will need to re-configure your host machine.</p>
+
+<p>This error occurs when trying to use the default <code>aufs</code> storage Driver but aufs is not installed:</p>
+
+<pre><code>level=fatal msg=&quot;Error starting daemon: error initializing graphdriver: driver not supported
+</code></pre>
+
+<p>This error occurs when trying to use the <code>overlay</code> storage Driver but overlay is not installed:</p>
+
+<pre><code>level=error msg=&quot;'overlay' not found as a supported filesystem on this host.
+Please ensure kernel is new enough and has overlay support loaded.&quot;
+level=fatal msg=&quot;Error starting daemon: error initializing graphdriver: driver not supported&quot;
+</code></pre>
+
+<p>This error occurs when using CentOS or RedHat which default to the <code>devicemapper</code> storage driver:</p>
+
+<pre><code>level=error msg=&quot;There are no more loopback devices available.&quot;
+level=fatal msg=&quot;Error starting daemon: error initializing graphdriver: loopback mounting failed&quot;
+Cannot connect to the Docker daemon. Is 'docker -d' running on this host?
+</code></pre>
+
+<p>The above issue can be resolved by setting <code>storage_driver: vfs</code> in the <code>.drone.yml</code> file. This may work, but will have very poor performance as discussed <a href="https://github.com/rancher/docker-from-scratch/issues/20">here</a>.</p>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<h3>Plugin Links</h3>
+							
+							<ul class='list-unstyled side-nav'>
+								<li>
+									<a href="http://discuss.drone.io/c/help">
+										Get Help
+									</a>
+								</li>
+								<li>
+									<a href="https://github.com/drone-plugins/drone-ecr/">
+										Source Code
+									</a>
+								</li>
+								<li>
+									<a href="https://hub.docker.com/r/plugins/drone-ecr/">
+										Docker Image
+									</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

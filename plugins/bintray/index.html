@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Bintray · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Publish files and artifacts to Bintray" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins" class="current-item">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="plugins">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1 class="plugin-header"><img src="/logos/bintray.svg" /> Bintray Plugin</h1>
+						<section>
+
+<p>Use the Bintray plugin to publish one or more packages to a Bintray repository. You must supply the following parameters in a <strong>bintray</strong> subsection of the .drone.yml <strong>publish</strong> section.</p>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>username</td>
+<td>A Bintray username</td>
+</tr>
+
+<tr>
+<td>api_key</td>
+<td>The API key associated with the username (obtain from Bintray settings)</td>
+</tr>
+
+<tr>
+<td>host</td>
+<td>Optional host of the bintray api server with scheme. Example: <a href="https://bin.company.com">https://bin.company.com</a></td>
+</tr>
+
+<tr>
+<td>branch</td>
+<td>The GitHub branch of the commit.  A non-empty value other than &ldquo;master&rdquo; causes the plugin to upload artifacts to test/branchname/target instead of just target</td>
+</tr>
+
+<tr>
+<td>debug</td>
+<td>If true, causes the plugin to write additional output to stdout, including its invocation arguments and output curl command.</td>
+</tr>
+
+<tr>
+<td>insecure</td>
+<td>Enable insecure connections</td>
+</tr>
+
+<tr>
+<td>artifacts</td>
+<td>One or more descriptions of artifacts to upload</td>
+</tr>
+</tbody>
+</table>
+
+<p>The following parameters describe each artifact</p>
+
+<table>
+<thead>
+<tr>
+<th>Artifact Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>file</td>
+<td>Path to the file to upload within the build directory (the original build directory, not the current working directory)</td>
+</tr>
+
+<tr>
+<td>owner</td>
+<td>Bintray repository owner (called subject in Bintray API documentation)</td>
+</tr>
+
+<tr>
+<td>type</td>
+<td>Artifact type.  Specify &ldquo;Debian&rdquo; for a Debian artifact or &ldquo;Maven&rdquo; for a Maven artifact.  Any other value indicates a generic artifact.</td>
+</tr>
+
+<tr>
+<td>repository</td>
+<td>Name of the repository where the file should be uploaded</td>
+</tr>
+
+<tr>
+<td>package</td>
+<td>Name of the package within the repository</td>
+</tr>
+
+<tr>
+<td>version</td>
+<td>Version to upload.  Required for non-Maven artifacts and ignored for Maven.</td>
+</tr>
+
+<tr>
+<td>target</td>
+<td>Name to be given to the artifact in the repository.  The name is prefixed by &ldquo;test/branchname&rdquo; if the branch parameter is specified and has a non-empty value other than &ldquo;master&rdquo;</td>
+</tr>
+
+<tr>
+<td>distr</td>
+<td>Debian distribution.  Required for Debian artifacts and ignored for others.</td>
+</tr>
+
+<tr>
+<td>component</td>
+<td>Debian component.  Required for Debian artifacts and ignored for others.</td>
+</tr>
+
+<tr>
+<td>arch</td>
+<td>Debian architecture(s).  Required for Debian artifacts and ignored for others.</td>
+</tr>
+
+<tr>
+<td>override</td>
+<td>true if the artifact can override (replace) a previously-published artifact; false otherwise</td>
+</tr>
+
+<tr>
+<td>publish</td>
+<td>true if the artifact should be published after upload; false otherwise</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="example:d1930c3bb9d005cbc6c979bc91b3d610">Example</h2>
+
+<p>The follow .drone.yml file uploads two artifacts to Bintray</p>
+
+<pre><code class="language-yaml">publish:
+  bintray:
+    username: $$BINTRAY_USERNAME
+    password: $$BINTRAY_PASSWORD
+    branch: $$BRANCH
+    artifacts:
+      - file: dist/myfile
+        owner: mycompany
+        type: executable
+        repository: reponame
+        package: pkgname
+        version: 1.0
+        target: myfile
+        publish: true
+        override: true
+      - file: dist/myfile.deb
+        owner: mycompany
+        type: Debian
+        repository: debian-repo
+        package: pkgname
+        version: 1.0
+        target: myfile.deb
+        distr: ubuntu
+        component: main
+        arch:
+          - amd64
+        publish: true
+        override: true
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<h3>Plugin Links</h3>
+							
+							<ul class='list-unstyled side-nav'>
+								<li>
+									<a href="http://discuss.drone.io/c/help">
+										Get Help
+									</a>
+								</li>
+								<li>
+									<a href="https://github.com/drone-plugins/drone-bintray/">
+										Source Code
+									</a>
+								</li>
+								<li>
+									<a href="https://hub.docker.com/r/plugins/drone-bintray/">
+										Docker Image
+									</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

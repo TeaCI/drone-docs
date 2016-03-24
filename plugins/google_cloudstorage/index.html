@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Google Cloud Storage · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Publish files and artifacts to Google Cloud Storage" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins" class="current-item">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="plugins">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1 class="plugin-header"><img src="/logos/google-cloudstorage.svg" /> Google Cloud Storage Plugin</h1>
+						<section><p>Use this plugin to upload files and build artifacts
+to the <a href="https://cloud.google.com/storage/">Google Cloud Storage (GCS)</a> bucket.</p>
+
+<p>You will need to a <a href="https://developers.google.com/console/help/new/#serviceaccounts">Service Account</a>
+to authenticate to the GCS.</p>
+
+<p>The following parameters are used to configure this plugin:</p>
+
+<ul>
+<li><code>auth_key</code> - service account auth key</li>
+<li><code>source</code> - location of files to upload</li>
+<li><code>target</code> - destination to copy files to, including bucket name</li>
+<li><code>ignore</code> - skip files matching this <a href="https://golang.org/pkg/path/filepath/#Match">pattern</a>, relative to <code>source</code></li>
+<li><code>acl</code> - a list of access rules applied to the uploaded files, in a form of <code>entity:role</code></li>
+<li><code>gzip</code> - files with the specified extensions will be gzipped and uploaded with &ldquo;gzip&rdquo; Content-Encoding header</li>
+<li><code>cache_control</code> - Cache-Control header</li>
+<li><code>metadata</code> - an arbitrary dictionary with custom metadata applied to all objects</li>
+</ul>
+
+<p>The following is a sample configuration in your .drone.yml file:</p>
+
+<pre><code class="language-yaml">publish:
+  gcs:
+    auth_key: &gt;
+      $SERVICE_ACCOUNT_KEY
+    source: dist
+    target: bucket/dir/
+    ignore: bin/*
+    acl:
+      - allUsers:READER
+    gzip:
+      - js
+      - css
+      - html
+    cache_control: public,max-age=3600
+    metadata:
+      x-goog-meta-foo: bar
+</code></pre>
+
+<p><code>SERVICE_ACCOUNT_KEY</code> would be defined in .drone.sec (before encryption):</p>
+
+<pre><code class="language-yaml">checksum: ...
+environment:
+  SERVICE_ACCOUNT_KEY: &gt;
+    {
+    &quot;private_key&quot;: &quot;-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n&quot;,
+    &quot;client_email&quot;: &quot;test@gserviceaccount.com&quot;,
+    &quot;client_id&quot;: &quot;12487645876234765&quot;,
+    &quot;auth_uri&quot;: &quot;https://accounts.google.com/o/oauth2/auth&quot;,
+    &quot;token_uri&quot;: &quot;https://accounts.google.com/o/oauth2/token&quot;,
+    }
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<h3>Plugin Links</h3>
+							
+							<ul class='list-unstyled side-nav'>
+								<li>
+									<a href="http://discuss.drone.io/c/help">
+										Get Help
+									</a>
+								</li>
+								<li>
+									<a href="https://github.com/drone-plugins/drone-google-cloudstorage/">
+										Source Code
+									</a>
+								</li>
+								<li>
+									<a href="https://hub.docker.com/r/plugins/drone-google-cloudstorage/">
+										Docker Image
+									</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

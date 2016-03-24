@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Git · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Clones a git repository" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins" class="current-item">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="plugins">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1 class="plugin-header"><img src="/logos/git.svg" /> Git Plugin</h1>
+						<section>
+
+<p>Use the Git plugin to clone a git repository. Note that Drone uses the Git plugin
+by default for all repositories, without any configuration required. You can override
+the default configuration with the following parameters:</p>
+
+<ul>
+<li><code>depth</code> - creates a shallow clone with truncated history</li>
+<li><code>recursive</code> - recursively clones git submodules</li>
+<li><code>path</code> - relative path inside <code>/drone/src</code> where the repository is cloned</li>
+<li><code>skip_verify</code> - disables ssl verification when set to <code>true</code></li>
+<li><code>tags</code> - fetches tags when set to <code>true</code></li>
+<li><code>submodule_override</code> - override submodule urls</li>
+<li><code>submodule_update_remote</code> - pass the <code>--remote</code> flag to git submodule update (useful when tracking a branch instead of a commit in a submodule)</li>
+</ul>
+
+<p>Sample configuration:</p>
+
+<pre><code class="language-yaml">clone:
+  depth: 50
+  recursive: false
+  tags: false
+</code></pre>
+
+<p>Sample configuration to override the relative clone path:</p>
+
+<pre><code># clones to /drone/src/foo/bar
+
+clone:
+  path: foo/bar
+</code></pre>
+
+<p>Sample configuration to clone submodules:</p>
+
+<pre><code>clone:
+  recursive: true
+</code></pre>
+
+<h2 id="private-submodules:1c1ef82aae62aeea8eedcb5f455b129b">Private Submodules</h2>
+
+<p>Private submodules may encounter the following error:</p>
+
+<pre><code>Warning: Permanently added 'github.com,192.30.252.130' (RSA) to the list of known hosts.
+ERROR: Repository not found.
+fatal: Could not read from remote repository.
+</code></pre>
+
+<p>This happens when a private submodule uses a <code>git+ssh</code> url:</p>
+
+<pre><code>[submodule &quot;hello-world&quot;]
+    path = hello-world
+    url = git@github.com:octocat/hello-world.git
+</code></pre>
+
+<p>This can be mitigated by overriding the submodule url to use <code>git+https</code>:</p>
+
+<pre><code>clone:
+  recursive: true
+  submodule_override:
+    hello-world: https://github.com/octocat/hello-world.git
+</code></pre>
+
+<p>Overriding the submodule url to force <code>git+https</code> allows us to take advantage of the <code>netrc</code> file and automatically authenticate to the submodule repository.</p>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<h3>Plugin Links</h3>
+							
+							<ul class='list-unstyled side-nav'>
+								<li>
+									<a href="http://discuss.drone.io/c/help">
+										Get Help
+									</a>
+								</li>
+								<li>
+									<a href="https://github.com/drone-plugins/drone-git/">
+										Source Code
+									</a>
+								</li>
+								<li>
+									<a href="https://hub.docker.com/r/plugins/drone-git/">
+										Docker Image
+									</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

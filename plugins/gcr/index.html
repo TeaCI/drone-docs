@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Google Container Registry · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Build and publish images to Google Container Registry" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins" class="current-item">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="plugins">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1 class="plugin-header"><img src="/logos/gcr.svg" /> Google Container Registry Plugin</h1>
+						<section>
+
+<p>Use this plugin to build and push Docker images to the Google Container Registry (GCR). Please read the GCR <a href="https://cloud.google.com/container-registry/">documentation</a> before you begin. You will need to generate a <a href="https://developers.google.com/console/help/new/#serviceaccounts">JSON token</a> to authenticate to the registry and push images.</p>
+
+<p>The following parameters are used to configure this plugin:</p>
+
+<ul>
+<li><code>registry</code> - authenticates to this registry (defaults to <code>gcr.io</code>)</li>
+<li><code>token</code> - json token</li>
+<li><code>repo</code> - repository name for the image</li>
+<li><code>tag</code> - repository tag for the image (defaults to <code>latest</code>)</li>
+<li><code>storage_driver</code> - use <code>aufs</code>, <code>devicemapper</code>, <code>btrfs</code> or <code>overlay</code> driver</li>
+</ul>
+
+<p>Sample configuration:</p>
+
+<pre><code class="language-yaml">publish:
+  gcr:
+    repo: foo/bar
+    token: &gt;
+      {
+        &quot;private_key_id&quot;: &quot;...&quot;,
+        &quot;private_key&quot;: &quot;...&quot;,
+        &quot;client_email&quot;: &quot;...&quot;,
+        &quot;client_id&quot;: &quot;...&quot;,
+        &quot;type&quot;: &quot;...&quot;
+      }
+</code></pre>
+
+<p>Sample configuration using multiple tags:</p>
+
+<pre><code>publish:
+  gcr:
+    repo: foo/bar
+    tag:
+      - latest
+      - &quot;1.0.1&quot;
+      - &quot;1.0&quot;
+    token: &gt;
+      {
+        &quot;private_key_id&quot;: &quot;...&quot;,
+        &quot;private_key&quot;: &quot;...&quot;,
+        &quot;client_email&quot;: &quot;...&quot;,
+        &quot;client_id&quot;: &quot;...&quot;,
+        &quot;type&quot;: &quot;...&quot;
+      }
+</code></pre>
+
+<h2 id="json-token:e36943907c8530760d5268ab204f3440">JSON Token</h2>
+
+<p>When setting your token in the <code>.drone.yml</code> file you must use <a href="http://www.yaml.org/spec/1.2/spec.html#id2796251">folded block scalars</a> to avoid parsing errors:</p>
+
+<pre><code>publish:
+  gcr:
+    token: &gt;
+      {
+        &quot;private_key_id&quot;: &quot;...&quot;,
+        &quot;private_key&quot;: &quot;...&quot;,
+        &quot;client_email&quot;: &quot;...&quot;,
+        &quot;client_id&quot;: &quot;...&quot;,
+        &quot;type&quot;: &quot;...&quot;
+      }
+</code></pre>
+
+<p>When injecting secrets you must also use a folded block scalar:</p>
+
+<pre><code>publish:
+  gcr:
+    token: &gt;
+      $$GOOGLE_KEY
+</code></pre>
+
+<p>When defining secrets in a <code>.drone.sec</code> file you must also use folded block scalars. Please note that you should either place your JSON string on a single line:</p>
+
+<pre><code>environment:
+  GOOGLE_KEY: &gt;
+    { &quot;private_key_id&quot;: &quot;...&quot;, &quot;private_key&quot;: &quot;...&quot; ... }
+
+</code></pre>
+
+<p>Or you must ensure all lines have the exact same indentation:</p>
+
+<pre><code>environment:
+  GOOGLE_KEY: &gt;
+    {
+    &quot;private_key_id&quot;: &quot;...&quot;,
+    &quot;private_key&quot;: &quot;...&quot;,
+    &quot;client_email&quot;: &quot;...&quot;,
+    &quot;client_id&quot;: &quot;...&quot;,
+    &quot;type&quot;: &quot;...&quot;
+    }
+
+</code></pre>
+
+<h2 id="troubleshooting:e36943907c8530760d5268ab204f3440">Troubleshooting</h2>
+
+<p>For detailed output you can set the <code>DOCKER_LAUNCH_DEBUG</code> environment variable in your plugin configuration. This starts Docker with verbose logging enabled.</p>
+
+<pre><code>publish:
+  gcr:
+    environment:
+      - DOCKER_LAUNCH_DEBUG=true
+</code></pre>
+
+<h2 id="known-issues:e36943907c8530760d5268ab204f3440">Known Issues</h2>
+
+<p>There are known issues when attempting to run this plugin on CentOS, RedHat, and Linux installations that do not have a supported storage driver installed. You can check by running <code>docker info | grep 'Storage Driver:'</code> on your host machine. If the storage driver is not <code>aufs</code> or <code>overlay</code> you will need to re-configure your host machine.</p>
+
+<p>This error occurs when trying to use the default <code>aufs</code> storage Driver but aufs is not installed:</p>
+
+<pre><code>level=fatal msg=&quot;Error starting daemon: error initializing graphdriver: driver not supported
+</code></pre>
+
+<p>This error occurs when trying to use the <code>overlay</code> storage Driver but overlay is not installed:</p>
+
+<pre><code>level=error msg=&quot;'overlay' not found as a supported filesystem on this host.
+Please ensure kernel is new enough and has overlay support loaded.&quot; 
+level=fatal msg=&quot;Error starting daemon: error initializing graphdriver: driver not supported&quot;
+</code></pre>
+
+<p>This error occurs when using CentOS or RedHat which default to the <code>devicemapper</code> storage driver:</p>
+
+<pre><code>level=error msg=&quot;There are no more loopback devices available.&quot; 
+level=fatal msg=&quot;Error starting daemon: error initializing graphdriver: loopback mounting failed&quot; 
+Cannot connect to the Docker daemon. Is 'docker -d' running on this host?
+</code></pre>
+
+<p>The above issue can be resolved by setting <code>storage_driver: vfs</code> in the <code>.drone.yml</code> file. This may work, but will have very poor performance as discussed <a href="https://github.com/rancher/docker-from-scratch/issues/20">here</a>.</p>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<h3>Plugin Links</h3>
+							
+							<ul class='list-unstyled side-nav'>
+								<li>
+									<a href="http://discuss.drone.io/c/help">
+										Get Help
+									</a>
+								</li>
+								<li>
+									<a href="https://github.com/drone-plugins/drone-gcr/">
+										Source Code
+									</a>
+								</li>
+								<li>
+									<a href="https://hub.docker.com/r/plugins/drone-gcr/">
+										Docker Image
+									</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

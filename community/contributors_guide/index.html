@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Contributor&#39;s Guide · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview" class="current-item">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main>
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>Contributor&#39;s Guide</h1>
+						<nav id="TableOfContents">
+						
+						<nav id="TableOfContents">
+<ul>
+<li><a href="#drone-core:eeec64a56683fa9f8fe8fb5a52c2576e">Drone Core</a></li>
+<li><a href="#drone-plugins:eeec64a56683fa9f8fe8fb5a52c2576e">Drone Plugins</a></li>
+<li><a href="#drone-ui-and-design:eeec64a56683fa9f8fe8fb5a52c2576e">Drone UI and Design</a></li>
+<li><a href="#drone-documentation:eeec64a56683fa9f8fe8fb5a52c2576e">Drone Documentation</a></li>
+<li><a href="#drone-demos-tips-tricks-and-how-to-s:eeec64a56683fa9f8fe8fb5a52c2576e">Drone Demos, Tips, Tricks, and How-To&rsquo;s</a></li>
+</ul>
+</nav>
+						
+						</nav>
+						<section>
+
+<p>If you&rsquo;d like to contribute to Drone, there is much to be done, regardless of
+ skillset. Please read onward and jump in if any of this looks interesting to
+  you. If you&rsquo;d like some guidance in getting started, please stop by our
+  <a href="https://discuss.drone.io/c/development">Development category</a> on the Drone
+   Discussion site. You can also introduce yourself in our <a href="https://gitter.im/drone/drone">Gitter room</a>.</p>
+
+<h1 id="drone-core:eeec64a56683fa9f8fe8fb5a52c2576e">Drone Core</h1>
+
+<p>The core Drone daemon is written in Go and developed in the open on GitHub.
+Head over to our <a href="https://github.com/drone/drone">drone/drone repository</a>
+there and take a look at the README for details on how to get started. Fork
+the project, make your changes, and send in a pull request.</p>
+
+<h1 id="drone-plugins:eeec64a56683fa9f8fe8fb5a52c2576e">Drone Plugins</h1>
+
+<p>Since we push most of the build logic out into plugins, the vast majority of
+our work ends up being focused here. Everything from cloning the source
+before a build to sending a Slack notification afterwards is done with a
+plugin.</p>
+
+<p>All of our official plugins reside in the <a href="https://github
+.com/drone-plugins">drone-plugins</a> GitHub organization. Feel free to look through what we
+have there (or on our <a href="../../plugins">plugins list</a>) and fork/PR away.</p>
+
+<p>If you have a plugin of your own that you&rsquo;d like to contribute, toss a post
+up on our <a href="https://discuss.drone.io/c/development">Development category</a> on
+the Drone Discussion site and let us know what you&rsquo;ve got.</p>
+
+<h1 id="drone-ui-and-design:eeec64a56683fa9f8fe8fb5a52c2576e">Drone UI and Design</h1>
+
+<p>This is an area that we are always eager to get help with. If you&rsquo;d like to
+contribute on the design or UI front, head over to the <a href="https://github.com/drone/drone-ui">drone/drone-ui</a> project and take a look.</p>
+
+<h1 id="drone-documentation:eeec64a56683fa9f8fe8fb5a52c2576e">Drone Documentation</h1>
+
+<p>We place a very high value on having excellent documentation. No contribution
+ is too small, and we&rsquo;d love to have your input on what we do (and don&rsquo;t)
+ have. Head over to the <a href="https://github.com/drone/docs">drone/docs</a>
+ repository and send pull requests our way.</p>
+
+<h1 id="drone-demos-tips-tricks-and-how-to-s:eeec64a56683fa9f8fe8fb5a52c2576e">Drone Demos, Tips, Tricks, and How-To&rsquo;s</h1>
+
+<p>For many people, learning is best done by example. Submissions in here are a
+great way for new contributors to get started. On the flipside, our
+experienced community members have a lot to offer in sharing what they&rsquo;ve
+learned.</p>
+
+<p>The <a href="https://github.com/drone-demos">drone-demos</a> GitHub organization has a
+number of repositories containing example projects that build with Drone. We
+are <em>always</em> on the lookout for more of these. We&rsquo;d suggest working on your
+example repo separately, then post to the <a href="https://discuss.drone.io/c/development">Development</a> Discussion site category when you are
+ready. We can help you get it moved over to the drone-demos GitHub
+organization and/or added as an org member.</p>
+
+<p>Another way to contribute example material is via the <a href="https://discuss.drone.io/c/how-tos">Tips, Tricks, and
+How-To&rsquo;s</a> Discussion site category. Most
+of the stuff in drome-demos will end up with a topic here, but we also would
+like more bite-sized examples of how to do things. For example, &ldquo;<a href="https://discuss.drone
+.io/t/publishing-docker-images-to-quay-io/33/1">Publishing
+Docker images to Quay.io</a>&rdquo;. These are short, concise
+examples that are still valuable to have on file.</p>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								<li>
+									<a href="/community/overview/" class="">Community</a>
+								</li>
+								
+								<li>
+									<a href="/community/contributors_guide/" class=" current-item">Contributor&#39;s Guide</a>
+								</li>
+								
+								<li>
+									<a href="http://blog.drone.io">
+										Blog
+									</a>
+								</li>
+								<li>
+									<a href="https://twitter.com/droneio">
+										Twitter
+									</a>
+								</li>
+								<li>
+									<a href="http://discuss.drone.io/">
+										Discussion Site
+									</a>
+								</li>
+								<li>
+									<a href="https://github.com/drone/drone/issues">
+										Issue Tracker
+									</a>
+								</li>
+								<li>
+									<a href="https://gitter.im/drone/drone">
+										Gitter
+									</a>
+								</li>
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

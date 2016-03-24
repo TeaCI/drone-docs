@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Caching · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview" class="current-item">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main>
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>Caching</h1>
+						<nav id="TableOfContents">
+						
+						<nav id="TableOfContents">
+<ul>
+<li><a href="#overview:ac010da762d8cf87ef4765b457c06928">Overview</a></li>
+<li><a href="#branches-and-matrix:ac010da762d8cf87ef4765b457c06928">Branches and Matrix</a></li>
+<li><a href="#pull-requests:ac010da762d8cf87ef4765b457c06928">Pull Requests</a></li>
+<li><a href="#deleting-the-cache:ac010da762d8cf87ef4765b457c06928">Deleting the Cache</a></li>
+<li><a href="#distributed-cache:ac010da762d8cf87ef4765b457c06928">Distributed Cache</a></li>
+<li><a href="#common-issues:ac010da762d8cf87ef4765b457c06928">Common Issues</a></li>
+</ul>
+</nav>
+						
+						</nav>
+						<section>
+
+<h1 id="overview:ac010da762d8cf87ef4765b457c06928">Overview</h1>
+
+<p>Drone allows you to cache directories within the build workspace (inside the <code>/drone</code> volume). When a build successfully completes, the named directories are gzipped and stored on the host machine. When a new build starts, the named directories are restored from the gzipped files. This can be used to improve the performance of your builds.</p>
+
+<p>Example configuration to cache the <code>.git</code> and the <code>node_modules</code> directory:</p>
+
+<pre><code class="language-yaml">---
+cache:
+  mount:
+    - node_modules
+    - .git
+</code></pre>
+
+<h1 id="branches-and-matrix:ac010da762d8cf87ef4765b457c06928">Branches and Matrix</h1>
+
+<p>Drone keeps a separate cache for each Branch and Matrix combination. Let’s say, for example, you are using matrix builds to test node <code>0.11.x</code> and node <code>0.12.x</code> and you are caching <code>node_modules</code>. Drone will separately cache <code>node_modules</code> for each version of node.</p>
+
+<h1 id="pull-requests:ac010da762d8cf87ef4765b457c06928">Pull Requests</h1>
+
+<p>Pull requests have read-only access to the cache. This means pull requests are not permitted to re-build the cache. This is done for security and stability purposes, to prevent a pull request from corrupting your cache.</p>
+
+<h1 id="deleting-the-cache:ac010da762d8cf87ef4765b457c06928">Deleting the Cache</h1>
+
+<p>There is currently no mechanism to automatically delete or flush the cache. This must be done manually, on each worker node. The cache is located in <code>/var/lib/drone/cache/</code>.</p>
+
+<h1 id="distributed-cache:ac010da762d8cf87ef4765b457c06928">Distributed Cache</h1>
+
+<p>This is outside the scope of Drone. You may, for example, use a distributed filesystem such as <code>ceph</code> or <code>gluster</code> mounted to <code>/var/lib/drone/cache/</code> to share the cache across nodes.</p>
+
+<h1 id="common-issues:ac010da762d8cf87ef4765b457c06928">Common Issues</h1>
+
+<p>The most common issue occurs when you try to cache files or folders that are not children of the <code>/drone</code> volume. The below example <strong>will not work</strong>:</p>
+
+<pre><code class="language-yaml">---
+cache:
+  mount:
+    - /root/node_modules
+    - /usr/lib/python3.2/site-packages
+</code></pre>
+
+<p>You should instead only cache directories in <code>/drone</code>:</p>
+
+<pre><code class="language-yaml">---
+cache:
+  mount:
+    - /drone/node_modules
+    - /drone/site-packages
+</code></pre>
+
+<p>To work around this limitation we can cache files or folders in <code>/drone</code> and copy they to the expected location at the start of the build, and then copy them back to <code>/drone</code> at the end fo the build:</p>
+
+<pre><code class="language-yaml">---
+build:
+  image: node
+  commands:
+    - cp -a /drone/node_modules /root
+    - rm -rf /drone/node_modules
+    - npm -g install
+    - npm run build
+    - npm run tests
+    - cp -a /root/node_modules /drone
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								<li>
+									<a href="/usage/overview/" class="">Quick Start</a>
+								</li>
+								
+								<li>
+									<a href="/usage/variables/" class="">Variables</a>
+								</li>
+								
+								<li>
+									<a href="/usage/secrets/" class="">Secrets</a>
+								</li>
+								
+								<li>
+									<a href="/usage/cloning/" class="">Cloning</a>
+								</li>
+								
+								<li>
+									<a href="/usage/caching/" class=" current-item">Caching</a>
+								</li>
+								
+								<li>
+									<a href="/usage/services/" class="">Service Containers</a>
+								</li>
+								
+								<li>
+									<a href="/usage/build_test/" class="">Build &amp; Test</a>
+								</li>
+								
+								<li>
+									<a href="/usage/deploy/" class="">Deployments</a>
+								</li>
+								
+								<li>
+									<a href="/usage/notify/" class="">Notifications</a>
+								</li>
+								
+								<li>
+									<a href="/usage/matrix/" class="">Matrix</a>
+								</li>
+								
+								<li>
+									<a href="/usage/artifacts/" class="">Publishing Artifacts</a>
+								</li>
+								
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

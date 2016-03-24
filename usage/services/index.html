@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Service Containers · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview" class="current-item">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main>
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>Service Containers</h1>
+						<nav id="TableOfContents">
+						
+						<nav id="TableOfContents">
+<ul>
+<li><a href="#overview:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Overview</a></li>
+<li><a href="#images:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Images</a></li>
+<li><a href="#workspace:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Workspace</a></li>
+<li><a href="#networking:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Networking</a></li>
+<li><a href="#linking:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Linking</a></li>
+<li><a href="#environment:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Environment</a></li>
+<li><a href="#volumes:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Volumes</a></li>
+<li><a href="#devices:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Devices</a></li>
+<li><a href="#privileged-mode:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Privileged Mode</a></li>
+<li><a href="#docker-compose:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Docker Compose</a></li>
+<li><a href="#docker-in-docker:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Docker in Docker</a></li>
+<li><a href="#examples:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Examples</a></li>
+</ul>
+</nav>
+						
+						</nav>
+						<section>
+
+<h1 id="overview:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Overview</h1>
+
+<p>Drone uses the <code>compose</code> section of the <code>.drone.yml</code> to specify supporting containers (ie service containers) that should be started and linked to your build container. The <code>compose</code> section of the <code>.drone.yml</code> is modeled after the <code>docker-compose.yml</code>:</p>
+
+<pre><code class="language-yaml">---
+compose:
+  [container_name:]
+    image: [image_name]
+    [options]
+</code></pre>
+
+<p>Example configuration that composes a Postgres and Redis container:</p>
+
+<pre><code class="language-yaml">---
+compose:
+  cache:
+    image: redis
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+</code></pre>
+
+<h1 id="images:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Images</h1>
+
+<p>Drone supports any valid Docker image from any Docker registry:</p>
+
+<pre><code class="language-yaml">---
+image: postgres
+image: postgres:9.2
+image: library/postgres:9.2
+image: index.docker.io/library/postgres:9.2
+</code></pre>
+
+<p>Provide your registry credentials if your service container image is private:</p>
+
+<pre><code class="language-yaml">---
+compose:
+  database:
+    image: myrepo/customdb:latest
+    auth_config:
+      username: octocat
+      password: password
+</code></pre>
+
+<p>Use the <code>pull</code> attribute to instruct Drone to always pull the latest Docker image. This helps ensure you are always testing your code against the latest image:</p>
+
+<pre><code class="language-yaml">---
+compose:
+  database:
+    image: postgres
+    pull: true
+</code></pre>
+
+<h1 id="workspace:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Workspace</h1>
+
+<p>The build workspace is automatically mounted into each service container in the <code>/drone/src/&lt;repository&gt;</code> directory inside the <code>/drone</code> volume.
+If needed, this provides access to the source code and build artifacts.</p>
+
+<p>Here is an example when using Github:</p>
+
+<pre><code>  /drone/src/github.com/octocat/hello-world
+</code></pre>
+
+<p>See also: <a href="../build_test/#workspace:fb92aa3346185c57f15afda861d465a3">Build &amp; Test</a></p>
+
+<h1 id="networking:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Networking</h1>
+
+<p>Service containers are available at the <code>localhost</code> or <code>127.0.0.1</code> address.</p>
+
+<p>Drone deviates from the default Docker compose networking model to mirror a traditional development environment, where services are typically accessed at <code>localhost</code> or <code>127.0.0.1</code>. To achieve this, we create a per-build network where all containers share the same network and IP address.</p>
+
+<h1 id="linking:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Linking</h1>
+
+<p>Please see the above networking section &ndash; because your build and service containers share the same network linking is not possible. Instead you may access your services at <code>127.0.0.1</code> similar to a traditional, local development environment.</p>
+
+<h1 id="environment:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Environment</h1>
+
+<p>Use the environment section to pass environment variables to your service containers. Many database images, including the official postgres and mysql images, use environment variables to configure the database on startup.</p>
+
+<pre><code class="language-yaml">---
+compose:
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+</code></pre>
+
+<h1 id="volumes:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Volumes</h1>
+
+<p>Use the <code>volumes</code> attribute to mount folders on your host machine into your service container. These are <a href="https://docs.docker.com/engine/userguide/dockervolumes/">Docker volumes</a> and therefore use the same <code>&lt;host&gt;:&lt;container&gt;</code> declaration conventions:</p>
+
+<pre><code class="language-yaml">---
+compose:
+  database:
+    image: postgres
+    volumes:
+      - /some/path/on/host:/path/in/container
+</code></pre>
+
+<p>For security reasons this option is only available to trusted repositories. Trusted repositories are enabled on a per-repository basis by a Drone administrator from your repository settings screen.</p>
+
+<h1 id="devices:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Devices</h1>
+
+<p>Use the <code>devices</code> attribute to map devices from your host machine into your service container. These are <a href="https://docs.docker.com/compose/compose-file/#devices">Docker devices</a> and therefore use the same declaration conventions:</p>
+
+<pre><code class="language-yaml">---
+compose:
+  database:
+    image: postgres
+    devices:
+      - &quot;/dev/ttyUSB0:/dev/ttyUSB0&quot;
+</code></pre>
+
+<p>For security reasons this option is only available to trusted repositories. Trusted repositories are enabled on a per-repository basis by a Drone administrator from your repository settings screen.</p>
+
+<h1 id="privileged-mode:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Privileged Mode</h1>
+
+<p>Use the privileged attribute to run your service in a privileged Docker container:</p>
+
+<pre><code class="language-yaml">---
+compose:
+  dind:
+    image: docker:dind
+    privileged: true
+</code></pre>
+
+<p>For security reasons this option is only available to trusted repositories. Trusted repositories are enabled on a per-repository basis by a Drone administrator from your repository settings screen.</p>
+
+<h1 id="docker-compose:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Docker Compose</h1>
+
+<p>You should think of the <code>.drone.yml</code> as a competing format to the <code>docker-compose.yml</code> that specializes in testing and build pipelines. We encourage you to embrace the <code>.drone.yml</code> for testing instead of trying to hack together a homegrown solution with a <code>docker-compose.yml</code>.</p>
+
+<p>Using a <code>docker-compose.yml</code> is possible but will require direct access to a Docker daemon. Drone does not expose a Docker daemon to your build by default for security reasons. You can provide access to a Docker daemon by mounting the host machines Docker socket as a <a href="#volumes:bfc9941b6b6fd7b4ef09dd0ccd08af0c">volume</a> or by running <a href="#docker-in-docker:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Docker in Docker</a> as a service container.</p>
+
+<h1 id="docker-in-docker:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Docker in Docker</h1>
+
+<p>TODO</p>
+
+<h1 id="examples:bfc9941b6b6fd7b4ef09dd0ccd08af0c">Examples</h1>
+
+<p>TODO</p>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								<li>
+									<a href="/usage/overview/" class="">Quick Start</a>
+								</li>
+								
+								<li>
+									<a href="/usage/variables/" class="">Variables</a>
+								</li>
+								
+								<li>
+									<a href="/usage/secrets/" class="">Secrets</a>
+								</li>
+								
+								<li>
+									<a href="/usage/cloning/" class="">Cloning</a>
+								</li>
+								
+								<li>
+									<a href="/usage/caching/" class="">Caching</a>
+								</li>
+								
+								<li>
+									<a href="/usage/services/" class=" current-item">Service Containers</a>
+								</li>
+								
+								<li>
+									<a href="/usage/build_test/" class="">Build &amp; Test</a>
+								</li>
+								
+								<li>
+									<a href="/usage/deploy/" class="">Deployments</a>
+								</li>
+								
+								<li>
+									<a href="/usage/notify/" class="">Notifications</a>
+								</li>
+								
+								<li>
+									<a href="/usage/matrix/" class="">Matrix</a>
+								</li>
+								
+								<li>
+									<a href="/usage/artifacts/" class="">Publishing Artifacts</a>
+								</li>
+								
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

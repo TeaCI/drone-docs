@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on Drone</title>
+    <link>http://docs.tea-ci.org/tags/python/</link>
+    <description>Recent content in Python on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 09:02:17 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>devpi</title>
+      <link>http://docs.tea-ci.org/plugins/devpi/</link>
+      <pubDate>Sat, 13 Feb 2016 09:02:17 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/devpi/</guid>
+      <description>&lt;p&gt;Use the devpi plugin to deploy a Python package to a &lt;a href=&#34;http://doc.devpi.net&#34;&gt;devpi&lt;/a&gt; server.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note: Your setup.py will be ran interpreted Python 3.5 during packaging.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;server&lt;/code&gt; - The full path to the root of the devpi server. Make sure to include a port if it&amp;rsquo;s not 80 or 443.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;index&lt;/code&gt; - The &lt;code&gt;&amp;lt;user&amp;gt;/&amp;lt;repo&amp;gt;&lt;/code&gt; combo pointing of the index to upload to.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;username&lt;/code&gt; - The username to login with.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - A password to login with.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is an example configuration for your .drone.yml:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  devpi:
+    server: http://devpi.bigco.com:3141/
+    index: root/production
+    username: guido
+    password: secret
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Pypi</title>
+      <link>http://docs.tea-ci.org/plugins/pypi/</link>
+      <pubDate>Sat, 13 Feb 2016 08:59:44 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/pypi/</guid>
+      <description>&lt;p&gt;Use the PyPI plugin to deploy a Python package to a PyPI server.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;repository&lt;/code&gt; - The repository name (optional)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;username&lt;/code&gt; - The username to login with (optional)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - A password to login with (optional)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;distributions&lt;/code&gt; - A list of distribution types to deploy (optional)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is an example configuration for your .drone.yml:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  pypi:
+    repository: https://pypi.python.org/pypi
+    username: guido
+    password: secret
+    distributions:
+      - sdist
+      - bdist_wheel
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

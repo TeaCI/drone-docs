@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>S3 · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Publish files and artifacts to Amazon S3" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins" class="current-item">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="plugins">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1 class="plugin-header"><img src="/logos/s3.svg" /> S3 Plugin</h1>
+						<section><p>Use the S3 plugin to upload files and build artifacts to an S3 bucket. The following parameters are used to configure this plugin:</p>
+
+<ul>
+<li><strong>access_key</strong> - amazon key (optional)</li>
+<li><strong>secret_key</strong> - amazon secret key (optional)</li>
+<li><strong>bucket</strong> - bucket name</li>
+<li><strong>region</strong> - bucket region (<code>us-east-1</code>, <code>eu-west-1</code>, etc)</li>
+<li><strong>acl</strong> - access to files that are uploaded (<code>private</code>, <code>public-read</code>, etc)</li>
+<li><strong>source</strong> - location of files to upload</li>
+<li><strong>target</strong> - target location of files in your S3 bucket</li>
+<li><strong>recursive</strong> - if true, recursively upload files</li>
+</ul>
+
+<p>The following is a sample Slack configuration in your .drone.yml file:</p>
+
+<pre><code class="language-yaml">publish:
+  s3:
+    acl: public-read
+    region: &quot;us-east-1&quot;
+    bucket: &quot;my-bucket-name&quot;
+    access_key: &quot;970d28f4dd477bc184fbd10b376de753&quot;
+    secret_key: &quot;9c5785d3ece6a9cdefa42eb99b58986f9095ff1c&quot;
+    source: files/to/archive
+    target: /target/location
+    recursive: true
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<h3>Plugin Links</h3>
+							
+							<ul class='list-unstyled side-nav'>
+								<li>
+									<a href="http://discuss.drone.io/c/help">
+										Get Help
+									</a>
+								</li>
+								<li>
+									<a href="https://github.com/drone-plugins/drone-s3/">
+										Source Code
+									</a>
+								</li>
+								<li>
+									<a href="https://hub.docker.com/r/plugins/drone-s3/">
+										Docker Image
+									</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

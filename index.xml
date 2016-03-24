@@ -1,0 +1,1127 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Drone</title>
+    <link>http://docs.tea-ci.org/</link>
+    <description>Recent content on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Feb 2016 08:37:52 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ContainerShip</title>
+      <link>http://docs.tea-ci.org/plugins/containership/</link>
+      <pubDate>Sun, 21 Feb 2016 08:37:52 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/containership/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deploying an application to &lt;a href=&#34;https://containership.io&#34;&gt;ContainerShip&lt;/a&gt;.
+You can override the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;organization&lt;/code&gt; - Your ContainerShip organization&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;api_key&lt;/code&gt; - Your ContainerShip organization API Key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cluster_id&lt;/code&gt; - ID of your ContainerShip cluster&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;application&lt;/code&gt; - Name of the application, defaults to repo name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;image&lt;/code&gt; - Docker image to use, including tag (&lt;code&gt;MyOrg/MyImage:latest&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:585fa95088acd0a452345965d35423ae&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  containership:
+    organization: MyContainerShipOrganization
+    api_key: abcdef1234567890
+    cluster_id: abcdef1234567890
+    application: my-app-name
+    image: MyOrg/MyImage:latest
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Terraform</title>
+      <link>http://docs.tea-ci.org/plugins/terraform/</link>
+      <pubDate>Sun, 21 Feb 2016 08:37:46 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/terraform/</guid>
+      <description>
+
+&lt;p&gt;Use the Terraform plugin to apply the infrastructure configuration contained within the repository. The following parameters are used to configure this plugin:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;plan&lt;/code&gt; - if true, calculates a plan but does &lt;strong&gt;NOT&lt;/strong&gt; apply it.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;remote&lt;/code&gt; - contains the configuration for the Terraform remote state tracking.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;backend&lt;/code&gt; - the Terraform remote state backend to use.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;config&lt;/code&gt; - a map of configuration parameters for the remote state backend. Each value is passed as a &lt;code&gt;-backend-config=&amp;lt;key&amp;gt;=&amp;lt;value&amp;gt;&lt;/code&gt; option.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;vars&lt;/code&gt; - a map of variables to pass to the Terraform &lt;code&gt;plan&lt;/code&gt; and &lt;code&gt;apply&lt;/code&gt; commands. Each value is passed as a &lt;code&gt;-var
+&amp;lt;key&amp;gt;=&amp;lt;value&amp;gt;&lt;/code&gt; option.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ca_cert&lt;/code&gt; - ca cert to add to your environment to allow terraform to use internal/private resources&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sensitive&lt;/code&gt; (default: &lt;code&gt;false&lt;/code&gt;) - Whether or not to suppress terraform commands to stdout.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample Terraform configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  terraform:
+    plan: false
+    remote:
+      backend: S3
+      config:
+        bucket: my-terraform-config-bucket
+        key: tf-states/my-project
+        region: us-east-1
+    vars:
+      app_name: my-project
+      app_version: 1.0.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;advanced-configuration:c7e4204570a5d4c4ebde5f04b26ae8dc&#34;&gt;Advanced Configuration&lt;/h1&gt;
+
+&lt;h2 id=&#34;ca-certs:c7e4204570a5d4c4ebde5f04b26ae8dc&#34;&gt;CA Certs&lt;/h2&gt;
+
+&lt;p&gt;You may want to run terraform against internal resources, like an internal
+OpenStack deployment.  Usually these resources are signed by an internal
+CA Certificate.  You can inject your CA Certificate into the plugin by using
+&lt;code&gt;ca_certs&lt;/code&gt; key as described above.  Below is an example.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  terraform:
+    plan: false
+    remote:
+      backend: swift
+      config:
+        path: drone/terraform
+    vars:
+      app_name: my-project
+      app_version: 1.0.0
+    ca_cert: |
+      -----BEGIN CERTIFICATE-----
+      asdfsadf
+      asdfsadf
+      -----END CERTIFICATE-----
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;suppress-sensitive-output:c7e4204570a5d4c4ebde5f04b26ae8dc&#34;&gt;Suppress Sensitive Output&lt;/h2&gt;
+
+&lt;p&gt;You may be passing sensitive vars to your terraform commands.  If you do not want
+the terraform commands to display in your drone logs then set &lt;code&gt;sensitive&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;.
+The output from the commands themselves will still display, it just won&amp;rsquo;t show
+want command is actually being ran.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  terraform:
+    plan: false
+    sensitive: true
+    remote:
+      backend: S3
+      config:
+        bucket: my-terraform-config-bucket
+        key: tf-states/my-project
+        region: us-east-1
+      vars:
+        app_name: my-project
+        app_version: 1.0.0
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>ECR</title>
+      <link>http://docs.tea-ci.org/plugins/ecr/</link>
+      <pubDate>Sun, 21 Feb 2016 08:37:26 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/ecr/</guid>
+      <description>
+
+&lt;p&gt;Use the Docker plugin to build and push Docker images to an AWS Elastic Container Registry.
+The following parameters are used to configure this plugin:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - authenticates with this username&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - authenticates with this password&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;region&lt;/code&gt; - authenticates with this email&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;repo&lt;/code&gt; - repository name for the image&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tag&lt;/code&gt; - repository tag for the image&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;force_tag&lt;/code&gt; - replace existing matched image tags&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;create_repository&lt;/code&gt; - automatically create repository in ECR&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mirror&lt;/code&gt; - use a mirror registry instead of pulling images directly from the central Hub&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bip&lt;/code&gt; - use for pass bridge ip&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;storage_driver&lt;/code&gt; - use &lt;code&gt;aufs&lt;/code&gt;, &lt;code&gt;devicemapper&lt;/code&gt;, &lt;code&gt;btrfs&lt;/code&gt; or &lt;code&gt;overlay&lt;/code&gt; driver&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;save&lt;/code&gt; - save image layers to the specified tar file (see &lt;a href=&#34;https://docs.docker.com/engine/reference/commandline/save/&#34;&gt;docker save&lt;/a&gt;)
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;destination&lt;/code&gt; - absolute / relative destination path&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tag&lt;/code&gt; - cherry-pick tags to save (optional)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;load&lt;/code&gt; - restore image layers from the specified tar file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;build_args&lt;/code&gt; - &lt;a href=&#34;https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables-build-arg&#34;&gt;build arguments&lt;/a&gt; to pass to &lt;code&gt;docker build&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample Docker configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  ecr:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    tag: latest
+    file: Dockerfile
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You may want to dynamically tag your image. Use the &lt;code&gt;$$BRANCH&lt;/code&gt;, &lt;code&gt;$$COMMIT&lt;/code&gt; and &lt;code&gt;$$BUILD_NUMBER&lt;/code&gt; variables to tag your image with the branch, commit sha or build number:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  ecr:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    tag: $$BRANCH
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or you may prefer to build an image with multiple tags:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  ecr:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    tag:
+      - latest
+      - &amp;quot;1.0.1&amp;quot;
+      - &amp;quot;1.0&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that in the above example we quote the version numbers. If the yaml parser interprets the value as a number it will cause a parsing error.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s also possible to pass build arguments to docker:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  ecr:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    build_args:
+      - HTTP_PROXY=http://yourproxy.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;layer-caching:0c23c8ffedfa36132711a1d77a3f0542&#34;&gt;Layer Caching&lt;/h2&gt;
+
+&lt;p&gt;The Drone build environment is, by default, ephemeral meaning that you layers are not saved between builds. The below example combines Drone&amp;rsquo;s caching feature and Docker&amp;rsquo;s &lt;code&gt;save&lt;/code&gt; and &lt;code&gt;load&lt;/code&gt; capabilities to cache and restore image layers between builds:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  erc:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    tag:
+      - latest
+      - &amp;quot;1.0.1&amp;quot;
+    load: docker/image.tar
+    save:
+      destination: docker/image.tar
+      tag: latest
+
+cache:
+  mount:
+    - docker/image.tar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You might also want to create a &lt;code&gt;.dockerignore&lt;/code&gt; file in your repo to exclude &lt;code&gt;image.tar&lt;/code&gt; from Docker build context:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;docker/*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In some cases caching will greatly improve build performance, however, the tradeoff is that caching Docker image layers may consume very large amounts of disk space.&lt;/p&gt;
+
+&lt;h2 id=&#34;troubleshooting:0c23c8ffedfa36132711a1d77a3f0542&#34;&gt;Troubleshooting&lt;/h2&gt;
+
+&lt;p&gt;For detailed output you can set the &lt;code&gt;DOCKER_LAUNCH_DEBUG&lt;/code&gt; environment variable in your plugin configuration. This starts Docker with verbose logging enabled.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  docker:
+    environment:
+      - DOCKER_LAUNCH_DEBUG=true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;known-issues:0c23c8ffedfa36132711a1d77a3f0542&#34;&gt;Known Issues&lt;/h2&gt;
+
+&lt;p&gt;There are known issues when attempting to run this plugin on CentOS, RedHat, and Linux installations that do not have a supported storage driver installed. You can check by running &lt;code&gt;docker info | grep &#39;Storage Driver:&#39;&lt;/code&gt; on your host machine. If the storage driver is not &lt;code&gt;aufs&lt;/code&gt; or &lt;code&gt;overlay&lt;/code&gt; you will need to re-configure your host machine.&lt;/p&gt;
+
+&lt;p&gt;This error occurs when trying to use the default &lt;code&gt;aufs&lt;/code&gt; storage Driver but aufs is not installed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;level=fatal msg=&amp;quot;Error starting daemon: error initializing graphdriver: driver not supported
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This error occurs when trying to use the &lt;code&gt;overlay&lt;/code&gt; storage Driver but overlay is not installed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;level=error msg=&amp;quot;&#39;overlay&#39; not found as a supported filesystem on this host.
+Please ensure kernel is new enough and has overlay support loaded.&amp;quot;
+level=fatal msg=&amp;quot;Error starting daemon: error initializing graphdriver: driver not supported&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This error occurs when using CentOS or RedHat which default to the &lt;code&gt;devicemapper&lt;/code&gt; storage driver:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;level=error msg=&amp;quot;There are no more loopback devices available.&amp;quot;
+level=fatal msg=&amp;quot;Error starting daemon: error initializing graphdriver: loopback mounting failed&amp;quot;
+Cannot connect to the Docker daemon. Is &#39;docker -d&#39; running on this host?
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above issue can be resolved by setting &lt;code&gt;storage_driver: vfs&lt;/code&gt; in the &lt;code&gt;.drone.yml&lt;/code&gt; file. This may work, but will have very poor performance as discussed &lt;a href=&#34;https://github.com/rancher/docker-from-scratch/issues/20&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Webhook</title>
+      <link>http://docs.tea-ci.org/plugins/webhook/</link>
+      <pubDate>Sun, 21 Feb 2016 08:35:14 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/webhook/</guid>
+      <description>
+
+&lt;p&gt;Use the Webhook plugin to notify services via Webhook when a build completes.
+You will need to supply Drone with outgoing Webhook URLs. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;urls&lt;/code&gt; - JSON payloads are sent to each URL&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;method&lt;/code&gt; - HTTP request method. Defaults to &lt;code&gt;POST&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;header&lt;/code&gt; - HTTP request header map&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:95424174b467660d9d29374c13638004&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  webhook:
+    urls:
+      - https://your.webhook/...
+      - https://your.other.webhook/...
+    header:
+      Authorization: pa55word
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;custom-body:95424174b467660d9d29374c13638004&#34;&gt;Custom Body&lt;/h3&gt;
+
+&lt;p&gt;In some cases you may want to submit a custom payload in the body of your hook.
+For the use case we expose the following additional parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;template&lt;/code&gt; - Handlebars template to create a custom payload body. See &lt;a href=&#34;http://handlebarsjs.com/&#34;&gt;docs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;content_type&lt;/code&gt; - HTTP request content type&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Example configuration that generate a custom Yaml payload:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  webhook:
+    urls:
+      - https://your.webhook/...
+      - https://your.other.webhook/...
+    content_type: application/yaml
+    template: &amp;gt;
+      repo: {{repo.full_name}}
+      build: {{build.number}}
+      commit: {{build.commit}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;basic-authentication:95424174b467660d9d29374c13638004&#34;&gt;Basic Authentication&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;It is important to note that with HTTP Basic Authentication the provided
+username and password are not encrypted.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In some cases your webhook may need to authenticate with another service. You
+can set the basic &lt;code&gt;Authentication&lt;/code&gt; header with a username and password. For
+these use cases we expose the following additional parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;auth&lt;/code&gt; - Sets the request&amp;rsquo;s &lt;code&gt;Authorization&lt;/code&gt; header to use HTTP Basic Authentication with the provided username and password below
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;username&lt;/code&gt; - The username as a string&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - The password as a string&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Example configuration to include HTTP Basic Authentication:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  webhook:
+    method: POST
+    auth:
+      username: $$USERNAME
+      password: $$PASSWORD
+    urls:
+      - https://tower.example.com/...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;debugging-webhooks:95424174b467660d9d29374c13638004&#34;&gt;Debugging Webhooks&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;If you have private variables that are encrypted and hidden in &lt;code&gt;.drone.sec&lt;/code&gt;,
+remember that the &lt;code&gt;debug&lt;/code&gt; flag may print out those sensitive values. Please
+use &lt;code&gt;debug: true&lt;/code&gt; wisely.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In some cases complicated webhooks may need debugging to ensure &lt;code&gt;urls&lt;/code&gt;,
+&lt;code&gt;template&lt;/code&gt;, &lt;code&gt;auth&lt;/code&gt; and more a properly configured. For these use cases we expose
+the following &lt;code&gt;debug&lt;/code&gt; parameter:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;debug&lt;/code&gt; - If &lt;code&gt;true&lt;/code&gt; it will print out each URL request and response information&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Example configuration to include the &lt;code&gt;debug&lt;/code&gt; parameter:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  webhook:
+    debug: true
+    method: POST
+    auth:
+      username: $$TOWER_USER
+      password: $$TOWER_PASS
+    urls:
+      - http://tower.example.com/api/v1/job_templates/44/launch/
+      - http://tower.example.com/api/v1/job_templates/45/launch/
+      content_type: application/json
+      template: &#39;{&amp;quot;name&amp;quot;: &amp;quot;project.deploy&amp;quot;,&amp;quot;extra_vars&amp;quot;: &amp;quot;{\&amp;quot;env\&amp;quot;: \&amp;quot;dev\&amp;quot;,\&amp;quot;git_branch\&amp;quot;: \&amp;quot;{{ build.branch }}\&amp;quot;,\&amp;quot;hipchat_token\&amp;quot;: \&amp;quot;$$HIPCHAT_TOKEN\&amp;quot;}&amp;quot;}&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example of a debug print result:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[debug] Webhook 1
+  URL: http://tower.example.com/api/v1/job_templates/44/launch/
+  METHOD: POST
+  HEADERS: map[Content-Type:[application/json] Authorization:[Basic EMfNB3fakB8EMfNB3fakB8==]]
+  REQUEST BODY: {&amp;quot;name&amp;quot;: &amp;quot;project.deploy&amp;quot;,&amp;quot;extra_vars&amp;quot;: &amp;quot;{\&amp;quot;env\&amp;quot;: \&amp;quot;dev\&amp;quot;,\&amp;quot;git_branch\&amp;quot;: \&amp;quot;develop\&amp;quot;,\&amp;quot;hipchat_token\&amp;quot;: \&amp;quot;h1pchatT0k3n\&amp;quot;}&amp;quot;}
+  RESPONSE STATUS: 202 ACCEPTED
+  RESPONSE BODY: {&amp;quot;job&amp;quot;: 236}
+
+[debug] Webhook 2
+  URL: http://tower.example.com/api/v1/job_templates/45/launch/
+  METHOD: POST
+  HEADERS: map[Content-Type:[application/json] Authorization:[Basic EMfNB3fakB8EMfNB3fakB8==]]
+  REQUEST BODY: {&amp;quot;name&amp;quot;: &amp;quot;project.deploy&amp;quot;,&amp;quot;extra_vars&amp;quot;: &amp;quot;{\&amp;quot;env\&amp;quot;: \&amp;quot;dev\&amp;quot;,\&amp;quot;git_branch\&amp;quot;: \&amp;quot;develop\&amp;quot;,\&amp;quot;hipchat_token\&amp;quot;: \&amp;quot;h1pchatT0k3n\&amp;quot;}&amp;quot;}
+  RESPONSE STATUS: 202 ACCEPTED
+  RESPONSE BODY: {&amp;quot;job&amp;quot;: 406}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Trigger</title>
+      <link>http://docs.tea-ci.org/plugins/downstream/</link>
+      <pubDate>Sun, 21 Feb 2016 08:35:06 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/downstream/</guid>
+      <description>&lt;p&gt;Use this plugin to trigger builds for a list of downstream repositories. This is useful when updates to a repository have downstream impacts that should also be tested. These are the configuration options:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;repositories&lt;/code&gt; - list of repositories to trigger&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;token&lt;/code&gt; - drone API token from your user setttings&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  downstream:
+    repositories:
+      - octocat/Hello-World
+      - octocat/Spoon-Knife
+    token: e3b0c44298fc1c149afbf4
+    when:
+      event: push
+      branch: master
+      success: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In some cases you may want to trigger specific branches:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;notify:
+  downstream:
+    repositories:
+      - octocat/Hello-World@develop
+      - octocat/Spoon-Knife@master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Please be sure to include the &lt;code&gt;when&lt;/code&gt; section in your &lt;code&gt;.drone.yml&lt;/code&gt; to avoid triggering builds for pull requests, tags and failed builds.&lt;/p&gt;
+
+&lt;p&gt;You can also trigger a new build for a repository using &lt;code&gt;fork: true&lt;/code&gt; :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  downstream:
+    repositories:
+      - octocat/Hello-World
+      - octocat/Spoon-Knife
+    token: e3b0c44298fc1c149afbf4
+    fork: true
+    when:
+      event: push
+      branch: master
+      success: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you want to trigger a drone build on a custom server, you can use the &lt;code&gt;server&lt;/code&gt; argument. Do not forget to include the protocol for it to work.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  downstream:
+    repositories:
+      - octocat/Hello-World
+      - octocat/Spoon-Knife
+    token: e3b0c44298fc1c149afbf4
+    fork: true
+    server: https://ci.exmaple.com
+    when:
+      event: push
+      branch: master
+      success: true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>http://docs.tea-ci.org/plugins/docker/</link>
+      <pubDate>Sun, 21 Feb 2016 08:34:06 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/docker/</guid>
+      <description>
+
+&lt;p&gt;Use the Docker plugin to build and push Docker images to a registry.
+The following parameters are used to configure this plugin:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;registry&lt;/code&gt; - authenticates to this registry&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;username&lt;/code&gt; - authenticates with this username&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - authenticates with this password&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;email&lt;/code&gt; - authenticates with this email&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;repo&lt;/code&gt; - repository name for the image&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tag&lt;/code&gt; - repository tag for the image&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;file&lt;/code&gt; - dockerfile to be used, defaults to Dockerfile&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;auth&lt;/code&gt; - auth token for the registry&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;context&lt;/code&gt; - the context path to use, defaults to root of the git repo&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;force_tag&lt;/code&gt; - replace existing matched image tags&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;insecure&lt;/code&gt; - enable insecure communication to this registry&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mirror&lt;/code&gt; - use a mirror registry instead of pulling images directly from the central Hub&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bip&lt;/code&gt; - use for pass bridge ip&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dns&lt;/code&gt; - set custom dns servers for the container&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;storage_driver&lt;/code&gt; - use &lt;code&gt;aufs&lt;/code&gt;, &lt;code&gt;devicemapper&lt;/code&gt;, &lt;code&gt;btrfs&lt;/code&gt; or &lt;code&gt;overlay&lt;/code&gt; driver&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;save&lt;/code&gt; - save image layers to the specified tar file (see &lt;a href=&#34;https://docs.docker.com/engine/reference/commandline/save/&#34;&gt;docker save&lt;/a&gt;)
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;destination&lt;/code&gt; - absolute / relative destination path&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tag&lt;/code&gt; - cherry-pick tags to save (optional)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;load&lt;/code&gt; - restore image layers from the specified tar file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;build_args&lt;/code&gt; - &lt;a href=&#34;https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables-build-arg&#34;&gt;build arguments&lt;/a&gt; to pass to &lt;code&gt;docker build&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample Docker configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  docker:
+    username: kevinbacon
+    password: pa55word
+    email: kevin.bacon@mail.com
+    repo: foo/bar
+    tag: latest
+    file: Dockerfile
+    insecure: false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You may want to dynamically tag your image. Use the &lt;code&gt;$$BRANCH&lt;/code&gt;, &lt;code&gt;$$COMMIT&lt;/code&gt; and &lt;code&gt;$$BUILD_NUMBER&lt;/code&gt; variables to tag your image with the branch, commit sha or build number:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  docker:
+    username: kevinbacon
+    password: pa55word
+    email: kevin.bacon@mail.com
+    repo: foo/bar
+    tag: $$BRANCH
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or you may prefer to build an image with multiple tags:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  docker:
+    username: kevinbacon
+    password: pa55word
+    email: kevin.bacon@mail.com
+    repo: foo/bar
+    tag:
+      - latest
+      - &amp;quot;1.0.1&amp;quot;
+      - &amp;quot;1.0&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that in the above example we quote the version numbers. If the yaml parser interprets the value as a number it will cause a parsing error.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s also possible to pass build arguments to docker:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  docker:
+    username: kevinbacon
+    password: pa55word
+    email: kevin.bacon@mail.com
+    repo: foo/bar
+    build_args:
+      - HTTP_PROXY=http://yourproxy.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;layer-caching:69e60651f42783a7df723575c4088b5b&#34;&gt;Layer Caching&lt;/h2&gt;
+
+&lt;p&gt;The Drone build environment is, by default, ephemeral meaning that you layers are not saved between builds. The below example combines Drone&amp;rsquo;s caching feature and Docker&amp;rsquo;s &lt;code&gt;save&lt;/code&gt; and &lt;code&gt;load&lt;/code&gt; capabilities to cache and restore image layers between builds:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  docker:
+    username: kevinbacon
+    password: pa55word
+    email: kevin.bacon@mail.com
+    repo: foo/bar
+    tag:
+      - latest
+      - &amp;quot;1.0.1&amp;quot;
+    load: docker/image.tar
+    save:
+      destination: docker/image.tar
+      tag: latest
+
+cache:
+  mount:
+    - docker/image.tar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You might also want to create a &lt;code&gt;.dockerignore&lt;/code&gt; file in your repo to exclude &lt;code&gt;image.tar&lt;/code&gt; from Docker build context:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;docker/*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In some cases caching will greatly improve build performance, however, the tradeoff is that caching Docker image layers may consume very large amounts of disk space.&lt;/p&gt;
+
+&lt;h2 id=&#34;troubleshooting:69e60651f42783a7df723575c4088b5b&#34;&gt;Troubleshooting&lt;/h2&gt;
+
+&lt;p&gt;For detailed output you can set the &lt;code&gt;DOCKER_LAUNCH_DEBUG&lt;/code&gt; environment variable in your plugin configuration. This starts Docker with verbose logging enabled.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  docker:
+    environment:
+      - DOCKER_LAUNCH_DEBUG=true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;known-issues:69e60651f42783a7df723575c4088b5b&#34;&gt;Known Issues&lt;/h2&gt;
+
+&lt;p&gt;There are known issues when attempting to run this plugin on CentOS, RedHat, and Linux installations that do not have a supported storage driver installed. You can check by running &lt;code&gt;docker info | grep &#39;Storage Driver:&#39;&lt;/code&gt; on your host machine. If the storage driver is not &lt;code&gt;aufs&lt;/code&gt; or &lt;code&gt;overlay&lt;/code&gt; you will need to re-configure your host machine.&lt;/p&gt;
+
+&lt;p&gt;This error occurs when trying to use the default &lt;code&gt;aufs&lt;/code&gt; storage Driver but aufs is not installed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;level=fatal msg=&amp;quot;Error starting daemon: error initializing graphdriver: driver not supported
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This error occurs when trying to use the &lt;code&gt;overlay&lt;/code&gt; storage Driver but overlay is not installed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;level=error msg=&amp;quot;&#39;overlay&#39; not found as a supported filesystem on this host.
+Please ensure kernel is new enough and has overlay support loaded.&amp;quot;
+level=fatal msg=&amp;quot;Error starting daemon: error initializing graphdriver: driver not supported&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This error occurs when using CentOS or RedHat which default to the &lt;code&gt;devicemapper&lt;/code&gt; storage driver:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;level=error msg=&amp;quot;There are no more loopback devices available.&amp;quot;
+level=fatal msg=&amp;quot;Error starting daemon: error initializing graphdriver: loopback mounting failed&amp;quot;
+Cannot connect to the Docker daemon. Is &#39;docker -d&#39; running on this host?
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above issue can be resolved by setting &lt;code&gt;storage_driver: vfs&lt;/code&gt; in the &lt;code&gt;.drone.yml&lt;/code&gt; file. This may work, but will have very poor performance as discussed &lt;a href=&#34;https://github.com/rancher/docker-from-scratch/issues/20&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This error occurs when using Debian wheezy or jessie and cgroups memory features are not configured at the kernel level:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;time=&amp;quot;2015-12-17T08:06:57Z&amp;quot; level=debug msg=&amp;quot;Mounting none /sys/fs/cgroup/blkio cgroup blkio&amp;quot;
+time=&amp;quot;2015-12-17T08:06:57Z&amp;quot; level=debug msg=&amp;quot;Mounting none /sys/fs/cgroup/perf_event cgroup perf_event&amp;quot;
+time=&amp;quot;2015-12-17T08:06:57Z&amp;quot; level=debug msg=&amp;quot;Mounting none /sys/fs/cgroup/cpuset cgroup cpuset&amp;quot;
+time=&amp;quot;2015-12-17T08:06:57Z&amp;quot; level=debug msg=&amp;quot;Mounting none /sys/fs/cgroup/cpu,cpuacct cgroup cpu,cpuacct&amp;quot;
+time=&amp;quot;2015-12-17T08:06:57Z&amp;quot; level=debug msg=&amp;quot;Creating /sys/fs/cgroup/memory&amp;quot;
+time=&amp;quot;2015-12-17T08:06:57Z&amp;quot; level=debug msg=&amp;quot;Mounting none /sys/fs/cgroup/memory cgroup memory&amp;quot;
+time=&amp;quot;2015-12-17T08:06:57Z&amp;quot; level=fatal msg=&amp;quot;no such file or directory&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above issue can be resolved by editing your &lt;code&gt;grub.cfg&lt;/code&gt; and adding &lt;code&gt;cgroup_enable=memory swapaccount=1&lt;/code&gt; to you kernel image. This change should look like that afterwards:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;menuentry &#39;Debian GNU/Linux, avec Linux 3.16.0-0.bpo.4-amd64&#39; --class debian --class gnu-linux --class gnu --class os {
+        load_video
+        insmod gzio
+        insmod raid
+        insmod mdraid09
+        insmod part_msdos
+        insmod part_msdos
+        insmod part_msdos
+        insmod ext2
+        set root=&#39;(mduuid/dab6cffad124a3d7a4d2adc226fd5302)&#39;
+        search --no-floppy --fs-uuid --set=root a4085974-c507-4993-a9ed-bdc17e375cad
+        echo    &#39;Chargement de Linux 3.16.0-0.bpo.4-amd64 ...&#39;
+        linux   /boot/vmlinuz-3.16.0-0.bpo.4-amd64 root=/dev/md1 ro  cgroup_enable=memory swapaccount=1 quiet
+        echo    &#39;Chargement du disque mémoire initial ...&#39;
+        initrd  /boot/initrd.img-3.16.0-0.bpo.4-amd64
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>devpi</title>
+      <link>http://docs.tea-ci.org/plugins/devpi/</link>
+      <pubDate>Sat, 13 Feb 2016 09:02:17 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/devpi/</guid>
+      <description>&lt;p&gt;Use the devpi plugin to deploy a Python package to a &lt;a href=&#34;http://doc.devpi.net&#34;&gt;devpi&lt;/a&gt; server.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note: Your setup.py will be ran interpreted Python 3.5 during packaging.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;server&lt;/code&gt; - The full path to the root of the devpi server. Make sure to include a port if it&amp;rsquo;s not 80 or 443.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;index&lt;/code&gt; - The &lt;code&gt;&amp;lt;user&amp;gt;/&amp;lt;repo&amp;gt;&lt;/code&gt; combo pointing of the index to upload to.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;username&lt;/code&gt; - The username to login with.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - A password to login with.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is an example configuration for your .drone.yml:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  devpi:
+    server: http://devpi.bigco.com:3141/
+    index: root/production
+    username: guido
+    password: secret
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>SFTP</title>
+      <link>http://docs.tea-ci.org/plugins/sftp/</link>
+      <pubDate>Sat, 13 Feb 2016 09:02:03 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/sftp/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin to publish artifacts from the build to an SFTP server
+You can override the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;host&lt;/code&gt; - Server host&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;port&lt;/code&gt; - Server port, default to 22&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;username&lt;/code&gt; - Server username, default to blank&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - Password for password-based authentication&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;destination_path&lt;/code&gt; - Target path on the server, default to &amp;lsquo;/&amp;rsquo;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;files&lt;/code&gt; - List of files to upload&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All file paths must be relative to current project sources&lt;/p&gt;
+
+&lt;h2 id=&#34;example:43cc3f1f2ddc6998f4a7f7d05b6b4680&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  sftp:
+    host: sftp.company.com
+    port: 2222
+    username: user
+    password: pa$$word
+    files: 
+      - *.nupkg
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>NuGet</title>
+      <link>http://docs.tea-ci.org/plugins/nuget/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:59 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/nuget/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin to publish artifacts from the build to a NuGet Repository
+You can override the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;source&lt;/code&gt; - NuGet Repository URL&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;api_key&lt;/code&gt; - Api Key used for authentication&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verbosity&lt;/code&gt; - NuGet output verbosity, default to &amp;lsquo;quiet&amp;rsquo;. Accept: normal, quiet or detailed&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;files&lt;/code&gt; - List of files to upload&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All file paths must be relative to current project sources&lt;/p&gt;
+
+&lt;h2 id=&#34;example:8c3786f99f26ed1c69705735232d5c0a&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  nuget:
+    source: http://nuget.company.com
+    api_key: &amp;lt;Your Key&amp;gt;
+    files: 
+      - *.nupkg
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;nuspec-nupkg:8c3786f99f26ed1c69705735232d5c0a&#34;&gt;.nuspec / .nupkg&lt;/h2&gt;
+
+&lt;p&gt;If a file to upload does have &lt;code&gt;.nuspec&lt;/code&gt; extension, the &lt;strong&gt;nuget pack&lt;/strong&gt; command is called before a push&lt;/p&gt;
+
+&lt;p&gt;If a file to upload does have &lt;code&gt;.nupkg&lt;/code&gt; extension, it is pushed directly&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Artifactory</title>
+      <link>http://docs.tea-ci.org/plugins/artifactory/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:55 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/artifactory/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin to publish artifacts from the build to Artifactory.
+You can override the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;url&lt;/code&gt; - Artifactory URL (Includes scheme)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;username&lt;/code&gt; - Artifactory username, default to blank&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - Artifactory password, default to blank&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pom&lt;/code&gt; - An optional pom.xml path were to read project details&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;group_id&lt;/code&gt; - Project group id, default to value from Pom file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;artifact_id&lt;/code&gt; - Project artifact id, default to value from Pom file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;version&lt;/code&gt; - Artifact version, default to value from Pom file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;repo_key&lt;/code&gt; - Target repository key, default to &amp;lsquo;libs-snapshot-local&amp;rsquo; if version contains &amp;lsquo;snapshot&amp;rsquo;, &amp;lsquo;libs-release-local&amp;rsquo; otherwise&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;files&lt;/code&gt; - List of files to deploy&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;force_upload&lt;/code&gt; - Force upload if a file already exists&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All file paths must be relative to current project sources&lt;/p&gt;
+
+&lt;h2 id=&#34;example:325bdd65d67f28e9cec1e925779f24ba&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  artifactory:
+    url: http://arti.company.com
+    username: admin
+    password: password 
+    pom: pom.xml 
+    repo_key: libs-snapshot-local
+    files: 
+      - target/*.jar
+      - target/*.war
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;pom-xml-deployment:325bdd65d67f28e9cec1e925779f24ba&#34;&gt;pom.xml deployment&lt;/h2&gt;
+
+&lt;p&gt;If a pom parameter is specified it will be automatically deployed. It is not necessary to specify the pom under the files parameter.&lt;/p&gt;
+
+&lt;p&gt;In the example above, pom.xml will be deployed as &lt;code&gt;&amp;lt;groupId&amp;gt;-&amp;lt;artifactId&amp;gt;-&amp;lt;version&amp;gt;.pom&lt;/code&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Coverage</title>
+      <link>http://docs.tea-ci.org/plugins/coverage/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:52 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/coverage/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ECS</title>
+      <link>http://docs.tea-ci.org/plugins/ecs/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:44 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/ecs/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deploying a docker container application to AWS EC2 Container Service (ECS).&lt;/p&gt;
+
+&lt;h3 id=&#34;settings:86674014fe71b2e32d37476f5379a448&#34;&gt;Settings&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - AWS access key ID, MUST be an IAM user with the AmazonEC2ContainerServiceFullAccess policy attached&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - AWS secret access key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;region&lt;/code&gt; - AWS availability zone&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;service&lt;/code&gt; - Name of the service in the cluster, &lt;strong&gt;MUST&lt;/strong&gt; be created already in ECS&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;family&lt;/code&gt; - Family name of the task definition to create or update with a new revision&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;image_name&lt;/code&gt;, Container image to use, do not include the tag here&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;image_tag&lt;/code&gt; - Tag of the image to use, defaults to latest&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;port_mappings&lt;/code&gt; - Port mappings from host to container, format is &lt;code&gt;hostPort containerPort&lt;/code&gt;, protocol is automatically set to TransportProtocol&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;memory&lt;/code&gt;, Amount of memory to assign to the container, defaults to 128&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;environment_variables&lt;/code&gt; - List of Environment Variables to be passed to the container, format is &lt;code&gt;NAME=VALUE&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:86674014fe71b2e32d37476f5379a448&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  ecs:
+    image: plugins/drone-ecs
+
+    region: eu-west-1
+    access_key: $$ACCESS_KEY_ID
+    secret_key: $$SECRET_ACCESS_KEY
+    family: my-ecs-task
+    image_name: namespace/repo
+    image_tag: latest
+    service: my-ecs-service
+    environment_variables:
+      - DATABASE_URI=$$MY_DATABASE_URI
+    port_mappings:
+      - 80 9000
+    memory: 128
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Scalingo</title>
+      <link>http://docs.tea-ci.org/plugins/scalingo/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:36 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/scalingo/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to Scalingo. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;app&lt;/code&gt; - Application name, defaults to repo name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;force&lt;/code&gt; - Force a push, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;commit&lt;/code&gt; - Commit local changes, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:423d6eac0d397a3ae55e97438f433a22&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  scalingo:
+    app: awesomeness
+    force: true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Rancher</title>
+      <link>http://docs.tea-ci.org/plugins/rancher/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:32 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/rancher/</guid>
+      <description>&lt;p&gt;Use the rancher plugin to upgrade a service in &lt;a href=&#34;http://rancher.com&#34;&gt;rancher&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The following parameters are used to configure this plugin:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;url&lt;/code&gt; - url to your rancher server, including protocol and port&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - rancher api access key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - rancher api secret key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;service&lt;/code&gt; - name of rancher service to act on&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker_image&lt;/code&gt; - new image to assign to service, including tag (&lt;code&gt;drone/drone:latest&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;start_first&lt;/code&gt; - start the new container before stopping the old one, defaults to &lt;code&gt;true&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;confirm&lt;/code&gt; - auto confirm the service upgrade if successful, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;timeout&lt;/code&gt; - the maximum wait time in seconds for the service to upgrade, default to &lt;code&gt;30&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample Rancher configuration in your &lt;code&gt;.drone.yml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  rancher:
+    url: https://example.rancher.com
+    access_key: 1234567abcdefg
+    secret_key: abcdefg1234567
+    service: drone/drone
+    docker_image: drone/drone:latest
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that if your &lt;code&gt;service&lt;/code&gt; is part of a stack, you should use the notation &lt;code&gt;stackname/servicename&lt;/code&gt; as this will make sure that the found service is part of the correct stack. If no stack is specified, this plugin will update the first service with a matching name which may not be what you want.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Bintray</title>
+      <link>http://docs.tea-ci.org/plugins/bintray/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:27 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/bintray/</guid>
+      <description>
+
+&lt;p&gt;Use the Bintray plugin to publish one or more packages to a Bintray repository. You must supply the following parameters in a &lt;strong&gt;bintray&lt;/strong&gt; subsection of the .drone.yml &lt;strong&gt;publish&lt;/strong&gt; section.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Parameter&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;username&lt;/td&gt;
+&lt;td&gt;A Bintray username&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;api_key&lt;/td&gt;
+&lt;td&gt;The API key associated with the username (obtain from Bintray settings)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;host&lt;/td&gt;
+&lt;td&gt;Optional host of the bintray api server with scheme. Example: &lt;a href=&#34;https://bin.company.com&#34;&gt;https://bin.company.com&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;branch&lt;/td&gt;
+&lt;td&gt;The GitHub branch of the commit.  A non-empty value other than &amp;ldquo;master&amp;rdquo; causes the plugin to upload artifacts to test/branchname/target instead of just target&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;debug&lt;/td&gt;
+&lt;td&gt;If true, causes the plugin to write additional output to stdout, including its invocation arguments and output curl command.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;insecure&lt;/td&gt;
+&lt;td&gt;Enable insecure connections&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;artifacts&lt;/td&gt;
+&lt;td&gt;One or more descriptions of artifacts to upload&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The following parameters describe each artifact&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Artifact Parameter&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;file&lt;/td&gt;
+&lt;td&gt;Path to the file to upload within the build directory (the original build directory, not the current working directory)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;owner&lt;/td&gt;
+&lt;td&gt;Bintray repository owner (called subject in Bintray API documentation)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;type&lt;/td&gt;
+&lt;td&gt;Artifact type.  Specify &amp;ldquo;Debian&amp;rdquo; for a Debian artifact or &amp;ldquo;Maven&amp;rdquo; for a Maven artifact.  Any other value indicates a generic artifact.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;repository&lt;/td&gt;
+&lt;td&gt;Name of the repository where the file should be uploaded&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;package&lt;/td&gt;
+&lt;td&gt;Name of the package within the repository&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;version&lt;/td&gt;
+&lt;td&gt;Version to upload.  Required for non-Maven artifacts and ignored for Maven.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;target&lt;/td&gt;
+&lt;td&gt;Name to be given to the artifact in the repository.  The name is prefixed by &amp;ldquo;test/branchname&amp;rdquo; if the branch parameter is specified and has a non-empty value other than &amp;ldquo;master&amp;rdquo;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;distr&lt;/td&gt;
+&lt;td&gt;Debian distribution.  Required for Debian artifacts and ignored for others.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;component&lt;/td&gt;
+&lt;td&gt;Debian component.  Required for Debian artifacts and ignored for others.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;arch&lt;/td&gt;
+&lt;td&gt;Debian architecture(s).  Required for Debian artifacts and ignored for others.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;override&lt;/td&gt;
+&lt;td&gt;true if the artifact can override (replace) a previously-published artifact; false otherwise&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;publish&lt;/td&gt;
+&lt;td&gt;true if the artifact should be published after upload; false otherwise&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;example:d1930c3bb9d005cbc6c979bc91b3d610&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The follow .drone.yml file uploads two artifacts to Bintray&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  bintray:
+    username: $$BINTRAY_USERNAME
+    password: $$BINTRAY_PASSWORD
+    branch: $$BRANCH
+    artifacts:
+      - file: dist/myfile
+        owner: mycompany
+        type: executable
+        repository: reponame
+        package: pkgname
+        version: 1.0
+        target: myfile
+        publish: true
+        override: true
+      - file: dist/myfile.deb
+        owner: mycompany
+        type: Debian
+        repository: debian-repo
+        package: pkgname
+        version: 1.0
+        target: myfile.deb
+        distr: ubuntu
+        component: main
+        arch:
+          - amd64
+        publish: true
+        override: true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

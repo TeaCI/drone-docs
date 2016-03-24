@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bintray on Drone</title>
+    <link>http://docs.tea-ci.org/tags/bintray/</link>
+    <description>Recent content in Bintray on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 09:01:27 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/bintray/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Bintray</title>
+      <link>http://docs.tea-ci.org/plugins/bintray/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:27 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/bintray/</guid>
+      <description>
+
+&lt;p&gt;Use the Bintray plugin to publish one or more packages to a Bintray repository. You must supply the following parameters in a &lt;strong&gt;bintray&lt;/strong&gt; subsection of the .drone.yml &lt;strong&gt;publish&lt;/strong&gt; section.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Parameter&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;username&lt;/td&gt;
+&lt;td&gt;A Bintray username&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;api_key&lt;/td&gt;
+&lt;td&gt;The API key associated with the username (obtain from Bintray settings)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;host&lt;/td&gt;
+&lt;td&gt;Optional host of the bintray api server with scheme. Example: &lt;a href=&#34;https://bin.company.com&#34;&gt;https://bin.company.com&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;branch&lt;/td&gt;
+&lt;td&gt;The GitHub branch of the commit.  A non-empty value other than &amp;ldquo;master&amp;rdquo; causes the plugin to upload artifacts to test/branchname/target instead of just target&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;debug&lt;/td&gt;
+&lt;td&gt;If true, causes the plugin to write additional output to stdout, including its invocation arguments and output curl command.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;insecure&lt;/td&gt;
+&lt;td&gt;Enable insecure connections&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;artifacts&lt;/td&gt;
+&lt;td&gt;One or more descriptions of artifacts to upload&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The following parameters describe each artifact&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Artifact Parameter&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;file&lt;/td&gt;
+&lt;td&gt;Path to the file to upload within the build directory (the original build directory, not the current working directory)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;owner&lt;/td&gt;
+&lt;td&gt;Bintray repository owner (called subject in Bintray API documentation)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;type&lt;/td&gt;
+&lt;td&gt;Artifact type.  Specify &amp;ldquo;Debian&amp;rdquo; for a Debian artifact or &amp;ldquo;Maven&amp;rdquo; for a Maven artifact.  Any other value indicates a generic artifact.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;repository&lt;/td&gt;
+&lt;td&gt;Name of the repository where the file should be uploaded&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;package&lt;/td&gt;
+&lt;td&gt;Name of the package within the repository&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;version&lt;/td&gt;
+&lt;td&gt;Version to upload.  Required for non-Maven artifacts and ignored for Maven.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;target&lt;/td&gt;
+&lt;td&gt;Name to be given to the artifact in the repository.  The name is prefixed by &amp;ldquo;test/branchname&amp;rdquo; if the branch parameter is specified and has a non-empty value other than &amp;ldquo;master&amp;rdquo;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;distr&lt;/td&gt;
+&lt;td&gt;Debian distribution.  Required for Debian artifacts and ignored for others.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;component&lt;/td&gt;
+&lt;td&gt;Debian component.  Required for Debian artifacts and ignored for others.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;arch&lt;/td&gt;
+&lt;td&gt;Debian architecture(s).  Required for Debian artifacts and ignored for others.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;override&lt;/td&gt;
+&lt;td&gt;true if the artifact can override (replace) a previously-published artifact; false otherwise&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;publish&lt;/td&gt;
+&lt;td&gt;true if the artifact should be published after upload; false otherwise&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;example:d1930c3bb9d005cbc6c979bc91b3d610&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The follow .drone.yml file uploads two artifacts to Bintray&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  bintray:
+    username: $$BINTRAY_USERNAME
+    password: $$BINTRAY_PASSWORD
+    branch: $$BRANCH
+    artifacts:
+      - file: dist/myfile
+        owner: mycompany
+        type: executable
+        repository: reponame
+        package: pkgname
+        version: 1.0
+        target: myfile
+        publish: true
+        override: true
+      - file: dist/myfile.deb
+        owner: mycompany
+        type: Debian
+        repository: debian-repo
+        package: pkgname
+        version: 1.0
+        target: myfile.deb
+        distr: ubuntu
+        component: main
+        arch:
+          - amd64
+        publish: true
+        override: true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

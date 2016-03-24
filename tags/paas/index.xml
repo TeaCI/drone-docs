@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Paas on Drone</title>
+    <link>http://docs.tea-ci.org/tags/paas/</link>
+    <description>Recent content in Paas on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Feb 2016 08:37:52 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/paas/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ContainerShip</title>
+      <link>http://docs.tea-ci.org/plugins/containership/</link>
+      <pubDate>Sun, 21 Feb 2016 08:37:52 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/containership/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deploying an application to &lt;a href=&#34;https://containership.io&#34;&gt;ContainerShip&lt;/a&gt;.
+You can override the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;organization&lt;/code&gt; - Your ContainerShip organization&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;api_key&lt;/code&gt; - Your ContainerShip organization API Key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cluster_id&lt;/code&gt; - ID of your ContainerShip cluster&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;application&lt;/code&gt; - Name of the application, defaults to repo name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;image&lt;/code&gt; - Docker image to use, including tag (&lt;code&gt;MyOrg/MyImage:latest&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:585fa95088acd0a452345965d35423ae&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  containership:
+    organization: MyContainerShipOrganization
+    api_key: abcdef1234567890
+    cluster_id: abcdef1234567890
+    application: my-app-name
+    image: MyOrg/MyImage:latest
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>ECS</title>
+      <link>http://docs.tea-ci.org/plugins/ecs/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:44 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/ecs/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deploying a docker container application to AWS EC2 Container Service (ECS).&lt;/p&gt;
+
+&lt;h3 id=&#34;settings:86674014fe71b2e32d37476f5379a448&#34;&gt;Settings&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - AWS access key ID, MUST be an IAM user with the AmazonEC2ContainerServiceFullAccess policy attached&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - AWS secret access key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;region&lt;/code&gt; - AWS availability zone&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;service&lt;/code&gt; - Name of the service in the cluster, &lt;strong&gt;MUST&lt;/strong&gt; be created already in ECS&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;family&lt;/code&gt; - Family name of the task definition to create or update with a new revision&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;image_name&lt;/code&gt;, Container image to use, do not include the tag here&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;image_tag&lt;/code&gt; - Tag of the image to use, defaults to latest&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;port_mappings&lt;/code&gt; - Port mappings from host to container, format is &lt;code&gt;hostPort containerPort&lt;/code&gt;, protocol is automatically set to TransportProtocol&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;memory&lt;/code&gt;, Amount of memory to assign to the container, defaults to 128&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;environment_variables&lt;/code&gt; - List of Environment Variables to be passed to the container, format is &lt;code&gt;NAME=VALUE&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:86674014fe71b2e32d37476f5379a448&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  ecs:
+    image: plugins/drone-ecs
+
+    region: eu-west-1
+    access_key: $$ACCESS_KEY_ID
+    secret_key: $$SECRET_ACCESS_KEY
+    family: my-ecs-task
+    image_name: namespace/repo
+    image_tag: latest
+    service: my-ecs-service
+    environment_variables:
+      - DATABASE_URI=$$MY_DATABASE_URI
+    port_mappings:
+      - 80 9000
+    memory: 128
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Engine Yard</title>
+      <link>http://docs.tea-ci.org/plugins/engineyard/</link>
+      <pubDate>Sat, 13 Feb 2016 09:00:52 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/engineyard/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to Engine Yard. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;`` -&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:460eeb0165fbbbee6ad84e0d03bb72d6&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  engineyard:
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Elastic Beanstalk</title>
+      <link>http://docs.tea-ci.org/plugins/elastic_beanstalk/</link>
+      <pubDate>Sat, 13 Feb 2016 09:00:25 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/elastic_beanstalk/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to AWS Elastic Beanstalk. You can
+override the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - AWS access key ID&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - AWS secret access key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;region&lt;/code&gt; - AWS availability zone&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;version_label&lt;/code&gt; - A label identifying this version&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;application&lt;/code&gt; - Application name, defaults to repo name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;description&lt;/code&gt; - A description about the deployment, optional&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;auto_create&lt;/code&gt; - Automatically create the application, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;process&lt;/code&gt; - Preprocess and validate the manifest, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket_name&lt;/code&gt; - Bucket for &lt;code&gt;S3&lt;/code&gt; source bundle&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket_key&lt;/code&gt; - Key for &lt;code&gt;S3&lt;/code&gt; source bundle&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;environment_update&lt;/code&gt; - Flag whether to update ElasticBeansTalk environment with the new version&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;environment_name&lt;/code&gt; - Environment Name (optional), if update_environment true&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:d5a0f1eaf57f8a9e77fe62d85147581e&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  elastic_beanstalk:
+    access_key: 970d28f4dd477bc184fbd10b376de753
+    secret_key: 9c5785d3ece6a9cdefa42eb99b58986f9095ff1c
+    region: us-east-1
+    version_label: v1
+    description: Deployed with DroneCI
+    auto_create: true
+    bucket_name: my-bucket-name
+    bucket_key: 970d28f4dd477bc184fbd10b376de753
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Cloud Foundry</title>
+      <link>http://docs.tea-ci.org/plugins/cloudfoundry/</link>
+      <pubDate>Sat, 13 Feb 2016 08:59:58 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/cloudfoundry/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to Cloud Foundry. You can override
+the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;h2 id=&#34;example:6f5ac86ba27b6850bf9b6a5271bfb9b1&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  cloudfoundry:
+    api: api.run.pivotal.io
+    user: $$USER
+    password: $$PASSWORD
+    org: $$USER
+    space: production
+    when:
+      branch: master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;options:6f5ac86ba27b6850bf9b6a5271bfb9b1&#34;&gt;Options&lt;/h3&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Option&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;th&gt;Example&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;api&lt;/code&gt; (&lt;strong&gt;required&lt;/strong&gt;)&lt;/td&gt;
+&lt;td&gt;Target API&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;api.run.pivotal.io&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;org&lt;/code&gt; (&lt;strong&gt;required&lt;/strong&gt;)&lt;/td&gt;
+&lt;td&gt;Target Org&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;xyz-org&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;space&lt;/code&gt; (&lt;strong&gt;required&lt;/strong&gt;)&lt;/td&gt;
+&lt;td&gt;Target Space&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;development&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;user&lt;/code&gt; (&lt;strong&gt;required&lt;/strong&gt;)&lt;/td&gt;
+&lt;td&gt;Auth username&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;john@doe.com&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;password&lt;/code&gt; (&lt;strong&gt;required&lt;/strong&gt;)&lt;/td&gt;
+&lt;td&gt;Auth password&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;supersecure&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;name&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Override application name&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;app-canary&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;manifest&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Path to manifest&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;test.manifest.yml&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;path&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;App path&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;build/assets&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;command&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Startup command&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;start-script.sh&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;buildpack&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Custom buildpack&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;https://....&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;disk&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Disk limit&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;256M&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;memory&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Memory limit&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;1G&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;instances&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Number of instances&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;4&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;hostname&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Hostname&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;my-subdomain&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;random-route&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Create a random route for this app&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;domain&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Domain&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;example.com&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;no-route&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Do not map a route to this app and remove routes from previous pushes of this app.&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;no-start&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Do not start an app after pushing&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;no-hostname&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Map the root domain to this app&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;no-manifest&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Ignore manifest file&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;skip-ssl-validation&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;For login, do not validate ssl (for self-signed cert)&lt;/td&gt;
+&lt;td&gt;&lt;code&gt;false&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Anynines</title>
+      <link>http://docs.tea-ci.org/plugins/anynines/</link>
+      <pubDate>Sat, 13 Feb 2016 08:59:49 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/anynines/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to Anynines. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;username&lt;/code&gt; - Username for Anynines&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - Password for Anynines&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;organization&lt;/code&gt; - Target organization for Anynines&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;space&lt;/code&gt; - Target space for Anynines&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;skip_cleanup&lt;/code&gt; - Flag to deploy from the current file state&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:cf9fb6d698b8944b5e5735ad07c67864&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  anynines:
+    username: octocat@github.com
+    password: password
+    organization: octocat_github_com
+    space: production
+    when:
+      branch: master
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

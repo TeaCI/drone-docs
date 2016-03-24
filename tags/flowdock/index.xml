@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Flowdock on Drone</title>
+    <link>http://docs.tea-ci.org/tags/flowdock/</link>
+    <description>Recent content in Flowdock on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 08:58:22 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/flowdock/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Flowdock</title>
+      <link>http://docs.tea-ci.org/plugins/flowdock/</link>
+      <pubDate>Sat, 13 Feb 2016 08:58:22 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/flowdock/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for sending build status notifications via Flowdock. You can
+override the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;`` -&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:494c9c6320e1430868ed3ceb2fd40d24&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  flowdock:
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

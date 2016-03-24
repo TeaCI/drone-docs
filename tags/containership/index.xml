@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Containership on Drone</title>
+    <link>http://docs.tea-ci.org/tags/containership/</link>
+    <description>Recent content in Containership on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Feb 2016 08:37:52 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/containership/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ContainerShip</title>
+      <link>http://docs.tea-ci.org/plugins/containership/</link>
+      <pubDate>Sun, 21 Feb 2016 08:37:52 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/containership/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deploying an application to &lt;a href=&#34;https://containership.io&#34;&gt;ContainerShip&lt;/a&gt;.
+You can override the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;organization&lt;/code&gt; - Your ContainerShip organization&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;api_key&lt;/code&gt; - Your ContainerShip organization API Key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cluster_id&lt;/code&gt; - ID of your ContainerShip cluster&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;application&lt;/code&gt; - Name of the application, defaults to repo name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;image&lt;/code&gt; - Docker image to use, including tag (&lt;code&gt;MyOrg/MyImage:latest&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:585fa95088acd0a452345965d35423ae&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  containership:
+    organization: MyContainerShipOrganization
+    api_key: abcdef1234567890
+    cluster_id: abcdef1234567890
+    application: my-app-name
+    image: MyOrg/MyImage:latest
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

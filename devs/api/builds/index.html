@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Builds · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs" class="current-item">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>Builds</h1>
+						<nav id="TableOfContents">
+						
+						<nav id="TableOfContents">
+<ul>
+<li><a href="#get-recent-builds:e163b46a1bc96a0cc699d52d0e3291d7">Get recent builds</a></li>
+<li><a href="#get-the-latest-build:e163b46a1bc96a0cc699d52d0e3291d7">Get the latest build</a></li>
+<li><a href="#restart-a-build:e163b46a1bc96a0cc699d52d0e3291d7">Restart a build</a></li>
+<li><a href="#get-build-logs:e163b46a1bc96a0cc699d52d0e3291d7">Get build logs</a></li>
+<li><a href="#cancel-a-job:e163b46a1bc96a0cc699d52d0e3291d7">Cancel a Job</a></li>
+</ul>
+</nav>
+						
+						</nav>
+						<section>
+
+<h1 id="get-recent-builds:e163b46a1bc96a0cc699d52d0e3291d7">Get recent builds</h1>
+
+<p>Returns recent builds for the repository based on name.</p>
+
+<pre><code>GET /api/repos/{owner}/{name}/builds
+</code></pre>
+
+<p>Example Response Body:</p>
+
+<pre><code class="language-js">[{
+  &quot;id&quot;: 1,
+  &quot;number&quot;: 1,
+  &quot;event&quot;: &quot;push&quot;,
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;created_at&quot;: 1443677151,
+  &quot;enqueued_at&quot;: 1443677151,
+  &quot;started_at&quot;: 1443677151,
+  &quot;finished_at&quot;: 1443677255,
+  &quot;commit&quot;: &quot;2deb7e0d0cbac357eeb110c8a2f2f32ce037e0d5&quot;,
+  &quot;branch&quot;: &quot;master&quot;,
+  &quot;ref&quot;: &quot;refs/heads/master&quot;,
+  &quot;remote&quot;: &quot;https://github.com/octocat/hello-world.git&quot;,
+  &quot;message&quot;: &quot;New line at end of file. --Signed off by Spaceghost&quot;,
+  &quot;timestamp&quot;: 1443677255,
+  &quot;author&quot;: &quot;Spaceghost&quot;,
+  &quot;author_avatar&quot;: &quot;https://avatars0.githubusercontent.com/u/251370?v=3&quot;,
+  &quot;author_email&quot;: &quot;octocat@github.com&quot;,
+  &quot;link_url&quot;: &quot;https://github.com/octocat/hello-world/commit/762941318ee16e59dabbacb1b4049eec22f0d303&quot;,
+  &quot;jobs&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;number&quot;: 1,
+      &quot;status&quot;: &quot;success&quot;,
+      &quot;enqueued_at&quot;: 1443677151,
+      &quot;started_at&quot;: 1443677151,
+      &quot;finished_at&quot;: 1443677255,
+      &quot;exit_code&quot;: 0,
+      &quot;environment&quot;: { &quot;GO_VERSION&quot;: &quot;1.4&quot; }
+    },
+    {
+      &quot;id&quot;: 2,
+      &quot;number&quot;: 2,
+      &quot;status&quot;: &quot;success&quot;,
+      &quot;enqueued_at&quot;: 1443677151,
+      &quot;started_at&quot;: 1443677151,
+      &quot;finished_at&quot;: 1443677255,
+      &quot;exit_code&quot;: 0,
+      &quot;environment&quot;: { &quot;GO_VERSION&quot;: &quot;1.5&quot; }
+    }
+  ]
+}
+]
+</code></pre>
+
+<h1 id="get-the-latest-build:e163b46a1bc96a0cc699d52d0e3291d7">Get the latest build</h1>
+
+<p>Returns the latest repository build.</p>
+
+<pre><code>GET /api/repos/{owner}/{name}/builds/{number}
+</code></pre>
+
+<p>Example Response Body:</p>
+
+<pre><code class="language-js">{
+  &quot;id&quot;: 1,
+  &quot;number&quot;: 1,
+  &quot;event&quot;: &quot;push&quot;,
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;created_at&quot;: 1443677151,
+  &quot;enqueued_at&quot;: 1443677151,
+  &quot;started_at&quot;: 1443677151,
+  &quot;finished_at&quot;: 1443677255,
+  &quot;commit&quot;: &quot;2deb7e0d0cbac357eeb110c8a2f2f32ce037e0d5&quot;,
+  &quot;branch&quot;: &quot;master&quot;,
+  &quot;ref&quot;: &quot;refs/heads/master&quot;,
+  &quot;remote&quot;: &quot;https://github.com/octocat/hello-world.git&quot;,
+  &quot;message&quot;: &quot;New line at end of file. --Signed off by Spaceghost&quot;,
+  &quot;timestamp&quot;: 1443677255,
+  &quot;author&quot;: &quot;Spaceghost&quot;,
+  &quot;author_avatar&quot;: &quot;https://avatars0.githubusercontent.com/u/251370?v=3&quot;,
+  &quot;author_email&quot;: &quot;octocat@github.com&quot;,
+  &quot;link_url&quot;: &quot;https://github.com/octocat/hello-world/commit/762941318ee16e59dabbacb1b4049eec22f0d303&quot;,
+  &quot;jobs&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;number&quot;: 1,
+      &quot;status&quot;: &quot;success&quot;,
+      &quot;enqueued_at&quot;: 1443677151,
+      &quot;started_at&quot;: 1443677151,
+      &quot;finished_at&quot;: 1443677255,
+      &quot;exit_code&quot;: 0,
+      &quot;environment&quot;: { &quot;GO_VERSION&quot;: &quot;1.4&quot; }
+    },
+    {
+      &quot;id&quot;: 2,
+      &quot;number&quot;: 2,
+      &quot;status&quot;: &quot;success&quot;,
+      &quot;enqueued_at&quot;: 1443677151,
+      &quot;started_at&quot;: 1443677151,
+      &quot;finished_at&quot;: 1443677255,
+      &quot;exit_code&quot;: 0,
+      &quot;environment&quot;: { &quot;GO_VERSION&quot;: &quot;1.5&quot; }
+    }
+  ]
+}
+
+</code></pre>
+
+<h1 id="restart-a-build:e163b46a1bc96a0cc699d52d0e3291d7">Restart a build</h1>
+
+<p>Restart the a build by number.</p>
+
+<pre><code>POST /api/repos/{owner}/{name}/builds/{number}
+</code></pre>
+
+<p>Example Response Body:</p>
+
+<pre><code class="language-js">{
+  &quot;id&quot;: 1,
+  &quot;number&quot;: 1,
+  &quot;event&quot;: &quot;push&quot;,
+  &quot;status&quot;: &quot;success&quot;,
+  &quot;created_at&quot;: 1443677151,
+  &quot;enqueued_at&quot;: 1443677151,
+  &quot;started_at&quot;: 1443677151,
+  &quot;finished_at&quot;: 1443677255,
+  &quot;commit&quot;: &quot;2deb7e0d0cbac357eeb110c8a2f2f32ce037e0d5&quot;,
+  &quot;branch&quot;: &quot;master&quot;,
+  &quot;ref&quot;: &quot;refs/heads/master&quot;,
+  &quot;remote&quot;: &quot;https://github.com/octocat/hello-world.git&quot;,
+  &quot;message&quot;: &quot;New line at end of file. --Signed off by Spaceghost&quot;,
+  &quot;timestamp&quot;: 1443677255,
+  &quot;author&quot;: &quot;Spaceghost&quot;,
+  &quot;author_avatar&quot;: &quot;https://avatars0.githubusercontent.com/u/251370?v=3&quot;,
+  &quot;author_email&quot;: &quot;octocat@github.com&quot;,
+  &quot;link_url&quot;: &quot;https://github.com/octocat/hello-world/commit/762941318ee16e59dabbacb1b4049eec22f0d303&quot;,
+  &quot;jobs&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;number&quot;: 1,
+      &quot;status&quot;: &quot;success&quot;,
+      &quot;enqueued_at&quot;: 1443677151,
+      &quot;started_at&quot;: 1443677151,
+      &quot;finished_at&quot;: 1443677255,
+      &quot;exit_code&quot;: 0,
+      &quot;environment&quot;: { &quot;GO_VERSION&quot;: &quot;1.4&quot; }
+    },
+    {
+      &quot;id&quot;: 2,
+      &quot;number&quot;: 2,
+      &quot;status&quot;: &quot;success&quot;,
+      &quot;enqueued_at&quot;: 1443677151,
+      &quot;started_at&quot;: 1443677151,
+      &quot;finished_at&quot;: 1443677255,
+      &quot;exit_code&quot;: 0,
+      &quot;environment&quot;: { &quot;GO_VERSION&quot;: &quot;1.5&quot; }
+    }
+  ]
+}
+
+</code></pre>
+
+<h1 id="get-build-logs:e163b46a1bc96a0cc699d52d0e3291d7">Get build logs</h1>
+
+<p>Returns the build logs for a specific job (build step).</p>
+
+<pre><code>GET /api/repos/{owner}/{name}/logs/{number}/{job}
+</code></pre>
+
+<h1 id="cancel-a-job:e163b46a1bc96a0cc699d52d0e3291d7">Cancel a Job</h1>
+
+<p>Cancel the a build job by number.</p>
+
+<pre><code>DELETE /api/repos/{owner}/{name}/logs/{number}/{job}
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								<li>
+									<a href="/devs/libraries/" class="">Libraries</a>
+								</li>
+								
+								<li>
+									<a href="/devs/plugins/" class="">Plugins</a>
+								</li>
+								
+								<li>
+									<a href="/devs/guides/" class="">Guides</a>
+								</li>
+								
+								<li>
+									<a href="/devs/cli/" class="">CLI Reference</a>
+								</li>
+								
+								<li>
+									
+									
+									<a href="/devs/api/builds">API Reference</a>
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									<ul>
+										
+										
+										
+										
+										<li>
+											<a href="/devs/api/builds/" class=" current-item">Builds</a>
+										</li>
+										
+										
+										
+										<li>
+											<a href="/devs/api/repos/" class="">Repos</a>
+										</li>
+										
+										
+										
+										<li>
+											<a href="/devs/api/user/" class="">User</a>
+										</li>
+										
+										
+										
+										<li>
+											<a href="/devs/api/users/" class="">Users</a>
+										</li>
+										
+										
+									</ul>
+								</li>
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

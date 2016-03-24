@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chat on Drone</title>
+    <link>http://docs.tea-ci.org/tags/chat/</link>
+    <description>Recent content in Chat on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 08:59:15 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/chat/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Gitter</title>
+      <link>http://docs.tea-ci.org/plugins/gitter/</link>
+      <pubDate>Sat, 13 Feb 2016 08:59:15 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/gitter/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for sending build status notifications via Gitter. The status
+updates are displayed in a room&amp;rsquo;s activity feed. You can override the default
+configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;webhook&lt;/code&gt; - A single or a list of webhooks&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:60d154e58dec5658c73bbfa1d4d1a4c1&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  gitter:
+    webhook: https://webhooks.gitter.im/e/91e06797227ae5dbe6ec
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;multiple-channels:60d154e58dec5658c73bbfa1d4d1a4c1&#34;&gt;Multiple Channels&lt;/h3&gt;
+
+&lt;p&gt;In some cases you want to send notifications to multiple different channels
+to. In that case you can simply provide a list of webhooks.&lt;/p&gt;
+
+&lt;p&gt;Example configuration that sends multiple message:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  gitter:
+    webhook:
+     - https://webhooks.gitter.im/e/91e06797227ae5dbe6ec
+     - https://webhooks.gitter.im/e/27a2e6ece5db91e06797
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Slack Blame</title>
+      <link>http://docs.tea-ci.org/plugins/slack_blame/</link>
+      <pubDate>Sat, 13 Feb 2016 08:59:04 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/slack_blame/</guid>
+      <description>
+
+&lt;p&gt;Use the Slack Blame plugin to send a message to a Slack channel or through
+direct message when a build completes. You will need to supply Drone with an
+access token to the Slack API. You can create a new access token here:
+&lt;a href=&#34;https://api.slack.com/web&#34;&gt;https://api.slack.com/web&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;overview:3a068a01ea1d1125139bb5d37e8457db&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;p&gt;This plugin is responsible for sending build notifications to developers when
+they break the build, either directly through slackbot messages, or to the
+designated channel. This lets developers get feedback on their own feature
+branches without bombarding the main development channel as well as notifying
+the channel on important branches such as release or master.&lt;/p&gt;
+
+&lt;p&gt;The following parameters are used to configure the notification&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;token&lt;/strong&gt; - the access token&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;channel&lt;/strong&gt; - the channel to post to (if present messages will also be posted
+to the channel)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;success&lt;/strong&gt; - the options for a successful build
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;icon&lt;/strong&gt; - an emoji or image url for the bot&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;username&lt;/strong&gt; - the username for a successful build (defaults to &amp;ldquo;drone&amp;rdquo;)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;message&lt;/strong&gt; - the message for a successful build&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;image_attachments&lt;/strong&gt; - a list of image attachments to append (only one will
+be randomly selected per build)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;failure&lt;/strong&gt; - the options for a build failure
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;icon&lt;/strong&gt; - an emoji or image url for the bot&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;username&lt;/strong&gt; - the username for a failed build (defaults to &amp;ldquo;drone&amp;rdquo;)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;message&lt;/strong&gt; - the message for a failed build&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;image_attachments&lt;/strong&gt; - a list of image attachments to append (only one will
+be randomly selected per build)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a simple Slack Blame configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  slack_blame:
+    token: &amp;quot;xxxx&amp;quot;
+    channel: &amp;quot;#dev&amp;quot;
+    success:
+      username: &amp;quot;Happy Keanu (on behalf of Drone)&amp;quot;
+      icon: &amp;quot;:happy_keanu:&amp;quot;
+      message: &amp;quot;The build is fixed!&amp;quot;
+      image_attachments:
+        - &amp;quot;http://i.imgur.com/TP4PIxc.jpg&amp;quot;
+    failure:
+      username: &amp;quot;Sad Keanu (on behalf of Drone)&amp;quot;
+      icon: &amp;quot;:sad_keanu:&amp;quot;
+      message: &amp;quot;The build is broken!&amp;quot;
+      image_attachments:
+        - &amp;quot;http://cdn.meme.am/instances/51000361.jpg&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>IRC</title>
+      <link>http://docs.tea-ci.org/plugins/irc/</link>
+      <pubDate>Sat, 13 Feb 2016 08:58:18 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/irc/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for sending build status notifications via IRC. You can override
+the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;prefix&lt;/code&gt; - Prefix for the sent notifications&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nick&lt;/code&gt; - Nickname used by the bot&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;channel&lt;/code&gt; - Messages sent are posted here&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;recipient&lt;/code&gt; - Alternatively you can send it to a specific user&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;server&lt;/code&gt; - Connection information for the server
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;host&lt;/code&gt; - IRC server host to connect to&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;port&lt;/code&gt; - IRC server port, defaults to 6667&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - Password for IRC server, optional&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tls&lt;/code&gt; - Enable TLS, defaults to false&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:e60cbf129bfaeb4936256cbbda5259e7&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  irc:
+    prefix: build
+    nick: drone
+    channel: my-channel
+    server:
+      host: chat.freenode.net
+      port: 6667
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>HipChat</title>
+      <link>http://docs.tea-ci.org/plugins/hipchat/</link>
+      <pubDate>Sat, 13 Feb 2016 08:58:14 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/hipchat/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for sending build status notifications via HipChat. You will
+need to supply Drone with a HipChat authentication token. You can learn more
+about authentication tokens &lt;a href=&#34;https://www.hipchat.com/docs/apiv2/auth&#34;&gt;here&lt;/a&gt;. You
+can override the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;url&lt;/code&gt; - HipChat server URL, defaults to &lt;code&gt;https://api.hipchat.com&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;auth_token&lt;/code&gt; - HipChat API token&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;room_id_or_name&lt;/code&gt; - ID or URL encoded name of the room&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;from&lt;/code&gt; - A label to be shown, defaults to &lt;code&gt;drone&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;notify&lt;/code&gt; - Whether this message should trigger a user notification (change the
+tab color, play a sound, notify mobile phones, etc). Each recipient&amp;rsquo;s
+notification preferences are taken into account, defaults to false&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:0c8ca3737f111d26045d603d98c2fb99&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  hipchat:
+    auth_token: xxxxxxxxxxxxxxx
+    room_id_or_name: 1234567
+    notify: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;custom-messages:0c8ca3737f111d26045d603d98c2fb99&#34;&gt;Custom Messages&lt;/h3&gt;
+
+&lt;p&gt;In some cases you may want to customize the body of the HipChat message you can
+use custom templates. For the use case we expose the following additional
+parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;template&lt;/code&gt; - A handlebars template to create a custom payload body. For more
+details take a look at the &lt;a href=&#34;http://handlebarsjs.com/&#34;&gt;docs&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Example configuration that generate a custom message:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  hipchat:
+    auth_token: xxxxxxxxxxxxxxx
+    room_id_or_name: 1234567
+    from: drone
+    notify: true
+    template: &amp;gt;
+      &amp;lt;strong&amp;gt;{{ uppercasefirst build.status }}&amp;lt;/strong&amp;gt; &amp;lt;a href=\&amp;quot;{{ system.link_url }}/{{ repo.owner }}/{{ repo.name }}/{{ build.number }}\&amp;quot;&amp;gt;{{ repo.owner }}/{{ repo.name }}#{{ truncate build.commit 8 }}&amp;lt;/a&amp;gt; ({{ build.branch }}) by {{ build.author }} in {{ duration build.started_at build.finished_at }} &amp;lt;/br&amp;gt; - {{ build.message }}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Slack</title>
+      <link>http://docs.tea-ci.org/plugins/slack/</link>
+      <pubDate>Sat, 13 Feb 2016 08:58:10 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/slack/</guid>
+      <description>&lt;p&gt;Use the Slack plugin to send a message to your Slack channel when a build completes. You will need to supply Drone with an &lt;a href=&#34;https://my.slack.com/services/new/incoming-webhook&#34;&gt;Incoming Webhook URL&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The following parameters are used to configuration the notification:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Parameter&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;webhook_url&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;json payloads are sent here&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;channel&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;messages sent to the above webhook are posted here&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;recipient&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;alternatively you can send it to a specific user&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;username&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;choose the username this integration will post as&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Example configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+notify:
+  slack:
+    webhook_url: https://hooks.slack.com/services/...
+    channel: dev
+    username: drone
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example configuration using template to customize the message:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+notify:
+  slack:
+    webhook_url: https://hooks.slack.com/services/...
+    channel: dev
+    username: drone
+    template: &amp;gt;
+      build #{{ build.number }} finished with a {{ build.status }} status
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

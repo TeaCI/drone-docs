@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Slack · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Send build status notifications via Slack" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins" class="current-item">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="plugins">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1 class="plugin-header"><img src="/logos/slack.svg" /> Slack Plugin</h1>
+						<section><p>Use the Slack plugin to send a message to your Slack channel when a build completes. You will need to supply Drone with an <a href="https://my.slack.com/services/new/incoming-webhook">Incoming Webhook URL</a>.</p>
+
+<p>The following parameters are used to configuration the notification:</p>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>webhook_url</code></td>
+<td>json payloads are sent here</td>
+</tr>
+
+<tr>
+<td><code>channel</code></td>
+<td>messages sent to the above webhook are posted here</td>
+</tr>
+
+<tr>
+<td><code>recipient</code></td>
+<td>alternatively you can send it to a specific user</td>
+</tr>
+
+<tr>
+<td><code>username</code></td>
+<td>choose the username this integration will post as</td>
+</tr>
+</tbody>
+</table>
+
+<p>Example configuration:</p>
+
+<pre><code class="language-yaml">---
+notify:
+  slack:
+    webhook_url: https://hooks.slack.com/services/...
+    channel: dev
+    username: drone
+</code></pre>
+
+<p>Example configuration using template to customize the message:</p>
+
+<pre><code class="language-yaml">---
+notify:
+  slack:
+    webhook_url: https://hooks.slack.com/services/...
+    channel: dev
+    username: drone
+    template: &gt;
+      build #{{ build.number }} finished with a {{ build.status }} status
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<h3>Plugin Links</h3>
+							
+							<ul class='list-unstyled side-nav'>
+								<li>
+									<a href="http://discuss.drone.io/c/help">
+										Get Help
+									</a>
+								</li>
+								<li>
+									<a href="https://github.com/drone-plugins/drone-slack/">
+										Source Code
+									</a>
+								</li>
+								<li>
+									<a href="https://hub.docker.com/r/plugins/drone-slack/">
+										Docker Image
+									</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

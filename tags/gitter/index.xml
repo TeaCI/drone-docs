@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gitter on Drone</title>
+    <link>http://docs.tea-ci.org/tags/gitter/</link>
+    <description>Recent content in Gitter on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 08:59:15 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/gitter/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Gitter</title>
+      <link>http://docs.tea-ci.org/plugins/gitter/</link>
+      <pubDate>Sat, 13 Feb 2016 08:59:15 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/gitter/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for sending build status notifications via Gitter. The status
+updates are displayed in a room&amp;rsquo;s activity feed. You can override the default
+configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;webhook&lt;/code&gt; - A single or a list of webhooks&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:60d154e58dec5658c73bbfa1d4d1a4c1&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  gitter:
+    webhook: https://webhooks.gitter.im/e/91e06797227ae5dbe6ec
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;multiple-channels:60d154e58dec5658c73bbfa1d4d1a4c1&#34;&gt;Multiple Channels&lt;/h3&gt;
+
+&lt;p&gt;In some cases you want to send notifications to multiple different channels
+to. In that case you can simply provide a list of webhooks.&lt;/p&gt;
+
+&lt;p&gt;Example configuration that sends multiple message:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  gitter:
+    webhook:
+     - https://webhooks.gitter.im/e/91e06797227ae5dbe6ec
+     - https://webhooks.gitter.im/e/27a2e6ece5db91e06797
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

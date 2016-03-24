@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Deployments · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview" class="current-item">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main>
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>Deployments</h1>
+						<nav id="TableOfContents">
+						
+						<nav id="TableOfContents">
+<ul>
+<li><a href="#overview:0814af543608f4fd171b2e9cf43d9917">Overview</a></li>
+<li><a href="#plugins:0814af543608f4fd171b2e9cf43d9917">Plugins</a></li>
+<li><a href="#docker:0814af543608f4fd171b2e9cf43d9917">Docker</a></li>
+<li><a href="#conditions:0814af543608f4fd171b2e9cf43d9917">Conditions</a></li>
+</ul>
+</nav>
+						
+						</nav>
+						<section>
+
+<h1 id="overview:0814af543608f4fd171b2e9cf43d9917">Overview</h1>
+
+<p>Deployments are triggered at the end of a successful build. Note that deployment steps are not executed for pull requests or failed builds.</p>
+
+<p>Example Heroku deployment using the Heroku plugin:</p>
+
+<pre><code class="language-yaml">---
+deploy:
+  heroku:
+    app: petstore
+</code></pre>
+
+<h1 id="plugins:0814af543608f4fd171b2e9cf43d9917">Plugins</h1>
+
+<p>Drone does not have any builtin deployment capabilities. Drone instead offers a large library of plugins for deploying to <a href="/plugins/heroku/">Heroku</a>, <a href="/plugins/tutum/">Tutum</a>, <a href="/plugins/aws_codedeploy/">Amazon</a> and more. Please see the <a href="/plugins/">plugin documentation</a> for a complete list.</p>
+
+<h1 id="docker:0814af543608f4fd171b2e9cf43d9917">Docker</h1>
+
+<p>Building and deploying a Docker image to the registry is handled by plugins. We have multiple plugins for building and publishing Docker images to <a href="/plugins/docker/">DockerHub</a>, <a href="/plugins/gcr/">Google Container Registry</a>, and more.</p>
+
+<h1 id="conditions:0814af543608f4fd171b2e9cf43d9917">Conditions</h1>
+
+<p>Use the <code>when</code> block to limit deployment step execution:</p>
+
+<pre><code class="language-yaml">---
+deploy:
+  heroku:
+    app: mycompany.com
+    when:
+      branch: master
+</code></pre>
+
+<p>Execute a deployment step if the branch is <code>master</code> or <code>develop</code>:</p>
+
+<pre><code class="language-yaml">---
+deploy:
+  heroku:
+    app: mycompany.com
+    when:
+      branch: [master, develop]
+</code></pre>
+
+<p>Execute a deployment step if the branch is <em>not</em> <code>master</code>:</p>
+
+<pre><code class="language-yaml">---
+deploy:
+  heroku:
+    app: mycompany.com
+    when:
+      branch: &quot;!master&quot;
+</code></pre>
+
+<p>Execute a deployment step if the branch is starts with <code>prefix/*</code>:</p>
+
+<pre><code class="language-yaml">---
+deploy:
+  heroku:
+    app: mycompany.com
+    when:
+      branch: prefix/*
+</code></pre>
+
+<p>Execute a deployment step when the commit is a <code>tag</code>:</p>
+
+<pre><code class="language-yaml">---
+deploy:
+  heroku:
+    app: mycompany.com
+    when:
+      event: tag
+</code></pre>
+
+<p>Execute a deployment step for a single matrix permutation:</p>
+
+<pre><code class="language-yaml">---
+deploy:
+  heroku:
+    app: mycompany.com
+    when:
+      matrix:
+        GO_VERSION: 1.5
+        REDIS_VERSION: 2.8
+</code></pre>
+
+<p>Define the same deployment step multiple times, using different configuration based on branch:</p>
+
+<pre><code class="language-yaml">---
+deploy:
+  heroku:
+    app: test.mycompany.com
+    when:
+      branch: develop
+
+  heroku:
+    app: mycompany.com
+    when:
+      branch: master
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								<li>
+									<a href="/usage/overview/" class="">Quick Start</a>
+								</li>
+								
+								<li>
+									<a href="/usage/variables/" class="">Variables</a>
+								</li>
+								
+								<li>
+									<a href="/usage/secrets/" class="">Secrets</a>
+								</li>
+								
+								<li>
+									<a href="/usage/cloning/" class="">Cloning</a>
+								</li>
+								
+								<li>
+									<a href="/usage/caching/" class="">Caching</a>
+								</li>
+								
+								<li>
+									<a href="/usage/services/" class="">Service Containers</a>
+								</li>
+								
+								<li>
+									<a href="/usage/build_test/" class="">Build &amp; Test</a>
+								</li>
+								
+								<li>
+									<a href="/usage/deploy/" class=" current-item">Deployments</a>
+								</li>
+								
+								<li>
+									<a href="/usage/notify/" class="">Notifications</a>
+								</li>
+								
+								<li>
+									<a href="/usage/matrix/" class="">Matrix</a>
+								</li>
+								
+								<li>
+									<a href="/usage/artifacts/" class="">Publishing Artifacts</a>
+								</li>
+								
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

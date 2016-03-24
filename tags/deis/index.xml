@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deis on Drone</title>
+    <link>http://docs.tea-ci.org/tags/deis/</link>
+    <description>Recent content in Deis on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 09:00:18 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/deis/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Deis</title>
+      <link>http://docs.tea-ci.org/plugins/deis/</link>
+      <pubDate>Sat, 13 Feb 2016 09:00:18 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/deis/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to Deis. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;controller&lt;/code&gt; - Deis controller, e.g. deis.deisapps.com&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;app&lt;/code&gt; - Application name, defaults to repo name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;force&lt;/code&gt; - Force a push, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;commit&lt;/code&gt; - Commit local changes, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:547c12bcb29a3091cec41240d8e4098c&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  deis:
+    controller: deis.deisapps.com
+    app: awesomeness
+    force: true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

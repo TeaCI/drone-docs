@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Publishing Artifacts · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview" class="current-item">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main>
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>Publishing Artifacts</h1>
+						<nav id="TableOfContents">
+						
+						<nav id="TableOfContents">
+<ul>
+<li><a href="#overview:ae3f77d4da25cb721d64daf2ef987305">Overview</a></li>
+<li><a href="#plugins:ae3f77d4da25cb721d64daf2ef987305">Plugins</a></li>
+<li><a href="#docker:ae3f77d4da25cb721d64daf2ef987305">Docker</a></li>
+<li><a href="#conditions:ae3f77d4da25cb721d64daf2ef987305">Conditions</a></li>
+</ul>
+</nav>
+						
+						</nav>
+						<section>
+
+<h1 id="overview:ae3f77d4da25cb721d64daf2ef987305">Overview</h1>
+
+<p>Publishing files or build artifacts is triggered at the end of a successful build. Note that publish steps are not executed for pull requests or failed builds.</p>
+
+<p>Example to publish a Node package to the <a href="/plugins/npm/">npmjs.com</a> registry using the NPM plugin:</p>
+
+<pre><code class="language-yaml">---
+publish:
+  npm:
+    username: octocat
+    password: password
+    email: octocat@github.com
+</code></pre>
+
+<h1 id="plugins:ae3f77d4da25cb721d64daf2ef987305">Plugins</h1>
+
+<p>Drone does not have any builtin publishing or artifact capabilities. Drone instead offers a large library of plugins for publish to <a href="/plugins/docker/">DockerHub</a>, <a href="/plugins/s3/">S3</a>, <a href="/plugins/google_cloudstorage/">Google Storage</a> and more. Please see the <a href="/plugins/">plugin documentation</a> for a complete list.</p>
+
+<h1 id="docker:ae3f77d4da25cb721d64daf2ef987305">Docker</h1>
+
+<p>Building and publishing a Docker image to the registry is handled by plugins. We have multiple plugins for building and publishing Docker images to <a href="/plugins/docker/">DockerHub</a>, <a href="/plugins/gcr/">Google Container Registry</a>, and more.</p>
+
+<h1 id="conditions:ae3f77d4da25cb721d64daf2ef987305">Conditions</h1>
+
+<p>Use the <code>when</code> block to limit publish step execution:</p>
+
+<pre><code class="language-yaml">---
+publish:
+  heroku:
+    app: mycompany.com
+    when:
+      branch: master
+</code></pre>
+
+<p>Execute a publish step if the branch is <code>master</code> or <code>release</code>:</p>
+
+<pre><code class="language-yaml">---
+publish:
+  rubygems:
+    api_key: e123f83113f79eb17308bbf1ca8885bb
+    when:
+      branch: [master, release]
+</code></pre>
+
+<p>Execute a publish step if the branch is <em>not</em> <code>master</code>:</p>
+
+<pre><code class="language-yaml">---
+publish:
+  rubygems:
+    api_key: e123f83113f79eb17308bbf1ca8885bb
+    when:
+      branch: &quot;!master&quot;
+</code></pre>
+
+<p>Execute a publish step when the commit is a <code>tag</code>:</p>
+
+<pre><code class="language-yaml">---
+publish:
+  rubygems:
+    api_key: e123f83113f79eb17308bbf1ca8885bb
+    when:
+      event: tag
+</code></pre>
+
+<p>Execute a publish step for a single matrix permutation:</p>
+
+<pre><code class="language-yaml">---
+publish:
+  rubygems:
+    api_key: e123f83113f79eb17308bbf1ca8885bb
+    when:
+      matrix:
+        RUBY_VERSION: 2.3
+        REDIS_VERSION: 2.8
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								<li>
+									<a href="/usage/overview/" class="">Quick Start</a>
+								</li>
+								
+								<li>
+									<a href="/usage/variables/" class="">Variables</a>
+								</li>
+								
+								<li>
+									<a href="/usage/secrets/" class="">Secrets</a>
+								</li>
+								
+								<li>
+									<a href="/usage/cloning/" class="">Cloning</a>
+								</li>
+								
+								<li>
+									<a href="/usage/caching/" class="">Caching</a>
+								</li>
+								
+								<li>
+									<a href="/usage/services/" class="">Service Containers</a>
+								</li>
+								
+								<li>
+									<a href="/usage/build_test/" class="">Build &amp; Test</a>
+								</li>
+								
+								<li>
+									<a href="/usage/deploy/" class="">Deployments</a>
+								</li>
+								
+								<li>
+									<a href="/usage/notify/" class="">Notifications</a>
+								</li>
+								
+								<li>
+									<a href="/usage/matrix/" class="">Matrix</a>
+								</li>
+								
+								<li>
+									<a href="/usage/artifacts/" class=" current-item">Publishing Artifacts</a>
+								</li>
+								
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

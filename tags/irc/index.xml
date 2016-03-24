@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Irc on Drone</title>
+    <link>http://docs.tea-ci.org/tags/irc/</link>
+    <description>Recent content in Irc on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 08:58:18 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/irc/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>IRC</title>
+      <link>http://docs.tea-ci.org/plugins/irc/</link>
+      <pubDate>Sat, 13 Feb 2016 08:58:18 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/irc/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for sending build status notifications via IRC. You can override
+the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;prefix&lt;/code&gt; - Prefix for the sent notifications&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nick&lt;/code&gt; - Nickname used by the bot&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;channel&lt;/code&gt; - Messages sent are posted here&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;recipient&lt;/code&gt; - Alternatively you can send it to a specific user&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;server&lt;/code&gt; - Connection information for the server
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;host&lt;/code&gt; - IRC server host to connect to&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;port&lt;/code&gt; - IRC server port, defaults to 6667&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - Password for IRC server, optional&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tls&lt;/code&gt; - Enable TLS, defaults to false&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:e60cbf129bfaeb4936256cbbda5259e7&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  irc:
+    prefix: build
+    nick: drone
+    channel: my-channel
+    server:
+      host: chat.freenode.net
+      port: 6667
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

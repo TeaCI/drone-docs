@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Plugins · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs" class="current-item">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>Plugins</h1>
+						<nav id="TableOfContents">
+						
+						<nav id="TableOfContents">
+<ul>
+<li><a href="#overview:dce8ed91d073f65a191aa58c2338afcb">Overview</a></li>
+<li><a href="#plugin-input:dce8ed91d073f65a191aa58c2338afcb">Plugin Input</a></li>
+<li><a href="#plugin-output:dce8ed91d073f65a191aa58c2338afcb">Plugin Output</a></li>
+<li><a href="#disk-access:dce8ed91d073f65a191aa58c2338afcb">Disk Access</a></li>
+<li><a href="#official-plugins:dce8ed91d073f65a191aa58c2338afcb">Official Plugins</a></li>
+<li><a href="#custom-plugins:dce8ed91d073f65a191aa58c2338afcb">Custom Plugins</a></li>
+<li><a href="#plugin-docs:dce8ed91d073f65a191aa58c2338afcb">Plugin Docs</a></li>
+<li><a href="#plugin-logo:dce8ed91d073f65a191aa58c2338afcb">Plugin Logo</a></li>
+<li><a href="#plugin-manifest:dce8ed91d073f65a191aa58c2338afcb">Plugin Manifest</a></li>
+<li><a href="#plugin-tutorials:dce8ed91d073f65a191aa58c2338afcb">Plugin Tutorials</a></li>
+</ul>
+</nav>
+						
+						</nav>
+						<section>
+
+<h1 id="overview:dce8ed91d073f65a191aa58c2338afcb">Overview</h1>
+
+<p>Plugins are Docker containers that attach to your build at runtime and perform custom operations. These operations may include deploying code, publishing artifacts and sending notifications. <strong>BONUS</strong> because plugins are Docker containers they can be written in any language!</p>
+
+<p>Plugins are declared in the <code>.drone.yml</code> file. Drone automatically downloads plugins from the registry and executes. This is an example of the <a href="../../plugins/slack">slack</a> plugin configuration:</p>
+
+<pre><code class="language-yaml">---
+notify:
+  slack:
+    webhook_url: https://hooks.slack.com/services/...
+    username: captain_freedom
+    channel: ics
+</code></pre>
+
+<h1 id="plugin-input:dce8ed91d073f65a191aa58c2338afcb">Plugin Input</h1>
+
+<p>Plugins receive a JSON payload as a command line argument that includes repository and build details. Plugin configuration parameters from the YAML file are stored in the <code>vargs</code> section of the document.</p>
+
+<p>Example plugin input:</p>
+
+<pre><code class="language-js">{
+    &quot;system&quot;: {
+        &quot;link&quot;: &quot;http://drone.mycompany.com&quot;
+    },
+    &quot;repo&quot;: {
+        &quot;owner&quot;: &quot;octocat&quot;,
+        &quot;name&quot;: &quot;hello-world&quot;,
+        &quot;full_name&quot;: &quot;octocat/hello-world&quot;,
+        &quot;link_url&quot;: &quot;https://github.com/octocat/hello-world&quot;
+        &quot;clone_url&quot;: &quot;https://github.com/octocat/hello-world.git&quot;,
+    },
+    &quot;build&quot;: {
+        &quot;number&quot;: 1,
+        &quot;event&quot;: &quot;push&quot;,
+        &quot;branch&quot;: &quot;master&quot;,
+        &quot;commit&quot;: &quot;436b7a6e2abaddfd35740527353e78a227ddcb2c&quot;,
+        &quot;ref&quot;: &quot;refs/heads/master&quot;,
+        &quot;author&quot;: &quot;octocat&quot;,
+        &quot;author_email&quot;: &quot;octocat@github.com&quot;
+    },
+    &quot;workspace&quot;: {
+        &quot;root&quot;: &quot;/drone/src&quot;,
+        &quot;path&quot;: &quot;/drone/src/github.com/octocat/hello-world&quot;,
+        &quot;keys&quot;: {
+            &quot;private&quot;: &quot;-----BEGIN RSA PRIVATE KEY-----\nMIICXAIBAAKBgQC...&quot;
+        }
+    },
+    &quot;vargs&quot;: { ... }
+}
+</code></pre>
+
+<h1 id="plugin-output:dce8ed91d073f65a191aa58c2338afcb">Plugin Output</h1>
+
+<p>Plugins cannot send structured data back to Drone. Plugins can, however, write information to stdout that appears in your build logs. Plugins can fail a build by exiting with a non-zero status code.</p>
+
+<p>Drone does not provide a storage mechanism for metrics or build artifacts. Instead you should write plugins that integrate with third party metrics services, like <a href="https://houndci.com">Hound</a> or <a href="https://coveralls.io">Coveralls</a>, or storage services like <a href="../../s3">S3</a>.</p>
+
+<h1 id="disk-access:dce8ed91d073f65a191aa58c2338afcb">Disk Access</h1>
+
+<p>Plugins share the <code>/drone</code> container volume with your build environment. This means plugins have full access to your source code as well as any assets generated in your build workspace.</p>
+
+<p>Please note plugins run in <strong>isolated</strong> Docker container. This means, aside from the <code>/drone</code> volume, plugins do not share any resources with your build container.</p>
+
+<h1 id="official-plugins:dce8ed91d073f65a191aa58c2338afcb">Official Plugins</h1>
+
+<p>Official plugins are found in the <a href="https://github.com/drone-plugins">drone-plugins</a> GitHub organization. These plugins are vetted by the community and are considered trusted. Requirements of official plugins include:</p>
+
+<ul>
+<li>Plugin is useful to the broader community</li>
+<li>Plugin is documented</li>
+<li>Plugin is written in Go, Node or Python</li>
+<li>Plugin has manifest file</li>
+<li>Plugin uses Apache2 license</li>
+<li>Plugin uses <code>alpine</code> base image (unless technical limitations prohibit)</li>
+</ul>
+
+<h1 id="custom-plugins:dce8ed91d073f65a191aa58c2338afcb">Custom Plugins</h1>
+
+<p>Plugins can be easily forked or created from scratch. Use the <code>image</code> attribute to provide Drone with your custom plugin&rsquo;s fully qualified image name:</p>
+
+<pre><code class="language-yaml">---
+deploy:
+  heroku:
+    image: bradrydzewski/custom-heroku
+    app: hello-world
+</code></pre>
+
+<p>Custom plugins also must be white-listed. The plugin white-list is provided to the Drone server using the <code>PLUGIN_FILTER</code> environment variable. This variables is a space-separated list of patterns for matching trusted plugins:</p>
+
+<pre><code class="language-bash">PLUGIN_FILTER=plugins/* bradrydzewski/*
+</code></pre>
+
+<h1 id="plugin-docs:dce8ed91d073f65a191aa58c2338afcb">Plugin Docs</h1>
+
+<p>Plugin documentation should be stored in a <code>DOCS.md</code> file in the root of your plugin&rsquo;s GitHub repository. Please use the <a href="https://github.com/drone-plugins/drone-slack/blob/master/DOCS.md">slack</a> documentation for reference.</p>
+
+<h1 id="plugin-logo:dce8ed91d073f65a191aa58c2338afcb">Plugin Logo</h1>
+
+<p>Plugin logos should be stored in a <code>logo.svg</code> file in the root of your plugin&rsquo;s GitHub repository. This logo file is used by the Drone plugin website.</p>
+
+<h1 id="plugin-manifest:dce8ed91d073f65a191aa58c2338afcb">Plugin Manifest</h1>
+
+<p>Plugin details should be stored in the <code>.drone.yml</code> file. These plugin details are used by the Drone plugin website. Please use the <a href="https://github.com/drone-plugins/drone-slack/blob/master/.drone.yml">slack</a> yaml file for reference.</p>
+
+<h1 id="plugin-tutorials:dce8ed91d073f65a191aa58c2338afcb">Plugin Tutorials</h1>
+
+<blockquote>
+<p>This section will link to plugin creation Guides in the <a href="https://github.com/drone-demos">drone-demos</a> GitHub organization. Such guides still need to be created.</p>
+</blockquote>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								<li>
+									<a href="/devs/libraries/" class="">Libraries</a>
+								</li>
+								
+								<li>
+									<a href="/devs/plugins/" class=" current-item">Plugins</a>
+								</li>
+								
+								<li>
+									<a href="/devs/guides/" class="">Guides</a>
+								</li>
+								
+								<li>
+									<a href="/devs/cli/" class="">CLI Reference</a>
+								</li>
+								
+								<li>
+									
+									
+									<a href="/devs/api/builds">API Reference</a>
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									<ul>
+										
+										
+										
+										
+										<li>
+											<a href="/devs/api/builds/" class="">Builds</a>
+										</li>
+										
+										
+										
+										<li>
+											<a href="/devs/api/repos/" class="">Repos</a>
+										</li>
+										
+										
+										
+										<li>
+											<a href="/devs/api/user/" class="">User</a>
+										</li>
+										
+										
+										
+										<li>
+											<a href="/devs/api/users/" class="">Users</a>
+										</li>
+										
+										
+									</ul>
+								</li>
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

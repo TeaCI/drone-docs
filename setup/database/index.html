@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Database · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview"  class="current-item">Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main>
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>Database</h1>
+						<nav id="TableOfContents">
+						
+						<nav id="TableOfContents">
+<ul>
+<li><a href="#sqlite:1e080c892326e5bba749587eba8bcf9e">SQLite</a></li>
+<li><a href="#postgres:1e080c892326e5bba749587eba8bcf9e">Postgres</a></li>
+<li><a href="#mysql:1e080c892326e5bba749587eba8bcf9e">MySQL</a></li>
+</ul>
+</nav>
+						
+						</nav>
+						<section>
+
+<p>Drone supports several relational databases. If you don&rsquo;t have a strong preference, SQLite is a great starting point. Once you have configured your database, continue onward to <a href="/setup/overview/#create-and-run-a-drone-container:68f80267fa3a50980dbb745a782b8dca">Create and Run a Drone Container</a></p>
+
+<h1 id="sqlite:1e080c892326e5bba749587eba8bcf9e">SQLite</h1>
+
+<p>Drone uses an embedded SQLite as the <strong>default</strong> database with zero configuration required. In order to customize the SQLite database configuration you should specify the following environment variables:</p>
+
+<pre><code>DATABASE_DRIVER=sqlite3
+DATABASE_CONFIG=/var/lib/drone/drone.sqlite
+</code></pre>
+
+<h1 id="postgres:1e080c892326e5bba749587eba8bcf9e">Postgres</h1>
+
+<p>Configure a Postgres database backend:</p>
+
+<pre><code>DATABASE_DRIVER=postgres
+DATABASE_CONFIG=postgres://root:pa55word@127.0.0.1:5432/postgres?sslmode=disable
+</code></pre>
+
+<p>See the official postgres connection string <a href="http://www.postgresql.org/docs/current/static/libpq-connect.html#LIBPQ-CONNSTRING">documentation</a> for a complete set of configuration options and examples.</p>
+
+<h1 id="mysql:1e080c892326e5bba749587eba8bcf9e">MySQL</h1>
+
+<p>Configure a Mysql database backend:</p>
+
+<pre><code>DATABASE_DRIVER=&quot;mysql&quot;
+DATABASE_CONFIG=&quot;root:pa55word@tcp(localhost:3306)/drone?parseTime=true&quot;
+</code></pre>
+
+<p>See the driver <a href="https://github.com/go-sql-driver/mysql#dsn-data-source-name">documentation</a> for a complete set of configuration options and examples.</p>
+
+<p>Note that Drone does not automatically create the mysql database. You should use the mysql command line utility or your preferred management console to create the database:</p>
+
+<pre><code>mysql -P 3306 --protocol=tcp -u root -e 'create database if not exists drone;'
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								
+								<li>
+									<a href="/setup/overview/" class="">Overview</a>
+								</li>
+								
+								<li>
+									<a href="/setup/remotes/" class="">Remote Drivers</a>
+								</li>
+								
+								<li>
+									<a href="/setup/database/" class=" current-item">Database</a>
+								</li>
+								
+								<li>
+									<a href="/setup/settings/" class="">Settings Reference</a>
+								</li>
+								
+								<li>
+									<a href="/setup/upgrades/" class="">Upgrades</a>
+								</li>
+								
+								<li>
+									<a href="/setup/proxy_network/" class="">Network Proxy</a>
+								</li>
+								
+								<li>
+									<a href="/setup/proxy_reverse/" class="">Reverse Proxy</a>
+								</li>
+								
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

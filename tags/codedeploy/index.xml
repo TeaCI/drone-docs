@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Codedeploy on Drone</title>
+    <link>http://docs.tea-ci.org/tags/codedeploy/</link>
+    <description>Recent content in Codedeploy on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 09:01:13 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/codedeploy/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>CodeDeploy</title>
+      <link>http://docs.tea-ci.org/plugins/codedeploy/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:13 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/codedeploy/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to CodeDeploy. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - AWS access key ID&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - AWS secret access key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;region&lt;/code&gt; - AWS availability zone&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;application&lt;/code&gt; - Application name, defaults to repo name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;deployment_group&lt;/code&gt; - Name of the deployment group&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;deployment_config&lt;/code&gt; - Name of the deployment config, optional&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;description&lt;/code&gt; - A description about the deployment, optional&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ignore_stop_failures&lt;/code&gt; - Causes the ApplicationStop deployment lifecycle
+event to fail to a specific instance, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;revision_type&lt;/code&gt; - Revision type, defaults to &lt;code&gt;GitHub&lt;/code&gt;, can be set to &lt;code&gt;S3&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bundle_type&lt;/code&gt; - File type of the application for &lt;code&gt;S3&lt;/code&gt; revision type&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket_name&lt;/code&gt; - Bucket for &lt;code&gt;S3&lt;/code&gt; revision type&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket_key&lt;/code&gt; - Key for &lt;code&gt;S3&lt;/code&gt; revision type&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket_etag&lt;/code&gt; - ETag for &lt;code&gt;S3&lt;/code&gt; revision type, optional&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket_version&lt;/code&gt; - Version for &lt;code&gt;S3&lt;/code&gt; revision type, optional&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:d30a981db23c4265e6c14871cf700bfc&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  codedeploy:
+    access_key: 970d28f4dd477bc184fbd10b376de753
+    secret_key: 9c5785d3ece6a9cdefa42eb99b58986f9095ff1c
+    region: us-east-1
+    deployment_group: my-deployment
+    ignore_stop_failures: true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

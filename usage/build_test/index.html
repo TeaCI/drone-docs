@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Build &amp; Test · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview" class="current-item">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main>
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>Build &amp; Test</h1>
+						<nav id="TableOfContents">
+						
+						<nav id="TableOfContents">
+<ul>
+<li><a href="#overview:fb92aa3346185c57f15afda861d465a3">Overview</a></li>
+<li><a href="#images:fb92aa3346185c57f15afda861d465a3">Images</a></li>
+<li><a href="#workspace:fb92aa3346185c57f15afda861d465a3">Workspace</a></li>
+<li><a href="#environment:fb92aa3346185c57f15afda861d465a3">Environment</a></li>
+<li><a href="#commands:fb92aa3346185c57f15afda861d465a3">Commands</a></li>
+<li><a href="#multiple-steps:fb92aa3346185c57f15afda861d465a3">Multiple Steps</a></li>
+<li><a href="#conditions:fb92aa3346185c57f15afda861d465a3">Conditions</a></li>
+<li><a href="#dependencies:fb92aa3346185c57f15afda861d465a3">Dependencies</a></li>
+<li><a href="#volumes:fb92aa3346185c57f15afda861d465a3">Volumes</a></li>
+<li><a href="#devices:fb92aa3346185c57f15afda861d465a3">Devices</a></li>
+<li><a href="#privileged:fb92aa3346185c57f15afda861d465a3">Privileged</a></li>
+<li><a href="#timeouts:fb92aa3346185c57f15afda861d465a3">Timeouts</a></li>
+<li><a href="#triggers:fb92aa3346185c57f15afda861d465a3">Triggers</a></li>
+<li><a href="#scheduling:fb92aa3346185c57f15afda861d465a3">Scheduling</a></li>
+<li><a href="#skip-commits:fb92aa3346185c57f15afda861d465a3">Skip Commits</a></li>
+<li><a href="#skip-branches:fb92aa3346185c57f15afda861d465a3">Skip Branches</a></li>
+</ul>
+</nav>
+						
+						</nav>
+						<section>
+
+<h1 id="overview:fb92aa3346185c57f15afda861d465a3">Overview</h1>
+
+<p>Drone uses the <code>build</code> section of the <code>.drone.yml</code> to define your Docker build environment and your build and test instructions. The following is an example build definition:</p>
+
+<pre><code class="language-yaml">---
+build:
+  image: golang
+  commands:
+    - go get
+    - go build
+    - go test
+</code></pre>
+
+<p>This example downloads and runs a <code>golang</code> container and executes the specified commands inside the container. Your source code, previously fetched during the <code>clone</code> step, is provided to the container as a Docker volume.</p>
+
+<h1 id="images:fb92aa3346185c57f15afda861d465a3">Images</h1>
+
+<p>Drone supports any valid Docker image from any Docker registry:</p>
+
+<pre><code class="language-yaml">---
+image: golang
+image: golang:1.5
+image: library/golang:1.5
+image: index.docker.io/library/golang:1.5
+</code></pre>
+
+<p>Provide your registry credentials if your build image is private:</p>
+
+<pre><code class="language-yaml">---
+build:
+  image: foo/bar
+  auth_config:
+    username: octocat
+    password: password
+    email: octocat@github.com
+</code></pre>
+
+<p>Use the <code>pull</code> attribute to instruct Drone to always pull the latest Docker image. This helps ensure you are always testing your code against the latest image:</p>
+
+<pre><code class="language-yaml">---
+build:
+  image: golang
+  pull: true
+</code></pre>
+
+<h1 id="workspace:fb92aa3346185c57f15afda861d465a3">Workspace</h1>
+
+<p>The build workspace is located in the <code>/drone/src/&lt;repository&gt;</code> directory inside the <code>/drone</code> volume. You cannot change the volume location, however, you can change the subdirectory.</p>
+
+<p>The below example overrides the default workspace to <code>/drone/src/github.com/octocat/hello-world</code>:</p>
+
+<pre><code class="language-yaml">---
+clone:
+  path: github.com/octocat/hello-world
+</code></pre>
+
+<h1 id="environment:fb92aa3346185c57f15afda861d465a3">Environment</h1>
+
+<p>Use the environment section to inject environment variables into your build environment:</p>
+
+<pre><code class="language-yaml">---
+build:
+  image: golang:1.5
+  environment:
+    - GO15VENDOREXPERIMENT=0
+    - GOOS=linux
+    - GOARCH=amd64
+    - CGO_ENABLED=0
+</code></pre>
+
+<p>Variable expansion is not supported. The following example <strong>will not work</strong>:</p>
+
+<pre><code class="language-yaml">---
+environment:
+  - PATH=$PATH:/go
+</code></pre>
+
+<h1 id="commands:fb92aa3346185c57f15afda861d465a3">Commands</h1>
+
+<p>Build commands execute sequentially in a shell environment with the <code>-e</code> flag. The <code>-e</code> flag instructs the shell environment to exit immediately if a command returns a non-zero exit code.</p>
+
+<pre><code class="language-yaml">---
+build:
+  image: golang:1.5
+  commands:
+    - go get
+    - go build
+    - go test
+</code></pre>
+
+<p>Please be aware that chaining commands together with <code>&amp;&amp;</code> may result in the build not exiting on failure. This is not a bug with Drone. This is the default bash <code>-e</code> behavior. See <a href="http://stackoverflow.com/questions/25794905/why-does-set-e-true-false-true-not-exit#25795239">this stackoverflow</a> for more details.</p>
+
+<h1 id="multiple-steps:fb92aa3346185c57f15afda861d465a3">Multiple Steps</h1>
+
+<p>Build commands can be split into multiple named steps. The below example let&rsquo;s us split our frontend build (node) and our backend build (go). Each step executes in its own isolated container environment while sharing the same build workspace.</p>
+
+<pre><code class="language-yaml">---
+build:
+  frontend:
+    image: node:5.3.0
+    commands:
+      - npm install
+      - npm test
+  backend:
+    image: golang:1.5
+    commands:
+      - go get
+      - go build
+      - go test
+</code></pre>
+
+<h1 id="conditions:fb92aa3346185c57f15afda861d465a3">Conditions</h1>
+
+<p>Limit when a build step should is executed using conditional logic. The below example splits our build into two steps. The second build step, building the distribution, is only executed when we tag a release. This reduces the build time for <code>push</code> and <code>pull_request</code> events by removing un-necessary steps:</p>
+
+<pre><code class="language-yaml">---
+build:
+  test:
+    image: golang:1.5
+    commands:
+      - go get
+      - go test
+  bundle:
+    image: golang:1.5
+    commands:
+      - go build
+      - tar -cvf bundle.tar myapp
+    when:
+      event: tag
+</code></pre>
+
+<p>Only execute a step when building a <code>push</code> or <code>tag</code> event:</p>
+
+<pre><code class="language-yaml">---
+build:
+  bundle:
+    when:
+      event: [push, tag]
+</code></pre>
+
+<p>Only executes a step when building the <code>master</code> branch:</p>
+
+<pre><code class="language-yaml">---
+build:
+  bundle:
+    when:
+      branch: master
+</code></pre>
+
+<p>There are a number of other conditions which can be used in whens: <code>repo</code> (a full repo path) and <code>success</code>, <code>failure</code> and <code>change</code> (all booleans based on the previous job status).</p>
+
+<pre><code class="language-yaml">---
+build:
+  bundle:
+    when:
+      repo: drone/drone
+      success: true
+      failure: true
+      change: true
+</code></pre>
+
+<h1 id="dependencies:fb92aa3346185c57f15afda861d465a3">Dependencies</h1>
+
+<p>Cloning private submodules or private dependencies (using <code>npm</code> or <code>go get</code>) requires remote authentication. We recommend using <code>git+https</code> for submodules or dependencies, allowing Drone to authenticate to your remote repository using a <code>.netrc</code> file injected by default into your build environment.</p>
+
+<p>Instead of using the <code>git+ssh</code> url in your <code>package.json</code> file:</p>
+
+<pre><code class="language-js">{
+    &quot;library&quot;: &quot;git+ssh://git@github.com:octocat/library.git&quot;
+}
+</code></pre>
+
+<p>Use the <code>git+https</code> url in your <code>package.json</code> file:</p>
+
+<pre><code class="language-js">{
+    &quot;library&quot;: &quot;https://github.com/octocat/library.git&quot;
+}
+</code></pre>
+
+<h1 id="volumes:fb92aa3346185c57f15afda861d465a3">Volumes</h1>
+
+<p>Use the <code>volumes</code> attribute to mount folders on your host machine into your build container. These are <a href="https://docs.docker.com/engine/userguide/dockervolumes/">Docker volumes</a> and therefore use the same <code>&lt;host&gt;:&lt;container&gt;</code> declaration conventions:</p>
+
+<pre><code class="language-yaml">---
+build:
+  image: golang
+  volumes:
+    - /some/path/on/host:/path/in/container
+</code></pre>
+
+<p>For security reasons this option is only available to trusted repositories. Trusted repositories are enabled on a per-repository basis by a Drone administrator from your repository settings screen.</p>
+
+<h1 id="devices:fb92aa3346185c57f15afda861d465a3">Devices</h1>
+
+<p>Use the <code>devices</code> attribute to map devices from your host machine into your build container. These are <a href="https://docs.docker.com/compose/compose-file/#devices">Docker devices</a> and therefore use the same declaration conventions:</p>
+
+<pre><code class="language-yaml">---
+build:
+  image: golang
+  devices:
+    - &quot;/dev/ttyUSB0:/dev/ttyUSB0&quot;
+</code></pre>
+
+<p>For security reasons this option is only available to trusted repositories. Trusted repositories are enabled on a per-repository basis by a Drone administrator from your repository settings screen.</p>
+
+<h1 id="privileged:fb92aa3346185c57f15afda861d465a3">Privileged</h1>
+
+<p>Use the <code>privileged</code> attribute to run your build in a privileged Docker container:</p>
+
+<pre><code class="language-yaml">---
+build:
+  image: golang
+  privileged: true
+</code></pre>
+
+<p>For security reasons this option is only available to trusted repositories. Trusted repositories are enabled on a per-repository basis by a Drone administrator from your repository settings screen.</p>
+
+<h1 id="timeouts:fb92aa3346185c57f15afda861d465a3">Timeouts</h1>
+
+<p>There is a default 60 minute timeout for your build. This can be increased by a Drone administrator from your repository settings screen.</p>
+
+<h1 id="triggers:fb92aa3346185c57f15afda861d465a3">Triggers</h1>
+
+<p>Builds are triggered primarily by <code>push</code> and <code>pull_request</code> hooks from your remote system (ie GitHub). Sometimes changes to an upstream project have a cascading impact on downstream projects. You can trigger cascading builds using the <a href="/plugins/downstream/">trigger</a> plugin.</p>
+
+<h1 id="scheduling:fb92aa3346185c57f15afda861d465a3">Scheduling</h1>
+
+<p>Drone does not have any builtin scheduling capabilities. For scheduled builds (ie nightly builds) we recommend using the Drone command line tools with cron to trigger builds at scheduled intervals.</p>
+
+<h1 id="skip-commits:fb92aa3346185c57f15afda861d465a3">Skip Commits</h1>
+
+<p>Instruct Drone to skip builds by by including any combination of <code>ci</code> and <code>skip</code> wrapped in square brackets in your commit message. Examples: <code>[skip CI]</code> <code>[ci skip]</code></p>
+
+<h1 id="skip-branches:fb92aa3346185c57f15afda861d465a3">Skip Branches</h1>
+
+<p>Instruct Drone to skip branches by including a branch white-list in your <code>.drone.yml</code></p>
+
+<pre><code class="language-yaml">---
+branches:
+  - master
+  - develop
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								<li>
+									<a href="/usage/overview/" class="">Quick Start</a>
+								</li>
+								
+								<li>
+									<a href="/usage/variables/" class="">Variables</a>
+								</li>
+								
+								<li>
+									<a href="/usage/secrets/" class="">Secrets</a>
+								</li>
+								
+								<li>
+									<a href="/usage/cloning/" class="">Cloning</a>
+								</li>
+								
+								<li>
+									<a href="/usage/caching/" class="">Caching</a>
+								</li>
+								
+								<li>
+									<a href="/usage/services/" class="">Service Containers</a>
+								</li>
+								
+								<li>
+									<a href="/usage/build_test/" class=" current-item">Build &amp; Test</a>
+								</li>
+								
+								<li>
+									<a href="/usage/deploy/" class="">Deployments</a>
+								</li>
+								
+								<li>
+									<a href="/usage/notify/" class="">Notifications</a>
+								</li>
+								
+								<li>
+									<a href="/usage/matrix/" class="">Matrix</a>
+								</li>
+								
+								<li>
+									<a href="/usage/artifacts/" class="">Publishing Artifacts</a>
+								</li>
+								
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bitballoon on Drone</title>
+    <link>http://docs.tea-ci.org/tags/bitballoon/</link>
+    <description>Recent content in Bitballoon on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 09:00:29 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/bitballoon/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>BitBalloon</title>
+      <link>http://docs.tea-ci.org/plugins/bitballoon/</link>
+      <pubDate>Sat, 13 Feb 2016 09:00:29 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/bitballoon/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to Bitballoon. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_token&lt;/code&gt; - BitBalloon API access token&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;site&lt;/code&gt; - Site name, should be the full domain name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;path&lt;/code&gt; - Relative path to the folder or ZIP file, defaults to repo root&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;draft&lt;/code&gt; - Deploy as a draft version, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:5d3cc21300e5e07fad473877e019b1fc&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  bitballoon:
+    access_token: 6f34aed19d59420e3f026ab0f04fb3824710e36d26df4dc8aac8d56dc82a06ac
+    site: happy-page.bitballoon.com
+    path: dist/
+    draft: true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

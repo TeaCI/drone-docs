@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nuget on Drone</title>
+    <link>http://docs.tea-ci.org/tags/nuget/</link>
+    <description>Recent content in Nuget on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 09:01:59 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/nuget/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>NuGet</title>
+      <link>http://docs.tea-ci.org/plugins/nuget/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:59 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/nuget/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin to publish artifacts from the build to a NuGet Repository
+You can override the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;source&lt;/code&gt; - NuGet Repository URL&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;api_key&lt;/code&gt; - Api Key used for authentication&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;verbosity&lt;/code&gt; - NuGet output verbosity, default to &amp;lsquo;quiet&amp;rsquo;. Accept: normal, quiet or detailed&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;files&lt;/code&gt; - List of files to upload&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All file paths must be relative to current project sources&lt;/p&gt;
+
+&lt;h2 id=&#34;example:8c3786f99f26ed1c69705735232d5c0a&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  nuget:
+    source: http://nuget.company.com
+    api_key: &amp;lt;Your Key&amp;gt;
+    files: 
+      - *.nupkg
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;nuspec-nupkg:8c3786f99f26ed1c69705735232d5c0a&#34;&gt;.nuspec / .nupkg&lt;/h2&gt;
+
+&lt;p&gt;If a file to upload does have &lt;code&gt;.nuspec&lt;/code&gt; extension, the &lt;strong&gt;nuget pack&lt;/strong&gt; command is called before a push&lt;/p&gt;
+
+&lt;p&gt;If a file to upload does have &lt;code&gt;.nupkg&lt;/code&gt; extension, it is pushed directly&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

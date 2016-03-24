@@ -1,0 +1,825 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Devs on Drone</title>
+    <link>http://docs.tea-ci.org/devs/</link>
+    <description>Recent content in Devs on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="http://docs.tea-ci.org/devs/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Libraries</title>
+      <link>http://docs.tea-ci.org/devs/libraries/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/devs/libraries/</guid>
+      <description>&lt;p&gt;Drone provides a simple and hackable continuous integration platform. Use the official libraries to build plugins and integrations. &lt;a href=&#34;https://gitter.im/drone/drone&#34;&gt;Contact us&lt;/a&gt; to include your third party libraries.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/drone/drone-go&#34;&gt;drone-go&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/drone/drone-python&#34;&gt;drone-python&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/drone/drone-node&#34;&gt;drone-node&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/drone/drone-ruby&#34;&gt;drone-ruby&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Plugins</title>
+      <link>http://docs.tea-ci.org/devs/plugins/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/devs/plugins/</guid>
+      <description>
+
+&lt;h1 id=&#34;overview:dce8ed91d073f65a191aa58c2338afcb&#34;&gt;Overview&lt;/h1&gt;
+
+&lt;p&gt;Plugins are Docker containers that attach to your build at runtime and perform custom operations. These operations may include deploying code, publishing artifacts and sending notifications. &lt;strong&gt;BONUS&lt;/strong&gt; because plugins are Docker containers they can be written in any language!&lt;/p&gt;
+
+&lt;p&gt;Plugins are declared in the &lt;code&gt;.drone.yml&lt;/code&gt; file. Drone automatically downloads plugins from the registry and executes. This is an example of the &lt;a href=&#34;../../plugins/slack&#34;&gt;slack&lt;/a&gt; plugin configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+notify:
+  slack:
+    webhook_url: https://hooks.slack.com/services/...
+    username: captain_freedom
+    channel: ics
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;plugin-input:dce8ed91d073f65a191aa58c2338afcb&#34;&gt;Plugin Input&lt;/h1&gt;
+
+&lt;p&gt;Plugins receive a JSON payload as a command line argument that includes repository and build details. Plugin configuration parameters from the YAML file are stored in the &lt;code&gt;vargs&lt;/code&gt; section of the document.&lt;/p&gt;
+
+&lt;p&gt;Example plugin input:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;{
+    &amp;quot;system&amp;quot;: {
+        &amp;quot;link&amp;quot;: &amp;quot;http://drone.mycompany.com&amp;quot;
+    },
+    &amp;quot;repo&amp;quot;: {
+        &amp;quot;owner&amp;quot;: &amp;quot;octocat&amp;quot;,
+        &amp;quot;name&amp;quot;: &amp;quot;hello-world&amp;quot;,
+        &amp;quot;full_name&amp;quot;: &amp;quot;octocat/hello-world&amp;quot;,
+        &amp;quot;link_url&amp;quot;: &amp;quot;https://github.com/octocat/hello-world&amp;quot;
+        &amp;quot;clone_url&amp;quot;: &amp;quot;https://github.com/octocat/hello-world.git&amp;quot;,
+    },
+    &amp;quot;build&amp;quot;: {
+        &amp;quot;number&amp;quot;: 1,
+        &amp;quot;event&amp;quot;: &amp;quot;push&amp;quot;,
+        &amp;quot;branch&amp;quot;: &amp;quot;master&amp;quot;,
+        &amp;quot;commit&amp;quot;: &amp;quot;436b7a6e2abaddfd35740527353e78a227ddcb2c&amp;quot;,
+        &amp;quot;ref&amp;quot;: &amp;quot;refs/heads/master&amp;quot;,
+        &amp;quot;author&amp;quot;: &amp;quot;octocat&amp;quot;,
+        &amp;quot;author_email&amp;quot;: &amp;quot;octocat@github.com&amp;quot;
+    },
+    &amp;quot;workspace&amp;quot;: {
+        &amp;quot;root&amp;quot;: &amp;quot;/drone/src&amp;quot;,
+        &amp;quot;path&amp;quot;: &amp;quot;/drone/src/github.com/octocat/hello-world&amp;quot;,
+        &amp;quot;keys&amp;quot;: {
+            &amp;quot;private&amp;quot;: &amp;quot;-----BEGIN RSA PRIVATE KEY-----\nMIICXAIBAAKBgQC...&amp;quot;
+        }
+    },
+    &amp;quot;vargs&amp;quot;: { ... }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;plugin-output:dce8ed91d073f65a191aa58c2338afcb&#34;&gt;Plugin Output&lt;/h1&gt;
+
+&lt;p&gt;Plugins cannot send structured data back to Drone. Plugins can, however, write information to stdout that appears in your build logs. Plugins can fail a build by exiting with a non-zero status code.&lt;/p&gt;
+
+&lt;p&gt;Drone does not provide a storage mechanism for metrics or build artifacts. Instead you should write plugins that integrate with third party metrics services, like &lt;a href=&#34;https://houndci.com&#34;&gt;Hound&lt;/a&gt; or &lt;a href=&#34;https://coveralls.io&#34;&gt;Coveralls&lt;/a&gt;, or storage services like &lt;a href=&#34;../../s3&#34;&gt;S3&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;disk-access:dce8ed91d073f65a191aa58c2338afcb&#34;&gt;Disk Access&lt;/h1&gt;
+
+&lt;p&gt;Plugins share the &lt;code&gt;/drone&lt;/code&gt; container volume with your build environment. This means plugins have full access to your source code as well as any assets generated in your build workspace.&lt;/p&gt;
+
+&lt;p&gt;Please note plugins run in &lt;strong&gt;isolated&lt;/strong&gt; Docker container. This means, aside from the &lt;code&gt;/drone&lt;/code&gt; volume, plugins do not share any resources with your build container.&lt;/p&gt;
+
+&lt;h1 id=&#34;official-plugins:dce8ed91d073f65a191aa58c2338afcb&#34;&gt;Official Plugins&lt;/h1&gt;
+
+&lt;p&gt;Official plugins are found in the &lt;a href=&#34;https://github.com/drone-plugins&#34;&gt;drone-plugins&lt;/a&gt; GitHub organization. These plugins are vetted by the community and are considered trusted. Requirements of official plugins include:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Plugin is useful to the broader community&lt;/li&gt;
+&lt;li&gt;Plugin is documented&lt;/li&gt;
+&lt;li&gt;Plugin is written in Go, Node or Python&lt;/li&gt;
+&lt;li&gt;Plugin has manifest file&lt;/li&gt;
+&lt;li&gt;Plugin uses Apache2 license&lt;/li&gt;
+&lt;li&gt;Plugin uses &lt;code&gt;alpine&lt;/code&gt; base image (unless technical limitations prohibit)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;custom-plugins:dce8ed91d073f65a191aa58c2338afcb&#34;&gt;Custom Plugins&lt;/h1&gt;
+
+&lt;p&gt;Plugins can be easily forked or created from scratch. Use the &lt;code&gt;image&lt;/code&gt; attribute to provide Drone with your custom plugin&amp;rsquo;s fully qualified image name:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+deploy:
+  heroku:
+    image: bradrydzewski/custom-heroku
+    app: hello-world
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Custom plugins also must be white-listed. The plugin white-list is provided to the Drone server using the &lt;code&gt;PLUGIN_FILTER&lt;/code&gt; environment variable. This variables is a space-separated list of patterns for matching trusted plugins:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;PLUGIN_FILTER=plugins/* bradrydzewski/*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;plugin-docs:dce8ed91d073f65a191aa58c2338afcb&#34;&gt;Plugin Docs&lt;/h1&gt;
+
+&lt;p&gt;Plugin documentation should be stored in a &lt;code&gt;DOCS.md&lt;/code&gt; file in the root of your plugin&amp;rsquo;s GitHub repository. Please use the &lt;a href=&#34;https://github.com/drone-plugins/drone-slack/blob/master/DOCS.md&#34;&gt;slack&lt;/a&gt; documentation for reference.&lt;/p&gt;
+
+&lt;h1 id=&#34;plugin-logo:dce8ed91d073f65a191aa58c2338afcb&#34;&gt;Plugin Logo&lt;/h1&gt;
+
+&lt;p&gt;Plugin logos should be stored in a &lt;code&gt;logo.svg&lt;/code&gt; file in the root of your plugin&amp;rsquo;s GitHub repository. This logo file is used by the Drone plugin website.&lt;/p&gt;
+
+&lt;h1 id=&#34;plugin-manifest:dce8ed91d073f65a191aa58c2338afcb&#34;&gt;Plugin Manifest&lt;/h1&gt;
+
+&lt;p&gt;Plugin details should be stored in the &lt;code&gt;.drone.yml&lt;/code&gt; file. These plugin details are used by the Drone plugin website. Please use the &lt;a href=&#34;https://github.com/drone-plugins/drone-slack/blob/master/.drone.yml&#34;&gt;slack&lt;/a&gt; yaml file for reference.&lt;/p&gt;
+
+&lt;h1 id=&#34;plugin-tutorials:dce8ed91d073f65a191aa58c2338afcb&#34;&gt;Plugin Tutorials&lt;/h1&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;This section will link to plugin creation Guides in the &lt;a href=&#34;https://github.com/drone-demos&#34;&gt;drone-demos&lt;/a&gt; GitHub organization. Such guides still need to be created.&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Guides</title>
+      <link>http://docs.tea-ci.org/devs/guides/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/devs/guides/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Guides are tutorials stored in the &lt;a href=&#34;https://github.com/drone-demos&#34;&gt;drone-demos&lt;/a&gt; github organization. Similar to plugins, the guide documentation should be auto-generated. This section of the docs will provide guidelines for creating Guide tutorials.&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>CLI Reference</title>
+      <link>http://docs.tea-ci.org/devs/cli/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/devs/cli/</guid>
+      <description>
+
+&lt;h1 id=&#34;install:b659b046131d4024ab5e2d3675716bf0&#34;&gt;Install&lt;/h1&gt;
+
+&lt;p&gt;This tool requires Docker 1.6 or higher. If you are using Windows or Mac we recommend installing the &lt;a href=&#34;https://www.docker.com/docker-toolbox&#34;&gt;Docker Toolbox&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Linux&lt;/strong&gt; binary installation instructions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl http://downloads.drone.io/drone-cli/drone_linux_amd64.tar.gz | tar zx
+sudo install -t /usr/local/bin drone
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;OSX&lt;/strong&gt; binary installation instructions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;curl http://downloads.drone.io/drone-cli/drone_darwin_amd64.tar.gz | tar zx
+sudo cp drone /usr/local/bin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;setup:b659b046131d4024ab5e2d3675716bf0&#34;&gt;Setup&lt;/h1&gt;
+
+&lt;p&gt;You will need to provide the Drone command line tools with the location of your Drone installation as well as an access token for authentication. You can retrieve a Drone personal access token from your user profile screen.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;export DRONE_SERVER=&amp;lt;http://&amp;gt;
+export DRONE_TOKEN=&amp;lt;token&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;repo-commands:b659b046131d4024ab5e2d3675716bf0&#34;&gt;Repo Commands&lt;/h1&gt;
+
+&lt;p&gt;The &lt;code&gt;drone repo&lt;/code&gt; commands help you manage repositories, including activation and de-activation. Run &lt;code&gt;drone build help&lt;/code&gt; for the usage documentation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;NAME:
+   drone repo - manage repos
+
+USAGE:
+   drone repo [global options] command [command options] [arguments...]
+
+COMMANDS:
+   ls		lists repositories
+   info		show repository details
+   add		add a repository
+   rm		remove a repository
+   help, h	Shows a list of commands or help for one command
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Activates a repository:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;drone repo add hello-world/octocat
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Remove a repository:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;drone repo rm hello-world/octocat
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;List all activated repositories:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;drone repo ls
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;build-commands:b659b046131d4024ab5e2d3675716bf0&#34;&gt;Build Commands&lt;/h1&gt;
+
+&lt;p&gt;The &lt;code&gt;drone build&lt;/code&gt; commands help you manage builds, including starting, stopping and inspecting running builds. This could be used with CRON to schedule nighty builds, for example. Run &lt;code&gt;drone build help&lt;/code&gt; for the usage documentation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;NAME:
+   drone build - manage builds
+
+USAGE:
+   drone build [global options] command [command options] [arguments...]
+
+COMMANDS:
+   info		show build information
+   list		list recent builds
+   last		last build (push only)
+   logs		show build logs
+   start	start a stopped build
+   stop		stop a running build job
+   help, h	Shows a list of commands or help for one command
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;List recent builds for a repository:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;drone build list octocat/hello-world
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Get the last build for a repository:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;drone build last octocat/hello-world
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Restart a previously executed build by build number:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;drone build start octocat/hello-world 35
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;user-commands:b659b046131d4024ab5e2d3675716bf0&#34;&gt;User Commands&lt;/h1&gt;
+
+&lt;p&gt;The &lt;code&gt;drone user&lt;/code&gt; commands help the system administrator manage registered users, including adding and removing user access. Run &lt;code&gt;drone user help&lt;/code&gt; for the usage documentation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;NAME:
+   drone user - manage users
+
+USAGE:
+   drone user [global options] command [command options] [arguments...]
+
+COMMANDS:
+   ls		list all users
+   info		show user details
+   add		adds a user
+   rm		remove a user
+   self		show the current user details
+   help, h	Shows a list of commands or help for one command
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Setup a new user by login:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;drone user add octocat
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Remove a user by login:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;drone user rm octocat
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;List all registered users:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;drone user ls
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;worker-commands:b659b046131d4024ab5e2d3675716bf0&#34;&gt;Worker Commands&lt;/h1&gt;
+
+&lt;p&gt;TODO&lt;/p&gt;
+
+&lt;h1 id=&#34;secret-management:b659b046131d4024ab5e2d3675716bf0&#34;&gt;Secret Management&lt;/h1&gt;
+
+&lt;p&gt;TODO&lt;/p&gt;
+
+&lt;h1 id=&#34;local-testing:b659b046131d4024ab5e2d3675716bf0&#34;&gt;Local Testing&lt;/h1&gt;
+
+&lt;p&gt;Drone gives you the ability to run your build locally, on your personal computer, without a Drone server. Local builds use Docker for build isolation and container orchestration. The local build process is almost identical to the server build process, making it very convenient for setup or troubleshooting failed builds.&lt;/p&gt;
+
+&lt;p&gt;First ensure you have a running Docker instance. Navigate to the root of your git repository, where the &lt;code&gt;.drone.yml&lt;/code&gt; file is located, and run the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;drone exec
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Run your build with the SSH key injected into your build environment. This may be useful if your build script fetches private repositories or connects to remote servers:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;drone exec -i ~/.ssh/id_rsa
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Run your build with the trusted flag to enable privileged mode and volume mounting:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;drone exec --trusted
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Builds</title>
+      <link>http://docs.tea-ci.org/devs/api/builds/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/devs/api/builds/</guid>
+      <description>
+
+&lt;h1 id=&#34;get-recent-builds:e163b46a1bc96a0cc699d52d0e3291d7&#34;&gt;Get recent builds&lt;/h1&gt;
+
+&lt;p&gt;Returns recent builds for the repository based on name.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;GET /api/repos/{owner}/{name}/builds
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example Response Body:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;[{
+  &amp;quot;id&amp;quot;: 1,
+  &amp;quot;number&amp;quot;: 1,
+  &amp;quot;event&amp;quot;: &amp;quot;push&amp;quot;,
+  &amp;quot;status&amp;quot;: &amp;quot;success&amp;quot;,
+  &amp;quot;created_at&amp;quot;: 1443677151,
+  &amp;quot;enqueued_at&amp;quot;: 1443677151,
+  &amp;quot;started_at&amp;quot;: 1443677151,
+  &amp;quot;finished_at&amp;quot;: 1443677255,
+  &amp;quot;commit&amp;quot;: &amp;quot;2deb7e0d0cbac357eeb110c8a2f2f32ce037e0d5&amp;quot;,
+  &amp;quot;branch&amp;quot;: &amp;quot;master&amp;quot;,
+  &amp;quot;ref&amp;quot;: &amp;quot;refs/heads/master&amp;quot;,
+  &amp;quot;remote&amp;quot;: &amp;quot;https://github.com/octocat/hello-world.git&amp;quot;,
+  &amp;quot;message&amp;quot;: &amp;quot;New line at end of file. --Signed off by Spaceghost&amp;quot;,
+  &amp;quot;timestamp&amp;quot;: 1443677255,
+  &amp;quot;author&amp;quot;: &amp;quot;Spaceghost&amp;quot;,
+  &amp;quot;author_avatar&amp;quot;: &amp;quot;https://avatars0.githubusercontent.com/u/251370?v=3&amp;quot;,
+  &amp;quot;author_email&amp;quot;: &amp;quot;octocat@github.com&amp;quot;,
+  &amp;quot;link_url&amp;quot;: &amp;quot;https://github.com/octocat/hello-world/commit/762941318ee16e59dabbacb1b4049eec22f0d303&amp;quot;,
+  &amp;quot;jobs&amp;quot;: [
+    {
+      &amp;quot;id&amp;quot;: 1,
+      &amp;quot;number&amp;quot;: 1,
+      &amp;quot;status&amp;quot;: &amp;quot;success&amp;quot;,
+      &amp;quot;enqueued_at&amp;quot;: 1443677151,
+      &amp;quot;started_at&amp;quot;: 1443677151,
+      &amp;quot;finished_at&amp;quot;: 1443677255,
+      &amp;quot;exit_code&amp;quot;: 0,
+      &amp;quot;environment&amp;quot;: { &amp;quot;GO_VERSION&amp;quot;: &amp;quot;1.4&amp;quot; }
+    },
+    {
+      &amp;quot;id&amp;quot;: 2,
+      &amp;quot;number&amp;quot;: 2,
+      &amp;quot;status&amp;quot;: &amp;quot;success&amp;quot;,
+      &amp;quot;enqueued_at&amp;quot;: 1443677151,
+      &amp;quot;started_at&amp;quot;: 1443677151,
+      &amp;quot;finished_at&amp;quot;: 1443677255,
+      &amp;quot;exit_code&amp;quot;: 0,
+      &amp;quot;environment&amp;quot;: { &amp;quot;GO_VERSION&amp;quot;: &amp;quot;1.5&amp;quot; }
+    }
+  ]
+}
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;get-the-latest-build:e163b46a1bc96a0cc699d52d0e3291d7&#34;&gt;Get the latest build&lt;/h1&gt;
+
+&lt;p&gt;Returns the latest repository build.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;GET /api/repos/{owner}/{name}/builds/{number}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example Response Body:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;{
+  &amp;quot;id&amp;quot;: 1,
+  &amp;quot;number&amp;quot;: 1,
+  &amp;quot;event&amp;quot;: &amp;quot;push&amp;quot;,
+  &amp;quot;status&amp;quot;: &amp;quot;success&amp;quot;,
+  &amp;quot;created_at&amp;quot;: 1443677151,
+  &amp;quot;enqueued_at&amp;quot;: 1443677151,
+  &amp;quot;started_at&amp;quot;: 1443677151,
+  &amp;quot;finished_at&amp;quot;: 1443677255,
+  &amp;quot;commit&amp;quot;: &amp;quot;2deb7e0d0cbac357eeb110c8a2f2f32ce037e0d5&amp;quot;,
+  &amp;quot;branch&amp;quot;: &amp;quot;master&amp;quot;,
+  &amp;quot;ref&amp;quot;: &amp;quot;refs/heads/master&amp;quot;,
+  &amp;quot;remote&amp;quot;: &amp;quot;https://github.com/octocat/hello-world.git&amp;quot;,
+  &amp;quot;message&amp;quot;: &amp;quot;New line at end of file. --Signed off by Spaceghost&amp;quot;,
+  &amp;quot;timestamp&amp;quot;: 1443677255,
+  &amp;quot;author&amp;quot;: &amp;quot;Spaceghost&amp;quot;,
+  &amp;quot;author_avatar&amp;quot;: &amp;quot;https://avatars0.githubusercontent.com/u/251370?v=3&amp;quot;,
+  &amp;quot;author_email&amp;quot;: &amp;quot;octocat@github.com&amp;quot;,
+  &amp;quot;link_url&amp;quot;: &amp;quot;https://github.com/octocat/hello-world/commit/762941318ee16e59dabbacb1b4049eec22f0d303&amp;quot;,
+  &amp;quot;jobs&amp;quot;: [
+    {
+      &amp;quot;id&amp;quot;: 1,
+      &amp;quot;number&amp;quot;: 1,
+      &amp;quot;status&amp;quot;: &amp;quot;success&amp;quot;,
+      &amp;quot;enqueued_at&amp;quot;: 1443677151,
+      &amp;quot;started_at&amp;quot;: 1443677151,
+      &amp;quot;finished_at&amp;quot;: 1443677255,
+      &amp;quot;exit_code&amp;quot;: 0,
+      &amp;quot;environment&amp;quot;: { &amp;quot;GO_VERSION&amp;quot;: &amp;quot;1.4&amp;quot; }
+    },
+    {
+      &amp;quot;id&amp;quot;: 2,
+      &amp;quot;number&amp;quot;: 2,
+      &amp;quot;status&amp;quot;: &amp;quot;success&amp;quot;,
+      &amp;quot;enqueued_at&amp;quot;: 1443677151,
+      &amp;quot;started_at&amp;quot;: 1443677151,
+      &amp;quot;finished_at&amp;quot;: 1443677255,
+      &amp;quot;exit_code&amp;quot;: 0,
+      &amp;quot;environment&amp;quot;: { &amp;quot;GO_VERSION&amp;quot;: &amp;quot;1.5&amp;quot; }
+    }
+  ]
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;restart-a-build:e163b46a1bc96a0cc699d52d0e3291d7&#34;&gt;Restart a build&lt;/h1&gt;
+
+&lt;p&gt;Restart the a build by number.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;POST /api/repos/{owner}/{name}/builds/{number}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example Response Body:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;{
+  &amp;quot;id&amp;quot;: 1,
+  &amp;quot;number&amp;quot;: 1,
+  &amp;quot;event&amp;quot;: &amp;quot;push&amp;quot;,
+  &amp;quot;status&amp;quot;: &amp;quot;success&amp;quot;,
+  &amp;quot;created_at&amp;quot;: 1443677151,
+  &amp;quot;enqueued_at&amp;quot;: 1443677151,
+  &amp;quot;started_at&amp;quot;: 1443677151,
+  &amp;quot;finished_at&amp;quot;: 1443677255,
+  &amp;quot;commit&amp;quot;: &amp;quot;2deb7e0d0cbac357eeb110c8a2f2f32ce037e0d5&amp;quot;,
+  &amp;quot;branch&amp;quot;: &amp;quot;master&amp;quot;,
+  &amp;quot;ref&amp;quot;: &amp;quot;refs/heads/master&amp;quot;,
+  &amp;quot;remote&amp;quot;: &amp;quot;https://github.com/octocat/hello-world.git&amp;quot;,
+  &amp;quot;message&amp;quot;: &amp;quot;New line at end of file. --Signed off by Spaceghost&amp;quot;,
+  &amp;quot;timestamp&amp;quot;: 1443677255,
+  &amp;quot;author&amp;quot;: &amp;quot;Spaceghost&amp;quot;,
+  &amp;quot;author_avatar&amp;quot;: &amp;quot;https://avatars0.githubusercontent.com/u/251370?v=3&amp;quot;,
+  &amp;quot;author_email&amp;quot;: &amp;quot;octocat@github.com&amp;quot;,
+  &amp;quot;link_url&amp;quot;: &amp;quot;https://github.com/octocat/hello-world/commit/762941318ee16e59dabbacb1b4049eec22f0d303&amp;quot;,
+  &amp;quot;jobs&amp;quot;: [
+    {
+      &amp;quot;id&amp;quot;: 1,
+      &amp;quot;number&amp;quot;: 1,
+      &amp;quot;status&amp;quot;: &amp;quot;success&amp;quot;,
+      &amp;quot;enqueued_at&amp;quot;: 1443677151,
+      &amp;quot;started_at&amp;quot;: 1443677151,
+      &amp;quot;finished_at&amp;quot;: 1443677255,
+      &amp;quot;exit_code&amp;quot;: 0,
+      &amp;quot;environment&amp;quot;: { &amp;quot;GO_VERSION&amp;quot;: &amp;quot;1.4&amp;quot; }
+    },
+    {
+      &amp;quot;id&amp;quot;: 2,
+      &amp;quot;number&amp;quot;: 2,
+      &amp;quot;status&amp;quot;: &amp;quot;success&amp;quot;,
+      &amp;quot;enqueued_at&amp;quot;: 1443677151,
+      &amp;quot;started_at&amp;quot;: 1443677151,
+      &amp;quot;finished_at&amp;quot;: 1443677255,
+      &amp;quot;exit_code&amp;quot;: 0,
+      &amp;quot;environment&amp;quot;: { &amp;quot;GO_VERSION&amp;quot;: &amp;quot;1.5&amp;quot; }
+    }
+  ]
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;get-build-logs:e163b46a1bc96a0cc699d52d0e3291d7&#34;&gt;Get build logs&lt;/h1&gt;
+
+&lt;p&gt;Returns the build logs for a specific job (build step).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;GET /api/repos/{owner}/{name}/logs/{number}/{job}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;cancel-a-job:e163b46a1bc96a0cc699d52d0e3291d7&#34;&gt;Cancel a Job&lt;/h1&gt;
+
+&lt;p&gt;Cancel the a build job by number.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;DELETE /api/repos/{owner}/{name}/logs/{number}/{job}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Repos</title>
+      <link>http://docs.tea-ci.org/devs/api/repos/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/devs/api/repos/</guid>
+      <description>
+
+&lt;h1 id=&#34;get-a-repo:e6da86d6bd9fc5c03bddf254e81bd5ec&#34;&gt;Get a repo&lt;/h1&gt;
+
+&lt;p&gt;Retrieves the details of a repository.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;GET /api/repos/{owner}/{name}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example Response Body:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;{
+  &amp;quot;id&amp;quot;: 1,
+  &amp;quot;scm&amp;quot;: &amp;quot;git&amp;quot;,
+  &amp;quot;owner&amp;quot;: &amp;quot;octocat&amp;quot;,
+  &amp;quot;name&amp;quot;: &amp;quot;hello-world&amp;quot;,
+  &amp;quot;full_name&amp;quot;: &amp;quot;octocat/hello-world&amp;quot;,
+  &amp;quot;avatar_url&amp;quot;: &amp;quot;https://avatars.githubusercontent.com/u/2181346?v=3&amp;quot;,
+  &amp;quot;link_url&amp;quot;: &amp;quot;https://github.com/octocat/hello-world&amp;quot;,
+  &amp;quot;clone_url&amp;quot;: &amp;quot;https://github.com/octocat/hello-world.git&amp;quot;,
+  &amp;quot;default_branch&amp;quot;: &amp;quot;master&amp;quot;,
+  &amp;quot;timeout&amp;quot;: 60,
+  &amp;quot;private&amp;quot;: false,
+  &amp;quot;trusted&amp;quot;: false,
+  &amp;quot;allow_pr&amp;quot;: true,
+  &amp;quot;allow_push&amp;quot;: true,
+  &amp;quot;allow_deploys&amp;quot;: false,
+  &amp;quot;allow_tags&amp;quot;: false
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;activates-a-repo:e6da86d6bd9fc5c03bddf254e81bd5ec&#34;&gt;Activates a repo&lt;/h1&gt;
+
+&lt;p&gt;Activates a repository.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;POST /api/repos/{owner}/{name}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example Response Body:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;{
+  &amp;quot;id&amp;quot;: 1,
+  &amp;quot;scm&amp;quot;: &amp;quot;git&amp;quot;,
+  &amp;quot;owner&amp;quot;: &amp;quot;octocat&amp;quot;,
+  &amp;quot;name&amp;quot;: &amp;quot;hello-world&amp;quot;,
+  &amp;quot;full_name&amp;quot;: &amp;quot;octocat/hello-world&amp;quot;,
+  &amp;quot;avatar_url&amp;quot;: &amp;quot;https://avatars.githubusercontent.com/u/2181346?v=3&amp;quot;,
+  &amp;quot;link_url&amp;quot;: &amp;quot;https://github.com/octocat/hello-world&amp;quot;,
+  &amp;quot;clone_url&amp;quot;: &amp;quot;https://github.com/octocat/hello-world.git&amp;quot;,
+  &amp;quot;default_branch&amp;quot;: &amp;quot;master&amp;quot;,
+  &amp;quot;timeout&amp;quot;: 60,
+  &amp;quot;private&amp;quot;: false,
+  &amp;quot;trusted&amp;quot;: false,
+  &amp;quot;allow_pr&amp;quot;: true,
+  &amp;quot;allow_push&amp;quot;: true,
+  &amp;quot;allow_deploys&amp;quot;: false,
+  &amp;quot;allow_tags&amp;quot;: false
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;updates-a-repo:e6da86d6bd9fc5c03bddf254e81bd5ec&#34;&gt;Updates a repo&lt;/h1&gt;
+
+&lt;p&gt;Updates the specified repository.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;PATCH /api/repos/{owner}/{name}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example Request Body:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;{
+  &amp;quot;timeout&amp;quot;: 60,
+  &amp;quot;private&amp;quot;: false,
+  &amp;quot;trusted&amp;quot;: false,
+  &amp;quot;allow_pr&amp;quot;: true,
+  &amp;quot;allow_push&amp;quot;: true,
+  &amp;quot;allow_deploys&amp;quot;: false,
+  &amp;quot;allow_tags&amp;quot;: false
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example Response Body:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;{
+  &amp;quot;id&amp;quot;: 1,
+  &amp;quot;scm&amp;quot;: &amp;quot;git&amp;quot;,
+  &amp;quot;owner&amp;quot;: &amp;quot;octocat&amp;quot;,
+  &amp;quot;name&amp;quot;: &amp;quot;hello-world&amp;quot;,
+  &amp;quot;full_name&amp;quot;: &amp;quot;octocat/hello-world&amp;quot;,
+  &amp;quot;avatar_url&amp;quot;: &amp;quot;https://avatars.githubusercontent.com/u/2181346?v=3&amp;quot;,
+  &amp;quot;link_url&amp;quot;: &amp;quot;https://github.com/octocat/hello-world&amp;quot;,
+  &amp;quot;clone_url&amp;quot;: &amp;quot;https://github.com/octocat/hello-world.git&amp;quot;,
+  &amp;quot;default_branch&amp;quot;: &amp;quot;master&amp;quot;,
+  &amp;quot;timeout&amp;quot;: 60,
+  &amp;quot;private&amp;quot;: false,
+  &amp;quot;trusted&amp;quot;: false,
+  &amp;quot;allow_pr&amp;quot;: true,
+  &amp;quot;allow_push&amp;quot;: true,
+  &amp;quot;allow_deploys&amp;quot;: false,
+  &amp;quot;allow_tags&amp;quot;: false
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;delete-a-repo:e6da86d6bd9fc5c03bddf254e81bd5ec&#34;&gt;Delete a repo&lt;/h1&gt;
+
+&lt;p&gt;Permanently deletes a repository. It cannot be undone.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;DELETE /api/repos/{owner}/{name}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;encrypt-repo-secrets:e6da86d6bd9fc5c03bddf254e81bd5ec&#34;&gt;Encrypt repo secrets&lt;/h1&gt;
+
+&lt;p&gt;Encryptes a YAML file with secret environment variables for secure public storage.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;POST /api/repos/{owner}/{name}/encrypt
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>User</title>
+      <link>http://docs.tea-ci.org/devs/api/user/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/devs/api/user/</guid>
+      <description>
+
+&lt;h1 id=&#34;gets-a-user:97590e38f22a4fa5fca0cde54d34000b&#34;&gt;Gets a user&lt;/h1&gt;
+
+&lt;p&gt;Returns the currently authenticated user.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;GET /api/user
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example Response Body:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;{
+  &amp;quot;id&amp;quot;: 1,
+  &amp;quot;login&amp;quot;: &amp;quot;octocat&amp;quot;,
+  &amp;quot;email&amp;quot;: &amp;quot;octocat@github.com&amp;quot;,
+  &amp;quot;avatar_url&amp;quot;: &amp;quot;http://www.gravatar.com/avatar/7194e8d48fa1d2b689f99443b767316c&amp;quot;,
+  &amp;quot;admin&amp;quot;: false,
+  &amp;quot;active&amp;quot;: true
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;updates-a-user:97590e38f22a4fa5fca0cde54d34000b&#34;&gt;Updates a user&lt;/h1&gt;
+
+&lt;p&gt;Updates the currently authenticated user.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;PATCH /api/user
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example Response Body:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;{
+  &amp;quot;id&amp;quot;: 1,
+  &amp;quot;login&amp;quot;: &amp;quot;octocat&amp;quot;,
+  &amp;quot;email&amp;quot;: &amp;quot;octocat@github.com&amp;quot;,
+  &amp;quot;avatar_url&amp;quot;: &amp;quot;http://www.gravatar.com/avatar/7194e8d48fa1d2b689f99443b767316c&amp;quot;,
+  &amp;quot;admin&amp;quot;: false,
+  &amp;quot;active&amp;quot;: true
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;get-user-repos:97590e38f22a4fa5fca0cde54d34000b&#34;&gt;Get user repos&lt;/h1&gt;
+
+&lt;p&gt;Retrieve the currently authenticated User&amp;rsquo;s Repository list&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;GET /api/user/repos
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example Response Body:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;[{
+  &amp;quot;id&amp;quot;: 1,
+  &amp;quot;scm&amp;quot;: &amp;quot;git&amp;quot;,
+  &amp;quot;owner&amp;quot;: &amp;quot;octocat&amp;quot;,
+  &amp;quot;name&amp;quot;: &amp;quot;hello-world&amp;quot;,
+  &amp;quot;full_name&amp;quot;: &amp;quot;octocat/hello-world&amp;quot;,
+  &amp;quot;avatar_url&amp;quot;: &amp;quot;https://avatars.githubusercontent.com/u/2181346?v=3&amp;quot;,
+  &amp;quot;link_url&amp;quot;: &amp;quot;https://github.com/octocat/hello-world&amp;quot;,
+  &amp;quot;clone_url&amp;quot;: &amp;quot;https://github.com/octocat/hello-world.git&amp;quot;,
+  &amp;quot;default_branch&amp;quot;: &amp;quot;master&amp;quot;,
+  &amp;quot;timeout&amp;quot;: 60,
+  &amp;quot;private&amp;quot;: false,
+  &amp;quot;trusted&amp;quot;: false,
+  &amp;quot;allow_pr&amp;quot;: true,
+  &amp;quot;allow_push&amp;quot;: true,
+  &amp;quot;allow_deploys&amp;quot;: false,
+  &amp;quot;allow_tags&amp;quot;: false
+}
+]
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Users</title>
+      <link>http://docs.tea-ci.org/devs/api/users/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/devs/api/users/</guid>
+      <description>
+
+&lt;h1 id=&#34;get-all-users:f0f8c2ffd220340c61a6efb6a9323904&#34;&gt;Get all users&lt;/h1&gt;
+
+&lt;p&gt;Returns all registered, active users in the system.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;GET /api/users
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example Response Body:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;[{
+  &amp;quot;id&amp;quot;: 1,
+  &amp;quot;login&amp;quot;: &amp;quot;octocat&amp;quot;,
+  &amp;quot;email&amp;quot;: &amp;quot;octocat@github.com&amp;quot;,
+  &amp;quot;avatar_url&amp;quot;: &amp;quot;http://www.gravatar.com/avatar/7194e8d48fa1d2b689f99443b767316c&amp;quot;,
+  &amp;quot;admin&amp;quot;: false,
+  &amp;quot;active&amp;quot;: true
+}
+]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;get-a-user:f0f8c2ffd220340c61a6efb6a9323904&#34;&gt;Get a user&lt;/h1&gt;
+
+&lt;p&gt;Returns a user with the specified login name.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;GET /api/users/{login}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example Response Body:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;{
+  &amp;quot;id&amp;quot;: 1,
+  &amp;quot;login&amp;quot;: &amp;quot;octocat&amp;quot;,
+  &amp;quot;email&amp;quot;: &amp;quot;octocat@github.com&amp;quot;,
+  &amp;quot;avatar_url&amp;quot;: &amp;quot;http://www.gravatar.com/avatar/7194e8d48fa1d2b689f99443b767316c&amp;quot;,
+  &amp;quot;admin&amp;quot;: false,
+  &amp;quot;active&amp;quot;: true
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;create-a-user:f0f8c2ffd220340c61a6efb6a9323904&#34;&gt;Create a user&lt;/h1&gt;
+
+&lt;p&gt;Creates a new user account with the specified external login.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;POST /api/users/{login}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example Response Body:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;{
+  &amp;quot;id&amp;quot;: 1,
+  &amp;quot;login&amp;quot;: &amp;quot;octocat&amp;quot;,
+  &amp;quot;email&amp;quot;: &amp;quot;octocat@github.com&amp;quot;,
+  &amp;quot;avatar_url&amp;quot;: &amp;quot;http://www.gravatar.com/avatar/7194e8d48fa1d2b689f99443b767316c&amp;quot;,
+  &amp;quot;admin&amp;quot;: false,
+  &amp;quot;active&amp;quot;: true
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;update-a-user:f0f8c2ffd220340c61a6efb6a9323904&#34;&gt;Update a user&lt;/h1&gt;
+
+&lt;p&gt;Updates an existing user account.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;PATCH /api/users/{login}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example Request Body:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;{
+  &amp;quot;email&amp;quot;: &amp;quot;octocat@github.com&amp;quot;,
+  &amp;quot;admin&amp;quot;: false,
+  &amp;quot;active&amp;quot;: true
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example Response Body:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;{
+  &amp;quot;id&amp;quot;: 1,
+  &amp;quot;login&amp;quot;: &amp;quot;octocat&amp;quot;,
+  &amp;quot;email&amp;quot;: &amp;quot;octocat@github.com&amp;quot;,
+  &amp;quot;avatar_url&amp;quot;: &amp;quot;http://www.gravatar.com/avatar/7194e8d48fa1d2b689f99443b767316c&amp;quot;,
+  &amp;quot;admin&amp;quot;: false,
+  &amp;quot;active&amp;quot;: true
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;delete-a-user:f0f8c2ffd220340c61a6efb6a9323904&#34;&gt;Delete a user&lt;/h1&gt;
+
+&lt;p&gt;Deletes the user with the specified login name.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;DELETE /api/users/{login}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

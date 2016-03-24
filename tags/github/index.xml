@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Github on Drone</title>
+    <link>http://docs.tea-ci.org/tags/github/</link>
+    <description>Recent content in Github on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 09:00:08 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>GitHub Release</title>
+      <link>http://docs.tea-ci.org/plugins/github_release/</link>
+      <pubDate>Sat, 13 Feb 2016 09:00:08 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/github_release/</guid>
+      <description>&lt;p&gt;Use this  plugin for publishing files and artifacts to GitHub releases. You
+can override the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;api_key&lt;/code&gt; - GitHub oauth token with public_repo or repo permission&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;files&lt;/code&gt; - Files to upload to GitHub Release, globs are allowed&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;file_exists&lt;/code&gt; - What to do if an file asset already exists, supported values: &lt;strong&gt;overwrite&lt;/strong&gt; (default), &lt;strong&gt;skip&lt;/strong&gt; and &lt;strong&gt;fail&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;checksum&lt;/code&gt; - Checksum takes hash methods to include in your GitHub release for the files specified. Supported hash methods include md5, sha1, sha256, sha512, adler32, and crc32.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;draft&lt;/code&gt; - create a draft release if set to true&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;base_url&lt;/code&gt; - GitHub base URL, only required for GHE&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;upload_url&lt;/code&gt; - GitHub upload URL, only required for GHE&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Sample configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  github_release:
+    api_key: my_github_api_key
+    files: dist/*
+    checksum: sha1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  github_release:
+    api_key: my_github_api_key
+    files:
+      - dist/*
+      - bin/binary.exe
+    checksum:
+      - md5
+      - sha1
+      - sha256
+      - sha512
+      - adler32
+      - crc32
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

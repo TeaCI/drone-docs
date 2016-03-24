@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>GitLab · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main>
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>GitLab</h1>
+						<nav id="TableOfContents">
+						
+						<nav id="TableOfContents">
+<ul>
+<li><a href="#gitlab-configuration:dd87d86ac28472949397c68a306dd605">Gitlab configuration</a></li>
+<li><a href="#gitlab-options:dd87d86ac28472949397c68a306dd605">GitLab options</a></li>
+<li><a href="#gitlab-registration:dd87d86ac28472949397c68a306dd605">Gitlab registration</a></li>
+<li><a href="#remote-driver-feature-chart:dd87d86ac28472949397c68a306dd605">Remote Driver Feature Chart</a></li>
+<li><a href="#next-steps:dd87d86ac28472949397c68a306dd605">Next Steps</a></li>
+</ul>
+</nav>
+						
+						</nav>
+						<section>
+
+<blockquote>
+<p>GitLab support is experimental and unstable due to high variation in GitLab configurations and versions. We highly recommend using <a href="https://github.com/gogits/gogs">Gogs</a> as an alternative to GitLab.</p>
+</blockquote>
+
+<p>Drone comes with built-in support for GitLab version 8.0 and higher. To enable Gitlab you should configure the Gitlab driver using the following environment variables:</p>
+
+<pre><code class="language-bash">REMOTE_DRIVER=gitlab
+REMOTE_CONFIG=https://gitlab.hooli.com?client_id=${client_id}&amp;client_secret=${client_secret}
+</code></pre>
+
+<h1 id="gitlab-configuration:dd87d86ac28472949397c68a306dd605">Gitlab configuration</h1>
+
+<p>The following is the standard URI connection scheme:</p>
+
+<pre><code>scheme://host[:port][?options]
+</code></pre>
+
+<p>The components of this string are:</p>
+
+<ul>
+<li><code>scheme</code> server protocol <code>http</code> or <code>https</code>.</li>
+<li><code>host</code> server address to connect to. The default value is github.com if not specified.</li>
+<li><code>:port</code> optional. The default value is :80 if not specified.</li>
+<li><code>?options</code> connection specific options.</li>
+</ul>
+
+<h1 id="gitlab-options:dd87d86ac28472949397c68a306dd605">GitLab options</h1>
+
+<p>This section lists all connection options used in the connection string format. Connection options are pairs in the following form: <code>name=value</code>. The value is always case sensitive. Separate options with the ampersand (i.e. &amp;) character:</p>
+
+<ul>
+<li><code>client_id</code> oauth client id for registered application</li>
+<li><code>client_secret</code> oauth client secret for registered application</li>
+<li><code>open=false</code> allows users to self-register. Defaults to false for security reasons.</li>
+<li><code>orgs=drone&amp;orgs=docker</code> restricts access to these GitLab organizations. <strong>Optional</strong></li>
+<li><code>skip_verify=false</code> skip ca verification if self-signed certificate. Defaults to false for security reasons.</li>
+<li><code>hide_archives=false</code> hide projects archived in GitLab from the listing.</li>
+<li><code>clone_mode=token</code> a strategy for clone authorization, by default use repo token, but can be changed to <code>oauth</code> ( This is not secure, because your user token, with full access to your gitlab account will be written to .netrc, and it can be read by all who have access to project builds )</li>
+<li><code>search=true</code> a strategy for search project, by default <code>false</code>, use if you have apache without <code>AllowEncodedSlashes NoDecode</code> option</li>
+</ul>
+
+<h1 id="gitlab-registration:dd87d86ac28472949397c68a306dd605">Gitlab registration</h1>
+
+<p>You must register your application with GitLab in order to generate a Client and Secret. Navigate to your account settings and choose Applications from the menu, and click New Application.</p>
+
+<p>Please use <code>http://drone.mycompany.com/authorize</code> as the Authorization callback URL.</p>
+
+<h1 id="remote-driver-feature-chart:dd87d86ac28472949397c68a306dd605">Remote Driver Feature Chart</h1>
+
+<p>Drone is relatively well-supported on GitLab, though compatibility is is
+sometimes broken due to changes in GitLab from version to version.</p>
+
+<table>
+<thead>
+<tr>
+<th>Feature/Remote</th>
+<th>GitLab</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>Supported version</td>
+<td>8.2+</td>
+</tr>
+
+<tr>
+<td>VCS</td>
+<td>git</td>
+</tr>
+
+<tr>
+<td>Auth method</td>
+<td>oauth2</td>
+</tr>
+
+<tr>
+<td>Push events</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td>Push tags events</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td>Merge requests</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td>Commit statuses</td>
+<td>yes</td>
+</tr>
+
+<tr>
+<td>Restrict by organizations</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+
+<h1 id="next-steps:dd87d86ac28472949397c68a306dd605">Next Steps</h1>
+
+<p>Once you have configured your Remote Driver, it&rsquo;s time to <a href="/setup/overview/#select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca">Select and
+Configure a Database</a>.</p>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								
+								<li>
+									<a href="/setup/overview/" class="">Overview</a>
+								</li>
+								
+								<li>
+									<a href="/setup/remotes/" class="">Remote Drivers</a>
+								</li>
+								
+								<li>
+									<a href="/setup/database/" class="">Database</a>
+								</li>
+								
+								<li>
+									<a href="/setup/settings/" class="">Settings Reference</a>
+								</li>
+								
+								<li>
+									<a href="/setup/upgrades/" class="">Upgrades</a>
+								</li>
+								
+								<li>
+									<a href="/setup/proxy_network/" class="">Network Proxy</a>
+								</li>
+								
+								<li>
+									<a href="/setup/proxy_reverse/" class="">Reverse Proxy</a>
+								</li>
+								
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

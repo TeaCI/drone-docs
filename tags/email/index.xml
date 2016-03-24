@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Email on Drone</title>
+    <link>http://docs.tea-ci.org/tags/email/</link>
+    <description>Recent content in Email on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 08:58:49 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/email/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Email</title>
+      <link>http://docs.tea-ci.org/plugins/email/</link>
+      <pubDate>Sat, 13 Feb 2016 08:58:49 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/email/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for sending build status notifications via Email. You can
+override the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;from&lt;/code&gt; - Send notifications from this address&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;host&lt;/code&gt; - SMTP server host&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;port&lt;/code&gt; - SMTP server port, defaults to &lt;code&gt;587&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;username&lt;/code&gt; - SMTP username&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - SMTP password&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;recipients&lt;/code&gt; - List of recipients, defaults to commit email&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:8cbe6fdacc355e0e29b05b303dd46e82&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  email:
+    from: noreply@github.com
+    host: smtp.mailgun.org
+    username: octocat
+    password: 12345
+    recipients:
+      - octocat@github.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;custom-templates:8cbe6fdacc355e0e29b05b303dd46e82&#34;&gt;Custom Templates&lt;/h3&gt;
+
+&lt;p&gt;In some cases you may want to customize the look and feel of the email message
+so you can use custom templates. For the use case we expose the following
+additional parameters, all of the accept a custom handlebars template, directly
+provided as a string or as a remote URL which gets fetched and parsed:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;subject&lt;/code&gt; - A handlebars template to create a custom subject. For more
+details take a look at the &lt;a href=&#34;http://handlebarsjs.com/&#34;&gt;docs&lt;/a&gt;. You can see the
+default template &lt;a href=&#34;https://github.com/drone-plugins/drone-email/blob/master/template.go#L4&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;template&lt;/code&gt; - A handlebars template to create a custom template. For more
+details take a look at the &lt;a href=&#34;http://handlebarsjs.com/&#34;&gt;docs&lt;/a&gt;. You can see the
+default template &lt;a href=&#34;https://github.com/drone-plugins/drone-email/blob/master/template.go#L8-L292&#34;&gt;here&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Example configuration that generate a custom email:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  email:
+    from: noreply@github.com
+    host: smtp.mailgun.org
+    username: octocat
+    password: 12345
+    recipients:
+      - octocat@github.com
+    subject: &amp;gt;
+      [{{ build.status }}]
+      {{ repo.owner }}/{{ repo.name }}
+      ({{ build.branch }} - {{ truncate build.commit 8 }})
+    template: &amp;gt;
+      https://git.io/vgvPz
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;skip-ssl-verify:8cbe6fdacc355e0e29b05b303dd46e82&#34;&gt;Skip SSL verify&lt;/h3&gt;
+
+&lt;p&gt;In some cases you may want to skip SSL verification, even if we discourage that
+as it leads to an unsecure environment. Please use this option only within your
+intranet and/or with truested resources. For this use case we expose the
+following additional parameter:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;skip_verify&lt;/code&gt; - Skip verification of SSL certificates&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Example configuration that skips SSL verification:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  email:
+    from: noreply@github.com
+    host: smtp.mailgun.org
+    username: octocat
+    password: 12345
+    skip_verify: true
+    recipients:
+      - octocat@github.com
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

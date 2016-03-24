@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Plugins · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins" class="current-item">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main>
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>Plugin List <small>(54)</small></h1>
+						<section>
+							<ul class="list-unstyled list-plugins x-grid-flex-container">
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/anynines/">
+										<img src="/logos/anynines.svg" />
+										<div>
+											<h2>Anynines</h2>
+											<p>Deploy or update a project on Anynines</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/artifactory/">
+										<img src="/logos/artifactory.svg" />
+										<div>
+											<h2>Artifactory</h2>
+											<p>Publish files and artifacts to Artifactory</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/azure_storage/">
+										<img src="/logos/azure-storage.svg" />
+										<div>
+											<h2>Azure Storage</h2>
+											<p>Publish files and artifacts to Azure Storage</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/azure_web_apps/">
+										<img src="/logos/azure-web-apps.svg" />
+										<div>
+											<h2>Azure Web Apps</h2>
+											<p>Deploy or update a project on Azure Web Apps</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/bintray/">
+										<img src="/logos/bintray.svg" />
+										<div>
+											<h2>Bintray</h2>
+											<p>Publish files and artifacts to Bintray</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/bitballoon/">
+										<img src="/logos/bitballoon.svg" />
+										<div>
+											<h2>BitBalloon</h2>
+											<p>Deploy or update a project on BitBalloon</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/boxfuse/">
+										<img src="/logos/boxfuse.svg" />
+										<div>
+											<h2>Boxfuse</h2>
+											<p>Deploy or update a project on Boxfuse</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/campfire/">
+										<img src="/logos/campfire.svg" />
+										<div>
+											<h2>Campfire</h2>
+											<p>Send build status notifications via Campfire</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/cloud66/">
+										<img src="/logos/cloud66.svg" />
+										<div>
+											<h2>Cloud 66</h2>
+											<p>Deploy or update a project on Cloud 66</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/cloudfoundry/">
+										<img src="/logos/cloudfoundry.svg" />
+										<div>
+											<h2>Cloud Foundry</h2>
+											<p>Deploy or update a project on Cloud Foundry</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/codedeploy/">
+										<img src="/logos/codedeploy.svg" />
+										<div>
+											<h2>CodeDeploy</h2>
+											<p>Deploy or update a project on AWS CodeDeploy</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/containership/">
+										<img src="/logos/containership.svg" />
+										<div>
+											<h2>ContainerShip</h2>
+											<p>Deploy or update a project on ContainerShip</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/coverage/">
+										<img src="/logos/coverage.svg" />
+										<div>
+											<h2>Coverage</h2>
+											<p>Aggregate and publish coverage reports</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/deis/">
+										<img src="/logos/deis.svg" />
+										<div>
+											<h2>Deis</h2>
+											<p>Deploy or update a project on Deis</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/docker/">
+										<img src="/logos/docker.svg" />
+										<div>
+											<h2>Docker</h2>
+											<p>Build and publish images to a Docker registry</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/dockerhub/">
+										<img src="/logos/dockerhub.svg" />
+										<div>
+											<h2>DockerHub</h2>
+											<p>Trigger a DockerHub remote build</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/ecr/">
+										<img src="/logos/ecr.svg" />
+										<div>
+											<h2>ECR</h2>
+											<p>Build and publish images to a AWS ECR</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/ecs/">
+										<img src="/logos/ecs.svg" />
+										<div>
+											<h2>ECS</h2>
+											<p>Deploy or update a project on AWS ECS</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/elastic_beanstalk/">
+										<img src="/logos/elastic-beanstalk.svg" />
+										<div>
+											<h2>Elastic Beanstalk</h2>
+											<p>Deploy or update a project on AWS Elastic Beanstalk</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/email/">
+										<img src="/logos/email.svg" />
+										<div>
+											<h2>Email</h2>
+											<p>Send build status notifications via Email</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/engineyard/">
+										<img src="/logos/engineyard.svg" />
+										<div>
+											<h2>Engine Yard</h2>
+											<p>Deploy or update a project on Engine Yard</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/flowdock/">
+										<img src="/logos/flowdock.svg" />
+										<div>
+											<h2>Flowdock</h2>
+											<p>Send build status notifications via Flowdock</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/git/">
+										<img src="/logos/git.svg" />
+										<div>
+											<h2>Git</h2>
+											<p>Clones a git repository</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/git_push/">
+										<img src="/logos/git-push.svg" />
+										<div>
+											<h2>Git Push</h2>
+											<p>Deploy or update a project via Git</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/github_release/">
+										<img src="/logos/github-release.svg" />
+										<div>
+											<h2>GitHub Release</h2>
+											<p>Publish files and artifacts to GitHub Releases</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/gitter/">
+										<img src="/logos/gitter.svg" />
+										<div>
+											<h2>Gitter</h2>
+											<p>Send build status notifications via Gitter</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/google_cloudstorage/">
+										<img src="/logos/google-cloudstorage.svg" />
+										<div>
+											<h2>Google Cloud Storage</h2>
+											<p>Publish files and artifacts to Google Cloud Storage</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/gcr/">
+										<img src="/logos/gcr.svg" />
+										<div>
+											<h2>Google Container Registry</h2>
+											<p>Build and publish images to Google Container Registry</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/heroku/">
+										<img src="/logos/heroku.svg" />
+										<div>
+											<h2>Heroku</h2>
+											<p>Deploy or update a project on Heroku</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/hipchat/">
+										<img src="/logos/hipchat.svg" />
+										<div>
+											<h2>HipChat</h2>
+											<p>Send build status notifications via HipChat</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/irc/">
+										<img src="/logos/irc.svg" />
+										<div>
+											<h2>IRC</h2>
+											<p>Send build status notifications via IRC</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/hg/">
+										<img src="/logos/hg.svg" />
+										<div>
+											<h2>Mercurial</h2>
+											<p>Clones a mercurial repository</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/npm/">
+										<img src="/logos/npm.svg" />
+										<div>
+											<h2>NPM</h2>
+											<p>Publish files and artifacts to a NPM registry</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/nuget/">
+										<img src="/logos/nuget.svg" />
+										<div>
+											<h2>NuGet</h2>
+											<p>Publish files and artifacts to NuGet repository</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/opsworks/">
+										<img src="/logos/opsworks.svg" />
+										<div>
+											<h2>OpsWorks</h2>
+											<p>Deploy or update a project on AWS OpsWorks</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/pypi/">
+										<img src="/logos/pypi.svg" />
+										<div>
+											<h2>Pypi</h2>
+											<p>Publish a package to the Python package index.</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/rancher/">
+										<img src="/logos/rancher.svg" />
+										<div>
+											<h2>Rancher</h2>
+											<p>Deploy or update a project on Rancher</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/rsync/">
+										<img src="/logos/rsync.svg" />
+										<div>
+											<h2>Rsync</h2>
+											<p>Deploy or update a project via Rsync</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/rubygems/">
+										<img src="/logos/rubygems.svg" />
+										<div>
+											<h2>Rubygems</h2>
+											<p>Publish ruby gems to a Rubygems server</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/s3/">
+										<img src="/logos/s3.svg" />
+										<div>
+											<h2>S3</h2>
+											<p>Publish files and artifacts to Amazon S3</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/s3_sync/">
+										<img src="/logos/s3-sync.svg" />
+										<div>
+											<h2>S3 Sync</h2>
+											<p>Sync a directory with an Amazon S3 Bucket</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/sftp/">
+										<img src="/logos/sftp.svg" />
+										<div>
+											<h2>SFTP</h2>
+											<p>Publish files and artifacts via SFTP</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/ssh/">
+										<img src="/logos/ssh.svg" />
+										<div>
+											<h2>SSH</h2>
+											<p>Execute commands on a remote host through SSH</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/scalingo/">
+										<img src="/logos/scalingo.svg" />
+										<div>
+											<h2>Scalingo</h2>
+											<p>Deploy or update a project on Scalingo</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/slack/">
+										<img src="/logos/slack.svg" />
+										<div>
+											<h2>Slack</h2>
+											<p>Send build status notifications via Slack</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/slack_blame/">
+										<img src="/logos/slack-blame.svg" />
+										<div>
+											<h2>Slack Blame</h2>
+											<p>Send build status blame messages via Slack</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/sqwiggle/">
+										<img src="/logos/sqwiggle.svg" />
+										<div>
+											<h2>Sqwiggle</h2>
+											<p>Send build status notifications via Sqwiggle</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/terraform/">
+										<img src="/logos/terraform.svg" />
+										<div>
+											<h2>Terraform</h2>
+											<p>Execute Terraform plan and apply</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/downstream/">
+										<img src="/logos/downstream.svg" />
+										<div>
+											<h2>Trigger</h2>
+											<p>Trigger downstream repository builds</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/tutum/">
+										<img src="/logos/tutum.svg" />
+										<div>
+											<h2>Tutum</h2>
+											<p>Deploy or update a project on Tutum</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/webhook/">
+										<img src="/logos/webhook.svg" />
+										<div>
+											<h2>Webhook</h2>
+											<p>Send build status notifications via Webhook</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/cloudcontrol/">
+										<img src="/logos/cloudcontrol.svg" />
+										<div>
+											<h2>cloudControl</h2>
+											<p>Deploy or update a project on cloudControl</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/devpi/">
+										<img src="/logos/devpi.svg" />
+										<div>
+											<h2>devpi</h2>
+											<p>Publish a package to the devpi package index.</p>
+										</div>
+									</a>
+								</li>
+							
+								<li class="x-grid-flex-cell-1of3">
+									<a href="http://docs.tea-ci.org/plugins/dotcloud/">
+										<img src="/logos/dotcloud.svg" />
+										<div>
+											<h2>dotCloud</h2>
+											<p>Deploy or update a project on dotCloud</p>
+										</div>
+									</a>
+								</li>
+							
+							</ul>
+						</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role="navigation" class="hidden">
+							<ul class='list-unstyled side-nav'>
+								
+								<li><a href="/tags/clone">Clone</a></li>
+								
+								<li><a href="/tags/deploy">Deploy</a></li>
+								
+								<li><a href="/tags/notify">Notify</a></li>
+								
+								<li><a href="/tags/publish">Publish</a></li>
+								
+							</ul>
+						</nav>
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

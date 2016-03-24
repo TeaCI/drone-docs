@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Aws on Drone</title>
+    <link>http://docs.tea-ci.org/tags/aws/</link>
+    <description>Recent content in Aws on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Feb 2016 08:37:26 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ECR</title>
+      <link>http://docs.tea-ci.org/plugins/ecr/</link>
+      <pubDate>Sun, 21 Feb 2016 08:37:26 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/ecr/</guid>
+      <description>
+
+&lt;p&gt;Use the Docker plugin to build and push Docker images to an AWS Elastic Container Registry.
+The following parameters are used to configure this plugin:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - authenticates with this username&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - authenticates with this password&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;region&lt;/code&gt; - authenticates with this email&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;repo&lt;/code&gt; - repository name for the image&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tag&lt;/code&gt; - repository tag for the image&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;force_tag&lt;/code&gt; - replace existing matched image tags&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;create_repository&lt;/code&gt; - automatically create repository in ECR&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;mirror&lt;/code&gt; - use a mirror registry instead of pulling images directly from the central Hub&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bip&lt;/code&gt; - use for pass bridge ip&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;storage_driver&lt;/code&gt; - use &lt;code&gt;aufs&lt;/code&gt;, &lt;code&gt;devicemapper&lt;/code&gt;, &lt;code&gt;btrfs&lt;/code&gt; or &lt;code&gt;overlay&lt;/code&gt; driver&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;save&lt;/code&gt; - save image layers to the specified tar file (see &lt;a href=&#34;https://docs.docker.com/engine/reference/commandline/save/&#34;&gt;docker save&lt;/a&gt;)
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;destination&lt;/code&gt; - absolute / relative destination path&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tag&lt;/code&gt; - cherry-pick tags to save (optional)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;load&lt;/code&gt; - restore image layers from the specified tar file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;build_args&lt;/code&gt; - &lt;a href=&#34;https://docs.docker.com/engine/reference/commandline/build/#set-build-time-variables-build-arg&#34;&gt;build arguments&lt;/a&gt; to pass to &lt;code&gt;docker build&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample Docker configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  ecr:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    tag: latest
+    file: Dockerfile
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You may want to dynamically tag your image. Use the &lt;code&gt;$$BRANCH&lt;/code&gt;, &lt;code&gt;$$COMMIT&lt;/code&gt; and &lt;code&gt;$$BUILD_NUMBER&lt;/code&gt; variables to tag your image with the branch, commit sha or build number:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  ecr:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    tag: $$BRANCH
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or you may prefer to build an image with multiple tags:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  ecr:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    tag:
+      - latest
+      - &amp;quot;1.0.1&amp;quot;
+      - &amp;quot;1.0&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that in the above example we quote the version numbers. If the yaml parser interprets the value as a number it will cause a parsing error.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s also possible to pass build arguments to docker:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  ecr:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    build_args:
+      - HTTP_PROXY=http://yourproxy.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;layer-caching:0c23c8ffedfa36132711a1d77a3f0542&#34;&gt;Layer Caching&lt;/h2&gt;
+
+&lt;p&gt;The Drone build environment is, by default, ephemeral meaning that you layers are not saved between builds. The below example combines Drone&amp;rsquo;s caching feature and Docker&amp;rsquo;s &lt;code&gt;save&lt;/code&gt; and &lt;code&gt;load&lt;/code&gt; capabilities to cache and restore image layers between builds:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  erc:
+    access_key: MyAWSAccessKey
+    secret_key: MyAWSSecretKey
+    region: us-east-1
+    repo: foo/bar
+    tag:
+      - latest
+      - &amp;quot;1.0.1&amp;quot;
+    load: docker/image.tar
+    save:
+      destination: docker/image.tar
+      tag: latest
+
+cache:
+  mount:
+    - docker/image.tar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You might also want to create a &lt;code&gt;.dockerignore&lt;/code&gt; file in your repo to exclude &lt;code&gt;image.tar&lt;/code&gt; from Docker build context:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;docker/*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In some cases caching will greatly improve build performance, however, the tradeoff is that caching Docker image layers may consume very large amounts of disk space.&lt;/p&gt;
+
+&lt;h2 id=&#34;troubleshooting:0c23c8ffedfa36132711a1d77a3f0542&#34;&gt;Troubleshooting&lt;/h2&gt;
+
+&lt;p&gt;For detailed output you can set the &lt;code&gt;DOCKER_LAUNCH_DEBUG&lt;/code&gt; environment variable in your plugin configuration. This starts Docker with verbose logging enabled.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  docker:
+    environment:
+      - DOCKER_LAUNCH_DEBUG=true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;known-issues:0c23c8ffedfa36132711a1d77a3f0542&#34;&gt;Known Issues&lt;/h2&gt;
+
+&lt;p&gt;There are known issues when attempting to run this plugin on CentOS, RedHat, and Linux installations that do not have a supported storage driver installed. You can check by running &lt;code&gt;docker info | grep &#39;Storage Driver:&#39;&lt;/code&gt; on your host machine. If the storage driver is not &lt;code&gt;aufs&lt;/code&gt; or &lt;code&gt;overlay&lt;/code&gt; you will need to re-configure your host machine.&lt;/p&gt;
+
+&lt;p&gt;This error occurs when trying to use the default &lt;code&gt;aufs&lt;/code&gt; storage Driver but aufs is not installed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;level=fatal msg=&amp;quot;Error starting daemon: error initializing graphdriver: driver not supported
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This error occurs when trying to use the &lt;code&gt;overlay&lt;/code&gt; storage Driver but overlay is not installed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;level=error msg=&amp;quot;&#39;overlay&#39; not found as a supported filesystem on this host.
+Please ensure kernel is new enough and has overlay support loaded.&amp;quot;
+level=fatal msg=&amp;quot;Error starting daemon: error initializing graphdriver: driver not supported&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This error occurs when using CentOS or RedHat which default to the &lt;code&gt;devicemapper&lt;/code&gt; storage driver:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;level=error msg=&amp;quot;There are no more loopback devices available.&amp;quot;
+level=fatal msg=&amp;quot;Error starting daemon: error initializing graphdriver: loopback mounting failed&amp;quot;
+Cannot connect to the Docker daemon. Is &#39;docker -d&#39; running on this host?
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above issue can be resolved by setting &lt;code&gt;storage_driver: vfs&lt;/code&gt; in the &lt;code&gt;.drone.yml&lt;/code&gt; file. This may work, but will have very poor performance as discussed &lt;a href=&#34;https://github.com/rancher/docker-from-scratch/issues/20&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>ECS</title>
+      <link>http://docs.tea-ci.org/plugins/ecs/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:44 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/ecs/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deploying a docker container application to AWS EC2 Container Service (ECS).&lt;/p&gt;
+
+&lt;h3 id=&#34;settings:86674014fe71b2e32d37476f5379a448&#34;&gt;Settings&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - AWS access key ID, MUST be an IAM user with the AmazonEC2ContainerServiceFullAccess policy attached&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - AWS secret access key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;region&lt;/code&gt; - AWS availability zone&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;service&lt;/code&gt; - Name of the service in the cluster, &lt;strong&gt;MUST&lt;/strong&gt; be created already in ECS&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;family&lt;/code&gt; - Family name of the task definition to create or update with a new revision&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;image_name&lt;/code&gt;, Container image to use, do not include the tag here&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;image_tag&lt;/code&gt; - Tag of the image to use, defaults to latest&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;port_mappings&lt;/code&gt; - Port mappings from host to container, format is &lt;code&gt;hostPort containerPort&lt;/code&gt;, protocol is automatically set to TransportProtocol&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;memory&lt;/code&gt;, Amount of memory to assign to the container, defaults to 128&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;environment_variables&lt;/code&gt; - List of Environment Variables to be passed to the container, format is &lt;code&gt;NAME=VALUE&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:86674014fe71b2e32d37476f5379a448&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  ecs:
+    image: plugins/drone-ecs
+
+    region: eu-west-1
+    access_key: $$ACCESS_KEY_ID
+    secret_key: $$SECRET_ACCESS_KEY
+    family: my-ecs-task
+    image_name: namespace/repo
+    image_tag: latest
+    service: my-ecs-service
+    environment_variables:
+      - DATABASE_URI=$$MY_DATABASE_URI
+    port_mappings:
+      - 80 9000
+    memory: 128
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>CodeDeploy</title>
+      <link>http://docs.tea-ci.org/plugins/codedeploy/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:13 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/codedeploy/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to CodeDeploy. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - AWS access key ID&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - AWS secret access key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;region&lt;/code&gt; - AWS availability zone&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;application&lt;/code&gt; - Application name, defaults to repo name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;deployment_group&lt;/code&gt; - Name of the deployment group&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;deployment_config&lt;/code&gt; - Name of the deployment config, optional&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;description&lt;/code&gt; - A description about the deployment, optional&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ignore_stop_failures&lt;/code&gt; - Causes the ApplicationStop deployment lifecycle
+event to fail to a specific instance, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;revision_type&lt;/code&gt; - Revision type, defaults to &lt;code&gt;GitHub&lt;/code&gt;, can be set to &lt;code&gt;S3&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bundle_type&lt;/code&gt; - File type of the application for &lt;code&gt;S3&lt;/code&gt; revision type&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket_name&lt;/code&gt; - Bucket for &lt;code&gt;S3&lt;/code&gt; revision type&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket_key&lt;/code&gt; - Key for &lt;code&gt;S3&lt;/code&gt; revision type&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket_etag&lt;/code&gt; - ETag for &lt;code&gt;S3&lt;/code&gt; revision type, optional&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket_version&lt;/code&gt; - Version for &lt;code&gt;S3&lt;/code&gt; revision type, optional&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:d30a981db23c4265e6c14871cf700bfc&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  codedeploy:
+    access_key: 970d28f4dd477bc184fbd10b376de753
+    secret_key: 9c5785d3ece6a9cdefa42eb99b58986f9095ff1c
+    region: us-east-1
+    deployment_group: my-deployment
+    ignore_stop_failures: true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OpsWorks</title>
+      <link>http://docs.tea-ci.org/plugins/opsworks/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:09 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/opsworks/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to OpsWorks. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - AWS access key ID&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - AWS secret access key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;region&lt;/code&gt; - AWS availability zone&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stack_id&lt;/code&gt; - The ID of the stack to deploy&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;app_id&lt;/code&gt; - The ID of the application to deploy&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;command&lt;/code&gt; - The deployment command&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;arguments&lt;/code&gt; - A nested list of command arguments&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;comment&lt;/code&gt; - A comment for the deployment, optional&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;custom_json&lt;/code&gt; - It is used to override the default configuration&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;instances&lt;/code&gt; - A list of instance IDs for the deploy targets&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:fd09f6f967392150c7137f65fe6741de&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  opsworks:
+    access_key: 970d28f4dd477bc184fbd10b376de753
+    secret_key: 9c5785d3ece6a9cdefa42eb99b58986f9095ff1c
+    region: us-east-1
+    stack_id: my-stack
+    app_id: my-app
+    command: deploy
+    arguments:
+      arg_name1:
+        - value1
+        - value2
+      arg_name2:
+        - value1
+        - value2
+    instances:
+      - instance1
+      - instance2
+      - instance3
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Boxfuse</title>
+      <link>http://docs.tea-ci.org/plugins/boxfuse/</link>
+      <pubDate>Sat, 13 Feb 2016 09:00:42 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/boxfuse/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to Boxfuse. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;`` -&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:b22663dbe34182d9beaabb603a8fe6d6&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  boxfuse:
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Elastic Beanstalk</title>
+      <link>http://docs.tea-ci.org/plugins/elastic_beanstalk/</link>
+      <pubDate>Sat, 13 Feb 2016 09:00:25 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/elastic_beanstalk/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to AWS Elastic Beanstalk. You can
+override the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - AWS access key ID&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - AWS secret access key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;region&lt;/code&gt; - AWS availability zone&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;version_label&lt;/code&gt; - A label identifying this version&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;application&lt;/code&gt; - Application name, defaults to repo name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;description&lt;/code&gt; - A description about the deployment, optional&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;auto_create&lt;/code&gt; - Automatically create the application, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;process&lt;/code&gt; - Preprocess and validate the manifest, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket_name&lt;/code&gt; - Bucket for &lt;code&gt;S3&lt;/code&gt; source bundle&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket_key&lt;/code&gt; - Key for &lt;code&gt;S3&lt;/code&gt; source bundle&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;environment_update&lt;/code&gt; - Flag whether to update ElasticBeansTalk environment with the new version&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;environment_name&lt;/code&gt; - Environment Name (optional), if update_environment true&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:d5a0f1eaf57f8a9e77fe62d85147581e&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  elastic_beanstalk:
+    access_key: 970d28f4dd477bc184fbd10b376de753
+    secret_key: 9c5785d3ece6a9cdefa42eb99b58986f9095ff1c
+    region: us-east-1
+    version_label: v1
+    description: Deployed with DroneCI
+    auto_create: true
+    bucket_name: my-bucket-name
+    bucket_key: 970d28f4dd477bc184fbd10b376de753
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>S3 Sync</title>
+      <link>http://docs.tea-ci.org/plugins/s3_sync/</link>
+      <pubDate>Sat, 13 Feb 2016 08:59:18 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/s3_sync/</guid>
+      <description>&lt;p&gt;Use the S3 sync plugin to synchronize files and folders with an Amazon S3 bucket. The following parameters are used to configure this plugin:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - amazon key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - amazon secret key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket&lt;/code&gt; - bucket name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;region&lt;/code&gt; - bucket region (&lt;code&gt;us-east-1&lt;/code&gt;, &lt;code&gt;eu-west-1&lt;/code&gt;, etc)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acl&lt;/code&gt; - access to files that are uploaded (&lt;code&gt;private&lt;/code&gt;, &lt;code&gt;public-read&lt;/code&gt;, etc)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;source&lt;/code&gt; - location of folder to sync&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;target&lt;/code&gt; - target folder in your S3 bucket&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;delete&lt;/code&gt; - deletes files in the target not found in the source&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;content_type&lt;/code&gt; - override default mime-types to use this value&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;metadata&lt;/code&gt; - set custom metadata&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;redirects&lt;/code&gt; - targets that should redirect elsewhere&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample S3 configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  s3_sync:
+    acl: public-read
+    region: &amp;quot;us-east-1&amp;quot;
+    bucket: &amp;quot;my-bucket.s3-website-us-east-1.amazonaws.com&amp;quot;
+    access_key: &amp;quot;970d28f4dd477bc184fbd10b376de753&amp;quot;
+    secret_key: &amp;quot;9c5785d3ece6a9cdefa42eb99b58986f9095ff1c&amp;quot;
+    source: folder/to/archive
+    target: /target/location
+    delete: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Both &lt;code&gt;acl&lt;/code&gt; and &lt;code&gt;content_type&lt;/code&gt; can be passed as a string value to apply to all files, or as a map to apply to a subset of files.&lt;/p&gt;
+
+&lt;p&gt;For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  s3_sync:
+    acl:
+      &amp;quot;public/*&amp;quot;: public-read
+      &amp;quot;private/*&amp;quot;: private
+    content_type:
+      &amp;quot;.svg&amp;quot;: image/svg+xml
+    region: &amp;quot;us-east-1&amp;quot;
+    bucket: &amp;quot;my-bucket.s3-website-us-east-1.amazonaws.com&amp;quot;
+    access_key: &amp;quot;970d28f4dd477bc184fbd10b376de753&amp;quot;
+    secret_key: &amp;quot;9c5785d3ece6a9cdefa42eb99b58986f9095ff1c&amp;quot;
+    source: folder/to/archive
+    target: /target/location
+    delete: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the case of &lt;code&gt;acl&lt;/code&gt; the key of the map is a glob. If there are no matches in your settings for a given file, the default is &lt;code&gt;&amp;quot;private&amp;quot;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;content_type&lt;/code&gt; field the key is an extension including the leading dot &lt;code&gt;.&lt;/code&gt;. If you want to set a content type for files with no extension, set the key to the empty string &lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt;. If there are no matches for the &lt;code&gt;content_type&lt;/code&gt; of any file, one will automatically be determined for you.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;metadata&lt;/code&gt; field can be set as either an object where the keys are the metadata headers:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  s3_sync:
+    acl: public-read
+    region: &amp;quot;us-east-1&amp;quot;
+    bucket: &amp;quot;my-bucket.s3-website-us-east-1.amazonaws.com&amp;quot;
+    access_key: &amp;quot;970d28f4dd477bc184fbd10b376de753&amp;quot;
+    secret_key: &amp;quot;9c5785d3ece6a9cdefa42eb99b58986f9095ff1c&amp;quot;
+    source: folder/to/archive
+    target: /target/location
+    delete: true
+    metadata:
+      Cache-Control: &amp;quot;max-age: 10000&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or you can specify metadata for file patterns by using a glob:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  s3_sync:
+    acl: public-read
+    region: &amp;quot;us-east-1&amp;quot;
+    bucket: &amp;quot;my-bucket.s3-website-us-east-1.amazonaws.com&amp;quot;
+    access_key: &amp;quot;970d28f4dd477bc184fbd10b376de753&amp;quot;
+    secret_key: &amp;quot;9c5785d3ece6a9cdefa42eb99b58986f9095ff1c&amp;quot;
+    source: folder/to/archive
+    target: /target/location
+    delete: true
+    metadata:
+      &amp;quot;*.png&amp;quot;:
+        Cache-Control: &amp;quot;max-age: 10000000&amp;quot;
+      &amp;quot;*.html&amp;quot;:
+        Cache-Control: &amp;quot;max-age: 1000&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Additionally, you can specify redirect targets for files that don&amp;rsquo;t exist by using the &lt;code&gt;redirects&lt;/code&gt; key:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  s3_sync:
+    acl: public-read
+    region: &amp;quot;us-east-1&amp;quot;
+    bucket: &amp;quot;my-bucket.s3-website-us-east-1.amazonaws.com&amp;quot;
+    access_key: &amp;quot;970d28f4dd477bc184fbd10b376de753&amp;quot;
+    secret_key: &amp;quot;9c5785d3ece6a9cdefa42eb99b58986f9095ff1c&amp;quot;
+    source: folder/to/archive
+    target: /target/location
+    delete: true
+    redirects:
+      some/missing/file: /somewhere/that/actually/exists
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>S3</title>
+      <link>http://docs.tea-ci.org/plugins/s3/</link>
+      <pubDate>Sat, 13 Feb 2016 08:58:38 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/s3/</guid>
+      <description>&lt;p&gt;Use the S3 plugin to upload files and build artifacts to an S3 bucket. The following parameters are used to configure this plugin:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;access_key&lt;/strong&gt; - amazon key (optional)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;secret_key&lt;/strong&gt; - amazon secret key (optional)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;bucket&lt;/strong&gt; - bucket name&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;region&lt;/strong&gt; - bucket region (&lt;code&gt;us-east-1&lt;/code&gt;, &lt;code&gt;eu-west-1&lt;/code&gt;, etc)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;acl&lt;/strong&gt; - access to files that are uploaded (&lt;code&gt;private&lt;/code&gt;, &lt;code&gt;public-read&lt;/code&gt;, etc)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;source&lt;/strong&gt; - location of files to upload&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;target&lt;/strong&gt; - target location of files in your S3 bucket&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;recursive&lt;/strong&gt; - if true, recursively upload files&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample Slack configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  s3:
+    acl: public-read
+    region: &amp;quot;us-east-1&amp;quot;
+    bucket: &amp;quot;my-bucket-name&amp;quot;
+    access_key: &amp;quot;970d28f4dd477bc184fbd10b376de753&amp;quot;
+    secret_key: &amp;quot;9c5785d3ece6a9cdefa42eb99b58986f9095ff1c&amp;quot;
+    source: files/to/archive
+    target: /target/location
+    recursive: true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

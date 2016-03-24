@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Artifactory on Drone</title>
+    <link>http://docs.tea-ci.org/tags/artifactory/</link>
+    <description>Recent content in Artifactory on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 09:01:55 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/artifactory/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Artifactory</title>
+      <link>http://docs.tea-ci.org/plugins/artifactory/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:55 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/artifactory/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin to publish artifacts from the build to Artifactory.
+You can override the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;url&lt;/code&gt; - Artifactory URL (Includes scheme)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;username&lt;/code&gt; - Artifactory username, default to blank&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - Artifactory password, default to blank&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pom&lt;/code&gt; - An optional pom.xml path were to read project details&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;group_id&lt;/code&gt; - Project group id, default to value from Pom file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;artifact_id&lt;/code&gt; - Project artifact id, default to value from Pom file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;version&lt;/code&gt; - Artifact version, default to value from Pom file&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;repo_key&lt;/code&gt; - Target repository key, default to &amp;lsquo;libs-snapshot-local&amp;rsquo; if version contains &amp;lsquo;snapshot&amp;rsquo;, &amp;lsquo;libs-release-local&amp;rsquo; otherwise&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;files&lt;/code&gt; - List of files to deploy&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;force_upload&lt;/code&gt; - Force upload if a file already exists&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All file paths must be relative to current project sources&lt;/p&gt;
+
+&lt;h2 id=&#34;example:325bdd65d67f28e9cec1e925779f24ba&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  artifactory:
+    url: http://arti.company.com
+    username: admin
+    password: password 
+    pom: pom.xml 
+    repo_key: libs-snapshot-local
+    files: 
+      - target/*.jar
+      - target/*.war
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;pom-xml-deployment:325bdd65d67f28e9cec1e925779f24ba&#34;&gt;pom.xml deployment&lt;/h2&gt;
+
+&lt;p&gt;If a pom parameter is specified it will be automatically deployed. It is not necessary to specify the pom under the files parameter.&lt;/p&gt;
+
+&lt;p&gt;In the example above, pom.xml will be deployed as &lt;code&gt;&amp;lt;groupId&amp;gt;-&amp;lt;artifactId&amp;gt;-&amp;lt;version&amp;gt;.pom&lt;/code&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

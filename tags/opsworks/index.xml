@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Opsworks on Drone</title>
+    <link>http://docs.tea-ci.org/tags/opsworks/</link>
+    <description>Recent content in Opsworks on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 09:01:09 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/opsworks/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>OpsWorks</title>
+      <link>http://docs.tea-ci.org/plugins/opsworks/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:09 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/opsworks/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to OpsWorks. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - AWS access key ID&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - AWS secret access key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;region&lt;/code&gt; - AWS availability zone&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stack_id&lt;/code&gt; - The ID of the stack to deploy&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;app_id&lt;/code&gt; - The ID of the application to deploy&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;command&lt;/code&gt; - The deployment command&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;arguments&lt;/code&gt; - A nested list of command arguments&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;comment&lt;/code&gt; - A comment for the deployment, optional&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;custom_json&lt;/code&gt; - It is used to override the default configuration&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;instances&lt;/code&gt; - A list of instance IDs for the deploy targets&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:fd09f6f967392150c7137f65fe6741de&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  opsworks:
+    access_key: 970d28f4dd477bc184fbd10b376de753
+    secret_key: 9c5785d3ece6a9cdefa42eb99b58986f9095ff1c
+    region: us-east-1
+    stack_id: my-stack
+    app_id: my-app
+    command: deploy
+    arguments:
+      arg_name1:
+        - value1
+        - value2
+      arg_name2:
+        - value1
+        - value2
+    instances:
+      - instance1
+      - instance2
+      - instance3
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

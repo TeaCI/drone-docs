@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>ContainerShip · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Deploy or update a project on ContainerShip" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins" class="current-item">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="plugins">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1 class="plugin-header"><img src="/logos/containership.svg" /> ContainerShip Plugin</h1>
+						<section>
+
+<p>Use this plugin for deploying an application to <a href="https://containership.io">ContainerShip</a>.
+You can override the default configuration with the following parameters:</p>
+
+<ul>
+<li><code>organization</code> - Your ContainerShip organization</li>
+<li><code>api_key</code> - Your ContainerShip organization API Key</li>
+<li><code>cluster_id</code> - ID of your ContainerShip cluster</li>
+<li><code>application</code> - Name of the application, defaults to repo name</li>
+<li><code>image</code> - Docker image to use, including tag (<code>MyOrg/MyImage:latest</code>)</li>
+</ul>
+
+<h2 id="example:585fa95088acd0a452345965d35423ae">Example</h2>
+
+<p>The following is a sample configuration in your .drone.yml file:</p>
+
+<pre><code class="language-yaml">deploy:
+  containership:
+    organization: MyContainerShipOrganization
+    api_key: abcdef1234567890
+    cluster_id: abcdef1234567890
+    application: my-app-name
+    image: MyOrg/MyImage:latest
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<h3>Plugin Links</h3>
+							
+							<ul class='list-unstyled side-nav'>
+								<li>
+									<a href="http://discuss.drone.io/c/help">
+										Get Help
+									</a>
+								</li>
+								<li>
+									<a href="https://github.com/drone-plugins/drone-containership/">
+										Source Code
+									</a>
+								</li>
+								<li>
+									<a href="https://hub.docker.com/r/plugins/drone-containership/">
+										Docker Image
+									</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

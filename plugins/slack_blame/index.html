@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Slack Blame · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Send build status blame messages via Slack" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins" class="current-item">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="plugins">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1 class="plugin-header"><img src="/logos/slack-blame.svg" /> Slack Blame Plugin</h1>
+						<section>
+
+<p>Use the Slack Blame plugin to send a message to a Slack channel or through
+direct message when a build completes. You will need to supply Drone with an
+access token to the Slack API. You can create a new access token here:
+<a href="https://api.slack.com/web">https://api.slack.com/web</a></p>
+
+<h2 id="overview:3a068a01ea1d1125139bb5d37e8457db">Overview</h2>
+
+<p>This plugin is responsible for sending build notifications to developers when
+they break the build, either directly through slackbot messages, or to the
+designated channel. This lets developers get feedback on their own feature
+branches without bombarding the main development channel as well as notifying
+the channel on important branches such as release or master.</p>
+
+<p>The following parameters are used to configure the notification</p>
+
+<ul>
+<li><strong>token</strong> - the access token</li>
+<li><strong>channel</strong> - the channel to post to (if present messages will also be posted
+to the channel)</li>
+<li><strong>success</strong> - the options for a successful build
+
+<ul>
+<li><strong>icon</strong> - an emoji or image url for the bot</li>
+<li><strong>username</strong> - the username for a successful build (defaults to &ldquo;drone&rdquo;)</li>
+<li><strong>message</strong> - the message for a successful build</li>
+<li><strong>image_attachments</strong> - a list of image attachments to append (only one will
+be randomly selected per build)</li>
+</ul></li>
+<li><strong>failure</strong> - the options for a build failure
+
+<ul>
+<li><strong>icon</strong> - an emoji or image url for the bot</li>
+<li><strong>username</strong> - the username for a failed build (defaults to &ldquo;drone&rdquo;)</li>
+<li><strong>message</strong> - the message for a failed build</li>
+<li><strong>image_attachments</strong> - a list of image attachments to append (only one will
+be randomly selected per build)</li>
+</ul></li>
+</ul>
+
+<p>The following is a simple Slack Blame configuration in your .drone.yml file:</p>
+
+<pre><code class="language-yaml">notify:
+  slack_blame:
+    token: &quot;xxxx&quot;
+    channel: &quot;#dev&quot;
+    success:
+      username: &quot;Happy Keanu (on behalf of Drone)&quot;
+      icon: &quot;:happy_keanu:&quot;
+      message: &quot;The build is fixed!&quot;
+      image_attachments:
+        - &quot;http://i.imgur.com/TP4PIxc.jpg&quot;
+    failure:
+      username: &quot;Sad Keanu (on behalf of Drone)&quot;
+      icon: &quot;:sad_keanu:&quot;
+      message: &quot;The build is broken!&quot;
+      image_attachments:
+        - &quot;http://cdn.meme.am/instances/51000361.jpg&quot;
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<h3>Plugin Links</h3>
+							
+							<ul class='list-unstyled side-nav'>
+								<li>
+									<a href="http://discuss.drone.io/c/help">
+										Get Help
+									</a>
+								</li>
+								<li>
+									<a href="https://github.com/drone-plugins/drone-slack-blame/">
+										Source Code
+									</a>
+								</li>
+								<li>
+									<a href="https://hub.docker.com/r/plugins/drone-slack-blame/">
+										Docker Image
+									</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

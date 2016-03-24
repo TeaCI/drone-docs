@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hook on Drone</title>
+    <link>http://docs.tea-ci.org/tags/hook/</link>
+    <description>Recent content in Hook on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Feb 2016 08:35:14 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/hook/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Webhook</title>
+      <link>http://docs.tea-ci.org/plugins/webhook/</link>
+      <pubDate>Sun, 21 Feb 2016 08:35:14 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/webhook/</guid>
+      <description>
+
+&lt;p&gt;Use the Webhook plugin to notify services via Webhook when a build completes.
+You will need to supply Drone with outgoing Webhook URLs. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;urls&lt;/code&gt; - JSON payloads are sent to each URL&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;method&lt;/code&gt; - HTTP request method. Defaults to &lt;code&gt;POST&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;header&lt;/code&gt; - HTTP request header map&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:95424174b467660d9d29374c13638004&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  webhook:
+    urls:
+      - https://your.webhook/...
+      - https://your.other.webhook/...
+    header:
+      Authorization: pa55word
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;custom-body:95424174b467660d9d29374c13638004&#34;&gt;Custom Body&lt;/h3&gt;
+
+&lt;p&gt;In some cases you may want to submit a custom payload in the body of your hook.
+For the use case we expose the following additional parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;template&lt;/code&gt; - Handlebars template to create a custom payload body. See &lt;a href=&#34;http://handlebarsjs.com/&#34;&gt;docs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;content_type&lt;/code&gt; - HTTP request content type&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Example configuration that generate a custom Yaml payload:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  webhook:
+    urls:
+      - https://your.webhook/...
+      - https://your.other.webhook/...
+    content_type: application/yaml
+    template: &amp;gt;
+      repo: {{repo.full_name}}
+      build: {{build.number}}
+      commit: {{build.commit}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;basic-authentication:95424174b467660d9d29374c13638004&#34;&gt;Basic Authentication&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;It is important to note that with HTTP Basic Authentication the provided
+username and password are not encrypted.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In some cases your webhook may need to authenticate with another service. You
+can set the basic &lt;code&gt;Authentication&lt;/code&gt; header with a username and password. For
+these use cases we expose the following additional parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;auth&lt;/code&gt; - Sets the request&amp;rsquo;s &lt;code&gt;Authorization&lt;/code&gt; header to use HTTP Basic Authentication with the provided username and password below
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;username&lt;/code&gt; - The username as a string&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - The password as a string&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Example configuration to include HTTP Basic Authentication:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  webhook:
+    method: POST
+    auth:
+      username: $$USERNAME
+      password: $$PASSWORD
+    urls:
+      - https://tower.example.com/...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;debugging-webhooks:95424174b467660d9d29374c13638004&#34;&gt;Debugging Webhooks&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;If you have private variables that are encrypted and hidden in &lt;code&gt;.drone.sec&lt;/code&gt;,
+remember that the &lt;code&gt;debug&lt;/code&gt; flag may print out those sensitive values. Please
+use &lt;code&gt;debug: true&lt;/code&gt; wisely.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In some cases complicated webhooks may need debugging to ensure &lt;code&gt;urls&lt;/code&gt;,
+&lt;code&gt;template&lt;/code&gt;, &lt;code&gt;auth&lt;/code&gt; and more a properly configured. For these use cases we expose
+the following &lt;code&gt;debug&lt;/code&gt; parameter:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;debug&lt;/code&gt; - If &lt;code&gt;true&lt;/code&gt; it will print out each URL request and response information&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Example configuration to include the &lt;code&gt;debug&lt;/code&gt; parameter:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;notify:
+  webhook:
+    debug: true
+    method: POST
+    auth:
+      username: $$TOWER_USER
+      password: $$TOWER_PASS
+    urls:
+      - http://tower.example.com/api/v1/job_templates/44/launch/
+      - http://tower.example.com/api/v1/job_templates/45/launch/
+      content_type: application/json
+      template: &#39;{&amp;quot;name&amp;quot;: &amp;quot;project.deploy&amp;quot;,&amp;quot;extra_vars&amp;quot;: &amp;quot;{\&amp;quot;env\&amp;quot;: \&amp;quot;dev\&amp;quot;,\&amp;quot;git_branch\&amp;quot;: \&amp;quot;{{ build.branch }}\&amp;quot;,\&amp;quot;hipchat_token\&amp;quot;: \&amp;quot;$$HIPCHAT_TOKEN\&amp;quot;}&amp;quot;}&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example of a debug print result:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[debug] Webhook 1
+  URL: http://tower.example.com/api/v1/job_templates/44/launch/
+  METHOD: POST
+  HEADERS: map[Content-Type:[application/json] Authorization:[Basic EMfNB3fakB8EMfNB3fakB8==]]
+  REQUEST BODY: {&amp;quot;name&amp;quot;: &amp;quot;project.deploy&amp;quot;,&amp;quot;extra_vars&amp;quot;: &amp;quot;{\&amp;quot;env\&amp;quot;: \&amp;quot;dev\&amp;quot;,\&amp;quot;git_branch\&amp;quot;: \&amp;quot;develop\&amp;quot;,\&amp;quot;hipchat_token\&amp;quot;: \&amp;quot;h1pchatT0k3n\&amp;quot;}&amp;quot;}
+  RESPONSE STATUS: 202 ACCEPTED
+  RESPONSE BODY: {&amp;quot;job&amp;quot;: 236}
+
+[debug] Webhook 2
+  URL: http://tower.example.com/api/v1/job_templates/45/launch/
+  METHOD: POST
+  HEADERS: map[Content-Type:[application/json] Authorization:[Basic EMfNB3fakB8EMfNB3fakB8==]]
+  REQUEST BODY: {&amp;quot;name&amp;quot;: &amp;quot;project.deploy&amp;quot;,&amp;quot;extra_vars&amp;quot;: &amp;quot;{\&amp;quot;env\&amp;quot;: \&amp;quot;dev\&amp;quot;,\&amp;quot;git_branch\&amp;quot;: \&amp;quot;develop\&amp;quot;,\&amp;quot;hipchat_token\&amp;quot;: \&amp;quot;h1pchatT0k3n\&amp;quot;}&amp;quot;}
+  RESPONSE STATUS: 202 ACCEPTED
+  RESPONSE BODY: {&amp;quot;job&amp;quot;: 406}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

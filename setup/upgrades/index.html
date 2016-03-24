@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Upgrades · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview"  class="current-item">Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main>
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>Upgrades</h1>
+						<nav id="TableOfContents">
+						
+						</nav>
+						<section><blockquote>
+<p>Warning. There is no automated migration from 0.3 to 0.4 due to substantial changes in database structure.</p>
+</blockquote>
+
+<p>Drone is built continuously, with updates available daily. In order to upgrade Drone you must first stop and remove your running Drone instance:</p>
+
+<pre><code>sudo docker stop drone
+sudo docker rm drone
+</code></pre>
+
+<p>Pull the latest Drone image:</p>
+
+<pre><code>sudo docker pull drone/drone:0.4
+</code></pre>
+
+<p>Re-run the container using the latest Drone image:</p>
+
+<pre><code>sudo docker run \
+	--volume /var/lib/drone:/var/lib/drone \
+	--volume /var/run/docker.sock:/var/run/docker.sock \
+	--env-file /etc/drone/dronerc \
+	--restart=always \
+	--publish=80:8000 \
+	--detach=true \
+	--name=drone \
+	drone/drone:0.4
+</code></pre>
+
+<p>Database schema updates are applied automatically when Drone is starting.</p>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								
+								<li>
+									<a href="/setup/overview/" class="">Overview</a>
+								</li>
+								
+								<li>
+									<a href="/setup/remotes/" class="">Remote Drivers</a>
+								</li>
+								
+								<li>
+									<a href="/setup/database/" class="">Database</a>
+								</li>
+								
+								<li>
+									<a href="/setup/settings/" class="">Settings Reference</a>
+								</li>
+								
+								<li>
+									<a href="/setup/upgrades/" class=" current-item">Upgrades</a>
+								</li>
+								
+								<li>
+									<a href="/setup/proxy_network/" class="">Network Proxy</a>
+								</li>
+								
+								<li>
+									<a href="/setup/proxy_reverse/" class="">Reverse Proxy</a>
+								</li>
+								
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

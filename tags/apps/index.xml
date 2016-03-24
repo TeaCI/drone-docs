@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Apps on Drone</title>
+    <link>http://docs.tea-ci.org/tags/apps/</link>
+    <description>Recent content in Apps on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 08:59:54 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/apps/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Azure Web Apps</title>
+      <link>http://docs.tea-ci.org/plugins/azure_web_apps/</link>
+      <pubDate>Sat, 13 Feb 2016 08:59:54 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/azure_web_apps/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to Azure Web Apps. You can override
+the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;username&lt;/code&gt; - Username, required for authentication&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - Password, required for authentication&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;site&lt;/code&gt; - Site name, defaults to repo name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;slot&lt;/code&gt; - Slot name, defaults to value of &lt;code&gt;site&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;force&lt;/code&gt; - Force a push, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;commit&lt;/code&gt; - Commit local changes, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:8b570daaeecaf22d07cc83f9aa9da0c4&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  azure_web_apps:
+    username: octocat
+    password: my_password
+    site: awesome
+    force: true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

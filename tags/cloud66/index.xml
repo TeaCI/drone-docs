@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cloud66 on Drone</title>
+    <link>http://docs.tea-ci.org/tags/cloud66/</link>
+    <description>Recent content in Cloud66 on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 09:00:12 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/cloud66/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Cloud 66</title>
+      <link>http://docs.tea-ci.org/plugins/cloud66/</link>
+      <pubDate>Sat, 13 Feb 2016 09:00:12 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/cloud66/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to Cloud 66. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;`` -&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:1d0e1506a30eeb8d38ec6535ceb91307&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  cloud66:
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

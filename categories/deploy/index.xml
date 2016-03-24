@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deploy on Drone</title>
+    <link>http://docs.tea-ci.org/categories/deploy/</link>
+    <description>Recent content in Deploy on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Feb 2016 08:37:52 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/categories/deploy/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ContainerShip</title>
+      <link>http://docs.tea-ci.org/plugins/containership/</link>
+      <pubDate>Sun, 21 Feb 2016 08:37:52 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/containership/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deploying an application to &lt;a href=&#34;https://containership.io&#34;&gt;ContainerShip&lt;/a&gt;.
+You can override the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;organization&lt;/code&gt; - Your ContainerShip organization&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;api_key&lt;/code&gt; - Your ContainerShip organization API Key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cluster_id&lt;/code&gt; - ID of your ContainerShip cluster&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;application&lt;/code&gt; - Name of the application, defaults to repo name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;image&lt;/code&gt; - Docker image to use, including tag (&lt;code&gt;MyOrg/MyImage:latest&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:585fa95088acd0a452345965d35423ae&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  containership:
+    organization: MyContainerShipOrganization
+    api_key: abcdef1234567890
+    cluster_id: abcdef1234567890
+    application: my-app-name
+    image: MyOrg/MyImage:latest
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Terraform</title>
+      <link>http://docs.tea-ci.org/plugins/terraform/</link>
+      <pubDate>Sun, 21 Feb 2016 08:37:46 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/terraform/</guid>
+      <description>
+
+&lt;p&gt;Use the Terraform plugin to apply the infrastructure configuration contained within the repository. The following parameters are used to configure this plugin:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;plan&lt;/code&gt; - if true, calculates a plan but does &lt;strong&gt;NOT&lt;/strong&gt; apply it.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;remote&lt;/code&gt; - contains the configuration for the Terraform remote state tracking.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;backend&lt;/code&gt; - the Terraform remote state backend to use.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;config&lt;/code&gt; - a map of configuration parameters for the remote state backend. Each value is passed as a &lt;code&gt;-backend-config=&amp;lt;key&amp;gt;=&amp;lt;value&amp;gt;&lt;/code&gt; option.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;vars&lt;/code&gt; - a map of variables to pass to the Terraform &lt;code&gt;plan&lt;/code&gt; and &lt;code&gt;apply&lt;/code&gt; commands. Each value is passed as a &lt;code&gt;-var
+&amp;lt;key&amp;gt;=&amp;lt;value&amp;gt;&lt;/code&gt; option.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ca_cert&lt;/code&gt; - ca cert to add to your environment to allow terraform to use internal/private resources&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sensitive&lt;/code&gt; (default: &lt;code&gt;false&lt;/code&gt;) - Whether or not to suppress terraform commands to stdout.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample Terraform configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  terraform:
+    plan: false
+    remote:
+      backend: S3
+      config:
+        bucket: my-terraform-config-bucket
+        key: tf-states/my-project
+        region: us-east-1
+    vars:
+      app_name: my-project
+      app_version: 1.0.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;advanced-configuration:c7e4204570a5d4c4ebde5f04b26ae8dc&#34;&gt;Advanced Configuration&lt;/h1&gt;
+
+&lt;h2 id=&#34;ca-certs:c7e4204570a5d4c4ebde5f04b26ae8dc&#34;&gt;CA Certs&lt;/h2&gt;
+
+&lt;p&gt;You may want to run terraform against internal resources, like an internal
+OpenStack deployment.  Usually these resources are signed by an internal
+CA Certificate.  You can inject your CA Certificate into the plugin by using
+&lt;code&gt;ca_certs&lt;/code&gt; key as described above.  Below is an example.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  terraform:
+    plan: false
+    remote:
+      backend: swift
+      config:
+        path: drone/terraform
+    vars:
+      app_name: my-project
+      app_version: 1.0.0
+    ca_cert: |
+      -----BEGIN CERTIFICATE-----
+      asdfsadf
+      asdfsadf
+      -----END CERTIFICATE-----
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;suppress-sensitive-output:c7e4204570a5d4c4ebde5f04b26ae8dc&#34;&gt;Suppress Sensitive Output&lt;/h2&gt;
+
+&lt;p&gt;You may be passing sensitive vars to your terraform commands.  If you do not want
+the terraform commands to display in your drone logs then set &lt;code&gt;sensitive&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;.
+The output from the commands themselves will still display, it just won&amp;rsquo;t show
+want command is actually being ran.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  terraform:
+    plan: false
+    sensitive: true
+    remote:
+      backend: S3
+      config:
+        bucket: my-terraform-config-bucket
+        key: tf-states/my-project
+        region: us-east-1
+      vars:
+        app_name: my-project
+        app_version: 1.0.0
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>ECS</title>
+      <link>http://docs.tea-ci.org/plugins/ecs/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:44 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/ecs/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deploying a docker container application to AWS EC2 Container Service (ECS).&lt;/p&gt;
+
+&lt;h3 id=&#34;settings:86674014fe71b2e32d37476f5379a448&#34;&gt;Settings&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - AWS access key ID, MUST be an IAM user with the AmazonEC2ContainerServiceFullAccess policy attached&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - AWS secret access key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;region&lt;/code&gt; - AWS availability zone&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;service&lt;/code&gt; - Name of the service in the cluster, &lt;strong&gt;MUST&lt;/strong&gt; be created already in ECS&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;family&lt;/code&gt; - Family name of the task definition to create or update with a new revision&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;image_name&lt;/code&gt;, Container image to use, do not include the tag here&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;image_tag&lt;/code&gt; - Tag of the image to use, defaults to latest&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;port_mappings&lt;/code&gt; - Port mappings from host to container, format is &lt;code&gt;hostPort containerPort&lt;/code&gt;, protocol is automatically set to TransportProtocol&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;memory&lt;/code&gt;, Amount of memory to assign to the container, defaults to 128&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;environment_variables&lt;/code&gt; - List of Environment Variables to be passed to the container, format is &lt;code&gt;NAME=VALUE&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:86674014fe71b2e32d37476f5379a448&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  ecs:
+    image: plugins/drone-ecs
+
+    region: eu-west-1
+    access_key: $$ACCESS_KEY_ID
+    secret_key: $$SECRET_ACCESS_KEY
+    family: my-ecs-task
+    image_name: namespace/repo
+    image_tag: latest
+    service: my-ecs-service
+    environment_variables:
+      - DATABASE_URI=$$MY_DATABASE_URI
+    port_mappings:
+      - 80 9000
+    memory: 128
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Scalingo</title>
+      <link>http://docs.tea-ci.org/plugins/scalingo/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:36 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/scalingo/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to Scalingo. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;app&lt;/code&gt; - Application name, defaults to repo name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;force&lt;/code&gt; - Force a push, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;commit&lt;/code&gt; - Commit local changes, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:423d6eac0d397a3ae55e97438f433a22&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  scalingo:
+    app: awesomeness
+    force: true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Rancher</title>
+      <link>http://docs.tea-ci.org/plugins/rancher/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:32 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/rancher/</guid>
+      <description>&lt;p&gt;Use the rancher plugin to upgrade a service in &lt;a href=&#34;http://rancher.com&#34;&gt;rancher&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The following parameters are used to configure this plugin:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;url&lt;/code&gt; - url to your rancher server, including protocol and port&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - rancher api access key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - rancher api secret key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;service&lt;/code&gt; - name of rancher service to act on&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker_image&lt;/code&gt; - new image to assign to service, including tag (&lt;code&gt;drone/drone:latest&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;start_first&lt;/code&gt; - start the new container before stopping the old one, defaults to &lt;code&gt;true&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;confirm&lt;/code&gt; - auto confirm the service upgrade if successful, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;timeout&lt;/code&gt; - the maximum wait time in seconds for the service to upgrade, default to &lt;code&gt;30&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample Rancher configuration in your &lt;code&gt;.drone.yml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  rancher:
+    url: https://example.rancher.com
+    access_key: 1234567abcdefg
+    secret_key: abcdefg1234567
+    service: drone/drone
+    docker_image: drone/drone:latest
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that if your &lt;code&gt;service&lt;/code&gt; is part of a stack, you should use the notation &lt;code&gt;stackname/servicename&lt;/code&gt; as this will make sure that the found service is part of the correct stack. If no stack is specified, this plugin will update the first service with a matching name which may not be what you want.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>CodeDeploy</title>
+      <link>http://docs.tea-ci.org/plugins/codedeploy/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:13 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/codedeploy/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to CodeDeploy. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - AWS access key ID&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - AWS secret access key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;region&lt;/code&gt; - AWS availability zone&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;application&lt;/code&gt; - Application name, defaults to repo name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;deployment_group&lt;/code&gt; - Name of the deployment group&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;deployment_config&lt;/code&gt; - Name of the deployment config, optional&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;description&lt;/code&gt; - A description about the deployment, optional&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ignore_stop_failures&lt;/code&gt; - Causes the ApplicationStop deployment lifecycle
+event to fail to a specific instance, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;revision_type&lt;/code&gt; - Revision type, defaults to &lt;code&gt;GitHub&lt;/code&gt;, can be set to &lt;code&gt;S3&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bundle_type&lt;/code&gt; - File type of the application for &lt;code&gt;S3&lt;/code&gt; revision type&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket_name&lt;/code&gt; - Bucket for &lt;code&gt;S3&lt;/code&gt; revision type&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket_key&lt;/code&gt; - Key for &lt;code&gt;S3&lt;/code&gt; revision type&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket_etag&lt;/code&gt; - ETag for &lt;code&gt;S3&lt;/code&gt; revision type, optional&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket_version&lt;/code&gt; - Version for &lt;code&gt;S3&lt;/code&gt; revision type, optional&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:d30a981db23c4265e6c14871cf700bfc&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  codedeploy:
+    access_key: 970d28f4dd477bc184fbd10b376de753
+    secret_key: 9c5785d3ece6a9cdefa42eb99b58986f9095ff1c
+    region: us-east-1
+    deployment_group: my-deployment
+    ignore_stop_failures: true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OpsWorks</title>
+      <link>http://docs.tea-ci.org/plugins/opsworks/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:09 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/opsworks/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to OpsWorks. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - AWS access key ID&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - AWS secret access key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;region&lt;/code&gt; - AWS availability zone&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;stack_id&lt;/code&gt; - The ID of the stack to deploy&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;app_id&lt;/code&gt; - The ID of the application to deploy&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;command&lt;/code&gt; - The deployment command&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;arguments&lt;/code&gt; - A nested list of command arguments&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;comment&lt;/code&gt; - A comment for the deployment, optional&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;custom_json&lt;/code&gt; - It is used to override the default configuration&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;instances&lt;/code&gt; - A list of instance IDs for the deploy targets&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:fd09f6f967392150c7137f65fe6741de&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  opsworks:
+    access_key: 970d28f4dd477bc184fbd10b376de753
+    secret_key: 9c5785d3ece6a9cdefa42eb99b58986f9095ff1c
+    region: us-east-1
+    stack_id: my-stack
+    app_id: my-app
+    command: deploy
+    arguments:
+      arg_name1:
+        - value1
+        - value2
+      arg_name2:
+        - value1
+        - value2
+    instances:
+      - instance1
+      - instance2
+      - instance3
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Engine Yard</title>
+      <link>http://docs.tea-ci.org/plugins/engineyard/</link>
+      <pubDate>Sat, 13 Feb 2016 09:00:52 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/engineyard/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to Engine Yard. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;`` -&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:460eeb0165fbbbee6ad84e0d03bb72d6&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  engineyard:
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>cloudControl</title>
+      <link>http://docs.tea-ci.org/plugins/cloudcontrol/</link>
+      <pubDate>Sat, 13 Feb 2016 09:00:48 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/cloudcontrol/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to cloudControl. You can override
+the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;app&lt;/code&gt; - Application name, defaults to repo name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;deployment&lt;/code&gt; - Deployment name, defaults to &lt;code&gt;default&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;email&lt;/code&gt; - Email address to authenticate&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - Password to authenticate&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;force&lt;/code&gt; - Force a push, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;commit&lt;/code&gt; - Commit local changes, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:020ba300f3a59e4628d2c599e0bf0504&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  cloudcontrol:
+    app: helloworld
+    deployment: default
+    email: octocat@github.com
+    password: my_password
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Boxfuse</title>
+      <link>http://docs.tea-ci.org/plugins/boxfuse/</link>
+      <pubDate>Sat, 13 Feb 2016 09:00:42 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/boxfuse/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to Boxfuse. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;`` -&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:b22663dbe34182d9beaabb603a8fe6d6&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  boxfuse:
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>BitBalloon</title>
+      <link>http://docs.tea-ci.org/plugins/bitballoon/</link>
+      <pubDate>Sat, 13 Feb 2016 09:00:29 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/bitballoon/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to Bitballoon. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_token&lt;/code&gt; - BitBalloon API access token&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;site&lt;/code&gt; - Site name, should be the full domain name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;path&lt;/code&gt; - Relative path to the folder or ZIP file, defaults to repo root&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;draft&lt;/code&gt; - Deploy as a draft version, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:5d3cc21300e5e07fad473877e019b1fc&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  bitballoon:
+    access_token: 6f34aed19d59420e3f026ab0f04fb3824710e36d26df4dc8aac8d56dc82a06ac
+    site: happy-page.bitballoon.com
+    path: dist/
+    draft: true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Elastic Beanstalk</title>
+      <link>http://docs.tea-ci.org/plugins/elastic_beanstalk/</link>
+      <pubDate>Sat, 13 Feb 2016 09:00:25 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/elastic_beanstalk/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to AWS Elastic Beanstalk. You can
+override the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - AWS access key ID&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - AWS secret access key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;region&lt;/code&gt; - AWS availability zone&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;version_label&lt;/code&gt; - A label identifying this version&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;application&lt;/code&gt; - Application name, defaults to repo name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;description&lt;/code&gt; - A description about the deployment, optional&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;auto_create&lt;/code&gt; - Automatically create the application, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;process&lt;/code&gt; - Preprocess and validate the manifest, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket_name&lt;/code&gt; - Bucket for &lt;code&gt;S3&lt;/code&gt; source bundle&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket_key&lt;/code&gt; - Key for &lt;code&gt;S3&lt;/code&gt; source bundle&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;environment_update&lt;/code&gt; - Flag whether to update ElasticBeansTalk environment with the new version&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;environment_name&lt;/code&gt; - Environment Name (optional), if update_environment true&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:d5a0f1eaf57f8a9e77fe62d85147581e&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  elastic_beanstalk:
+    access_key: 970d28f4dd477bc184fbd10b376de753
+    secret_key: 9c5785d3ece6a9cdefa42eb99b58986f9095ff1c
+    region: us-east-1
+    version_label: v1
+    description: Deployed with DroneCI
+    auto_create: true
+    bucket_name: my-bucket-name
+    bucket_key: 970d28f4dd477bc184fbd10b376de753
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Deis</title>
+      <link>http://docs.tea-ci.org/plugins/deis/</link>
+      <pubDate>Sat, 13 Feb 2016 09:00:18 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/deis/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to Deis. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;controller&lt;/code&gt; - Deis controller, e.g. deis.deisapps.com&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;app&lt;/code&gt; - Application name, defaults to repo name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;force&lt;/code&gt; - Force a push, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;commit&lt;/code&gt; - Commit local changes, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:547c12bcb29a3091cec41240d8e4098c&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  deis:
+    controller: deis.deisapps.com
+    app: awesomeness
+    force: true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Cloud 66</title>
+      <link>http://docs.tea-ci.org/plugins/cloud66/</link>
+      <pubDate>Sat, 13 Feb 2016 09:00:12 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/cloud66/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to Cloud 66. You can override the
+default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;`` -&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:1d0e1506a30eeb8d38ec6535ceb91307&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  cloud66:
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>dotCloud</title>
+      <link>http://docs.tea-ci.org/plugins/dotcloud/</link>
+      <pubDate>Sat, 13 Feb 2016 09:00:02 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/dotcloud/</guid>
+      <description>
+
+&lt;p&gt;Use this plugin for deplying an application to dotCloud. You can override
+the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;app&lt;/code&gt; - Application name, defaults to repo name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;deployment&lt;/code&gt; - Deployment name, defaults to &lt;code&gt;default&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;email&lt;/code&gt; - Email address to authenticate&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;password&lt;/code&gt; - Password to authenticate&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;force&lt;/code&gt; - Force a push, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;commit&lt;/code&gt; - Commit local changes, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:1ceeaa78fbf957ddcdbd279447780971&#34;&gt;Example&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  dotcloud:
+    app: helloworld
+    deployment: default
+    email: octocat@github.com
+    password: my_password
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>NPM · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Publish files and artifacts to a NPM registry" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins" class="current-item">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="plugins">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1 class="plugin-header"><img src="/logos/npm.svg" /> NPM Plugin</h1>
+						<section><p>Use the NPM plugin to publish a library to a NPM registry.</p>
+
+<p>The following parameters are used to configuration the publishing:</p>
+
+<ul>
+<li><strong>username</strong> - the username for the account to publish with.</li>
+<li><strong>password</strong> - the password for the account to publish with.</li>
+<li><strong>email</strong> - the email address associated with the account to publish with.</li>
+<li><strong>registry</strong> - the registry URL to use (<a href="https://registry.npmjs.org">https://registry.npmjs.org</a> by default)</li>
+<li><strong>folder</strong> - the folder, relative to the workspace, containing the library
+(uses the workspace directory, by default)</li>
+<li><strong>always_auth</strong> - forces npm to require authentication when accessing the
+registry (false by default)</li>
+</ul>
+
+<p>The following is a sample NPM configuration in your .drone.yml file which
+can publish to the global npm registry:</p>
+
+<pre><code class="language-yaml">publish:
+  npm:
+    username: $$NPM_USERNAME
+    password: $$NPM_PASSWORD
+    email: $$NPM_EMAIL
+</code></pre>
+
+<p>For a private npm registry, such as
+<a href="https://github.com/rlidwka/sinopia">Sinopia</a> the following config can be used:</p>
+
+<pre><code class="language-yaml">publish:
+  npm:
+    username: $$NPM_USERNAME
+    password: $$NPM_PASSWORD
+    email: $$NPM_EMAIL
+    registry: &quot;http://myregistry:4873&quot;
+    always_auth: true
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<h3>Plugin Links</h3>
+							
+							<ul class='list-unstyled side-nav'>
+								<li>
+									<a href="http://discuss.drone.io/c/help">
+										Get Help
+									</a>
+								</li>
+								<li>
+									<a href="https://github.com/drone-plugins/drone-npm/">
+										Source Code
+									</a>
+								</li>
+								<li>
+									<a href="https://hub.docker.com/r/plugins/drone-npm/">
+										Docker Image
+									</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

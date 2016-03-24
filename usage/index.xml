@@ -1,0 +1,1513 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Usages on Drone</title>
+    <link>http://docs.tea-ci.org/usage/</link>
+    <description>Recent content in Usages on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 05 Dec 2015 16:00:21 -0800</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/usage/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Quick Start</title>
+      <link>http://docs.tea-ci.org/usage/overview/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/usage/overview/</guid>
+      <description>
+
+&lt;h1 id=&#34;overview:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Overview&lt;/h1&gt;
+
+&lt;p&gt;In order to configure your build you must include a &lt;code&gt;.drone.yml&lt;/code&gt; file in the root of your repository. This section provides a brief overview of the configuration file and build process.&lt;/p&gt;
+
+&lt;p&gt;Example .drone.yml configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: teaci/msys32
+  shell: msys32
+  pull: true
+  commands:
+    - ./configure
+    - make
+    - make check
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;hooks:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Hooks&lt;/h1&gt;
+
+&lt;p&gt;Once activated, every commit and pull request automatically send a hook from your version control system (ie GitHub) to Drone. These hooks instruct Drone to execute a new build.&lt;/p&gt;
+
+&lt;p&gt;When Drone receives a hook it fetches the &lt;code&gt;.drone.yml&lt;/code&gt; from your repository and uses this as a blueprint for build execution. For the purposes of this tutorial let&amp;rsquo;s assume your repository uses the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: teaci/msys32
+  shell: msys32
+  pull: true
+  commands:
+    - ./configure
+    - make
+    - make check
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;cloning:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Cloning&lt;/h1&gt;
+
+&lt;p&gt;Hooks specify commit details including branch and commit hash. Drone will automatically clone and checkout the commit into the build workspace:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git clone --depth=50 --recusive=true \
+    https://github.com/octocat/hello-world.git \
+    /drone/src/github.com/octocat/hello-world
+
+git checkout 7fd1a60
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;images:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Images&lt;/h1&gt;
+
+&lt;p&gt;Drone executes your build inside an ephemeral Docker image. This means you don&amp;rsquo;t have to setup or install any repository dependencies on your host machine. Use any valid Docker image in any Docker registry as your build environment.&lt;/p&gt;
+
+&lt;p&gt;Example .drone.yml configuration uses the Tea CI official 32 bit Msys2 image:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: teaci/msys32
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The Tea CI project maintains several official docker images for our users. Currently we have teaci/cygwin32, teaci/msys32 and teaci/mingw32. 64 bit support is ongoing.&lt;/p&gt;
+
+&lt;h1 id=&#34;shell:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Shell&lt;/h1&gt;
+
+&lt;p&gt;Drone executes your build using a custom shell you specified.&lt;/p&gt;
+
+&lt;p&gt;Example .drone.yml configuration uses the Tea CI official 32 bit Msys2 image using the official msys32 shell:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: teaci/msys32
+  shell: msys32
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;pull:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Pull&lt;/h1&gt;
+
+&lt;p&gt;Use the &lt;code&gt;pull&lt;/code&gt; attribute to instruct Drone to always pull the latest Docker image. This helps ensure you are always testing your code against the latest image. We recommend you always using &lt;code&gt;pull: true&lt;/code&gt; with the Msys2 Docker image.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: teaci/msys32
+  shell: msys32
+  pull: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;commands:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Commands&lt;/h1&gt;
+
+&lt;p&gt;Drone previously cloned your source code into the build workspace. The build workspace is mounted into your Docker container at runtime as a volume. This means your code is cloned &lt;strong&gt;outside&lt;/strong&gt; of the build container but your build commands are run &lt;strong&gt;inside&lt;/strong&gt; of the build container.&lt;/p&gt;
+
+&lt;p&gt;Drone executes the following bash commands inside your build container:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: teaci/msys32
+  shell: msys32
+  pull: true
+  commands:
+    - ./configure
+    - make
+    - make check
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;services:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Services&lt;/h1&gt;
+
+&lt;p&gt;Drone supports launching separate, ephemeral Docker containers as part of the build process. This is useful, for example, if you require a database for running your unit tests.&lt;/p&gt;
+
+&lt;p&gt;Example .drone.yml configuration with a Postgres database:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: teaci/msys32
+  shell: msys32
+  pull: true
+  commands:
+    - ./configure
+    - make
+    - make check
+
+compose:
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;deployments:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Deployments&lt;/h1&gt;
+
+&lt;p&gt;Drone supports a large number of publish and deployment capabilities through external plugins. Plugins are Docker containers that are automatically downloaded, attach to your build, and execute a very specific publish or deployment task.&lt;/p&gt;
+
+&lt;p&gt;Example .drone.yml configuration with the Docker publish plugin:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: teaci/msys32
+  shell: msys32
+  pull: true
+  commands:
+    - ./configure
+    - make
+    - make check
+
+publish:
+  docker:
+    username: octocat
+    password: password
+    email: octocat@github.com
+    repo: octocat/hello-world
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;First Drone runs your build commands inside the teaci/msys32 container:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: teaci/msys32
+  shell: msys32
+  pull: true
+  commands:
+    - ./configure
+    - make
+    - make check
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Drone executes publish and deployment plugins upon successful completion of the build step. Plugins are executed in separate Docker containers but have access to your build workspace. This means any files created and stored in the &lt;code&gt;/drone&lt;/code&gt; workspace are available to plugins.&lt;/p&gt;
+
+&lt;p&gt;The Docker plugin in our example runs &lt;code&gt;docker build&lt;/code&gt; and &lt;code&gt;docker publish&lt;/code&gt; after the build step successfully completes using the configuration parameters in the .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+publish:
+  docker:
+    username: octocat
+    password: password
+    email: octocat@github.com
+    repo: octocat/hello-world
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;local-testing:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Local Testing&lt;/h1&gt;
+
+&lt;p&gt;Download the &lt;a href=&#34;http://docs.tea-ci.org/devs/cli&#34;&gt;command line tools&lt;/a&gt; to build and test your code locally inside a Docker environment using the exact same build process as Drone. You should think of your &lt;code&gt;.drone.yml&lt;/code&gt; file as a &lt;code&gt;docker-compose.yml&lt;/code&gt; alternative that is optimized for repeatable, local testing.&lt;/p&gt;
+
+&lt;p&gt;Command to execute a local build from the command line:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;drone exec
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;getting-help:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Getting Help&lt;/h1&gt;
+
+&lt;p&gt;Please use the community &lt;a href=&#34;https://gitter.im/tea-ci/drone&#34;&gt;chat room&lt;/a&gt; for support.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Variables</title>
+      <link>http://docs.tea-ci.org/usage/variables/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/usage/variables/</guid>
+      <description>
+
+&lt;h1 id=&#34;environment:2b8b8ac4006be88c769f5e3fd99b009a&#34;&gt;Environment&lt;/h1&gt;
+
+&lt;p&gt;Drone injects the following namespaced environment variables into every build:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;DRONE=true&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRONE_REPO&lt;/code&gt; - repository name for the current build&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRONE_BRANCH&lt;/code&gt; - branch name for the current build&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRONE_COMMIT&lt;/code&gt; - git sha for the current build&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRONE_DIR&lt;/code&gt; - working directory for the current build&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRONE_BUILD_NUMBER&lt;/code&gt; - build number for the current build&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRONE_PULL_REQUEST&lt;/code&gt; - pull request number fo the current build&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRONE_JOB_NUMBER&lt;/code&gt; - job number for the current build&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;DRONE_TAG&lt;/code&gt; - tag name for the current build&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Drone also injects &lt;code&gt;CI_&lt;/code&gt; prefixed variables for compatibility with other systems:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;CI=true&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CI_NAME=drone&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CI_REPO&lt;/code&gt; - repository name of the current build&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CI_BRANCH&lt;/code&gt; - branch name for the current build&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CI_COMMIT&lt;/code&gt; - git sha for the current build&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CI_BUILD_NUMBER&lt;/code&gt; - build number for the current build&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CI_PULL_REQUEST&lt;/code&gt; - pull request number fo the current build&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CI_JOB_NUMBER&lt;/code&gt; - job number for the current build&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CI_BUILD_DIR&lt;/code&gt; - working directory for the current build&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CI_BUILD_URL&lt;/code&gt; - url for the current build&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CI_TAG&lt;/code&gt; - tag name for the current build&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;string-interpolation:2b8b8ac4006be88c769f5e3fd99b009a&#34;&gt;String Interpolation&lt;/h1&gt;
+
+&lt;p&gt;A subset of variables may be substituted directly into the YAML at runtime using the &lt;code&gt;$$&lt;/code&gt; notation:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;$$BUILD_NUMBER&lt;/code&gt; build number for the current build&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$$COMMIT&lt;/code&gt; git sha for the current build, long format&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$$BRANCH&lt;/code&gt; git branch for the current build&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$$TAG&lt;/code&gt; tag name&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This is useful when you need to dynamically configure your plugin based on the current build. For example, we can alter an artifact name to include the branch:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+publish:
+  s3:
+    source: ./foo.tar.gz
+    target: ./foo-$$BRANCH.tar.gz
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;string-operations:2b8b8ac4006be88c769f5e3fd99b009a&#34;&gt;String Operations&lt;/h1&gt;
+
+&lt;p&gt;A subset of bash string substitution operations are also emulated:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;$$param&lt;/code&gt; parameter substitution&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$${param}&lt;/code&gt; parameter substitution (same as above)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;quot;$$param&amp;quot;&lt;/code&gt; parameter substitution with escaping&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$${param:pos}&lt;/code&gt; parameter substition with substring&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$${param:pos:len}&lt;/code&gt; parameter substition with substring&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$${param=default}&lt;/code&gt; parameter substition with default&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$${param##prefix}&lt;/code&gt; parameter substition with prefix removal&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$${param%%suffix}&lt;/code&gt; parameter substition with suffix removal&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$${param/old/new}&lt;/code&gt; parameter substition with find and replace&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Secrets</title>
+      <link>http://docs.tea-ci.org/usage/secrets/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/usage/secrets/</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;WARNING: drone does not prevent you from inadvertently exposing your secrets to the world. Please read this section of the documentation carefully to ensure you follow best practices and avoid exposing sensitive data.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&#34;overview:0d943d142dc6bcdd2e544b095a49f72b&#34;&gt;Overview&lt;/h1&gt;
+
+&lt;p&gt;Drone lets you store secret variables in an encrypted &lt;code&gt;.drone.sec&lt;/code&gt; file in the root of your repository. This is useful when your build requires sensitive information that should not be stored in plaintext in your yaml file. This document assumes you have installed the Drone &lt;a href=&#34;http://docs.tea-ci.org/devs/cli&#34;&gt;command line tools&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Start with a plaintext YAML file that defines your secrets. For demonstration purposes let&amp;rsquo;s assume this file is stored on disk and named &lt;code&gt;secrets.yml&lt;/code&gt;. Secrets are defined in the &lt;code&gt;environment&lt;/code&gt; section of this file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+environment:
+  HEROKU_TOKEN: pa$$word
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Reference secrets in your &lt;code&gt;.drone.yml&lt;/code&gt; file using the &lt;code&gt;$$&lt;/code&gt; notation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+deploy:
+  heroku:
+    app: petstore
+    token: $$HEROKU_TOKEN
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Encrypt the &lt;code&gt;secrets.yml&lt;/code&gt; file and generate a &lt;code&gt;.drone.sec&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;drone secure --repo octocat/hello-world --in secrets.yml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Commit the encrypted &lt;code&gt;.drone.sec&lt;/code&gt; file to the root of your repository:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git add .drone.sec
+git commit -m &amp;quot;added .drone.sec file&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;interpolation:0d943d142dc6bcdd2e544b095a49f72b&#34;&gt;Interpolation&lt;/h1&gt;
+
+&lt;p&gt;Secrets are injected directly into the YAML at runtime using the &lt;code&gt;$$&lt;/code&gt; notation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+deploy:
+  heroku:
+    app: foo
+    token: $$HEROKU_TOKEN
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that secrets are not automatically exposed to your build environment as
+environment variables. For security purposes, you be must explicit when and
+where to inject secrets.&lt;/p&gt;
+
+&lt;p&gt;This example demonstrates explicitly injecting a secret as an environment variable:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: golang
+  commands:
+    - go build
+    - go test
+  environment:
+    - PRIVATE_KEY=$$PRIVATE_KEY
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Secrets that are multiple lines or contain special characters should be escaped to
+avoid YAML parsing errors post-interpolation. You can escape strings by wrapping
+the variable in quotes as shown below:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: golang
+  commands:
+    - go build
+    - go test
+  environment:
+    - PRIVATE_KEY=&amp;quot;$$PRIVATE_KEY&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;checksums:0d943d142dc6bcdd2e544b095a49f72b&#34;&gt;Checksums&lt;/h1&gt;
+
+&lt;p&gt;Drone automatically calculates and stores a checksum of your &lt;code&gt;.drone.yml&lt;/code&gt; file inside your &lt;code&gt;.drone.sec&lt;/code&gt; file. Secrets are not injected into your build if the checksum cannot be verified. This means you must re-generate your &lt;code&gt;.drone.sec&lt;/code&gt; file every time you &lt;code&gt;.drone.yml&lt;/code&gt; changes (yes security is inconvenient).&lt;/p&gt;
+
+&lt;p&gt;Invalid checksums result in the following error at the top of your build logs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Unable to validate YAML checksum.
+2ca66eb7be89f31afdebb197174abfa6dd14866ecbf9e552f44be5bd3244d08a
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;pull-requests:0d943d142dc6bcdd2e544b095a49f72b&#34;&gt;Pull Requests&lt;/h1&gt;
+
+&lt;p&gt;Drone injects secrets for all build types, including pull requests, as long as the checksum validation passes. You should avoid injecting secrets into the build section of the YAML and inadvertently exposing your secrets to malicious pull requests.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;This is bad&lt;/strong&gt; because a malicious pull request could gain access to your secrets:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: node
+  environment:
+    PASSWORD: $$PASSWORD
+  commands:
+    - npm install
+    - npm run tests
+    - npm run integration
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;This is better&lt;/strong&gt; because the build is split into sections. Secrets are injected into a section of the build that is not executed for pull requests:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  unit_tests:
+    image: node
+    commands:
+      - npm install
+      - npm run tests
+
+  integration_tests:
+    image: node
+    environment:
+      PASSWORD: $$PASSWORD
+    commands:
+      - npm run integration
+    when:
+      event: push
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;global-secrets:0d943d142dc6bcdd2e544b095a49f72b&#34;&gt;Global Secrets&lt;/h1&gt;
+
+&lt;p&gt;Global secrets are stored in the &lt;code&gt;PLUGIN_PARAMS&lt;/code&gt; environment variable declared in your Drone server configuration file. Global secrets are passed to every single build and should therefore only be used in trusted environments with trusted developers.&lt;/p&gt;
+
+&lt;p&gt;Example global secret declaration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;PLUGIN_PARAMS=SMTP_PASSWORD=foo SLACK_TOKEN=bar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example injecting global secrets into your &lt;code&gt;.drone.yml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+deploy:
+  slack:
+    channel: foo
+    token: $$SLACK_TOKEN
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;common-issues:0d943d142dc6bcdd2e544b095a49f72b&#34;&gt;Common Issues&lt;/h1&gt;
+
+&lt;p&gt;Secrets are not injected into your build if the checksum cannot be validated. This happens when you change your &lt;code&gt;.drone.yml&lt;/code&gt; file without re-generating a &lt;code&gt;.drone.sec&lt;/code&gt; file resulting in the following error message at the top of your build logs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Unable to validate YAML checksum.
+2ca66eb7be89f31afdebb197174abfa6dd14866ecbf9e552f44be5bd3244d08a
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Cloning</title>
+      <link>http://docs.tea-ci.org/usage/cloning/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/usage/cloning/</guid>
+      <description>
+
+&lt;h1 id=&#34;overview:694aaf6bb8eef58529ced737905d0d1a&#34;&gt;Overview&lt;/h1&gt;
+
+&lt;p&gt;Drone will automatically clone your repository during the build lifecycle. You can customize this behavior in the &lt;strong&gt;clone&lt;/strong&gt; section of the yaml file. This section is entirely optional.&lt;/p&gt;
+
+&lt;p&gt;This is an example yaml configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+clone:
+  depth: 50
+  recursive: true
+  path: github.com/drone/drone
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Which results in the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git clone --depth=50 --recusive=true \
+    https://github.com/drone/drone.git \
+    /drone/src/github.com/drone/drone
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;authentication:694aaf6bb8eef58529ced737905d0d1a&#34;&gt;Authentication&lt;/h1&gt;
+
+&lt;p&gt;Drone uses &lt;code&gt;git+https&lt;/code&gt; combined with a &lt;code&gt;.netrc&lt;/code&gt; file to authenticate and clone private repositories. This allows Drone to clone private Git submodules that also use &lt;code&gt;git+https&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;customization:694aaf6bb8eef58529ced737905d0d1a&#34;&gt;Customization&lt;/h1&gt;
+
+&lt;p&gt;Limit the amount of git history that is fetched from the remote repository:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+clone:
+  depth: 50
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Fetch all tags from the remote repository:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+clone:
+  tags: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Disable tls verification when cloning the remote repository:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+clone:
+  skip_verify: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Recursively clone all submodules:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+clone:
+  recursive: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Recursively clone and update all submodules:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+clone:
+  recursive: true
+  submodule_update_remote: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;private-submodules:694aaf6bb8eef58529ced737905d0d1a&#34;&gt;Private Submodules&lt;/h1&gt;
+
+&lt;p&gt;Private submodules may encounter the following error:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Warning: Permanently added &#39;github.com,192.30.252.130&#39; (RSA) to the list of known hosts.
+ERROR: Repository not found.
+fatal: Could not read from remote repository.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This happens when a private submodule uses a git+ssh url:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-git&#34;&gt;[submodule &amp;quot;hello-world&amp;quot;]
+    path = hello-world
+    url = git@github.com:octocat/hello-world.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This can be mitigated by overriding the submodule url to use git+https:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+clone:
+  recursive: true
+  submodule_override:
+    hello-world: https://github.com/octocat/hello-world.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Overriding the submodule url to force &lt;code&gt;git+https&lt;/code&gt; allows us to take advantage of the &lt;code&gt;netrc&lt;/code&gt; file and automatically authenticate to the submodule repository.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Caching</title>
+      <link>http://docs.tea-ci.org/usage/caching/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/usage/caching/</guid>
+      <description>
+
+&lt;h1 id=&#34;overview:ac010da762d8cf87ef4765b457c06928&#34;&gt;Overview&lt;/h1&gt;
+
+&lt;p&gt;Drone allows you to cache directories within the build workspace (inside the &lt;code&gt;/drone&lt;/code&gt; volume). When a build successfully completes, the named directories are gzipped and stored on the host machine. When a new build starts, the named directories are restored from the gzipped files. This can be used to improve the performance of your builds.&lt;/p&gt;
+
+&lt;p&gt;Example configuration to cache the &lt;code&gt;.git&lt;/code&gt; and the &lt;code&gt;node_modules&lt;/code&gt; directory:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+cache:
+  mount:
+    - node_modules
+    - .git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;branches-and-matrix:ac010da762d8cf87ef4765b457c06928&#34;&gt;Branches and Matrix&lt;/h1&gt;
+
+&lt;p&gt;Drone keeps a separate cache for each Branch and Matrix combination. Let’s say, for example, you are using matrix builds to test node &lt;code&gt;0.11.x&lt;/code&gt; and node &lt;code&gt;0.12.x&lt;/code&gt; and you are caching &lt;code&gt;node_modules&lt;/code&gt;. Drone will separately cache &lt;code&gt;node_modules&lt;/code&gt; for each version of node.&lt;/p&gt;
+
+&lt;h1 id=&#34;pull-requests:ac010da762d8cf87ef4765b457c06928&#34;&gt;Pull Requests&lt;/h1&gt;
+
+&lt;p&gt;Pull requests have read-only access to the cache. This means pull requests are not permitted to re-build the cache. This is done for security and stability purposes, to prevent a pull request from corrupting your cache.&lt;/p&gt;
+
+&lt;h1 id=&#34;deleting-the-cache:ac010da762d8cf87ef4765b457c06928&#34;&gt;Deleting the Cache&lt;/h1&gt;
+
+&lt;p&gt;There is currently no mechanism to automatically delete or flush the cache. This must be done manually, on each worker node. The cache is located in &lt;code&gt;/var/lib/drone/cache/&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;distributed-cache:ac010da762d8cf87ef4765b457c06928&#34;&gt;Distributed Cache&lt;/h1&gt;
+
+&lt;p&gt;This is outside the scope of Drone. You may, for example, use a distributed filesystem such as &lt;code&gt;ceph&lt;/code&gt; or &lt;code&gt;gluster&lt;/code&gt; mounted to &lt;code&gt;/var/lib/drone/cache/&lt;/code&gt; to share the cache across nodes.&lt;/p&gt;
+
+&lt;h1 id=&#34;common-issues:ac010da762d8cf87ef4765b457c06928&#34;&gt;Common Issues&lt;/h1&gt;
+
+&lt;p&gt;The most common issue occurs when you try to cache files or folders that are not children of the &lt;code&gt;/drone&lt;/code&gt; volume. The below example &lt;strong&gt;will not work&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+cache:
+  mount:
+    - /root/node_modules
+    - /usr/lib/python3.2/site-packages
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You should instead only cache directories in &lt;code&gt;/drone&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+cache:
+  mount:
+    - /drone/node_modules
+    - /drone/site-packages
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To work around this limitation we can cache files or folders in &lt;code&gt;/drone&lt;/code&gt; and copy they to the expected location at the start of the build, and then copy them back to &lt;code&gt;/drone&lt;/code&gt; at the end fo the build:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: node
+  commands:
+    - cp -a /drone/node_modules /root
+    - rm -rf /drone/node_modules
+    - npm -g install
+    - npm run build
+    - npm run tests
+    - cp -a /root/node_modules /drone
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Service Containers</title>
+      <link>http://docs.tea-ci.org/usage/services/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/usage/services/</guid>
+      <description>
+
+&lt;h1 id=&#34;overview:bfc9941b6b6fd7b4ef09dd0ccd08af0c&#34;&gt;Overview&lt;/h1&gt;
+
+&lt;p&gt;Drone uses the &lt;code&gt;compose&lt;/code&gt; section of the &lt;code&gt;.drone.yml&lt;/code&gt; to specify supporting containers (ie service containers) that should be started and linked to your build container. The &lt;code&gt;compose&lt;/code&gt; section of the &lt;code&gt;.drone.yml&lt;/code&gt; is modeled after the &lt;code&gt;docker-compose.yml&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+compose:
+  [container_name:]
+    image: [image_name]
+    [options]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example configuration that composes a Postgres and Redis container:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+compose:
+  cache:
+    image: redis
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;images:bfc9941b6b6fd7b4ef09dd0ccd08af0c&#34;&gt;Images&lt;/h1&gt;
+
+&lt;p&gt;Drone supports any valid Docker image from any Docker registry:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+image: postgres
+image: postgres:9.2
+image: library/postgres:9.2
+image: index.docker.io/library/postgres:9.2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Provide your registry credentials if your service container image is private:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+compose:
+  database:
+    image: myrepo/customdb:latest
+    auth_config:
+      username: octocat
+      password: password
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Use the &lt;code&gt;pull&lt;/code&gt; attribute to instruct Drone to always pull the latest Docker image. This helps ensure you are always testing your code against the latest image:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+compose:
+  database:
+    image: postgres
+    pull: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;workspace:bfc9941b6b6fd7b4ef09dd0ccd08af0c&#34;&gt;Workspace&lt;/h1&gt;
+
+&lt;p&gt;The build workspace is automatically mounted into each service container in the &lt;code&gt;/drone/src/&amp;lt;repository&amp;gt;&lt;/code&gt; directory inside the &lt;code&gt;/drone&lt;/code&gt; volume.
+If needed, this provides access to the source code and build artifacts.&lt;/p&gt;
+
+&lt;p&gt;Here is an example when using Github:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  /drone/src/github.com/octocat/hello-world
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;See also: &lt;a href=&#34;../build_test/#workspace:fb92aa3346185c57f15afda861d465a3&#34;&gt;Build &amp;amp; Test&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;networking:bfc9941b6b6fd7b4ef09dd0ccd08af0c&#34;&gt;Networking&lt;/h1&gt;
+
+&lt;p&gt;Service containers are available at the &lt;code&gt;localhost&lt;/code&gt; or &lt;code&gt;127.0.0.1&lt;/code&gt; address.&lt;/p&gt;
+
+&lt;p&gt;Drone deviates from the default Docker compose networking model to mirror a traditional development environment, where services are typically accessed at &lt;code&gt;localhost&lt;/code&gt; or &lt;code&gt;127.0.0.1&lt;/code&gt;. To achieve this, we create a per-build network where all containers share the same network and IP address.&lt;/p&gt;
+
+&lt;h1 id=&#34;linking:bfc9941b6b6fd7b4ef09dd0ccd08af0c&#34;&gt;Linking&lt;/h1&gt;
+
+&lt;p&gt;Please see the above networking section &amp;ndash; because your build and service containers share the same network linking is not possible. Instead you may access your services at &lt;code&gt;127.0.0.1&lt;/code&gt; similar to a traditional, local development environment.&lt;/p&gt;
+
+&lt;h1 id=&#34;environment:bfc9941b6b6fd7b4ef09dd0ccd08af0c&#34;&gt;Environment&lt;/h1&gt;
+
+&lt;p&gt;Use the environment section to pass environment variables to your service containers. Many database images, including the official postgres and mysql images, use environment variables to configure the database on startup.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+compose:
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;volumes:bfc9941b6b6fd7b4ef09dd0ccd08af0c&#34;&gt;Volumes&lt;/h1&gt;
+
+&lt;p&gt;Use the &lt;code&gt;volumes&lt;/code&gt; attribute to mount folders on your host machine into your service container. These are &lt;a href=&#34;https://docs.docker.com/engine/userguide/dockervolumes/&#34;&gt;Docker volumes&lt;/a&gt; and therefore use the same &lt;code&gt;&amp;lt;host&amp;gt;:&amp;lt;container&amp;gt;&lt;/code&gt; declaration conventions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+compose:
+  database:
+    image: postgres
+    volumes:
+      - /some/path/on/host:/path/in/container
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For security reasons this option is only available to trusted repositories. Trusted repositories are enabled on a per-repository basis by a Drone administrator from your repository settings screen.&lt;/p&gt;
+
+&lt;h1 id=&#34;devices:bfc9941b6b6fd7b4ef09dd0ccd08af0c&#34;&gt;Devices&lt;/h1&gt;
+
+&lt;p&gt;Use the &lt;code&gt;devices&lt;/code&gt; attribute to map devices from your host machine into your service container. These are &lt;a href=&#34;https://docs.docker.com/compose/compose-file/#devices&#34;&gt;Docker devices&lt;/a&gt; and therefore use the same declaration conventions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+compose:
+  database:
+    image: postgres
+    devices:
+      - &amp;quot;/dev/ttyUSB0:/dev/ttyUSB0&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For security reasons this option is only available to trusted repositories. Trusted repositories are enabled on a per-repository basis by a Drone administrator from your repository settings screen.&lt;/p&gt;
+
+&lt;h1 id=&#34;privileged-mode:bfc9941b6b6fd7b4ef09dd0ccd08af0c&#34;&gt;Privileged Mode&lt;/h1&gt;
+
+&lt;p&gt;Use the privileged attribute to run your service in a privileged Docker container:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+compose:
+  dind:
+    image: docker:dind
+    privileged: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For security reasons this option is only available to trusted repositories. Trusted repositories are enabled on a per-repository basis by a Drone administrator from your repository settings screen.&lt;/p&gt;
+
+&lt;h1 id=&#34;docker-compose:bfc9941b6b6fd7b4ef09dd0ccd08af0c&#34;&gt;Docker Compose&lt;/h1&gt;
+
+&lt;p&gt;You should think of the &lt;code&gt;.drone.yml&lt;/code&gt; as a competing format to the &lt;code&gt;docker-compose.yml&lt;/code&gt; that specializes in testing and build pipelines. We encourage you to embrace the &lt;code&gt;.drone.yml&lt;/code&gt; for testing instead of trying to hack together a homegrown solution with a &lt;code&gt;docker-compose.yml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Using a &lt;code&gt;docker-compose.yml&lt;/code&gt; is possible but will require direct access to a Docker daemon. Drone does not expose a Docker daemon to your build by default for security reasons. You can provide access to a Docker daemon by mounting the host machines Docker socket as a &lt;a href=&#34;#volumes:bfc9941b6b6fd7b4ef09dd0ccd08af0c&#34;&gt;volume&lt;/a&gt; or by running &lt;a href=&#34;#docker-in-docker:bfc9941b6b6fd7b4ef09dd0ccd08af0c&#34;&gt;Docker in Docker&lt;/a&gt; as a service container.&lt;/p&gt;
+
+&lt;h1 id=&#34;docker-in-docker:bfc9941b6b6fd7b4ef09dd0ccd08af0c&#34;&gt;Docker in Docker&lt;/h1&gt;
+
+&lt;p&gt;TODO&lt;/p&gt;
+
+&lt;h1 id=&#34;examples:bfc9941b6b6fd7b4ef09dd0ccd08af0c&#34;&gt;Examples&lt;/h1&gt;
+
+&lt;p&gt;TODO&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Build &amp; Test</title>
+      <link>http://docs.tea-ci.org/usage/build_test/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/usage/build_test/</guid>
+      <description>
+
+&lt;h1 id=&#34;overview:fb92aa3346185c57f15afda861d465a3&#34;&gt;Overview&lt;/h1&gt;
+
+&lt;p&gt;Drone uses the &lt;code&gt;build&lt;/code&gt; section of the &lt;code&gt;.drone.yml&lt;/code&gt; to define your Docker build environment and your build and test instructions. The following is an example build definition:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: golang
+  commands:
+    - go get
+    - go build
+    - go test
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This example downloads and runs a &lt;code&gt;golang&lt;/code&gt; container and executes the specified commands inside the container. Your source code, previously fetched during the &lt;code&gt;clone&lt;/code&gt; step, is provided to the container as a Docker volume.&lt;/p&gt;
+
+&lt;h1 id=&#34;images:fb92aa3346185c57f15afda861d465a3&#34;&gt;Images&lt;/h1&gt;
+
+&lt;p&gt;Drone supports any valid Docker image from any Docker registry:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+image: golang
+image: golang:1.5
+image: library/golang:1.5
+image: index.docker.io/library/golang:1.5
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Provide your registry credentials if your build image is private:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: foo/bar
+  auth_config:
+    username: octocat
+    password: password
+    email: octocat@github.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Use the &lt;code&gt;pull&lt;/code&gt; attribute to instruct Drone to always pull the latest Docker image. This helps ensure you are always testing your code against the latest image:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: golang
+  pull: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;workspace:fb92aa3346185c57f15afda861d465a3&#34;&gt;Workspace&lt;/h1&gt;
+
+&lt;p&gt;The build workspace is located in the &lt;code&gt;/drone/src/&amp;lt;repository&amp;gt;&lt;/code&gt; directory inside the &lt;code&gt;/drone&lt;/code&gt; volume. You cannot change the volume location, however, you can change the subdirectory.&lt;/p&gt;
+
+&lt;p&gt;The below example overrides the default workspace to &lt;code&gt;/drone/src/github.com/octocat/hello-world&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+clone:
+  path: github.com/octocat/hello-world
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;environment:fb92aa3346185c57f15afda861d465a3&#34;&gt;Environment&lt;/h1&gt;
+
+&lt;p&gt;Use the environment section to inject environment variables into your build environment:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: golang:1.5
+  environment:
+    - GO15VENDOREXPERIMENT=0
+    - GOOS=linux
+    - GOARCH=amd64
+    - CGO_ENABLED=0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Variable expansion is not supported. The following example &lt;strong&gt;will not work&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+environment:
+  - PATH=$PATH:/go
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;commands:fb92aa3346185c57f15afda861d465a3&#34;&gt;Commands&lt;/h1&gt;
+
+&lt;p&gt;Build commands execute sequentially in a shell environment with the &lt;code&gt;-e&lt;/code&gt; flag. The &lt;code&gt;-e&lt;/code&gt; flag instructs the shell environment to exit immediately if a command returns a non-zero exit code.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: golang:1.5
+  commands:
+    - go get
+    - go build
+    - go test
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Please be aware that chaining commands together with &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; may result in the build not exiting on failure. This is not a bug with Drone. This is the default bash &lt;code&gt;-e&lt;/code&gt; behavior. See &lt;a href=&#34;http://stackoverflow.com/questions/25794905/why-does-set-e-true-false-true-not-exit#25795239&#34;&gt;this stackoverflow&lt;/a&gt; for more details.&lt;/p&gt;
+
+&lt;h1 id=&#34;multiple-steps:fb92aa3346185c57f15afda861d465a3&#34;&gt;Multiple Steps&lt;/h1&gt;
+
+&lt;p&gt;Build commands can be split into multiple named steps. The below example let&amp;rsquo;s us split our frontend build (node) and our backend build (go). Each step executes in its own isolated container environment while sharing the same build workspace.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  frontend:
+    image: node:5.3.0
+    commands:
+      - npm install
+      - npm test
+  backend:
+    image: golang:1.5
+    commands:
+      - go get
+      - go build
+      - go test
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;conditions:fb92aa3346185c57f15afda861d465a3&#34;&gt;Conditions&lt;/h1&gt;
+
+&lt;p&gt;Limit when a build step should is executed using conditional logic. The below example splits our build into two steps. The second build step, building the distribution, is only executed when we tag a release. This reduces the build time for &lt;code&gt;push&lt;/code&gt; and &lt;code&gt;pull_request&lt;/code&gt; events by removing un-necessary steps:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  test:
+    image: golang:1.5
+    commands:
+      - go get
+      - go test
+  bundle:
+    image: golang:1.5
+    commands:
+      - go build
+      - tar -cvf bundle.tar myapp
+    when:
+      event: tag
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Only execute a step when building a &lt;code&gt;push&lt;/code&gt; or &lt;code&gt;tag&lt;/code&gt; event:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  bundle:
+    when:
+      event: [push, tag]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Only executes a step when building the &lt;code&gt;master&lt;/code&gt; branch:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  bundle:
+    when:
+      branch: master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There are a number of other conditions which can be used in whens: &lt;code&gt;repo&lt;/code&gt; (a full repo path) and &lt;code&gt;success&lt;/code&gt;, &lt;code&gt;failure&lt;/code&gt; and &lt;code&gt;change&lt;/code&gt; (all booleans based on the previous job status).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  bundle:
+    when:
+      repo: drone/drone
+      success: true
+      failure: true
+      change: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;dependencies:fb92aa3346185c57f15afda861d465a3&#34;&gt;Dependencies&lt;/h1&gt;
+
+&lt;p&gt;Cloning private submodules or private dependencies (using &lt;code&gt;npm&lt;/code&gt; or &lt;code&gt;go get&lt;/code&gt;) requires remote authentication. We recommend using &lt;code&gt;git+https&lt;/code&gt; for submodules or dependencies, allowing Drone to authenticate to your remote repository using a &lt;code&gt;.netrc&lt;/code&gt; file injected by default into your build environment.&lt;/p&gt;
+
+&lt;p&gt;Instead of using the &lt;code&gt;git+ssh&lt;/code&gt; url in your &lt;code&gt;package.json&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;{
+    &amp;quot;library&amp;quot;: &amp;quot;git+ssh://git@github.com:octocat/library.git&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Use the &lt;code&gt;git+https&lt;/code&gt; url in your &lt;code&gt;package.json&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;{
+    &amp;quot;library&amp;quot;: &amp;quot;https://github.com/octocat/library.git&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;volumes:fb92aa3346185c57f15afda861d465a3&#34;&gt;Volumes&lt;/h1&gt;
+
+&lt;p&gt;Use the &lt;code&gt;volumes&lt;/code&gt; attribute to mount folders on your host machine into your build container. These are &lt;a href=&#34;https://docs.docker.com/engine/userguide/dockervolumes/&#34;&gt;Docker volumes&lt;/a&gt; and therefore use the same &lt;code&gt;&amp;lt;host&amp;gt;:&amp;lt;container&amp;gt;&lt;/code&gt; declaration conventions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: golang
+  volumes:
+    - /some/path/on/host:/path/in/container
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For security reasons this option is only available to trusted repositories. Trusted repositories are enabled on a per-repository basis by a Drone administrator from your repository settings screen.&lt;/p&gt;
+
+&lt;h1 id=&#34;devices:fb92aa3346185c57f15afda861d465a3&#34;&gt;Devices&lt;/h1&gt;
+
+&lt;p&gt;Use the &lt;code&gt;devices&lt;/code&gt; attribute to map devices from your host machine into your build container. These are &lt;a href=&#34;https://docs.docker.com/compose/compose-file/#devices&#34;&gt;Docker devices&lt;/a&gt; and therefore use the same declaration conventions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: golang
+  devices:
+    - &amp;quot;/dev/ttyUSB0:/dev/ttyUSB0&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For security reasons this option is only available to trusted repositories. Trusted repositories are enabled on a per-repository basis by a Drone administrator from your repository settings screen.&lt;/p&gt;
+
+&lt;h1 id=&#34;privileged:fb92aa3346185c57f15afda861d465a3&#34;&gt;Privileged&lt;/h1&gt;
+
+&lt;p&gt;Use the &lt;code&gt;privileged&lt;/code&gt; attribute to run your build in a privileged Docker container:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: golang
+  privileged: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For security reasons this option is only available to trusted repositories. Trusted repositories are enabled on a per-repository basis by a Drone administrator from your repository settings screen.&lt;/p&gt;
+
+&lt;h1 id=&#34;timeouts:fb92aa3346185c57f15afda861d465a3&#34;&gt;Timeouts&lt;/h1&gt;
+
+&lt;p&gt;There is a default 60 minute timeout for your build. This can be increased by a Drone administrator from your repository settings screen.&lt;/p&gt;
+
+&lt;h1 id=&#34;triggers:fb92aa3346185c57f15afda861d465a3&#34;&gt;Triggers&lt;/h1&gt;
+
+&lt;p&gt;Builds are triggered primarily by &lt;code&gt;push&lt;/code&gt; and &lt;code&gt;pull_request&lt;/code&gt; hooks from your remote system (ie GitHub). Sometimes changes to an upstream project have a cascading impact on downstream projects. You can trigger cascading builds using the &lt;a href=&#34;http://docs.tea-ci.org/plugins/downstream/&#34;&gt;trigger&lt;/a&gt; plugin.&lt;/p&gt;
+
+&lt;h1 id=&#34;scheduling:fb92aa3346185c57f15afda861d465a3&#34;&gt;Scheduling&lt;/h1&gt;
+
+&lt;p&gt;Drone does not have any builtin scheduling capabilities. For scheduled builds (ie nightly builds) we recommend using the Drone command line tools with cron to trigger builds at scheduled intervals.&lt;/p&gt;
+
+&lt;h1 id=&#34;skip-commits:fb92aa3346185c57f15afda861d465a3&#34;&gt;Skip Commits&lt;/h1&gt;
+
+&lt;p&gt;Instruct Drone to skip builds by by including any combination of &lt;code&gt;ci&lt;/code&gt; and &lt;code&gt;skip&lt;/code&gt; wrapped in square brackets in your commit message. Examples: &lt;code&gt;[skip CI]&lt;/code&gt; &lt;code&gt;[ci skip]&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;skip-branches:fb92aa3346185c57f15afda861d465a3&#34;&gt;Skip Branches&lt;/h1&gt;
+
+&lt;p&gt;Instruct Drone to skip branches by including a branch white-list in your &lt;code&gt;.drone.yml&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+branches:
+  - master
+  - develop
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Deployments</title>
+      <link>http://docs.tea-ci.org/usage/deploy/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/usage/deploy/</guid>
+      <description>
+
+&lt;h1 id=&#34;overview:0814af543608f4fd171b2e9cf43d9917&#34;&gt;Overview&lt;/h1&gt;
+
+&lt;p&gt;Deployments are triggered at the end of a successful build. Note that deployment steps are not executed for pull requests or failed builds.&lt;/p&gt;
+
+&lt;p&gt;Example Heroku deployment using the Heroku plugin:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+deploy:
+  heroku:
+    app: petstore
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;plugins:0814af543608f4fd171b2e9cf43d9917&#34;&gt;Plugins&lt;/h1&gt;
+
+&lt;p&gt;Drone does not have any builtin deployment capabilities. Drone instead offers a large library of plugins for deploying to &lt;a href=&#34;http://docs.tea-ci.org/plugins/heroku/&#34;&gt;Heroku&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/plugins/tutum/&#34;&gt;Tutum&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/plugins/aws_codedeploy/&#34;&gt;Amazon&lt;/a&gt; and more. Please see the &lt;a href=&#34;http://docs.tea-ci.org/plugins/&#34;&gt;plugin documentation&lt;/a&gt; for a complete list.&lt;/p&gt;
+
+&lt;h1 id=&#34;docker:0814af543608f4fd171b2e9cf43d9917&#34;&gt;Docker&lt;/h1&gt;
+
+&lt;p&gt;Building and deploying a Docker image to the registry is handled by plugins. We have multiple plugins for building and publishing Docker images to &lt;a href=&#34;http://docs.tea-ci.org/plugins/docker/&#34;&gt;DockerHub&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/plugins/gcr/&#34;&gt;Google Container Registry&lt;/a&gt;, and more.&lt;/p&gt;
+
+&lt;h1 id=&#34;conditions:0814af543608f4fd171b2e9cf43d9917&#34;&gt;Conditions&lt;/h1&gt;
+
+&lt;p&gt;Use the &lt;code&gt;when&lt;/code&gt; block to limit deployment step execution:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+deploy:
+  heroku:
+    app: mycompany.com
+    when:
+      branch: master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Execute a deployment step if the branch is &lt;code&gt;master&lt;/code&gt; or &lt;code&gt;develop&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+deploy:
+  heroku:
+    app: mycompany.com
+    when:
+      branch: [master, develop]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Execute a deployment step if the branch is &lt;em&gt;not&lt;/em&gt; &lt;code&gt;master&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+deploy:
+  heroku:
+    app: mycompany.com
+    when:
+      branch: &amp;quot;!master&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Execute a deployment step if the branch is starts with &lt;code&gt;prefix/*&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+deploy:
+  heroku:
+    app: mycompany.com
+    when:
+      branch: prefix/*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Execute a deployment step when the commit is a &lt;code&gt;tag&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+deploy:
+  heroku:
+    app: mycompany.com
+    when:
+      event: tag
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Execute a deployment step for a single matrix permutation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+deploy:
+  heroku:
+    app: mycompany.com
+    when:
+      matrix:
+        GO_VERSION: 1.5
+        REDIS_VERSION: 2.8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Define the same deployment step multiple times, using different configuration based on branch:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+deploy:
+  heroku:
+    app: test.mycompany.com
+    when:
+      branch: develop
+
+  heroku:
+    app: mycompany.com
+    when:
+      branch: master
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Notifications</title>
+      <link>http://docs.tea-ci.org/usage/notify/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/usage/notify/</guid>
+      <description>
+
+&lt;h1 id=&#34;overview:d1fea7f63b32cc4bab67588d2fde8aa7&#34;&gt;Overview&lt;/h1&gt;
+
+&lt;p&gt;Notifications are triggered at the end of your entire build. If you are running a matrix build the notification is sent after all matrix jobs complete.&lt;/p&gt;
+
+&lt;p&gt;Example Slack notification using the Slack plugin:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+notify:
+  slack:
+    webhook_url: https://hooks.slack.com/services/...
+    channel: dev
+    username: drone
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Please note notifications are executed after a build is already terminated and will not write any output to your build logs. For troubleshooting failed notifications please contact your system administrator to research errors in the Drone server logs.&lt;/p&gt;
+
+&lt;h1 id=&#34;plugins:d1fea7f63b32cc4bab67588d2fde8aa7&#34;&gt;Plugins&lt;/h1&gt;
+
+&lt;p&gt;Drone does not have any builtin notification capabilities. Drone instead offers a large library of plugins for sending &lt;a href=&#34;http://docs.tea-ci.org/plugins/slack/&#34;&gt;Slack&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/plugins/hipchat/&#34;&gt;Hipchat&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/plugins/email/&#34;&gt;Email&lt;/a&gt; notifications and more. Please see the &lt;a href=&#34;http://docs.tea-ci.org/plugins/&#34;&gt;plugin documentation&lt;/a&gt; for a complete list.&lt;/p&gt;
+
+&lt;h1 id=&#34;conditions:d1fea7f63b32cc4bab67588d2fde8aa7&#34;&gt;Conditions&lt;/h1&gt;
+
+&lt;p&gt;Use the &lt;code&gt;when&lt;/code&gt; block to limit notification step execution:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+notify:
+  slack:
+    channel: foo
+    when:
+      success: false
+      failure: false
+      change: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Execute a notification step if the branch is &lt;code&gt;master&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+notify:
+  slack:
+    channel: foo
+    when:
+      branch: master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Execute a notification step if the branch is &lt;code&gt;master&lt;/code&gt; or &lt;code&gt;develop&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+notify:
+  slack:
+    channel: foo
+    when:
+      branch: [master, develop]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Execute a notification step if the branch is &lt;em&gt;not&lt;/em&gt; &lt;code&gt;develop&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+notify:
+  slack:
+    channel: foo
+    when:
+      branch: &amp;quot;!develop&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Execute a notification step if the branch is starts with &lt;code&gt;prefix/*&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+notify:
+  slack:
+    channel: foo
+    when:
+      branch: prefix/*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Execute a notification step when the commit is a &lt;code&gt;pull_request&lt;/code&gt;, &lt;code&gt;push&lt;/code&gt; or &lt;code&gt;tag&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+notify:
+  slack:
+    channel: foo
+    when:
+      event: pull_request
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Define the same notification step multiple times, using different configuration based on branch:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+notify:
+  slack:
+    channel: foo
+    when:
+      branch: develop
+
+  slack:
+    channel: bar
+    when:
+      branch: master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;templates:d1fea7f63b32cc4bab67588d2fde8aa7&#34;&gt;Templates&lt;/h1&gt;
+
+&lt;p&gt;Many of the Drone notifications support &lt;a href=&#34;http://handlebarsjs.com/&#34;&gt;handlebars&lt;/a&gt; templates for customizing notification messages. This example demonstrates a custom hipchat notification message:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+notify:
+  hipchat:
+    template: |
+      {{ repo.full_name }} finished build {{ build.number }}
+      with a status of {{ build.status }}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example template that generates a different message based on build status:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+notify:
+  hipchat:
+    template: |
+      {{#success build.status}}
+        {{ build.author }} successfully pushed to {{ build.branch}}
+      {{else}}
+        {{ build.author }} broke the build. Hang your head in shame.
+      {{/success}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;template-data:d1fea7f63b32cc4bab67588d2fde8aa7&#34;&gt;Template Data&lt;/h1&gt;
+
+&lt;p&gt;This is an example data structure passed to the template engine. Any of the below variables may be referenced in your template:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;{
+    &amp;quot;build&amp;quot;: {
+        &amp;quot;number&amp;quot;: 22,
+        &amp;quot;status&amp;quot;: &amp;quot;success&amp;quot;,
+        &amp;quot;started_at&amp;quot;: 1421029603,
+        &amp;quot;finished_at&amp;quot;: 1421029813,
+        &amp;quot;event&amp;quot;: &amp;quot;push&amp;quot;,
+        &amp;quot;commit&amp;quot;: &amp;quot;7fd1a60&amp;quot;,
+        &amp;quot;branch&amp;quot;: &amp;quot;master&amp;quot;,
+        &amp;quot;message&amp;quot;: &amp;quot;Update README&amp;quot;,
+        &amp;quot;author&amp;quot;: &amp;quot;octocat&amp;quot;,
+        &amp;quot;author_email&amp;quot;: &amp;quot;octocat@github.com&amp;quot;,
+        &amp;quot;link_url&amp;quot;: &amp;quot;https://github.com/octocat/Hello-World/commit/7fd1a60&amp;quot;
+    },
+    &amp;quot;repo&amp;quot;: {
+        &amp;quot;owner&amp;quot;: &amp;quot;octocat&amp;quot;,
+        &amp;quot;name&amp;quot;: &amp;quot;hello-world&amp;quot;,
+        &amp;quot;full_name&amp;quot;: &amp;quot;octocat/hello-world&amp;quot;,
+        &amp;quot;link_url&amp;quot;: &amp;quot;https://github.com/octocat/hello-world&amp;quot;,
+        &amp;quot;clone_url&amp;quot;: &amp;quot;https://github.com/octocat/hello-world.git&amp;quot;
+    },
+    &amp;quot;system&amp;quot;: {
+        &amp;quot;link_url&amp;quot;: &amp;quot;https://drone.mycompany.com&amp;quot;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;template-builtins:d1fea7f63b32cc4bab67588d2fde8aa7&#34;&gt;Template Builtins&lt;/h1&gt;
+
+&lt;p&gt;Drone includes a number of builtin handlebars functions to help format your messages. This is an example builtin function that converts a string to all uppercase characters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-handlebars&#34;&gt;{{uppercase build.status}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Converts a string to all lowercase characters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-handlebars&#34;&gt;{{uppercase build.author}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Truncates a string to N characters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-handlebars&#34;&gt;{{ truncate build.commit 8 }}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Calculates a duration and returns a human readable string:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-handlebars&#34;&gt;{{ duration build.started_at build.finished_at }}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Converts a timestamp to a human readable string:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-handlebars&#34;&gt;finished at {{ datetime build.finished_at &amp;quot;3:04PM&amp;quot; &amp;quot;UTC&amp;quot; }}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Returns true if the build is successful:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-handlebars&#34;&gt;{{#success build.status}}
+  It works
+{{/success}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Returns true if the build failed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-handlebars&#34;&gt;{{#failure build.status}}
+  Something is busted
+{{/failure}}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Matrix</title>
+      <link>http://docs.tea-ci.org/usage/matrix/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/usage/matrix/</guid>
+      <description>
+
+&lt;h1 id=&#34;overview:4f8417ba6e069b3796db582fe0d5f9e1&#34;&gt;Overview&lt;/h1&gt;
+
+&lt;p&gt;Drone uses the &lt;code&gt;matrix&lt;/code&gt; section of the &lt;code&gt;.drone.yml&lt;/code&gt; to define the build matrix. Drone executes a build for each permutation in the matrix, allowing you to build and test a single commit against many configurations.&lt;/p&gt;
+
+&lt;p&gt;Example matrix definition for testing multiple Go and Redis versions. This matrix results in a total of 6 different build permutations:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+matrix:
+  GO_VERSION:
+    - 1.4
+    - 1.3
+  REDIS_VERSION:
+    - 2.6
+    - 2.8
+    - 3.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;interpolation:4f8417ba6e069b3796db582fe0d5f9e1&#34;&gt;Interpolation&lt;/h1&gt;
+
+&lt;p&gt;Matrix variables are injected into the &lt;code&gt;.drone.yml&lt;/code&gt; file using the &lt;code&gt;$$&lt;/code&gt; syntax, performing a simple find / replace. Matrix variables are also injected into your build container as environment variables.&lt;/p&gt;
+
+&lt;p&gt;Example &lt;code&gt;.drone.yml&lt;/code&gt; file before injecting the matrix parameters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: golang:$$GO_VERSION
+  commands:
+    - go get
+    - go build
+    - go test
+
+compose:
+  redis:
+    image: redis:$$REDIS_VERSION
+
+matrix:
+  GO_VERSION:
+    - 1.4
+    - 1.3
+  REDIS_VERSION:
+    - 2.6
+    - 2.8
+    - 3.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example &lt;code&gt;.drone.yml&lt;/code&gt; file after injecting the matrix parameters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: golang:1.4
+  environment:
+    - GO_VERSION=1.4
+    - REDIS_VERSION=3.0
+  commands:
+    - go get
+    - go build
+    - go test
+
+compose:
+  redis:
+    image: redis:3.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;deployments:4f8417ba6e069b3796db582fe0d5f9e1&#34;&gt;Deployments&lt;/h1&gt;
+
+&lt;p&gt;Matrix builds execute the same &lt;code&gt;.drone.yml&lt;/code&gt; multiple times, but with different parameters. This means that publish and deployment steps are executed multiple times as well, which is typically undesired. To restrict a publish or deployment step to a single permutation you can add the following condition:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+deploy:
+  heroku:
+    app: foo
+    when:
+      matrix:
+        GO_VERSION: 1.4
+        REDIS_VERSION: 3.0
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Publishing Artifacts</title>
+      <link>http://docs.tea-ci.org/usage/artifacts/</link>
+      <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
+      
+      <guid>http://docs.tea-ci.org/usage/artifacts/</guid>
+      <description>
+
+&lt;h1 id=&#34;overview:ae3f77d4da25cb721d64daf2ef987305&#34;&gt;Overview&lt;/h1&gt;
+
+&lt;p&gt;Publishing files or build artifacts is triggered at the end of a successful build. Note that publish steps are not executed for pull requests or failed builds.&lt;/p&gt;
+
+&lt;p&gt;Example to publish a Node package to the &lt;a href=&#34;http://docs.tea-ci.org/plugins/npm/&#34;&gt;npmjs.com&lt;/a&gt; registry using the NPM plugin:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+publish:
+  npm:
+    username: octocat
+    password: password
+    email: octocat@github.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;plugins:ae3f77d4da25cb721d64daf2ef987305&#34;&gt;Plugins&lt;/h1&gt;
+
+&lt;p&gt;Drone does not have any builtin publishing or artifact capabilities. Drone instead offers a large library of plugins for publish to &lt;a href=&#34;http://docs.tea-ci.org/plugins/docker/&#34;&gt;DockerHub&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/plugins/s3/&#34;&gt;S3&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/plugins/google_cloudstorage/&#34;&gt;Google Storage&lt;/a&gt; and more. Please see the &lt;a href=&#34;http://docs.tea-ci.org/plugins/&#34;&gt;plugin documentation&lt;/a&gt; for a complete list.&lt;/p&gt;
+
+&lt;h1 id=&#34;docker:ae3f77d4da25cb721d64daf2ef987305&#34;&gt;Docker&lt;/h1&gt;
+
+&lt;p&gt;Building and publishing a Docker image to the registry is handled by plugins. We have multiple plugins for building and publishing Docker images to &lt;a href=&#34;http://docs.tea-ci.org/plugins/docker/&#34;&gt;DockerHub&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/plugins/gcr/&#34;&gt;Google Container Registry&lt;/a&gt;, and more.&lt;/p&gt;
+
+&lt;h1 id=&#34;conditions:ae3f77d4da25cb721d64daf2ef987305&#34;&gt;Conditions&lt;/h1&gt;
+
+&lt;p&gt;Use the &lt;code&gt;when&lt;/code&gt; block to limit publish step execution:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+publish:
+  heroku:
+    app: mycompany.com
+    when:
+      branch: master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Execute a publish step if the branch is &lt;code&gt;master&lt;/code&gt; or &lt;code&gt;release&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+publish:
+  rubygems:
+    api_key: e123f83113f79eb17308bbf1ca8885bb
+    when:
+      branch: [master, release]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Execute a publish step if the branch is &lt;em&gt;not&lt;/em&gt; &lt;code&gt;master&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+publish:
+  rubygems:
+    api_key: e123f83113f79eb17308bbf1ca8885bb
+    when:
+      branch: &amp;quot;!master&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Execute a publish step when the commit is a &lt;code&gt;tag&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+publish:
+  rubygems:
+    api_key: e123f83113f79eb17308bbf1ca8885bb
+    when:
+      event: tag
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Execute a publish step for a single matrix permutation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+publish:
+  rubygems:
+    api_key: e123f83113f79eb17308bbf1ca8885bb
+    when:
+      matrix:
+        RUBY_VERSION: 2.3
+        REDIS_VERSION: 2.8
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

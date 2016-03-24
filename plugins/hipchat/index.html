@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>HipChat · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Send build status notifications via HipChat" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins" class="current-item">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main class="plugins">
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1 class="plugin-header"><img src="/logos/hipchat.svg" /> HipChat Plugin</h1>
+						<section>
+
+<p>Use this plugin for sending build status notifications via HipChat. You will
+need to supply Drone with a HipChat authentication token. You can learn more
+about authentication tokens <a href="https://www.hipchat.com/docs/apiv2/auth">here</a>. You
+can override the default configuration with the following parameters:</p>
+
+<ul>
+<li><code>url</code> - HipChat server URL, defaults to <code>https://api.hipchat.com</code></li>
+<li><code>auth_token</code> - HipChat API token</li>
+<li><code>room_id_or_name</code> - ID or URL encoded name of the room</li>
+<li><code>from</code> - A label to be shown, defaults to <code>drone</code></li>
+<li><code>notify</code> - Whether this message should trigger a user notification (change the
+tab color, play a sound, notify mobile phones, etc). Each recipient&rsquo;s
+notification preferences are taken into account, defaults to false</li>
+</ul>
+
+<h2 id="example:0c8ca3737f111d26045d603d98c2fb99">Example</h2>
+
+<p>The following is a sample configuration in your .drone.yml file:</p>
+
+<pre><code class="language-yaml">notify:
+  hipchat:
+    auth_token: xxxxxxxxxxxxxxx
+    room_id_or_name: 1234567
+    notify: true
+</code></pre>
+
+<h3 id="custom-messages:0c8ca3737f111d26045d603d98c2fb99">Custom Messages</h3>
+
+<p>In some cases you may want to customize the body of the HipChat message you can
+use custom templates. For the use case we expose the following additional
+parameters:</p>
+
+<ul>
+<li><code>template</code> - A handlebars template to create a custom payload body. For more
+details take a look at the <a href="http://handlebarsjs.com/">docs</a>.</li>
+</ul>
+
+<p>Example configuration that generate a custom message:</p>
+
+<pre><code class="language-yaml">notify:
+  hipchat:
+    auth_token: xxxxxxxxxxxxxxx
+    room_id_or_name: 1234567
+    from: drone
+    notify: true
+    template: &gt;
+      &lt;strong&gt;{{ uppercasefirst build.status }}&lt;/strong&gt; &lt;a href=\&quot;{{ system.link_url }}/{{ repo.owner }}/{{ repo.name }}/{{ build.number }}\&quot;&gt;{{ repo.owner }}/{{ repo.name }}#{{ truncate build.commit 8 }}&lt;/a&gt; ({{ build.branch }}) by {{ build.author }} in {{ duration build.started_at build.finished_at }} &lt;/br&gt; - {{ build.message }}
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<h3>Plugin Links</h3>
+							
+							<ul class='list-unstyled side-nav'>
+								<li>
+									<a href="http://discuss.drone.io/c/help">
+										Get Help
+									</a>
+								</li>
+								<li>
+									<a href="https://github.com/drone-plugins/drone-hipchat/">
+										Source Code
+									</a>
+								</li>
+								<li>
+									<a href="https://hub.docker.com/r/plugins/drone-hipchat/">
+										Docker Image
+									</a>
+								</li>
+							</ul>
+						</nav>
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

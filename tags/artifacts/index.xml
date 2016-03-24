@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Artifacts on Drone</title>
+    <link>http://docs.tea-ci.org/tags/artifacts/</link>
+    <description>Recent content in Artifacts on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 09:01:27 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/artifacts/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Bintray</title>
+      <link>http://docs.tea-ci.org/plugins/bintray/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:27 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/bintray/</guid>
+      <description>
+
+&lt;p&gt;Use the Bintray plugin to publish one or more packages to a Bintray repository. You must supply the following parameters in a &lt;strong&gt;bintray&lt;/strong&gt; subsection of the .drone.yml &lt;strong&gt;publish&lt;/strong&gt; section.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Parameter&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;username&lt;/td&gt;
+&lt;td&gt;A Bintray username&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;api_key&lt;/td&gt;
+&lt;td&gt;The API key associated with the username (obtain from Bintray settings)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;host&lt;/td&gt;
+&lt;td&gt;Optional host of the bintray api server with scheme. Example: &lt;a href=&#34;https://bin.company.com&#34;&gt;https://bin.company.com&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;branch&lt;/td&gt;
+&lt;td&gt;The GitHub branch of the commit.  A non-empty value other than &amp;ldquo;master&amp;rdquo; causes the plugin to upload artifacts to test/branchname/target instead of just target&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;debug&lt;/td&gt;
+&lt;td&gt;If true, causes the plugin to write additional output to stdout, including its invocation arguments and output curl command.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;insecure&lt;/td&gt;
+&lt;td&gt;Enable insecure connections&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;artifacts&lt;/td&gt;
+&lt;td&gt;One or more descriptions of artifacts to upload&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The following parameters describe each artifact&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Artifact Parameter&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;file&lt;/td&gt;
+&lt;td&gt;Path to the file to upload within the build directory (the original build directory, not the current working directory)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;owner&lt;/td&gt;
+&lt;td&gt;Bintray repository owner (called subject in Bintray API documentation)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;type&lt;/td&gt;
+&lt;td&gt;Artifact type.  Specify &amp;ldquo;Debian&amp;rdquo; for a Debian artifact or &amp;ldquo;Maven&amp;rdquo; for a Maven artifact.  Any other value indicates a generic artifact.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;repository&lt;/td&gt;
+&lt;td&gt;Name of the repository where the file should be uploaded&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;package&lt;/td&gt;
+&lt;td&gt;Name of the package within the repository&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;version&lt;/td&gt;
+&lt;td&gt;Version to upload.  Required for non-Maven artifacts and ignored for Maven.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;target&lt;/td&gt;
+&lt;td&gt;Name to be given to the artifact in the repository.  The name is prefixed by &amp;ldquo;test/branchname&amp;rdquo; if the branch parameter is specified and has a non-empty value other than &amp;ldquo;master&amp;rdquo;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;distr&lt;/td&gt;
+&lt;td&gt;Debian distribution.  Required for Debian artifacts and ignored for others.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;component&lt;/td&gt;
+&lt;td&gt;Debian component.  Required for Debian artifacts and ignored for others.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;arch&lt;/td&gt;
+&lt;td&gt;Debian architecture(s).  Required for Debian artifacts and ignored for others.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;override&lt;/td&gt;
+&lt;td&gt;true if the artifact can override (replace) a previously-published artifact; false otherwise&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;publish&lt;/td&gt;
+&lt;td&gt;true if the artifact should be published after upload; false otherwise&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;example:d1930c3bb9d005cbc6c979bc91b3d610&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The follow .drone.yml file uploads two artifacts to Bintray&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  bintray:
+    username: $$BINTRAY_USERNAME
+    password: $$BINTRAY_PASSWORD
+    branch: $$BRANCH
+    artifacts:
+      - file: dist/myfile
+        owner: mycompany
+        type: executable
+        repository: reponame
+        package: pkgname
+        version: 1.0
+        target: myfile
+        publish: true
+        override: true
+      - file: dist/myfile.deb
+        owner: mycompany
+        type: Debian
+        repository: debian-repo
+        package: pkgname
+        version: 1.0
+        target: myfile.deb
+        distr: ubuntu
+        component: main
+        arch:
+          - amd64
+        publish: true
+        override: true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Google Cloud Storage</title>
+      <link>http://docs.tea-ci.org/plugins/google_cloudstorage/</link>
+      <pubDate>Sat, 13 Feb 2016 09:00:21 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/google_cloudstorage/</guid>
+      <description>&lt;p&gt;Use this plugin to upload files and build artifacts
+to the &lt;a href=&#34;https://cloud.google.com/storage/&#34;&gt;Google Cloud Storage (GCS)&lt;/a&gt; bucket.&lt;/p&gt;
+
+&lt;p&gt;You will need to a &lt;a href=&#34;https://developers.google.com/console/help/new/#serviceaccounts&#34;&gt;Service Account&lt;/a&gt;
+to authenticate to the GCS.&lt;/p&gt;
+
+&lt;p&gt;The following parameters are used to configure this plugin:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;auth_key&lt;/code&gt; - service account auth key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;source&lt;/code&gt; - location of files to upload&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;target&lt;/code&gt; - destination to copy files to, including bucket name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ignore&lt;/code&gt; - skip files matching this &lt;a href=&#34;https://golang.org/pkg/path/filepath/#Match&#34;&gt;pattern&lt;/a&gt;, relative to &lt;code&gt;source&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acl&lt;/code&gt; - a list of access rules applied to the uploaded files, in a form of &lt;code&gt;entity:role&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gzip&lt;/code&gt; - files with the specified extensions will be gzipped and uploaded with &amp;ldquo;gzip&amp;rdquo; Content-Encoding header&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cache_control&lt;/code&gt; - Cache-Control header&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;metadata&lt;/code&gt; - an arbitrary dictionary with custom metadata applied to all objects&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  gcs:
+    auth_key: &amp;gt;
+      $SERVICE_ACCOUNT_KEY
+    source: dist
+    target: bucket/dir/
+    ignore: bin/*
+    acl:
+      - allUsers:READER
+    gzip:
+      - js
+      - css
+      - html
+    cache_control: public,max-age=3600
+    metadata:
+      x-goog-meta-foo: bar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;SERVICE_ACCOUNT_KEY&lt;/code&gt; would be defined in .drone.sec (before encryption):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;checksum: ...
+environment:
+  SERVICE_ACCOUNT_KEY: &amp;gt;
+    {
+    &amp;quot;private_key&amp;quot;: &amp;quot;-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n&amp;quot;,
+    &amp;quot;client_email&amp;quot;: &amp;quot;test@gserviceaccount.com&amp;quot;,
+    &amp;quot;client_id&amp;quot;: &amp;quot;12487645876234765&amp;quot;,
+    &amp;quot;auth_uri&amp;quot;: &amp;quot;https://accounts.google.com/o/oauth2/auth&amp;quot;,
+    &amp;quot;token_uri&amp;quot;: &amp;quot;https://accounts.google.com/o/oauth2/token&amp;quot;,
+    }
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>S3 Sync</title>
+      <link>http://docs.tea-ci.org/plugins/s3_sync/</link>
+      <pubDate>Sat, 13 Feb 2016 08:59:18 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/s3_sync/</guid>
+      <description>&lt;p&gt;Use the S3 sync plugin to synchronize files and folders with an Amazon S3 bucket. The following parameters are used to configure this plugin:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - amazon key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - amazon secret key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;bucket&lt;/code&gt; - bucket name&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;region&lt;/code&gt; - bucket region (&lt;code&gt;us-east-1&lt;/code&gt;, &lt;code&gt;eu-west-1&lt;/code&gt;, etc)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acl&lt;/code&gt; - access to files that are uploaded (&lt;code&gt;private&lt;/code&gt;, &lt;code&gt;public-read&lt;/code&gt;, etc)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;source&lt;/code&gt; - location of folder to sync&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;target&lt;/code&gt; - target folder in your S3 bucket&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;delete&lt;/code&gt; - deletes files in the target not found in the source&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;content_type&lt;/code&gt; - override default mime-types to use this value&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;metadata&lt;/code&gt; - set custom metadata&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;redirects&lt;/code&gt; - targets that should redirect elsewhere&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample S3 configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  s3_sync:
+    acl: public-read
+    region: &amp;quot;us-east-1&amp;quot;
+    bucket: &amp;quot;my-bucket.s3-website-us-east-1.amazonaws.com&amp;quot;
+    access_key: &amp;quot;970d28f4dd477bc184fbd10b376de753&amp;quot;
+    secret_key: &amp;quot;9c5785d3ece6a9cdefa42eb99b58986f9095ff1c&amp;quot;
+    source: folder/to/archive
+    target: /target/location
+    delete: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Both &lt;code&gt;acl&lt;/code&gt; and &lt;code&gt;content_type&lt;/code&gt; can be passed as a string value to apply to all files, or as a map to apply to a subset of files.&lt;/p&gt;
+
+&lt;p&gt;For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  s3_sync:
+    acl:
+      &amp;quot;public/*&amp;quot;: public-read
+      &amp;quot;private/*&amp;quot;: private
+    content_type:
+      &amp;quot;.svg&amp;quot;: image/svg+xml
+    region: &amp;quot;us-east-1&amp;quot;
+    bucket: &amp;quot;my-bucket.s3-website-us-east-1.amazonaws.com&amp;quot;
+    access_key: &amp;quot;970d28f4dd477bc184fbd10b376de753&amp;quot;
+    secret_key: &amp;quot;9c5785d3ece6a9cdefa42eb99b58986f9095ff1c&amp;quot;
+    source: folder/to/archive
+    target: /target/location
+    delete: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the case of &lt;code&gt;acl&lt;/code&gt; the key of the map is a glob. If there are no matches in your settings for a given file, the default is &lt;code&gt;&amp;quot;private&amp;quot;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;content_type&lt;/code&gt; field the key is an extension including the leading dot &lt;code&gt;.&lt;/code&gt;. If you want to set a content type for files with no extension, set the key to the empty string &lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt;. If there are no matches for the &lt;code&gt;content_type&lt;/code&gt; of any file, one will automatically be determined for you.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;metadata&lt;/code&gt; field can be set as either an object where the keys are the metadata headers:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  s3_sync:
+    acl: public-read
+    region: &amp;quot;us-east-1&amp;quot;
+    bucket: &amp;quot;my-bucket.s3-website-us-east-1.amazonaws.com&amp;quot;
+    access_key: &amp;quot;970d28f4dd477bc184fbd10b376de753&amp;quot;
+    secret_key: &amp;quot;9c5785d3ece6a9cdefa42eb99b58986f9095ff1c&amp;quot;
+    source: folder/to/archive
+    target: /target/location
+    delete: true
+    metadata:
+      Cache-Control: &amp;quot;max-age: 10000&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or you can specify metadata for file patterns by using a glob:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  s3_sync:
+    acl: public-read
+    region: &amp;quot;us-east-1&amp;quot;
+    bucket: &amp;quot;my-bucket.s3-website-us-east-1.amazonaws.com&amp;quot;
+    access_key: &amp;quot;970d28f4dd477bc184fbd10b376de753&amp;quot;
+    secret_key: &amp;quot;9c5785d3ece6a9cdefa42eb99b58986f9095ff1c&amp;quot;
+    source: folder/to/archive
+    target: /target/location
+    delete: true
+    metadata:
+      &amp;quot;*.png&amp;quot;:
+        Cache-Control: &amp;quot;max-age: 10000000&amp;quot;
+      &amp;quot;*.html&amp;quot;:
+        Cache-Control: &amp;quot;max-age: 1000&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Additionally, you can specify redirect targets for files that don&amp;rsquo;t exist by using the &lt;code&gt;redirects&lt;/code&gt; key:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  s3_sync:
+    acl: public-read
+    region: &amp;quot;us-east-1&amp;quot;
+    bucket: &amp;quot;my-bucket.s3-website-us-east-1.amazonaws.com&amp;quot;
+    access_key: &amp;quot;970d28f4dd477bc184fbd10b376de753&amp;quot;
+    secret_key: &amp;quot;9c5785d3ece6a9cdefa42eb99b58986f9095ff1c&amp;quot;
+    source: folder/to/archive
+    target: /target/location
+    delete: true
+    redirects:
+      some/missing/file: /somewhere/that/actually/exists
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>S3</title>
+      <link>http://docs.tea-ci.org/plugins/s3/</link>
+      <pubDate>Sat, 13 Feb 2016 08:58:38 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/s3/</guid>
+      <description>&lt;p&gt;Use the S3 plugin to upload files and build artifacts to an S3 bucket. The following parameters are used to configure this plugin:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;access_key&lt;/strong&gt; - amazon key (optional)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;secret_key&lt;/strong&gt; - amazon secret key (optional)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;bucket&lt;/strong&gt; - bucket name&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;region&lt;/strong&gt; - bucket region (&lt;code&gt;us-east-1&lt;/code&gt;, &lt;code&gt;eu-west-1&lt;/code&gt;, etc)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;acl&lt;/strong&gt; - access to files that are uploaded (&lt;code&gt;private&lt;/code&gt;, &lt;code&gt;public-read&lt;/code&gt;, etc)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;source&lt;/strong&gt; - location of files to upload&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;target&lt;/strong&gt; - target location of files in your S3 bucket&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;recursive&lt;/strong&gt; - if true, recursively upload files&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample Slack configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;publish:
+  s3:
+    acl: public-read
+    region: &amp;quot;us-east-1&amp;quot;
+    bucket: &amp;quot;my-bucket-name&amp;quot;
+    access_key: &amp;quot;970d28f4dd477bc184fbd10b376de753&amp;quot;
+    secret_key: &amp;quot;9c5785d3ece6a9cdefa42eb99b58986f9095ff1c&amp;quot;
+    source: files/to/archive
+    target: /target/location
+    recursive: true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

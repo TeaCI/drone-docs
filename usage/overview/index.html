@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Quick Start · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview" class="current-item">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main>
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>Quick Start</h1>
+						<nav id="TableOfContents">
+						
+						<nav id="TableOfContents">
+<ul>
+<li><a href="#overview:68f80267fa3a50980dbb745a782b8dca">Overview</a></li>
+<li><a href="#hooks:68f80267fa3a50980dbb745a782b8dca">Hooks</a></li>
+<li><a href="#cloning:68f80267fa3a50980dbb745a782b8dca">Cloning</a></li>
+<li><a href="#images:68f80267fa3a50980dbb745a782b8dca">Images</a></li>
+<li><a href="#shell:68f80267fa3a50980dbb745a782b8dca">Shell</a></li>
+<li><a href="#pull:68f80267fa3a50980dbb745a782b8dca">Pull</a></li>
+<li><a href="#commands:68f80267fa3a50980dbb745a782b8dca">Commands</a></li>
+<li><a href="#services:68f80267fa3a50980dbb745a782b8dca">Services</a></li>
+<li><a href="#deployments:68f80267fa3a50980dbb745a782b8dca">Deployments</a></li>
+<li><a href="#local-testing:68f80267fa3a50980dbb745a782b8dca">Local Testing</a></li>
+<li><a href="#getting-help:68f80267fa3a50980dbb745a782b8dca">Getting Help</a></li>
+</ul>
+</nav>
+						
+						</nav>
+						<section>
+
+<h1 id="overview:68f80267fa3a50980dbb745a782b8dca">Overview</h1>
+
+<p>In order to configure your build you must include a <code>.drone.yml</code> file in the root of your repository. This section provides a brief overview of the configuration file and build process.</p>
+
+<p>Example .drone.yml configuration:</p>
+
+<pre><code class="language-yaml">---
+build:
+  image: teaci/msys32
+  shell: msys32
+  pull: true
+  commands:
+    - ./configure
+    - make
+    - make check
+</code></pre>
+
+<h1 id="hooks:68f80267fa3a50980dbb745a782b8dca">Hooks</h1>
+
+<p>Once activated, every commit and pull request automatically send a hook from your version control system (ie GitHub) to Drone. These hooks instruct Drone to execute a new build.</p>
+
+<p>When Drone receives a hook it fetches the <code>.drone.yml</code> from your repository and uses this as a blueprint for build execution. For the purposes of this tutorial let&rsquo;s assume your repository uses the following configuration:</p>
+
+<pre><code class="language-yaml">---
+build:
+  image: teaci/msys32
+  shell: msys32
+  pull: true
+  commands:
+    - ./configure
+    - make
+    - make check
+</code></pre>
+
+<h1 id="cloning:68f80267fa3a50980dbb745a782b8dca">Cloning</h1>
+
+<p>Hooks specify commit details including branch and commit hash. Drone will automatically clone and checkout the commit into the build workspace:</p>
+
+<pre><code>git clone --depth=50 --recusive=true \
+    https://github.com/octocat/hello-world.git \
+    /drone/src/github.com/octocat/hello-world
+
+git checkout 7fd1a60
+</code></pre>
+
+<h1 id="images:68f80267fa3a50980dbb745a782b8dca">Images</h1>
+
+<p>Drone executes your build inside an ephemeral Docker image. This means you don&rsquo;t have to setup or install any repository dependencies on your host machine. Use any valid Docker image in any Docker registry as your build environment.</p>
+
+<p>Example .drone.yml configuration uses the Tea CI official 32 bit Msys2 image:</p>
+
+<pre><code class="language-yaml">---
+build:
+  image: teaci/msys32
+</code></pre>
+
+<p>The Tea CI project maintains several official docker images for our users. Currently we have teaci/cygwin32, teaci/msys32 and teaci/mingw32. 64 bit support is ongoing.</p>
+
+<h1 id="shell:68f80267fa3a50980dbb745a782b8dca">Shell</h1>
+
+<p>Drone executes your build using a custom shell you specified.</p>
+
+<p>Example .drone.yml configuration uses the Tea CI official 32 bit Msys2 image using the official msys32 shell:</p>
+
+<pre><code class="language-yaml">---
+build:
+  image: teaci/msys32
+  shell: msys32
+</code></pre>
+
+<h1 id="pull:68f80267fa3a50980dbb745a782b8dca">Pull</h1>
+
+<p>Use the <code>pull</code> attribute to instruct Drone to always pull the latest Docker image. This helps ensure you are always testing your code against the latest image. We recommend you always using <code>pull: true</code> with the Msys2 Docker image.</p>
+
+<pre><code class="language-yaml">---
+build:
+  image: teaci/msys32
+  shell: msys32
+  pull: true
+</code></pre>
+
+<h1 id="commands:68f80267fa3a50980dbb745a782b8dca">Commands</h1>
+
+<p>Drone previously cloned your source code into the build workspace. The build workspace is mounted into your Docker container at runtime as a volume. This means your code is cloned <strong>outside</strong> of the build container but your build commands are run <strong>inside</strong> of the build container.</p>
+
+<p>Drone executes the following bash commands inside your build container:</p>
+
+<pre><code class="language-yaml">---
+build:
+  image: teaci/msys32
+  shell: msys32
+  pull: true
+  commands:
+    - ./configure
+    - make
+    - make check
+</code></pre>
+
+<h1 id="services:68f80267fa3a50980dbb745a782b8dca">Services</h1>
+
+<p>Drone supports launching separate, ephemeral Docker containers as part of the build process. This is useful, for example, if you require a database for running your unit tests.</p>
+
+<p>Example .drone.yml configuration with a Postgres database:</p>
+
+<pre><code class="language-yaml">---
+build:
+  image: teaci/msys32
+  shell: msys32
+  pull: true
+  commands:
+    - ./configure
+    - make
+    - make check
+
+compose:
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+</code></pre>
+
+<h1 id="deployments:68f80267fa3a50980dbb745a782b8dca">Deployments</h1>
+
+<p>Drone supports a large number of publish and deployment capabilities through external plugins. Plugins are Docker containers that are automatically downloaded, attach to your build, and execute a very specific publish or deployment task.</p>
+
+<p>Example .drone.yml configuration with the Docker publish plugin:</p>
+
+<pre><code class="language-yaml">---
+build:
+  image: teaci/msys32
+  shell: msys32
+  pull: true
+  commands:
+    - ./configure
+    - make
+    - make check
+
+publish:
+  docker:
+    username: octocat
+    password: password
+    email: octocat@github.com
+    repo: octocat/hello-world
+</code></pre>
+
+<p>First Drone runs your build commands inside the teaci/msys32 container:</p>
+
+<pre><code class="language-yaml">---
+build:
+  image: teaci/msys32
+  shell: msys32
+  pull: true
+  commands:
+    - ./configure
+    - make
+    - make check
+</code></pre>
+
+<p>Drone executes publish and deployment plugins upon successful completion of the build step. Plugins are executed in separate Docker containers but have access to your build workspace. This means any files created and stored in the <code>/drone</code> workspace are available to plugins.</p>
+
+<p>The Docker plugin in our example runs <code>docker build</code> and <code>docker publish</code> after the build step successfully completes using the configuration parameters in the .drone.yml file:</p>
+
+<pre><code class="language-yaml">---
+publish:
+  docker:
+    username: octocat
+    password: password
+    email: octocat@github.com
+    repo: octocat/hello-world
+</code></pre>
+
+<h1 id="local-testing:68f80267fa3a50980dbb745a782b8dca">Local Testing</h1>
+
+<p>Download the <a href="/devs/cli">command line tools</a> to build and test your code locally inside a Docker environment using the exact same build process as Drone. You should think of your <code>.drone.yml</code> file as a <code>docker-compose.yml</code> alternative that is optimized for repeatable, local testing.</p>
+
+<p>Command to execute a local build from the command line:</p>
+
+<pre><code>drone exec
+</code></pre>
+
+<h1 id="getting-help:68f80267fa3a50980dbb745a782b8dca">Getting Help</h1>
+
+<p>Please use the community <a href="https://gitter.im/tea-ci/drone">chat room</a> for support.</p>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								<li>
+									<a href="/usage/overview/" class=" current-item">Quick Start</a>
+								</li>
+								
+								<li>
+									<a href="/usage/variables/" class="">Variables</a>
+								</li>
+								
+								<li>
+									<a href="/usage/secrets/" class="">Secrets</a>
+								</li>
+								
+								<li>
+									<a href="/usage/cloning/" class="">Cloning</a>
+								</li>
+								
+								<li>
+									<a href="/usage/caching/" class="">Caching</a>
+								</li>
+								
+								<li>
+									<a href="/usage/services/" class="">Service Containers</a>
+								</li>
+								
+								<li>
+									<a href="/usage/build_test/" class="">Build &amp; Test</a>
+								</li>
+								
+								<li>
+									<a href="/usage/deploy/" class="">Deployments</a>
+								</li>
+								
+								<li>
+									<a href="/usage/notify/" class="">Notifications</a>
+								</li>
+								
+								<li>
+									<a href="/usage/matrix/" class="">Matrix</a>
+								</li>
+								
+								<li>
+									<a href="/usage/artifacts/" class="">Publishing Artifacts</a>
+								</li>
+								
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

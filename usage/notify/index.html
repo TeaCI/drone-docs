@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Notifications · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview" class="current-item">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview" >Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main>
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>Notifications</h1>
+						<nav id="TableOfContents">
+						
+						<nav id="TableOfContents">
+<ul>
+<li><a href="#overview:d1fea7f63b32cc4bab67588d2fde8aa7">Overview</a></li>
+<li><a href="#plugins:d1fea7f63b32cc4bab67588d2fde8aa7">Plugins</a></li>
+<li><a href="#conditions:d1fea7f63b32cc4bab67588d2fde8aa7">Conditions</a></li>
+<li><a href="#templates:d1fea7f63b32cc4bab67588d2fde8aa7">Templates</a></li>
+<li><a href="#template-data:d1fea7f63b32cc4bab67588d2fde8aa7">Template Data</a></li>
+<li><a href="#template-builtins:d1fea7f63b32cc4bab67588d2fde8aa7">Template Builtins</a></li>
+</ul>
+</nav>
+						
+						</nav>
+						<section>
+
+<h1 id="overview:d1fea7f63b32cc4bab67588d2fde8aa7">Overview</h1>
+
+<p>Notifications are triggered at the end of your entire build. If you are running a matrix build the notification is sent after all matrix jobs complete.</p>
+
+<p>Example Slack notification using the Slack plugin:</p>
+
+<pre><code class="language-yaml">---
+notify:
+  slack:
+    webhook_url: https://hooks.slack.com/services/...
+    channel: dev
+    username: drone
+</code></pre>
+
+<p>Please note notifications are executed after a build is already terminated and will not write any output to your build logs. For troubleshooting failed notifications please contact your system administrator to research errors in the Drone server logs.</p>
+
+<h1 id="plugins:d1fea7f63b32cc4bab67588d2fde8aa7">Plugins</h1>
+
+<p>Drone does not have any builtin notification capabilities. Drone instead offers a large library of plugins for sending <a href="/plugins/slack/">Slack</a>, <a href="/plugins/hipchat/">Hipchat</a>, <a href="/plugins/email/">Email</a> notifications and more. Please see the <a href="/plugins/">plugin documentation</a> for a complete list.</p>
+
+<h1 id="conditions:d1fea7f63b32cc4bab67588d2fde8aa7">Conditions</h1>
+
+<p>Use the <code>when</code> block to limit notification step execution:</p>
+
+<pre><code class="language-yaml">---
+notify:
+  slack:
+    channel: foo
+    when:
+      success: false
+      failure: false
+      change: true
+</code></pre>
+
+<p>Execute a notification step if the branch is <code>master</code>:</p>
+
+<pre><code class="language-yaml">---
+notify:
+  slack:
+    channel: foo
+    when:
+      branch: master
+</code></pre>
+
+<p>Execute a notification step if the branch is <code>master</code> or <code>develop</code>:</p>
+
+<pre><code class="language-yaml">---
+notify:
+  slack:
+    channel: foo
+    when:
+      branch: [master, develop]
+</code></pre>
+
+<p>Execute a notification step if the branch is <em>not</em> <code>develop</code>:</p>
+
+<pre><code class="language-yaml">---
+notify:
+  slack:
+    channel: foo
+    when:
+      branch: &quot;!develop&quot;
+</code></pre>
+
+<p>Execute a notification step if the branch is starts with <code>prefix/*</code>:</p>
+
+<pre><code class="language-yaml">---
+notify:
+  slack:
+    channel: foo
+    when:
+      branch: prefix/*
+</code></pre>
+
+<p>Execute a notification step when the commit is a <code>pull_request</code>, <code>push</code> or <code>tag</code>:</p>
+
+<pre><code class="language-yaml">---
+notify:
+  slack:
+    channel: foo
+    when:
+      event: pull_request
+</code></pre>
+
+<p>Define the same notification step multiple times, using different configuration based on branch:</p>
+
+<pre><code class="language-yaml">---
+notify:
+  slack:
+    channel: foo
+    when:
+      branch: develop
+
+  slack:
+    channel: bar
+    when:
+      branch: master
+</code></pre>
+
+<h1 id="templates:d1fea7f63b32cc4bab67588d2fde8aa7">Templates</h1>
+
+<p>Many of the Drone notifications support <a href="http://handlebarsjs.com/">handlebars</a> templates for customizing notification messages. This example demonstrates a custom hipchat notification message:</p>
+
+<pre><code class="language-yaml">---
+notify:
+  hipchat:
+    template: |
+      {{ repo.full_name }} finished build {{ build.number }}
+      with a status of {{ build.status }}
+</code></pre>
+
+<p>Example template that generates a different message based on build status:</p>
+
+<pre><code class="language-yaml">---
+notify:
+  hipchat:
+    template: |
+      {{#success build.status}}
+        {{ build.author }} successfully pushed to {{ build.branch}}
+      {{else}}
+        {{ build.author }} broke the build. Hang your head in shame.
+      {{/success}}
+</code></pre>
+
+<h1 id="template-data:d1fea7f63b32cc4bab67588d2fde8aa7">Template Data</h1>
+
+<p>This is an example data structure passed to the template engine. Any of the below variables may be referenced in your template:</p>
+
+<pre><code class="language-js">{
+    &quot;build&quot;: {
+        &quot;number&quot;: 22,
+        &quot;status&quot;: &quot;success&quot;,
+        &quot;started_at&quot;: 1421029603,
+        &quot;finished_at&quot;: 1421029813,
+        &quot;event&quot;: &quot;push&quot;,
+        &quot;commit&quot;: &quot;7fd1a60&quot;,
+        &quot;branch&quot;: &quot;master&quot;,
+        &quot;message&quot;: &quot;Update README&quot;,
+        &quot;author&quot;: &quot;octocat&quot;,
+        &quot;author_email&quot;: &quot;octocat@github.com&quot;,
+        &quot;link_url&quot;: &quot;https://github.com/octocat/Hello-World/commit/7fd1a60&quot;
+    },
+    &quot;repo&quot;: {
+        &quot;owner&quot;: &quot;octocat&quot;,
+        &quot;name&quot;: &quot;hello-world&quot;,
+        &quot;full_name&quot;: &quot;octocat/hello-world&quot;,
+        &quot;link_url&quot;: &quot;https://github.com/octocat/hello-world&quot;,
+        &quot;clone_url&quot;: &quot;https://github.com/octocat/hello-world.git&quot;
+    },
+    &quot;system&quot;: {
+        &quot;link_url&quot;: &quot;https://drone.mycompany.com&quot;
+    }
+}
+</code></pre>
+
+<h1 id="template-builtins:d1fea7f63b32cc4bab67588d2fde8aa7">Template Builtins</h1>
+
+<p>Drone includes a number of builtin handlebars functions to help format your messages. This is an example builtin function that converts a string to all uppercase characters:</p>
+
+<pre><code class="language-handlebars">{{uppercase build.status}}
+</code></pre>
+
+<p>Converts a string to all lowercase characters:</p>
+
+<pre><code class="language-handlebars">{{uppercase build.author}}
+</code></pre>
+
+<p>Truncates a string to N characters:</p>
+
+<pre><code class="language-handlebars">{{ truncate build.commit 8 }}
+</code></pre>
+
+<p>Calculates a duration and returns a human readable string:</p>
+
+<pre><code class="language-handlebars">{{ duration build.started_at build.finished_at }}
+</code></pre>
+
+<p>Converts a timestamp to a human readable string:</p>
+
+<pre><code class="language-handlebars">finished at {{ datetime build.finished_at &quot;3:04PM&quot; &quot;UTC&quot; }}
+</code></pre>
+
+<p>Returns true if the build is successful:</p>
+
+<pre><code class="language-handlebars">{{#success build.status}}
+  It works
+{{/success}}
+</code></pre>
+
+<p>Returns true if the build failed:</p>
+
+<pre><code class="language-handlebars">{{#failure build.status}}
+  Something is busted
+{{/failure}}
+</code></pre>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								<li>
+									<a href="/usage/overview/" class="">Quick Start</a>
+								</li>
+								
+								<li>
+									<a href="/usage/variables/" class="">Variables</a>
+								</li>
+								
+								<li>
+									<a href="/usage/secrets/" class="">Secrets</a>
+								</li>
+								
+								<li>
+									<a href="/usage/cloning/" class="">Cloning</a>
+								</li>
+								
+								<li>
+									<a href="/usage/caching/" class="">Caching</a>
+								</li>
+								
+								<li>
+									<a href="/usage/services/" class="">Service Containers</a>
+								</li>
+								
+								<li>
+									<a href="/usage/build_test/" class="">Build &amp; Test</a>
+								</li>
+								
+								<li>
+									<a href="/usage/deploy/" class="">Deployments</a>
+								</li>
+								
+								<li>
+									<a href="/usage/notify/" class=" current-item">Notifications</a>
+								</li>
+								
+								<li>
+									<a href="/usage/matrix/" class="">Matrix</a>
+								</li>
+								
+								<li>
+									<a href="/usage/artifacts/" class="">Publishing Artifacts</a>
+								</li>
+								
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

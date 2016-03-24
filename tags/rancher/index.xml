@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rancher on Drone</title>
+    <link>http://docs.tea-ci.org/tags/rancher/</link>
+    <description>Recent content in Rancher on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 09:01:32 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/rancher/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Rancher</title>
+      <link>http://docs.tea-ci.org/plugins/rancher/</link>
+      <pubDate>Sat, 13 Feb 2016 09:01:32 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/rancher/</guid>
+      <description>&lt;p&gt;Use the rancher plugin to upgrade a service in &lt;a href=&#34;http://rancher.com&#34;&gt;rancher&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The following parameters are used to configure this plugin:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;url&lt;/code&gt; - url to your rancher server, including protocol and port&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;access_key&lt;/code&gt; - rancher api access key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;secret_key&lt;/code&gt; - rancher api secret key&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;service&lt;/code&gt; - name of rancher service to act on&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker_image&lt;/code&gt; - new image to assign to service, including tag (&lt;code&gt;drone/drone:latest&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;start_first&lt;/code&gt; - start the new container before stopping the old one, defaults to &lt;code&gt;true&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;confirm&lt;/code&gt; - auto confirm the service upgrade if successful, defaults to &lt;code&gt;false&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;timeout&lt;/code&gt; - the maximum wait time in seconds for the service to upgrade, default to &lt;code&gt;30&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following is a sample Rancher configuration in your &lt;code&gt;.drone.yml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  rancher:
+    url: https://example.rancher.com
+    access_key: 1234567abcdefg
+    secret_key: abcdefg1234567
+    service: drone/drone
+    docker_image: drone/drone:latest
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that if your &lt;code&gt;service&lt;/code&gt; is part of a stack, you should use the notation &lt;code&gt;stackname/servicename&lt;/code&gt; as this will make sure that the found service is part of the correct stack. If no stack is specified, this plugin will update the first service with a matching name which may not be what you want.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

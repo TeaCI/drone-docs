@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Settings Reference · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview"  class="current-item">Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main>
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>Settings Reference</h1>
+						<nav id="TableOfContents">
+						
+						<nav id="TableOfContents">
+<ul>
+<li><a href="#remote-driver-settings:fa1a9aa7bf3e774ccda21a0a7b1222dd">Remote Driver Settings</a>
+<ul>
+<li><a href="#remote-driver:fa1a9aa7bf3e774ccda21a0a7b1222dd">REMOTE_DRIVER</a></li>
+<li><a href="#remote-config:fa1a9aa7bf3e774ccda21a0a7b1222dd">REMOTE_CONFIG</a></li>
+</ul></li>
+<li><a href="#database-settings:fa1a9aa7bf3e774ccda21a0a7b1222dd">Database Settings</a>
+<ul>
+<li><a href="#database-driver:fa1a9aa7bf3e774ccda21a0a7b1222dd">DATABASE_DRIVER</a></li>
+<li><a href="#database-config:fa1a9aa7bf3e774ccda21a0a7b1222dd">DATABASE_CONFIG</a></li>
+</ul></li>
+<li><a href="#plugin-settings:fa1a9aa7bf3e774ccda21a0a7b1222dd">Plugin Settings</a>
+<ul>
+<li><a href="#plugin-filter:fa1a9aa7bf3e774ccda21a0a7b1222dd">PLUGIN_FILTER</a></li>
+<li><a href="#plugin-params:fa1a9aa7bf3e774ccda21a0a7b1222dd">PLUGIN_PARAMS</a></li>
+</ul></li>
+<li><a href="#general-drone-settings:fa1a9aa7bf3e774ccda21a0a7b1222dd">General Drone Settings</a>
+<ul>
+<li><a href="#public-mode:fa1a9aa7bf3e774ccda21a0a7b1222dd">PUBLIC_MODE</a></li>
+</ul></li>
+</ul>
+</nav>
+						
+						</nav>
+						<section>
+
+<p>Unless otherwise specified, the settings described below are all environment variables.</p>
+
+<h1 id="remote-driver-settings:fa1a9aa7bf3e774ccda21a0a7b1222dd">Remote Driver Settings</h1>
+
+<h2 id="remote-driver:fa1a9aa7bf3e774ccda21a0a7b1222dd">REMOTE_DRIVER</h2>
+
+<p>Set this to whichever remote driver you&rsquo;re using. Drone will use your remote for authentication, and will add webhooks to your projects to facilitate the build process. See <a href="/setup/remotes/">Remote Drivers</a> for possible values.</p>
+
+<h2 id="remote-config:fa1a9aa7bf3e774ccda21a0a7b1222dd">REMOTE_CONFIG</h2>
+
+<p>The value of this setting is highly dependent upon the remote driver chosen. See <a href="/setup/remotes/">Remote Drivers</a> for more details.</p>
+
+<h1 id="database-settings:fa1a9aa7bf3e774ccda21a0a7b1222dd">Database Settings</h1>
+
+<p>See the <a href="/setup/database/">Database</a> page for more details on selecting and configuring a database engine for Drone.</p>
+
+<h2 id="database-driver:fa1a9aa7bf3e774ccda21a0a7b1222dd">DATABASE_DRIVER</h2>
+
+<p>One of the following values:</p>
+
+<ul>
+<li><code>sqlite3</code></li>
+<li><code>postgres</code></li>
+<li><code>mysql</code></li>
+</ul>
+
+<h2 id="database-config:fa1a9aa7bf3e774ccda21a0a7b1222dd">DATABASE_CONFIG</h2>
+
+<p>Differs based on the selected database engine. See See the <a href="/setup/database/">Database</a> for a list of possible values for each DB.</p>
+
+<h1 id="plugin-settings:fa1a9aa7bf3e774ccda21a0a7b1222dd">Plugin Settings</h1>
+
+<h2 id="plugin-filter:fa1a9aa7bf3e774ccda21a0a7b1222dd">PLUGIN_FILTER</h2>
+
+<p>Default: <code>plugins/*</code></p>
+
+<p>This setting contains a space-separated list of patterns for determining which plugins can be pulled an ran. By disallowing open season on plugins, we prevent some classes of malicious plugins sneaking into builds.</p>
+
+<p>To use an example, let&rsquo;s say you&rsquo;ve created an organization on Docker
+Hub called <code>myorg</code>. Here&rsquo;s a REMOTE_DRIVER setting value that would allow the standard Drone plugins plus your org:</p>
+
+<pre><code>PLUGIN_FILTER=plugins/* myorg/*
+</code></pre>
+
+<p>Or perhaps your org is on Quay instead of Docker Hub:</p>
+
+<pre><code>PLUGIN_FILTER=plugins/* quay.io/myorg/*
+</code></pre>
+
+<h2 id="plugin-params:fa1a9aa7bf3e774ccda21a0a7b1222dd">PLUGIN_PARAMS</h2>
+
+<p>This setting may be used to define some global parameters to pass into all plugins on all repositories.</p>
+
+<blockquote>
+<p>Be careful what you put in here, since it will be trivial for a malicious developer to obtain the values found in this setting.</p>
+</blockquote>
+
+<p>Key/value pairs are separated by spaces:</p>
+
+<pre><code>PLUGIN_PARAMS=MYSETTING=value1 ANOTHER=value2
+</code></pre>
+
+<h1 id="general-drone-settings:fa1a9aa7bf3e774ccda21a0a7b1222dd">General Drone Settings</h1>
+
+<h2 id="public-mode:fa1a9aa7bf3e774ccda21a0a7b1222dd">PUBLIC_MODE</h2>
+
+<p>Drone restricts the build history to authenticated users with pull access to the source repository. In some deployments it may be desirable to make the build history visible to all users on the network. Public mode permits unauthenticated users to access the build history for every repository, <em>including private repositories</em>.</p>
+
+<p>Add the following configuration to <code>/etc/drone/dronerc</code> to enable public mode:</p>
+
+<pre><code>PUBLIC_MODE=true
+</code></pre>
+
+<p>Enabling this feature on a public network will leak sensitive information in the build logs.</p>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								
+								<li>
+									<a href="/setup/overview/" class="">Overview</a>
+								</li>
+								
+								<li>
+									<a href="/setup/remotes/" class="">Remote Drivers</a>
+								</li>
+								
+								<li>
+									<a href="/setup/database/" class="">Database</a>
+								</li>
+								
+								<li>
+									<a href="/setup/settings/" class=" current-item">Settings Reference</a>
+								</li>
+								
+								<li>
+									<a href="/setup/upgrades/" class="">Upgrades</a>
+								</li>
+								
+								<li>
+									<a href="/setup/proxy_network/" class="">Network Proxy</a>
+								</li>
+								
+								<li>
+									<a href="/setup/proxy_reverse/" class="">Reverse Proxy</a>
+								</li>
+								
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+	<head>
+		<title>Network Proxy · Drone</title>
+
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="ie=edge" http-equiv="x-ua-compatible" />
+		<meta name="Description" content="Documentation for the Drone Continuous Integration Server" />
+
+		<link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+		<link href="//fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet" type="text/css">
+		<link href="//cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.css" rel="stylesheet">
+		<link href="/style.css" rel="stylesheet">
+		<link href="/prism.css" rel="stylesheet">
+		<link href="/docs.css" rel="stylesheet">
+
+	</head>
+	<body>
+
+<nav class="top-nav">
+	<div class="container">
+		<a href="http://docs.tea-ci.org/" class="brand"></a>
+		<ul class="list-unstyled list-inline tabs">
+			<li><a href="http://docs.tea-ci.org/usage/overview">Usage</a></li>
+			
+			<li><a href="http://docs.tea-ci.org/plugins">Plugins</a></li>
+			<li><a href="http://docs.tea-ci.org/devs">Developers</a></li>
+			<li><a href="http://docs.tea-ci.org/community/overview">Community</a></li>
+			<li><a href="http://docs.tea-ci.org/setup/overview"  class="current-item">Installation</a></li>
+		</ul>
+	</div>
+</nav>
+
+
+		<main>
+			<article class="grid-flex-container container">
+					<div class="grid-flex-cell">
+						<h1>Network Proxy</h1>
+						<nav id="TableOfContents">
+						
+						<nav id="TableOfContents">
+<ul>
+<li><a href="#overview:03d7a38123f4e132328f9d4604b68ecf">Overview</a></li>
+<li><a href="#http-proxy:03d7a38123f4e132328f9d4604b68ecf">HTTP Proxy</a></li>
+<li><a href="#no-proxy:03d7a38123f4e132328f9d4604b68ecf">No Proxy</a></li>
+</ul>
+</nav>
+						
+						</nav>
+						<section>
+
+<h1 id="overview:03d7a38123f4e132328f9d4604b68ecf">Overview</h1>
+
+<p>This document provides high-level instructions for configuring Drone to work with a corporate proxy server. This may be required when running Drone behind a <strong>corporate firewall</strong>.</p>
+
+<h1 id="http-proxy:03d7a38123f4e132328f9d4604b68ecf">HTTP Proxy</h1>
+
+<p>The HTTP_PROXY environment variable holds the hostname or IP address of your proxy server. You can specify the HTTP_PROXY variables in your server configuration file or as an environment variable.</p>
+
+<pre><code class="language-bash">HTTPS_PROXY=https://proxy.example.com
+HTTP_PROXY=http://proxy.example.com
+</code></pre>
+
+<p>These variables are propagated throughout your build environment, including build and plugin containers. To verify the environment variables are being set in your build container you can add the <code>env</code> command to your build script.</p>
+
+<p>We also recommend you provide both uppercase and lowercase environment variables. We&rsquo;ve found that certain common unix tools are case-sensitive:</p>
+
+<pre><code class="language-bash">HTTP_PROXY=http://proxy.example.com
+http_proxy=http://proxy.example.com
+</code></pre>
+
+<h1 id="no-proxy:03d7a38123f4e132328f9d4604b68ecf">No Proxy</h1>
+
+<p>The <code>NO_PROXY</code> variable should contain a comma-separated list of domain extensions the proxy should not be used for. This typically includes resources inside your network, such as your GitHub Enterprise server.</p>
+
+<pre><code class="language-bash">NO_PROXY=.example.com, *.docker.example.com
+</code></pre>
+
+<p>You may also need to add your Docker daemon hostnames to the above list.</p>
+</section>
+					</div>
+
+					<div class="grid-flex-cell grid-flex-cell-1of4">
+						<nav role='navigation'>
+							<ul class='list-unstyled side-nav'>
+								
+								
+								
+								<li>
+									<a href="/setup/overview/" class="">Overview</a>
+								</li>
+								
+								<li>
+									<a href="/setup/remotes/" class="">Remote Drivers</a>
+								</li>
+								
+								<li>
+									<a href="/setup/database/" class="">Database</a>
+								</li>
+								
+								<li>
+									<a href="/setup/settings/" class="">Settings Reference</a>
+								</li>
+								
+								<li>
+									<a href="/setup/upgrades/" class="">Upgrades</a>
+								</li>
+								
+								<li>
+									<a href="/setup/proxy_network/" class=" current-item">Network Proxy</a>
+								</li>
+								
+								<li>
+									<a href="/setup/proxy_reverse/" class="">Reverse Proxy</a>
+								</li>
+								
+							</ul>
+						</nav>
+
+						<div class="well">
+This website is a <a href="https://github.com/TeaCI/docs" target="_blank">public GitHub repository</a>, which is forked from <a href="https://github.com/drone/docs" target="_blank">upstream Drone CI documenatation</a>. Please help us by improving upstream Drone CI documenatation or improving Tea CI documenatation.
+</div>
+
+					</div>
+			</article>
+		</main>
+		<script src="/prism.js"></script>
+	</body>
+</html>
+

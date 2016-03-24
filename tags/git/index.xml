@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on Drone</title>
+    <link>http://docs.tea-ci.org/tags/git/</link>
+    <description>Recent content in Git on Drone</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Feb 2016 08:58:57 +0000</lastBuildDate>
+    <atom:link href="http://docs.tea-ci.org/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Git Push</title>
+      <link>http://docs.tea-ci.org/plugins/git_push/</link>
+      <pubDate>Sat, 13 Feb 2016 08:58:57 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/git_push/</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;This plugin has not been fully tested. Proceed with caution.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Use this plugin for deplying an application via &lt;code&gt;git push&lt;/code&gt;. You can override
+the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;remote&lt;/code&gt; - Target remote repository&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;branch&lt;/code&gt; - Target remote branch, defaults to master&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;force&lt;/code&gt; - Force push using the &lt;code&gt;--force&lt;/code&gt; flag, defaults to false&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;skip_verify&lt;/code&gt; - Skip verification of HTTPS certs, defaults to false&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example:b406ec7f045e79c9a8ac4dff54284977&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following is a sample configuration in your .drone.yml file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;deploy:
+  git_push:
+    branch: master
+    remote: git@git.heroku.com:falling-wind-1624.git
+    force: false
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Git</title>
+      <link>http://docs.tea-ci.org/plugins/git/</link>
+      <pubDate>Sat, 13 Feb 2016 08:58:07 +0000</pubDate>
+      
+      <guid>http://docs.tea-ci.org/plugins/git/</guid>
+      <description>
+
+&lt;p&gt;Use the Git plugin to clone a git repository. Note that Drone uses the Git plugin
+by default for all repositories, without any configuration required. You can override
+the default configuration with the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;depth&lt;/code&gt; - creates a shallow clone with truncated history&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;recursive&lt;/code&gt; - recursively clones git submodules&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;path&lt;/code&gt; - relative path inside &lt;code&gt;/drone/src&lt;/code&gt; where the repository is cloned&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;skip_verify&lt;/code&gt; - disables ssl verification when set to &lt;code&gt;true&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tags&lt;/code&gt; - fetches tags when set to &lt;code&gt;true&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;submodule_override&lt;/code&gt; - override submodule urls&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;submodule_update_remote&lt;/code&gt; - pass the &lt;code&gt;--remote&lt;/code&gt; flag to git submodule update (useful when tracking a branch instead of a commit in a submodule)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Sample configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;clone:
+  depth: 50
+  recursive: false
+  tags: false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Sample configuration to override the relative clone path:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# clones to /drone/src/foo/bar
+
+clone:
+  path: foo/bar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Sample configuration to clone submodules:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;clone:
+  recursive: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;private-submodules:1c1ef82aae62aeea8eedcb5f455b129b&#34;&gt;Private Submodules&lt;/h2&gt;
+
+&lt;p&gt;Private submodules may encounter the following error:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Warning: Permanently added &#39;github.com,192.30.252.130&#39; (RSA) to the list of known hosts.
+ERROR: Repository not found.
+fatal: Could not read from remote repository.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This happens when a private submodule uses a &lt;code&gt;git+ssh&lt;/code&gt; url:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[submodule &amp;quot;hello-world&amp;quot;]
+    path = hello-world
+    url = git@github.com:octocat/hello-world.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This can be mitigated by overriding the submodule url to use &lt;code&gt;git+https&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;clone:
+  recursive: true
+  submodule_override:
+    hello-world: https://github.com/octocat/hello-world.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Overriding the submodule url to force &lt;code&gt;git+https&lt;/code&gt; allows us to take advantage of the &lt;code&gt;netrc&lt;/code&gt; file and automatically authenticate to the submodule repository.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
