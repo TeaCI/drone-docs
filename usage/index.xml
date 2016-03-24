@@ -89,17 +89,11 @@ build:
 
 &lt;p&gt;We currently support the following combinations of images and shells:&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;image: teaci/msys32&lt;/code&gt; with &lt;code&gt;shell: mingw32&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;image: teaci/msys32&lt;/code&gt; with &lt;code&gt;shell: mingw32&lt;/code&gt;, for target &lt;code&gt;i686-w64-mingw32&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;Build target: &lt;code&gt;i686-w64-mingw32&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;image: teaci/msys32&lt;/code&gt; with &lt;code&gt;shell: msys32&lt;/code&gt;, for target &lt;code&gt;i686-pc-msys&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;image: teaci/msys32&lt;/code&gt; with &lt;code&gt;shell: msys32&lt;/code&gt;:&lt;/p&gt;
-
-&lt;p&gt;Build target: &lt;code&gt;i686-pc-msys&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;image: teaci/cygwin32&lt;/code&gt; with &lt;code&gt;shell: cygwin32&lt;/code&gt;:&lt;/p&gt;
-
-&lt;p&gt;Build target: &lt;code&gt;i686-pc-cygwin&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;image: teaci/cygwin32&lt;/code&gt; with &lt;code&gt;shell: cygwin32&lt;/code&gt;, for target &lt;code&gt;i686-pc-cygwin&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Note: while mingw32 shell and msys32 shell share the same image, usual Win32 application developers might only need the mingw32 shell to build &amp;ldquo;native&amp;rdquo; programs. The msys32 shell is mostly for msys2 package maintainers. The cygwin32 shell is mostly for cygwin package maintainers.&lt;/p&gt;
 
