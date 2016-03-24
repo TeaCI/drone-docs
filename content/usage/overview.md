@@ -67,6 +67,8 @@ build:
   image: teaci/msys32
 ```
 
+The Tea CI project maintains several official docker images for our users. Currently we have teaci/cygwin32, teaci/msys32 and teaci/mingw32. 64 bit support is ongoing.
+
 # Shell
 
 Drone executes your build using a custom shell you specified.
