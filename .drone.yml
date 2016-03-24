@@ -20,8 +20,8 @@ build:
     commands:
       - ls
       - ls ..
-      - git checkout --orphan gh-pages-local
-      - git rm --cache -r .
+      - git checkout gh-pages
+      - rm -rf ./*
       - cp ../gh-pages/* -r .
       - git add .
       - git config --global user.email teaci-docs@users.noreply.github.com
@@ -31,7 +31,7 @@ build:
       - echo login $user >> ~/.netrc
       - echo password $pass >> ~/.netrc
       - chmod 600 ~/.netrc
-      - git push -f origin gh-pages-local:gh-pages
+      - git push -f origin gh-pages
 
     when:
       branch: tea-ci
