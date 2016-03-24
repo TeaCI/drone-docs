@@ -202,4 +202,4 @@ drone exec
 
 # Getting Help
 
-Please use the community [chat room](https://gitter.im/tea-ci/drone) for support.
+Please use the community [chat room](https://gitter.im/TeaCI/drone) for support.
