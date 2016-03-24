@@ -73,13 +73,13 @@ build:
   image: teaci/msys32
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;The Tea CI project maintains several official docker images for our users. Currently we support two images teaci/cygwin32 and teaci/msys32. 64 bit support is ongoing.&lt;/p&gt;
+&lt;p&gt;The Tea CI project maintains several official docker images for our users. Currently we support two images: &lt;code&gt;teaci/cygwin32&lt;/code&gt; and &lt;code&gt;teaci/msys32&lt;/code&gt;. 64 bit support is ongoing.&lt;/p&gt;
 
 &lt;h1 id=&#34;shell:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Shell&lt;/h1&gt;
 
 &lt;p&gt;Drone executes your build using a custom shell you specified.&lt;/p&gt;
 
-&lt;p&gt;Example .drone.yml configuration uses the Tea CI official mingw32 image using mingw32 shell:&lt;/p&gt;
+&lt;p&gt;Example .drone.yml configuration uses the Tea CI official msys32 image using mingw32 shell:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
 build:
@@ -87,7 +87,21 @@ build:
   shell: mingw32
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;For teaci/cygwin32 image, cygwin32 shell is supported, which is used for building i686-pc-cygwin packages. For teaci/msys32 image, we support mingw32 shell and msys32 shell. The mingw32 shell is used for building i686-w64-mingw32 packages, the msys32 shell is used for i686-pc-msys packages. mingw32 shell and msys32 shell share the same image. Usually Win32 application developers might only need the mingw32 shell to build &amp;ldquo;native&amp;rdquo; programes. The msys32 shell is mostly for msys32 maintainers.&lt;/p&gt;
+&lt;p&gt;We currently support the following combinations of images and shells:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;image: teaci/msys32&lt;/code&gt; with &lt;code&gt;shell: mingw32&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Build target: &lt;code&gt;i686-w64-mingw32&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;image: teaci/msys32&lt;/code&gt; with &lt;code&gt;shell: msys32&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;Build target: &lt;code&gt;i686-pc-msys&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;image: teaci/cygwin32&lt;/code&gt; with &lt;code&gt;shell: cygwin32&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;Build target: &lt;code&gt;i686-pc-cygwin&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Note: while mingw32 shell and msys32 shell share the same image, usual Win32 application developers might only need the mingw32 shell to build &amp;ldquo;native&amp;rdquo; programs. The msys32 shell is mostly for msys2 package maintainers. The cygwin32 shell is mostly for cygwin package maintainers.&lt;/p&gt;
 
 &lt;h1 id=&#34;pull:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Pull&lt;/h1&gt;
 
