@@ -107,20 +107,20 @@ git checkout 7fd1a60
 
 <p>Drone executes your build inside an ephemeral Docker image. This means you don&rsquo;t have to setup or install any repository dependencies on your host machine. Use any valid Docker image in any Docker registry as your build environment.</p>
 
-<p>Example .drone.yml configuration uses the Tea CI official 32 bit Msys2 image:</p>
+<p>Example .drone.yml configuration uses the Tea CI official mingw32 image:</p>
 
 <pre><code class="language-yaml">---
 build:
   image: teaci/mingw32
 </code></pre>
 
-<p>The Tea CI project maintains several official docker images for our users. Currently we have teaci/cygwin32, teaci/mingw32 and teaci/mingw32. 64 bit support is ongoing.</p>
+<p>The Tea CI project maintains several official docker images for our users. Currently we have teaci/mingw32, teaci/cygwin32, and teaci/msys32. 64 bit support is ongoing.</p>
 
 <h1 id="shell:68f80267fa3a50980dbb745a782b8dca">Shell</h1>
 
 <p>Drone executes your build using a custom shell you specified.</p>
 
-<p>Example .drone.yml configuration uses the Tea CI official 32 bit Msys2 image using the official mingw32 shell:</p>
+<p>Example .drone.yml configuration uses the Tea CI official mingw32 image using mingw32 shell:</p>
 
 <pre><code class="language-yaml">---
 build:
@@ -130,7 +130,7 @@ build:
 
 <h1 id="pull:68f80267fa3a50980dbb745a782b8dca">Pull</h1>
 
-<p>Use the <code>pull</code> attribute to instruct Drone to always pull the latest Docker image. This helps ensure you are always testing your code against the latest image. We recommend you always using <code>pull: true</code> with the Msys2 Docker image.</p>
+<p>Use the <code>pull</code> attribute to instruct Drone to always pull the latest Docker image. This helps ensure you are always testing your code against the latest image. We recommend you always using <code>pull: true</code> with the mingw32 Docker image.</p>
 
 <pre><code class="language-yaml">---
 build:

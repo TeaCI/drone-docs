@@ -66,20 +66,20 @@ git checkout 7fd1a60
 
 &lt;p&gt;Drone executes your build inside an ephemeral Docker image. This means you don&amp;rsquo;t have to setup or install any repository dependencies on your host machine. Use any valid Docker image in any Docker registry as your build environment.&lt;/p&gt;
 
-&lt;p&gt;Example .drone.yml configuration uses the Tea CI official 32 bit Msys2 image:&lt;/p&gt;
+&lt;p&gt;Example .drone.yml configuration uses the Tea CI official mingw32 image:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
 build:
   image: teaci/mingw32
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;The Tea CI project maintains several official docker images for our users. Currently we have teaci/cygwin32, teaci/mingw32 and teaci/mingw32. 64 bit support is ongoing.&lt;/p&gt;
+&lt;p&gt;The Tea CI project maintains several official docker images for our users. Currently we have teaci/mingw32, teaci/cygwin32, and teaci/msys32. 64 bit support is ongoing.&lt;/p&gt;
 
 &lt;h1 id=&#34;shell:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Shell&lt;/h1&gt;
 
 &lt;p&gt;Drone executes your build using a custom shell you specified.&lt;/p&gt;
 
-&lt;p&gt;Example .drone.yml configuration uses the Tea CI official 32 bit Msys2 image using the official mingw32 shell:&lt;/p&gt;
+&lt;p&gt;Example .drone.yml configuration uses the Tea CI official mingw32 image using mingw32 shell:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
 build:
@@ -89,7 +89,7 @@ build:
 
 &lt;h1 id=&#34;pull:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Pull&lt;/h1&gt;
 
-&lt;p&gt;Use the &lt;code&gt;pull&lt;/code&gt; attribute to instruct Drone to always pull the latest Docker image. This helps ensure you are always testing your code against the latest image. We recommend you always using &lt;code&gt;pull: true&lt;/code&gt; with the Msys2 Docker image.&lt;/p&gt;
+&lt;p&gt;Use the &lt;code&gt;pull&lt;/code&gt; attribute to instruct Drone to always pull the latest Docker image. This helps ensure you are always testing your code against the latest image. We recommend you always using &lt;code&gt;pull: true&lt;/code&gt; with the mingw32 Docker image.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
 build:
