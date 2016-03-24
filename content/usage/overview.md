@@ -84,17 +84,11 @@ build:
 
 We currently support the following combinations of images and shells:
 
-`image: teaci/msys32` with `shell: mingw32`
+`image: teaci/msys32` with `shell: mingw32`, for target `i686-w64-mingw32`.
 
-Build target: `i686-w64-mingw32`
+`image: teaci/msys32` with `shell: msys32`, for target `i686-pc-msys`.
 
-`image: teaci/msys32` with `shell: msys32`:
-
-Build target: `i686-pc-msys`
-
-`image: teaci/cygwin32` with `shell: cygwin32`:
-
-Build target: `i686-pc-cygwin`
+`image: teaci/cygwin32` with `shell: cygwin32`, for target `i686-pc-cygwin`.
 
 Note: while mingw32 shell and msys32 shell share the same image, usual Win32 application developers might only need the mingw32 shell to build "native" programs. The msys32 shell is mostly for msys2 package maintainers. The cygwin32 shell is mostly for cygwin package maintainers.
 
