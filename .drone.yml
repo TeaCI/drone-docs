@@ -20,6 +20,7 @@ build:
     commands:
       - ls
       - ls ..
+      - git fetch --no-tags --depth=50 origin +refs/heads/gh-pages
       - git checkout gh-pages
       - rm -rf ./*
       - cp ../gh-pages/* -r .
