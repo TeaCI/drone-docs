@@ -1,6 +1,0 @@
-baseurl = "http://docs.tea-ci.org/"
-languageCode = "en-us"
-title = "Drone"
-
-[[menu.api]]
-	parent = "API Reference"
