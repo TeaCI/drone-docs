@@ -67,13 +67,13 @@ build:
   image: teaci/msys32
 ```
 
-The Tea CI project maintains several official docker images for our users. Currently we support two images teaci/cygwin32 and teaci/msys32. 64 bit support is ongoing.
+The Tea CI project maintains several official docker images for our users. Currently we support two images: `teaci/cygwin32` and `teaci/msys32`. 64 bit support is ongoing.
 
 # Shell
 
 Drone executes your build using a custom shell you specified.
 
-Example .drone.yml configuration uses the Tea CI official mingw32 image using mingw32 shell:
+Example .drone.yml configuration uses the Tea CI official msys32 image using mingw32 shell:
 
 ```yaml
 ---
@@ -82,7 +82,21 @@ build:
   shell: mingw32
 ```
 
-For teaci/cygwin32 image, cygwin32 shell is supported, which is used for building i686-pc-cygwin packages. For teaci/msys32 image, we support mingw32 shell and msys32 shell. The mingw32 shell is used for building i686-w64-mingw32 packages, the msys32 shell is used for i686-pc-msys packages. mingw32 shell and msys32 shell share the same image. Usually Win32 application developers might only need the mingw32 shell to build "native" programes. The msys32 shell is mostly for msys32 maintainers.
+We currently support the following combinations of images and shells:
+
+`image: teaci/msys32` with `shell: mingw32`
+
+Build target: `i686-w64-mingw32`
+
+`image: teaci/msys32` with `shell: msys32`:
+
+Build target: `i686-pc-msys`
+
+`image: teaci/cygwin32` with `shell: cygwin32`:
+
+Build target: `i686-pc-cygwin`
+
+Note: while mingw32 shell and msys32 shell share the same image, usual Win32 application developers might only need the mingw32 shell to build "native" programs. The msys32 shell is mostly for msys2 package maintainers. The cygwin32 shell is mostly for cygwin package maintainers.
 
 # Pull
 
