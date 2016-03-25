@@ -1,4 +1,4 @@
-baseurl = "http://docs.tea-ci.org/"
+baseurl = "https://docs.tea-ci.org/"
 languageCode = "en-us"
 title = "Drone"
 
