@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Cloud on Drone</title>
-    <link>http://docs.tea-ci.org/tags/cloud/</link>
+    <link>https://docs.tea-ci.org/tags/cloud/</link>
     <description>Recent content in Cloud on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 13 Feb 2016 09:00:48 +0000</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/tags/cloud/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/tags/cloud/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>cloudControl</title>
-      <link>http://docs.tea-ci.org/plugins/cloudcontrol/</link>
+      <link>https://docs.tea-ci.org/plugins/cloudcontrol/</link>
       <pubDate>Sat, 13 Feb 2016 09:00:48 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/cloudcontrol/</guid>
+      <guid>https://docs.tea-ci.org/plugins/cloudcontrol/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deplying an application to cloudControl. You can override

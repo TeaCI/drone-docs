@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hg on Drone</title>
-    <link>http://docs.tea-ci.org/tags/hg/</link>
+    <link>https://docs.tea-ci.org/tags/hg/</link>
     <description>Recent content in Hg on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 13 Feb 2016 08:58:26 +0000</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/tags/hg/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/tags/hg/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Mercurial</title>
-      <link>http://docs.tea-ci.org/plugins/hg/</link>
+      <link>https://docs.tea-ci.org/plugins/hg/</link>
       <pubDate>Sat, 13 Feb 2016 08:58:26 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/hg/</guid>
+      <guid>https://docs.tea-ci.org/plugins/hg/</guid>
       <description>&lt;p&gt;Use the Mercurial plugin to clone a mercurial repository. Note that Drone uses this plugin
 by default for all Bitbucket mercurial repositories, without any configuration required. You can override
 the default configuration with the following parameters:&lt;/p&gt;

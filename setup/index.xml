@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Setups on Drone</title>
-    <link>http://docs.tea-ci.org/setup/</link>
+    <link>https://docs.tea-ci.org/setup/</link>
     <description>Recent content in Setups on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 05 Dec 2015 16:00:21 -0800</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/setup/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/setup/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Bitbucket Cloud</title>
-      <link>http://docs.tea-ci.org/setup/remotes/bitbucket/</link>
+      <link>https://docs.tea-ci.org/setup/remotes/bitbucket/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/setup/remotes/bitbucket/</guid>
+      <guid>https://docs.tea-ci.org/setup/remotes/bitbucket/</guid>
       <description>
 
 &lt;p&gt;Drone comes with built-in support for Bitbucket Cloud. Bitbucket Server is not yet supported. To enable Bitbucket Cloud you should configure the Bitbucket driver using the following environment variables:&lt;/p&gt;
@@ -125,17 +125,17 @@ love to see pull requests for this as well.&lt;/p&gt;
 
 &lt;h1 id=&#34;next-steps:217ff7ed75501b6aa8d4f1057fed857c&#34;&gt;Next Steps&lt;/h1&gt;
 
-&lt;p&gt;Once you have configured your Remote Driver, it&amp;rsquo;s time to &lt;a href=&#34;http://docs.tea-ci.org/setup/overview/#select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Select and
+&lt;p&gt;Once you have configured your Remote Driver, it&amp;rsquo;s time to &lt;a href=&#34;https://docs.tea-ci.org/setup/overview/#select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Select and
 Configure a Database&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Overview</title>
-      <link>http://docs.tea-ci.org/setup/overview/</link>
+      <link>https://docs.tea-ci.org/setup/overview/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/setup/overview/</guid>
+      <guid>https://docs.tea-ci.org/setup/overview/</guid>
       <description>
 
 &lt;h1 id=&#34;download:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Download&lt;/h1&gt;
@@ -159,11 +159,11 @@ REMOTE_CONFIG=https://github.com?client_id=....&amp;amp;client_secret=....
 
 &lt;h1 id=&#34;select-and-configure-a-remote-driver:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Select and Configure a Remote Driver&lt;/h1&gt;
 
-&lt;p&gt;With your &lt;code&gt;dronerc&lt;/code&gt; file created, it&amp;rsquo;s time to configure your &lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/&#34;&gt;Remote Drivers&lt;/a&gt;. We currently have support for &lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/github/&#34;&gt;GitHub&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/bitbucket/&#34;&gt;Bitbucket&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/gitlab/&#34;&gt;GitLab&lt;/a&gt;, and &lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/gogs/&#34;&gt;Gogs&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;With your &lt;code&gt;dronerc&lt;/code&gt; file created, it&amp;rsquo;s time to configure your &lt;a href=&#34;https://docs.tea-ci.org/setup/remotes/&#34;&gt;Remote Drivers&lt;/a&gt;. We currently have support for &lt;a href=&#34;https://docs.tea-ci.org/setup/remotes/github/&#34;&gt;GitHub&lt;/a&gt;, &lt;a href=&#34;https://docs.tea-ci.org/setup/remotes/bitbucket/&#34;&gt;Bitbucket&lt;/a&gt;, &lt;a href=&#34;https://docs.tea-ci.org/setup/remotes/gitlab/&#34;&gt;GitLab&lt;/a&gt;, and &lt;a href=&#34;https://docs.tea-ci.org/setup/remotes/gogs/&#34;&gt;Gogs&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h1 id=&#34;select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Select and Configure a Database&lt;/h1&gt;
 
-&lt;p&gt;Now that you have configured your Remote Driver, you are ready to set up the Database that Drone will use for storing state. See the &lt;a href=&#34;http://docs.tea-ci.org/setup/database/&#34;&gt;Databases&lt;/a&gt; article for a walkthrough.&lt;/p&gt;
+&lt;p&gt;Now that you have configured your Remote Driver, you are ready to set up the Database that Drone will use for storing state. See the &lt;a href=&#34;https://docs.tea-ci.org/setup/database/&#34;&gt;Databases&lt;/a&gt; article for a walkthrough.&lt;/p&gt;
 
 &lt;h1 id=&#34;create-and-run-a-drone-container:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Create and Run a Drone Container&lt;/h1&gt;
 
@@ -187,16 +187,16 @@ sudo docker rm drone
 sudo docker run ...
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;At this point, you should have a running Drone instance. If you are running into issues, read the following &lt;em&gt;Troubleshooting&lt;/em&gt; and &lt;em&gt;Common Errors&lt;/em&gt; sections. If that fails, see &lt;a href=&#34;http://docs.tea-ci.org/community/overview/#getting-help:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Getting Help&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;At this point, you should have a running Drone instance. If you are running into issues, read the following &lt;em&gt;Troubleshooting&lt;/em&gt; and &lt;em&gt;Common Errors&lt;/em&gt; sections. If that fails, see &lt;a href=&#34;https://docs.tea-ci.org/community/overview/#getting-help:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Getting Help&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;Assuming everything went well, you are ready to look at our &lt;a href=&#34;http://docs.tea-ci.org/usage/overview/&#34;&gt;Usage&lt;/a&gt; documentation and get some builds going.&lt;/p&gt;
+&lt;p&gt;Assuming everything went well, you are ready to look at our &lt;a href=&#34;https://docs.tea-ci.org/usage/overview/&#34;&gt;Usage&lt;/a&gt; documentation and get some builds going.&lt;/p&gt;
 
 &lt;h1 id=&#34;advanced-configuration:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Advanced Configuration&lt;/h1&gt;
 
 &lt;ul&gt;
-&lt;li&gt;For a full list of configuration options for Drone itself, see &lt;a href=&#34;http://docs.tea-ci.org/setup/settings/&#34;&gt;Settings Reference&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;If your Drone instance needs to go through a proxy server, see &lt;a href=&#34;http://docs.tea-ci.org/setup/proxy_network/&#34;&gt;Network Proxy&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;If you&amp;rsquo;d like to park Drone behind a reverse proxy, see &lt;a href=&#34;http://docs.tea-ci.org/setup/proxy_reverse/&#34;&gt;Reverse Proxy&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;For a full list of configuration options for Drone itself, see &lt;a href=&#34;https://docs.tea-ci.org/setup/settings/&#34;&gt;Settings Reference&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;If your Drone instance needs to go through a proxy server, see &lt;a href=&#34;https://docs.tea-ci.org/setup/proxy_network/&#34;&gt;Network Proxy&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;If you&amp;rsquo;d like to park Drone behind a reverse proxy, see &lt;a href=&#34;https://docs.tea-ci.org/setup/proxy_reverse/&#34;&gt;Reverse Proxy&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h1 id=&#34;troubleshooting:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Troubleshooting&lt;/h1&gt;
@@ -230,10 +230,10 @@ FATA[0000] migration failed
     
     <item>
       <title>GitHub</title>
-      <link>http://docs.tea-ci.org/setup/remotes/github/</link>
+      <link>https://docs.tea-ci.org/setup/remotes/github/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/setup/remotes/github/</guid>
+      <guid>https://docs.tea-ci.org/setup/remotes/github/</guid>
       <description>
 
 &lt;p&gt;Drone comes with built-in support for GitHub and GitHub Enterprise. To enable GitHub you should configure the GitHub driver using the following environment variables:&lt;/p&gt;
@@ -337,17 +337,17 @@ with both GitHub and GitHub Enterprise.&lt;/p&gt;
 
 &lt;h1 id=&#34;next-steps:93ed8abeb42c248f3c551d1cb44159d4&#34;&gt;Next Steps&lt;/h1&gt;
 
-&lt;p&gt;Once you have configured your Remote Driver, it&amp;rsquo;s time to &lt;a href=&#34;http://docs.tea-ci.org/setup/overview/#select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Select and
+&lt;p&gt;Once you have configured your Remote Driver, it&amp;rsquo;s time to &lt;a href=&#34;https://docs.tea-ci.org/setup/overview/#select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Select and
 Configure a Database&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Remote Drivers</title>
-      <link>http://docs.tea-ci.org/setup/remotes/</link>
+      <link>https://docs.tea-ci.org/setup/remotes/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/setup/remotes/</guid>
+      <guid>https://docs.tea-ci.org/setup/remotes/</guid>
       <description>
 
 &lt;p&gt;Drone uses Remote Drivers to integrate and execute builds against your code hosting system of choice. Some things that the remote driver handles include:&lt;/p&gt;
@@ -363,28 +363,28 @@ Configure a Database&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Depending on which service or system you are hosting your code on, you&amp;rsquo;ll want to refer to the corresponding Remote Driver sub-page for details on configuration:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/bitbucket/&#34;&gt;Bitbucket&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/github/&#34;&gt;GitHub&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/gitlab/&#34;&gt;GitLab&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/gogs/&#34;&gt;Gogs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.tea-ci.org/setup/remotes/bitbucket/&#34;&gt;Bitbucket&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.tea-ci.org/setup/remotes/github/&#34;&gt;GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.tea-ci.org/setup/remotes/gitlab/&#34;&gt;GitLab&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.tea-ci.org/setup/remotes/gogs/&#34;&gt;Gogs&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h1 id=&#34;next-steps:0240f7545353d4fff82654a2b3e8f1e5&#34;&gt;Next Steps&lt;/h1&gt;
 
-&lt;p&gt;Once you have configured your Remote Driver, it&amp;rsquo;s time to &lt;a href=&#34;http://docs.tea-ci.org/setup/overview/#select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Select and
+&lt;p&gt;Once you have configured your Remote Driver, it&amp;rsquo;s time to &lt;a href=&#34;https://docs.tea-ci.org/setup/overview/#select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Select and
 Configure a Database&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Database</title>
-      <link>http://docs.tea-ci.org/setup/database/</link>
+      <link>https://docs.tea-ci.org/setup/database/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/setup/database/</guid>
+      <guid>https://docs.tea-ci.org/setup/database/</guid>
       <description>
 
-&lt;p&gt;Drone supports several relational databases. If you don&amp;rsquo;t have a strong preference, SQLite is a great starting point. Once you have configured your database, continue onward to &lt;a href=&#34;http://docs.tea-ci.org/setup/overview/#create-and-run-a-drone-container:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Create and Run a Drone Container&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Drone supports several relational databases. If you don&amp;rsquo;t have a strong preference, SQLite is a great starting point. Once you have configured your database, continue onward to &lt;a href=&#34;https://docs.tea-ci.org/setup/overview/#create-and-run-a-drone-container:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Create and Run a Drone Container&lt;/a&gt;&lt;/p&gt;
 
 &lt;h1 id=&#34;sqlite:1e080c892326e5bba749587eba8bcf9e&#34;&gt;SQLite&lt;/h1&gt;
 
@@ -423,10 +423,10 @@ DATABASE_CONFIG=&amp;quot;root:pa55word@tcp(localhost:3306)/drone?parseTime=true
     
     <item>
       <title>GitLab</title>
-      <link>http://docs.tea-ci.org/setup/remotes/gitlab/</link>
+      <link>https://docs.tea-ci.org/setup/remotes/gitlab/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/setup/remotes/gitlab/</guid>
+      <guid>https://docs.tea-ci.org/setup/remotes/gitlab/</guid>
       <description>
 
 &lt;blockquote&gt;
@@ -534,17 +534,17 @@ sometimes broken due to changes in GitLab from version to version.&lt;/p&gt;
 
 &lt;h1 id=&#34;next-steps:dd87d86ac28472949397c68a306dd605&#34;&gt;Next Steps&lt;/h1&gt;
 
-&lt;p&gt;Once you have configured your Remote Driver, it&amp;rsquo;s time to &lt;a href=&#34;http://docs.tea-ci.org/setup/overview/#select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Select and
+&lt;p&gt;Once you have configured your Remote Driver, it&amp;rsquo;s time to &lt;a href=&#34;https://docs.tea-ci.org/setup/overview/#select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Select and
 Configure a Database&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Settings Reference</title>
-      <link>http://docs.tea-ci.org/setup/settings/</link>
+      <link>https://docs.tea-ci.org/setup/settings/</link>
       <pubDate>Fri, 05 Feb 2016 18:20:44 -0600</pubDate>
       
-      <guid>http://docs.tea-ci.org/setup/settings/</guid>
+      <guid>https://docs.tea-ci.org/setup/settings/</guid>
       <description>
 
 &lt;p&gt;Unless otherwise specified, the settings described below are all environment variables.&lt;/p&gt;
@@ -553,15 +553,15 @@ Configure a Database&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&#34;remote-driver:fa1a9aa7bf3e774ccda21a0a7b1222dd&#34;&gt;REMOTE_DRIVER&lt;/h2&gt;
 
-&lt;p&gt;Set this to whichever remote driver you&amp;rsquo;re using. Drone will use your remote for authentication, and will add webhooks to your projects to facilitate the build process. See &lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/&#34;&gt;Remote Drivers&lt;/a&gt; for possible values.&lt;/p&gt;
+&lt;p&gt;Set this to whichever remote driver you&amp;rsquo;re using. Drone will use your remote for authentication, and will add webhooks to your projects to facilitate the build process. See &lt;a href=&#34;https://docs.tea-ci.org/setup/remotes/&#34;&gt;Remote Drivers&lt;/a&gt; for possible values.&lt;/p&gt;
 
 &lt;h2 id=&#34;remote-config:fa1a9aa7bf3e774ccda21a0a7b1222dd&#34;&gt;REMOTE_CONFIG&lt;/h2&gt;
 
-&lt;p&gt;The value of this setting is highly dependent upon the remote driver chosen. See &lt;a href=&#34;http://docs.tea-ci.org/setup/remotes/&#34;&gt;Remote Drivers&lt;/a&gt; for more details.&lt;/p&gt;
+&lt;p&gt;The value of this setting is highly dependent upon the remote driver chosen. See &lt;a href=&#34;https://docs.tea-ci.org/setup/remotes/&#34;&gt;Remote Drivers&lt;/a&gt; for more details.&lt;/p&gt;
 
 &lt;h1 id=&#34;database-settings:fa1a9aa7bf3e774ccda21a0a7b1222dd&#34;&gt;Database Settings&lt;/h1&gt;
 
-&lt;p&gt;See the &lt;a href=&#34;http://docs.tea-ci.org/setup/database/&#34;&gt;Database&lt;/a&gt; page for more details on selecting and configuring a database engine for Drone.&lt;/p&gt;
+&lt;p&gt;See the &lt;a href=&#34;https://docs.tea-ci.org/setup/database/&#34;&gt;Database&lt;/a&gt; page for more details on selecting and configuring a database engine for Drone.&lt;/p&gt;
 
 &lt;h2 id=&#34;database-driver:fa1a9aa7bf3e774ccda21a0a7b1222dd&#34;&gt;DATABASE_DRIVER&lt;/h2&gt;
 
@@ -575,7 +575,7 @@ Configure a Database&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&#34;database-config:fa1a9aa7bf3e774ccda21a0a7b1222dd&#34;&gt;DATABASE_CONFIG&lt;/h2&gt;
 
-&lt;p&gt;Differs based on the selected database engine. See See the &lt;a href=&#34;http://docs.tea-ci.org/setup/database/&#34;&gt;Database&lt;/a&gt; for a list of possible values for each DB.&lt;/p&gt;
+&lt;p&gt;Differs based on the selected database engine. See See the &lt;a href=&#34;https://docs.tea-ci.org/setup/database/&#34;&gt;Database&lt;/a&gt; for a list of possible values for each DB.&lt;/p&gt;
 
 &lt;h1 id=&#34;plugin-settings:fa1a9aa7bf3e774ccda21a0a7b1222dd&#34;&gt;Plugin Settings&lt;/h1&gt;
 
@@ -626,10 +626,10 @@ Hub called &lt;code&gt;myorg&lt;/code&gt;. Here&amp;rsquo;s a REMOTE_DRIVER sett
     
     <item>
       <title>Gogs</title>
-      <link>http://docs.tea-ci.org/setup/remotes/gogs/</link>
+      <link>https://docs.tea-ci.org/setup/remotes/gogs/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/setup/remotes/gogs/</guid>
+      <guid>https://docs.tea-ci.org/setup/remotes/gogs/</guid>
       <description>
 
 &lt;p&gt;Drone comes with built-in support for Gogs version &lt;code&gt;0.6.16.1022&lt;/code&gt; and higher. Please ensure you are running the latest version of Gogs to avoid compatibility issues. To enable Gogs you should configure the Gogs driver using the following environment variables:&lt;/p&gt;
@@ -721,17 +721,17 @@ excellent option for teams with very simple hosting needs.&lt;/p&gt;
 
 &lt;h1 id=&#34;next-steps:774b6f23ce9f6a15436a591e1fc61630&#34;&gt;Next Steps&lt;/h1&gt;
 
-&lt;p&gt;Once you have configured your Remote Driver, it&amp;rsquo;s time to &lt;a href=&#34;http://docs.tea-ci.org/setup/overview/#select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Select and
+&lt;p&gt;Once you have configured your Remote Driver, it&amp;rsquo;s time to &lt;a href=&#34;https://docs.tea-ci.org/setup/overview/#select-and-configure-a-database:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Select and
 Configure a Database&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Upgrades</title>
-      <link>http://docs.tea-ci.org/setup/upgrades/</link>
+      <link>https://docs.tea-ci.org/setup/upgrades/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/setup/upgrades/</guid>
+      <guid>https://docs.tea-ci.org/setup/upgrades/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Warning. There is no automated migration from 0.3 to 0.4 due to substantial changes in database structure.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -766,10 +766,10 @@ sudo docker rm drone
     
     <item>
       <title>Network Proxy</title>
-      <link>http://docs.tea-ci.org/setup/proxy_network/</link>
+      <link>https://docs.tea-ci.org/setup/proxy_network/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/setup/proxy_network/</guid>
+      <guid>https://docs.tea-ci.org/setup/proxy_network/</guid>
       <description>
 
 &lt;h1 id=&#34;overview:03d7a38123f4e132328f9d4604b68ecf&#34;&gt;Overview&lt;/h1&gt;
@@ -805,10 +805,10 @@ http_proxy=http://proxy.example.com
     
     <item>
       <title>Reverse Proxy</title>
-      <link>http://docs.tea-ci.org/setup/proxy_reverse/</link>
+      <link>https://docs.tea-ci.org/setup/proxy_reverse/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/setup/proxy_reverse/</guid>
+      <guid>https://docs.tea-ci.org/setup/proxy_reverse/</guid>
       <description>
 
 &lt;h1 id=&#34;overview:baa01b1708de72451d6b303294ce3cc6&#34;&gt;Overview&lt;/h1&gt;

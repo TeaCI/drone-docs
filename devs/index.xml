@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Devs on Drone</title>
-    <link>http://docs.tea-ci.org/devs/</link>
+    <link>https://docs.tea-ci.org/devs/</link>
     <description>Recent content in Devs on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <atom:link href="http://docs.tea-ci.org/devs/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/devs/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Libraries</title>
-      <link>http://docs.tea-ci.org/devs/libraries/</link>
+      <link>https://docs.tea-ci.org/devs/libraries/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/devs/libraries/</guid>
+      <guid>https://docs.tea-ci.org/devs/libraries/</guid>
       <description>&lt;p&gt;Drone provides a simple and hackable continuous integration platform. Use the official libraries to build plugins and integrations. &lt;a href=&#34;https://gitter.im/drone/drone&#34;&gt;Contact us&lt;/a&gt; to include your third party libraries.&lt;/p&gt;
 
 &lt;ul&gt;
@@ -27,10 +27,10 @@
     
     <item>
       <title>Plugins</title>
-      <link>http://docs.tea-ci.org/devs/plugins/</link>
+      <link>https://docs.tea-ci.org/devs/plugins/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/devs/plugins/</guid>
+      <guid>https://docs.tea-ci.org/devs/plugins/</guid>
       <description>
 
 &lt;h1 id=&#34;overview:dce8ed91d073f65a191aa58c2338afcb&#34;&gt;Overview&lt;/h1&gt;
@@ -147,10 +147,10 @@ deploy:
     
     <item>
       <title>Guides</title>
-      <link>http://docs.tea-ci.org/devs/guides/</link>
+      <link>https://docs.tea-ci.org/devs/guides/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/devs/guides/</guid>
+      <guid>https://docs.tea-ci.org/devs/guides/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Guides are tutorials stored in the &lt;a href=&#34;https://github.com/drone-demos&#34;&gt;drone-demos&lt;/a&gt; github organization. Similar to plugins, the guide documentation should be auto-generated. This section of the docs will provide guidelines for creating Guide tutorials.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -159,10 +159,10 @@ deploy:
     
     <item>
       <title>CLI Reference</title>
-      <link>http://docs.tea-ci.org/devs/cli/</link>
+      <link>https://docs.tea-ci.org/devs/cli/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/devs/cli/</guid>
+      <guid>https://docs.tea-ci.org/devs/cli/</guid>
       <description>
 
 &lt;h1 id=&#34;install:b659b046131d4024ab5e2d3675716bf0&#34;&gt;Install&lt;/h1&gt;
@@ -322,10 +322,10 @@ COMMANDS:
     
     <item>
       <title>Builds</title>
-      <link>http://docs.tea-ci.org/devs/api/builds/</link>
+      <link>https://docs.tea-ci.org/devs/api/builds/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/devs/api/builds/</guid>
+      <guid>https://docs.tea-ci.org/devs/api/builds/</guid>
       <description>
 
 &lt;h1 id=&#34;get-recent-builds:e163b46a1bc96a0cc699d52d0e3291d7&#34;&gt;Get recent builds&lt;/h1&gt;
@@ -508,10 +508,10 @@ COMMANDS:
     
     <item>
       <title>Repos</title>
-      <link>http://docs.tea-ci.org/devs/api/repos/</link>
+      <link>https://docs.tea-ci.org/devs/api/repos/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/devs/api/repos/</guid>
+      <guid>https://docs.tea-ci.org/devs/api/repos/</guid>
       <description>
 
 &lt;h1 id=&#34;get-a-repo:e6da86d6bd9fc5c03bddf254e81bd5ec&#34;&gt;Get a repo&lt;/h1&gt;
@@ -636,10 +636,10 @@ COMMANDS:
     
     <item>
       <title>User</title>
-      <link>http://docs.tea-ci.org/devs/api/user/</link>
+      <link>https://docs.tea-ci.org/devs/api/user/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/devs/api/user/</guid>
+      <guid>https://docs.tea-ci.org/devs/api/user/</guid>
       <description>
 
 &lt;h1 id=&#34;gets-a-user:97590e38f22a4fa5fca0cde54d34000b&#34;&gt;Gets a user&lt;/h1&gt;
@@ -716,10 +716,10 @@ COMMANDS:
     
     <item>
       <title>Users</title>
-      <link>http://docs.tea-ci.org/devs/api/users/</link>
+      <link>https://docs.tea-ci.org/devs/api/users/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/devs/api/users/</guid>
+      <guid>https://docs.tea-ci.org/devs/api/users/</guid>
       <description>
 
 &lt;h1 id=&#34;get-all-users:f0f8c2ffd220340c61a6efb6a9323904&#34;&gt;Get all users&lt;/h1&gt;

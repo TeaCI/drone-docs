@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Aws on Drone</title>
-    <link>http://docs.tea-ci.org/tags/aws/</link>
+    <link>https://docs.tea-ci.org/tags/aws/</link>
     <description>Recent content in Aws on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 21 Feb 2016 08:37:26 +0000</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/tags/aws/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/tags/aws/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>ECR</title>
-      <link>http://docs.tea-ci.org/plugins/ecr/</link>
+      <link>https://docs.tea-ci.org/plugins/ecr/</link>
       <pubDate>Sun, 21 Feb 2016 08:37:26 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/ecr/</guid>
+      <guid>https://docs.tea-ci.org/plugins/ecr/</guid>
       <description>
 
 &lt;p&gt;Use the Docker plugin to build and push Docker images to an AWS Elastic Container Registry.
@@ -161,10 +161,10 @@ Cannot connect to the Docker daemon. Is &#39;docker -d&#39; running on this host
     
     <item>
       <title>ECS</title>
-      <link>http://docs.tea-ci.org/plugins/ecs/</link>
+      <link>https://docs.tea-ci.org/plugins/ecs/</link>
       <pubDate>Sat, 13 Feb 2016 09:01:44 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/ecs/</guid>
+      <guid>https://docs.tea-ci.org/plugins/ecs/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deploying a docker container application to AWS EC2 Container Service (ECS).&lt;/p&gt;
@@ -208,10 +208,10 @@ Cannot connect to the Docker daemon. Is &#39;docker -d&#39; running on this host
     
     <item>
       <title>CodeDeploy</title>
-      <link>http://docs.tea-ci.org/plugins/codedeploy/</link>
+      <link>https://docs.tea-ci.org/plugins/codedeploy/</link>
       <pubDate>Sat, 13 Feb 2016 09:01:13 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/codedeploy/</guid>
+      <guid>https://docs.tea-ci.org/plugins/codedeploy/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deplying an application to CodeDeploy. You can override the
@@ -252,10 +252,10 @@ event to fail to a specific instance, defaults to &lt;code&gt;false&lt;/code&gt;
     
     <item>
       <title>OpsWorks</title>
-      <link>http://docs.tea-ci.org/plugins/opsworks/</link>
+      <link>https://docs.tea-ci.org/plugins/opsworks/</link>
       <pubDate>Sat, 13 Feb 2016 09:01:09 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/opsworks/</guid>
+      <guid>https://docs.tea-ci.org/plugins/opsworks/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deplying an application to OpsWorks. You can override the
@@ -303,10 +303,10 @@ default configuration with the following parameters:&lt;/p&gt;
     
     <item>
       <title>Boxfuse</title>
-      <link>http://docs.tea-ci.org/plugins/boxfuse/</link>
+      <link>https://docs.tea-ci.org/plugins/boxfuse/</link>
       <pubDate>Sat, 13 Feb 2016 09:00:42 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/boxfuse/</guid>
+      <guid>https://docs.tea-ci.org/plugins/boxfuse/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deplying an application to Boxfuse. You can override the
@@ -326,10 +326,10 @@ default configuration with the following parameters:&lt;/p&gt;
     
     <item>
       <title>Elastic Beanstalk</title>
-      <link>http://docs.tea-ci.org/plugins/elastic_beanstalk/</link>
+      <link>https://docs.tea-ci.org/plugins/elastic_beanstalk/</link>
       <pubDate>Sat, 13 Feb 2016 09:00:25 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/elastic_beanstalk/</guid>
+      <guid>https://docs.tea-ci.org/plugins/elastic_beanstalk/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deplying an application to AWS Elastic Beanstalk. You can
@@ -370,10 +370,10 @@ override the default configuration with the following parameters:&lt;/p&gt;
     
     <item>
       <title>S3 Sync</title>
-      <link>http://docs.tea-ci.org/plugins/s3_sync/</link>
+      <link>https://docs.tea-ci.org/plugins/s3_sync/</link>
       <pubDate>Sat, 13 Feb 2016 08:59:18 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/s3_sync/</guid>
+      <guid>https://docs.tea-ci.org/plugins/s3_sync/</guid>
       <description>&lt;p&gt;Use the S3 sync plugin to synchronize files and folders with an Amazon S3 bucket. The following parameters are used to configure this plugin:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -483,10 +483,10 @@ override the default configuration with the following parameters:&lt;/p&gt;
     
     <item>
       <title>S3</title>
-      <link>http://docs.tea-ci.org/plugins/s3/</link>
+      <link>https://docs.tea-ci.org/plugins/s3/</link>
       <pubDate>Sat, 13 Feb 2016 08:58:38 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/s3/</guid>
+      <guid>https://docs.tea-ci.org/plugins/s3/</guid>
       <description>&lt;p&gt;Use the S3 plugin to upload files and build artifacts to an S3 bucket. The following parameters are used to configure this plugin:&lt;/p&gt;
 
 &lt;ul&gt;

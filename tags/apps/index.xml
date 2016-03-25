@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Apps on Drone</title>
-    <link>http://docs.tea-ci.org/tags/apps/</link>
+    <link>https://docs.tea-ci.org/tags/apps/</link>
     <description>Recent content in Apps on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 13 Feb 2016 08:59:54 +0000</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/tags/apps/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/tags/apps/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Azure Web Apps</title>
-      <link>http://docs.tea-ci.org/plugins/azure_web_apps/</link>
+      <link>https://docs.tea-ci.org/plugins/azure_web_apps/</link>
       <pubDate>Sat, 13 Feb 2016 08:59:54 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/azure_web_apps/</guid>
+      <guid>https://docs.tea-ci.org/plugins/azure_web_apps/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deplying an application to Azure Web Apps. You can override

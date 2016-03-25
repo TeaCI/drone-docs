@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Usages on Drone</title>
-    <link>http://docs.tea-ci.org/usage/</link>
+    <link>https://docs.tea-ci.org/usage/</link>
     <description>Recent content in Usages on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 05 Dec 2015 16:00:21 -0800</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/usage/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/usage/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Quick Start</title>
-      <link>http://docs.tea-ci.org/usage/overview/</link>
+      <link>https://docs.tea-ci.org/usage/overview/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/usage/overview/</guid>
+      <guid>https://docs.tea-ci.org/usage/overview/</guid>
       <description>
 
 &lt;h1 id=&#34;overview:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Overview&lt;/h1&gt;
@@ -201,7 +201,7 @@ publish:
 
 &lt;h1 id=&#34;local-testing:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Local Testing&lt;/h1&gt;
 
-&lt;p&gt;Download the &lt;a href=&#34;http://docs.tea-ci.org/devs/cli&#34;&gt;command line tools&lt;/a&gt; to build and test your code locally inside a Docker environment using the exact same build process as Drone. You should think of your &lt;code&gt;.drone.yml&lt;/code&gt; file as a &lt;code&gt;docker-compose.yml&lt;/code&gt; alternative that is optimized for repeatable, local testing.&lt;/p&gt;
+&lt;p&gt;Download the &lt;a href=&#34;https://docs.tea-ci.org/devs/cli&#34;&gt;command line tools&lt;/a&gt; to build and test your code locally inside a Docker environment using the exact same build process as Drone. You should think of your &lt;code&gt;.drone.yml&lt;/code&gt; file as a &lt;code&gt;docker-compose.yml&lt;/code&gt; alternative that is optimized for repeatable, local testing.&lt;/p&gt;
 
 &lt;p&gt;Command to execute a local build from the command line:&lt;/p&gt;
 
@@ -216,10 +216,10 @@ publish:
     
     <item>
       <title>Variables</title>
-      <link>http://docs.tea-ci.org/usage/variables/</link>
+      <link>https://docs.tea-ci.org/usage/variables/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/usage/variables/</guid>
+      <guid>https://docs.tea-ci.org/usage/variables/</guid>
       <description>
 
 &lt;h1 id=&#34;environment:2b8b8ac4006be88c769f5e3fd99b009a&#34;&gt;Environment&lt;/h1&gt;
@@ -294,10 +294,10 @@ publish:
     
     <item>
       <title>Secrets</title>
-      <link>http://docs.tea-ci.org/usage/secrets/</link>
+      <link>https://docs.tea-ci.org/usage/secrets/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/usage/secrets/</guid>
+      <guid>https://docs.tea-ci.org/usage/secrets/</guid>
       <description>
 
 &lt;blockquote&gt;
@@ -306,7 +306,7 @@ publish:
 
 &lt;h1 id=&#34;overview:0d943d142dc6bcdd2e544b095a49f72b&#34;&gt;Overview&lt;/h1&gt;
 
-&lt;p&gt;Drone lets you store secret variables in an encrypted &lt;code&gt;.drone.sec&lt;/code&gt; file in the root of your repository. This is useful when your build requires sensitive information that should not be stored in plaintext in your yaml file. This document assumes you have installed the Drone &lt;a href=&#34;http://docs.tea-ci.org/devs/cli&#34;&gt;command line tools&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Drone lets you store secret variables in an encrypted &lt;code&gt;.drone.sec&lt;/code&gt; file in the root of your repository. This is useful when your build requires sensitive information that should not be stored in plaintext in your yaml file. This document assumes you have installed the Drone &lt;a href=&#34;https://docs.tea-ci.org/devs/cli&#34;&gt;command line tools&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Start with a plaintext YAML file that defines your secrets. For demonstration purposes let&amp;rsquo;s assume this file is stored on disk and named &lt;code&gt;secrets.yml&lt;/code&gt;. Secrets are defined in the &lt;code&gt;environment&lt;/code&gt; section of this file:&lt;/p&gt;
 
@@ -453,10 +453,10 @@ deploy:
     
     <item>
       <title>Cloning</title>
-      <link>http://docs.tea-ci.org/usage/cloning/</link>
+      <link>https://docs.tea-ci.org/usage/cloning/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/usage/cloning/</guid>
+      <guid>https://docs.tea-ci.org/usage/cloning/</guid>
       <description>
 
 &lt;h1 id=&#34;overview:694aaf6bb8eef58529ced737905d0d1a&#34;&gt;Overview&lt;/h1&gt;
@@ -552,10 +552,10 @@ clone:
     
     <item>
       <title>Caching</title>
-      <link>http://docs.tea-ci.org/usage/caching/</link>
+      <link>https://docs.tea-ci.org/usage/caching/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/usage/caching/</guid>
+      <guid>https://docs.tea-ci.org/usage/caching/</guid>
       <description>
 
 &lt;h1 id=&#34;overview:ac010da762d8cf87ef4765b457c06928&#34;&gt;Overview&lt;/h1&gt;
@@ -625,10 +625,10 @@ build:
     
     <item>
       <title>Service Containers</title>
-      <link>http://docs.tea-ci.org/usage/services/</link>
+      <link>https://docs.tea-ci.org/usage/services/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/usage/services/</guid>
+      <guid>https://docs.tea-ci.org/usage/services/</guid>
       <description>
 
 &lt;h1 id=&#34;overview:bfc9941b6b6fd7b4ef09dd0ccd08af0c&#34;&gt;Overview&lt;/h1&gt;
@@ -780,10 +780,10 @@ compose:
     
     <item>
       <title>Build &amp; Test</title>
-      <link>http://docs.tea-ci.org/usage/build_test/</link>
+      <link>https://docs.tea-ci.org/usage/build_test/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/usage/build_test/</guid>
+      <guid>https://docs.tea-ci.org/usage/build_test/</guid>
       <description>
 
 &lt;h1 id=&#34;overview:fb92aa3346185c57f15afda861d465a3&#34;&gt;Overview&lt;/h1&gt;
@@ -1009,7 +1009,7 @@ build:
 
 &lt;h1 id=&#34;triggers:fb92aa3346185c57f15afda861d465a3&#34;&gt;Triggers&lt;/h1&gt;
 
-&lt;p&gt;Builds are triggered primarily by &lt;code&gt;push&lt;/code&gt; and &lt;code&gt;pull_request&lt;/code&gt; hooks from your remote system (ie GitHub). Sometimes changes to an upstream project have a cascading impact on downstream projects. You can trigger cascading builds using the &lt;a href=&#34;http://docs.tea-ci.org/plugins/downstream/&#34;&gt;trigger&lt;/a&gt; plugin.&lt;/p&gt;
+&lt;p&gt;Builds are triggered primarily by &lt;code&gt;push&lt;/code&gt; and &lt;code&gt;pull_request&lt;/code&gt; hooks from your remote system (ie GitHub). Sometimes changes to an upstream project have a cascading impact on downstream projects. You can trigger cascading builds using the &lt;a href=&#34;https://docs.tea-ci.org/plugins/downstream/&#34;&gt;trigger&lt;/a&gt; plugin.&lt;/p&gt;
 
 &lt;h1 id=&#34;scheduling:fb92aa3346185c57f15afda861d465a3&#34;&gt;Scheduling&lt;/h1&gt;
 
@@ -1033,10 +1033,10 @@ branches:
     
     <item>
       <title>Deployments</title>
-      <link>http://docs.tea-ci.org/usage/deploy/</link>
+      <link>https://docs.tea-ci.org/usage/deploy/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/usage/deploy/</guid>
+      <guid>https://docs.tea-ci.org/usage/deploy/</guid>
       <description>
 
 &lt;h1 id=&#34;overview:0814af543608f4fd171b2e9cf43d9917&#34;&gt;Overview&lt;/h1&gt;
@@ -1053,11 +1053,11 @@ deploy:
 
 &lt;h1 id=&#34;plugins:0814af543608f4fd171b2e9cf43d9917&#34;&gt;Plugins&lt;/h1&gt;
 
-&lt;p&gt;Drone does not have any builtin deployment capabilities. Drone instead offers a large library of plugins for deploying to &lt;a href=&#34;http://docs.tea-ci.org/plugins/heroku/&#34;&gt;Heroku&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/plugins/tutum/&#34;&gt;Tutum&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/plugins/aws_codedeploy/&#34;&gt;Amazon&lt;/a&gt; and more. Please see the &lt;a href=&#34;http://docs.tea-ci.org/plugins/&#34;&gt;plugin documentation&lt;/a&gt; for a complete list.&lt;/p&gt;
+&lt;p&gt;Drone does not have any builtin deployment capabilities. Drone instead offers a large library of plugins for deploying to &lt;a href=&#34;https://docs.tea-ci.org/plugins/heroku/&#34;&gt;Heroku&lt;/a&gt;, &lt;a href=&#34;https://docs.tea-ci.org/plugins/tutum/&#34;&gt;Tutum&lt;/a&gt;, &lt;a href=&#34;https://docs.tea-ci.org/plugins/aws_codedeploy/&#34;&gt;Amazon&lt;/a&gt; and more. Please see the &lt;a href=&#34;https://docs.tea-ci.org/plugins/&#34;&gt;plugin documentation&lt;/a&gt; for a complete list.&lt;/p&gt;
 
 &lt;h1 id=&#34;docker:0814af543608f4fd171b2e9cf43d9917&#34;&gt;Docker&lt;/h1&gt;
 
-&lt;p&gt;Building and deploying a Docker image to the registry is handled by plugins. We have multiple plugins for building and publishing Docker images to &lt;a href=&#34;http://docs.tea-ci.org/plugins/docker/&#34;&gt;DockerHub&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/plugins/gcr/&#34;&gt;Google Container Registry&lt;/a&gt;, and more.&lt;/p&gt;
+&lt;p&gt;Building and deploying a Docker image to the registry is handled by plugins. We have multiple plugins for building and publishing Docker images to &lt;a href=&#34;https://docs.tea-ci.org/plugins/docker/&#34;&gt;DockerHub&lt;/a&gt;, &lt;a href=&#34;https://docs.tea-ci.org/plugins/gcr/&#34;&gt;Google Container Registry&lt;/a&gt;, and more.&lt;/p&gt;
 
 &lt;h1 id=&#34;conditions:0814af543608f4fd171b2e9cf43d9917&#34;&gt;Conditions&lt;/h1&gt;
 
@@ -1142,10 +1142,10 @@ deploy:
     
     <item>
       <title>Notifications</title>
-      <link>http://docs.tea-ci.org/usage/notify/</link>
+      <link>https://docs.tea-ci.org/usage/notify/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/usage/notify/</guid>
+      <guid>https://docs.tea-ci.org/usage/notify/</guid>
       <description>
 
 &lt;h1 id=&#34;overview:d1fea7f63b32cc4bab67588d2fde8aa7&#34;&gt;Overview&lt;/h1&gt;
@@ -1166,7 +1166,7 @@ notify:
 
 &lt;h1 id=&#34;plugins:d1fea7f63b32cc4bab67588d2fde8aa7&#34;&gt;Plugins&lt;/h1&gt;
 
-&lt;p&gt;Drone does not have any builtin notification capabilities. Drone instead offers a large library of plugins for sending &lt;a href=&#34;http://docs.tea-ci.org/plugins/slack/&#34;&gt;Slack&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/plugins/hipchat/&#34;&gt;Hipchat&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/plugins/email/&#34;&gt;Email&lt;/a&gt; notifications and more. Please see the &lt;a href=&#34;http://docs.tea-ci.org/plugins/&#34;&gt;plugin documentation&lt;/a&gt; for a complete list.&lt;/p&gt;
+&lt;p&gt;Drone does not have any builtin notification capabilities. Drone instead offers a large library of plugins for sending &lt;a href=&#34;https://docs.tea-ci.org/plugins/slack/&#34;&gt;Slack&lt;/a&gt;, &lt;a href=&#34;https://docs.tea-ci.org/plugins/hipchat/&#34;&gt;Hipchat&lt;/a&gt;, &lt;a href=&#34;https://docs.tea-ci.org/plugins/email/&#34;&gt;Email&lt;/a&gt; notifications and more. Please see the &lt;a href=&#34;https://docs.tea-ci.org/plugins/&#34;&gt;plugin documentation&lt;/a&gt; for a complete list.&lt;/p&gt;
 
 &lt;h1 id=&#34;conditions:d1fea7f63b32cc4bab67588d2fde8aa7&#34;&gt;Conditions&lt;/h1&gt;
 
@@ -1348,10 +1348,10 @@ notify:
     
     <item>
       <title>Matrix</title>
-      <link>http://docs.tea-ci.org/usage/matrix/</link>
+      <link>https://docs.tea-ci.org/usage/matrix/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/usage/matrix/</guid>
+      <guid>https://docs.tea-ci.org/usage/matrix/</guid>
       <description>
 
 &lt;h1 id=&#34;overview:4f8417ba6e069b3796db582fe0d5f9e1&#34;&gt;Overview&lt;/h1&gt;
@@ -1435,17 +1435,17 @@ deploy:
     
     <item>
       <title>Publishing Artifacts</title>
-      <link>http://docs.tea-ci.org/usage/artifacts/</link>
+      <link>https://docs.tea-ci.org/usage/artifacts/</link>
       <pubDate>Sat, 05 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/usage/artifacts/</guid>
+      <guid>https://docs.tea-ci.org/usage/artifacts/</guid>
       <description>
 
 &lt;h1 id=&#34;overview:ae3f77d4da25cb721d64daf2ef987305&#34;&gt;Overview&lt;/h1&gt;
 
 &lt;p&gt;Publishing files or build artifacts is triggered at the end of a successful build. Note that publish steps are not executed for pull requests or failed builds.&lt;/p&gt;
 
-&lt;p&gt;Example to publish a Node package to the &lt;a href=&#34;http://docs.tea-ci.org/plugins/npm/&#34;&gt;npmjs.com&lt;/a&gt; registry using the NPM plugin:&lt;/p&gt;
+&lt;p&gt;Example to publish a Node package to the &lt;a href=&#34;https://docs.tea-ci.org/plugins/npm/&#34;&gt;npmjs.com&lt;/a&gt; registry using the NPM plugin:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
 publish:
@@ -1457,11 +1457,11 @@ publish:
 
 &lt;h1 id=&#34;plugins:ae3f77d4da25cb721d64daf2ef987305&#34;&gt;Plugins&lt;/h1&gt;
 
-&lt;p&gt;Drone does not have any builtin publishing or artifact capabilities. Drone instead offers a large library of plugins for publish to &lt;a href=&#34;http://docs.tea-ci.org/plugins/docker/&#34;&gt;DockerHub&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/plugins/s3/&#34;&gt;S3&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/plugins/google_cloudstorage/&#34;&gt;Google Storage&lt;/a&gt; and more. Please see the &lt;a href=&#34;http://docs.tea-ci.org/plugins/&#34;&gt;plugin documentation&lt;/a&gt; for a complete list.&lt;/p&gt;
+&lt;p&gt;Drone does not have any builtin publishing or artifact capabilities. Drone instead offers a large library of plugins for publish to &lt;a href=&#34;https://docs.tea-ci.org/plugins/docker/&#34;&gt;DockerHub&lt;/a&gt;, &lt;a href=&#34;https://docs.tea-ci.org/plugins/s3/&#34;&gt;S3&lt;/a&gt;, &lt;a href=&#34;https://docs.tea-ci.org/plugins/google_cloudstorage/&#34;&gt;Google Storage&lt;/a&gt; and more. Please see the &lt;a href=&#34;https://docs.tea-ci.org/plugins/&#34;&gt;plugin documentation&lt;/a&gt; for a complete list.&lt;/p&gt;
 
 &lt;h1 id=&#34;docker:ae3f77d4da25cb721d64daf2ef987305&#34;&gt;Docker&lt;/h1&gt;
 
-&lt;p&gt;Building and publishing a Docker image to the registry is handled by plugins. We have multiple plugins for building and publishing Docker images to &lt;a href=&#34;http://docs.tea-ci.org/plugins/docker/&#34;&gt;DockerHub&lt;/a&gt;, &lt;a href=&#34;http://docs.tea-ci.org/plugins/gcr/&#34;&gt;Google Container Registry&lt;/a&gt;, and more.&lt;/p&gt;
+&lt;p&gt;Building and publishing a Docker image to the registry is handled by plugins. We have multiple plugins for building and publishing Docker images to &lt;a href=&#34;https://docs.tea-ci.org/plugins/docker/&#34;&gt;DockerHub&lt;/a&gt;, &lt;a href=&#34;https://docs.tea-ci.org/plugins/gcr/&#34;&gt;Google Container Registry&lt;/a&gt;, and more.&lt;/p&gt;
 
 &lt;h1 id=&#34;conditions:ae3f77d4da25cb721d64daf2ef987305&#34;&gt;Conditions&lt;/h1&gt;
 

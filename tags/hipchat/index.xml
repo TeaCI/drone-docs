@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hipchat on Drone</title>
-    <link>http://docs.tea-ci.org/tags/hipchat/</link>
+    <link>https://docs.tea-ci.org/tags/hipchat/</link>
     <description>Recent content in Hipchat on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 13 Feb 2016 08:58:14 +0000</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/tags/hipchat/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/tags/hipchat/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>HipChat</title>
-      <link>http://docs.tea-ci.org/plugins/hipchat/</link>
+      <link>https://docs.tea-ci.org/plugins/hipchat/</link>
       <pubDate>Sat, 13 Feb 2016 08:58:14 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/hipchat/</guid>
+      <guid>https://docs.tea-ci.org/plugins/hipchat/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for sending build status notifications via HipChat. You will

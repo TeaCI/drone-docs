@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Irc on Drone</title>
-    <link>http://docs.tea-ci.org/tags/irc/</link>
+    <link>https://docs.tea-ci.org/tags/irc/</link>
     <description>Recent content in Irc on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 13 Feb 2016 08:58:18 +0000</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/tags/irc/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/tags/irc/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>IRC</title>
-      <link>http://docs.tea-ci.org/plugins/irc/</link>
+      <link>https://docs.tea-ci.org/plugins/irc/</link>
       <pubDate>Sat, 13 Feb 2016 08:58:18 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/irc/</guid>
+      <guid>https://docs.tea-ci.org/plugins/irc/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for sending build status notifications via IRC. You can override

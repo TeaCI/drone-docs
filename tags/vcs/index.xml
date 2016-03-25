@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Vcs on Drone</title>
-    <link>http://docs.tea-ci.org/tags/vcs/</link>
+    <link>https://docs.tea-ci.org/tags/vcs/</link>
     <description>Recent content in Vcs on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 13 Feb 2016 08:58:26 +0000</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/tags/vcs/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/tags/vcs/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Mercurial</title>
-      <link>http://docs.tea-ci.org/plugins/hg/</link>
+      <link>https://docs.tea-ci.org/plugins/hg/</link>
       <pubDate>Sat, 13 Feb 2016 08:58:26 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/hg/</guid>
+      <guid>https://docs.tea-ci.org/plugins/hg/</guid>
       <description>&lt;p&gt;Use the Mercurial plugin to clone a mercurial repository. Note that Drone uses this plugin
 by default for all Bitbucket mercurial repositories, without any configuration required. You can override
 the default configuration with the following parameters:&lt;/p&gt;
@@ -34,10 +34,10 @@ the default configuration with the following parameters:&lt;/p&gt;
     
     <item>
       <title>Git</title>
-      <link>http://docs.tea-ci.org/plugins/git/</link>
+      <link>https://docs.tea-ci.org/plugins/git/</link>
       <pubDate>Sat, 13 Feb 2016 08:58:07 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/git/</guid>
+      <guid>https://docs.tea-ci.org/plugins/git/</guid>
       <description>
 
 &lt;p&gt;Use the Git plugin to clone a git repository. Note that Drone uses the Git plugin

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Drone on Drone</title>
-    <link>http://docs.tea-ci.org/tags/drone/</link>
+    <link>https://docs.tea-ci.org/tags/drone/</link>
     <description>Recent content in Drone on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 21 Feb 2016 08:35:06 +0000</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/tags/drone/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/tags/drone/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Trigger</title>
-      <link>http://docs.tea-ci.org/plugins/downstream/</link>
+      <link>https://docs.tea-ci.org/plugins/downstream/</link>
       <pubDate>Sun, 21 Feb 2016 08:35:06 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/downstream/</guid>
+      <guid>https://docs.tea-ci.org/plugins/downstream/</guid>
       <description>&lt;p&gt;Use this plugin to trigger builds for a list of downstream repositories. This is useful when updates to a repository have downstream impacts that should also be tested. These are the configuration options:&lt;/p&gt;
 
 &lt;ul&gt;

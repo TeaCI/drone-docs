@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Anynines on Drone</title>
-    <link>http://docs.tea-ci.org/tags/anynines/</link>
+    <link>https://docs.tea-ci.org/tags/anynines/</link>
     <description>Recent content in Anynines on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 13 Feb 2016 08:59:49 +0000</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/tags/anynines/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/tags/anynines/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Anynines</title>
-      <link>http://docs.tea-ci.org/plugins/anynines/</link>
+      <link>https://docs.tea-ci.org/plugins/anynines/</link>
       <pubDate>Sat, 13 Feb 2016 08:59:49 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/anynines/</guid>
+      <guid>https://docs.tea-ci.org/plugins/anynines/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deplying an application to Anynines. You can override the

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Rancher on Drone</title>
-    <link>http://docs.tea-ci.org/tags/rancher/</link>
+    <link>https://docs.tea-ci.org/tags/rancher/</link>
     <description>Recent content in Rancher on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 13 Feb 2016 09:01:32 +0000</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/tags/rancher/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/tags/rancher/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Rancher</title>
-      <link>http://docs.tea-ci.org/plugins/rancher/</link>
+      <link>https://docs.tea-ci.org/plugins/rancher/</link>
       <pubDate>Sat, 13 Feb 2016 09:01:32 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/rancher/</guid>
+      <guid>https://docs.tea-ci.org/plugins/rancher/</guid>
       <description>&lt;p&gt;Use the rancher plugin to upgrade a service in &lt;a href=&#34;http://rancher.com&#34;&gt;rancher&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;The following parameters are used to configure this plugin:&lt;/p&gt;

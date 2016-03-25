@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Chat on Drone</title>
-    <link>http://docs.tea-ci.org/tags/chat/</link>
+    <link>https://docs.tea-ci.org/tags/chat/</link>
     <description>Recent content in Chat on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 13 Feb 2016 08:59:15 +0000</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/tags/chat/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/tags/chat/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Gitter</title>
-      <link>http://docs.tea-ci.org/plugins/gitter/</link>
+      <link>https://docs.tea-ci.org/plugins/gitter/</link>
       <pubDate>Sat, 13 Feb 2016 08:59:15 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/gitter/</guid>
+      <guid>https://docs.tea-ci.org/plugins/gitter/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for sending build status notifications via Gitter. The status
@@ -52,10 +52,10 @@ to. In that case you can simply provide a list of webhooks.&lt;/p&gt;
     
     <item>
       <title>Slack Blame</title>
-      <link>http://docs.tea-ci.org/plugins/slack_blame/</link>
+      <link>https://docs.tea-ci.org/plugins/slack_blame/</link>
       <pubDate>Sat, 13 Feb 2016 08:59:04 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/slack_blame/</guid>
+      <guid>https://docs.tea-ci.org/plugins/slack_blame/</guid>
       <description>
 
 &lt;p&gt;Use the Slack Blame plugin to send a message to a Slack channel or through
@@ -121,10 +121,10 @@ be randomly selected per build)&lt;/li&gt;
     
     <item>
       <title>IRC</title>
-      <link>http://docs.tea-ci.org/plugins/irc/</link>
+      <link>https://docs.tea-ci.org/plugins/irc/</link>
       <pubDate>Sat, 13 Feb 2016 08:58:18 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/irc/</guid>
+      <guid>https://docs.tea-ci.org/plugins/irc/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for sending build status notifications via IRC. You can override
@@ -163,10 +163,10 @@ the default configuration with the following parameters:&lt;/p&gt;
     
     <item>
       <title>HipChat</title>
-      <link>http://docs.tea-ci.org/plugins/hipchat/</link>
+      <link>https://docs.tea-ci.org/plugins/hipchat/</link>
       <pubDate>Sat, 13 Feb 2016 08:58:14 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/hipchat/</guid>
+      <guid>https://docs.tea-ci.org/plugins/hipchat/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for sending build status notifications via HipChat. You will
@@ -222,10 +222,10 @@ details take a look at the &lt;a href=&#34;http://handlebarsjs.com/&#34;&gt;docs
     
     <item>
       <title>Slack</title>
-      <link>http://docs.tea-ci.org/plugins/slack/</link>
+      <link>https://docs.tea-ci.org/plugins/slack/</link>
       <pubDate>Sat, 13 Feb 2016 08:58:10 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/slack/</guid>
+      <guid>https://docs.tea-ci.org/plugins/slack/</guid>
       <description>&lt;p&gt;Use the Slack plugin to send a message to your Slack channel when a build completes. You will need to supply Drone with an &lt;a href=&#34;https://my.slack.com/services/new/incoming-webhook&#34;&gt;Incoming Webhook URL&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;The following parameters are used to configuration the notification:&lt;/p&gt;

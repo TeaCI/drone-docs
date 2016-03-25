@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Containership on Drone</title>
-    <link>http://docs.tea-ci.org/tags/containership/</link>
+    <link>https://docs.tea-ci.org/tags/containership/</link>
     <description>Recent content in Containership on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 21 Feb 2016 08:37:52 +0000</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/tags/containership/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/tags/containership/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>ContainerShip</title>
-      <link>http://docs.tea-ci.org/plugins/containership/</link>
+      <link>https://docs.tea-ci.org/plugins/containership/</link>
       <pubDate>Sun, 21 Feb 2016 08:37:52 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/containership/</guid>
+      <guid>https://docs.tea-ci.org/plugins/containership/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deploying an application to &lt;a href=&#34;https://containership.io&#34;&gt;ContainerShip&lt;/a&gt;.

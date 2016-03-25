@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Deploy on Drone</title>
-    <link>http://docs.tea-ci.org/categories/deploy/</link>
+    <link>https://docs.tea-ci.org/categories/deploy/</link>
     <description>Recent content in Deploy on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 21 Feb 2016 08:37:52 +0000</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/categories/deploy/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/categories/deploy/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>ContainerShip</title>
-      <link>http://docs.tea-ci.org/plugins/containership/</link>
+      <link>https://docs.tea-ci.org/plugins/containership/</link>
       <pubDate>Sun, 21 Feb 2016 08:37:52 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/containership/</guid>
+      <guid>https://docs.tea-ci.org/plugins/containership/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deploying an application to &lt;a href=&#34;https://containership.io&#34;&gt;ContainerShip&lt;/a&gt;.
@@ -45,10 +45,10 @@ You can override the default configuration with the following parameters:&lt;/p&
     
     <item>
       <title>Terraform</title>
-      <link>http://docs.tea-ci.org/plugins/terraform/</link>
+      <link>https://docs.tea-ci.org/plugins/terraform/</link>
       <pubDate>Sun, 21 Feb 2016 08:37:46 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/terraform/</guid>
+      <guid>https://docs.tea-ci.org/plugins/terraform/</guid>
       <description>
 
 &lt;p&gt;Use the Terraform plugin to apply the infrastructure configuration contained within the repository. The following parameters are used to configure this plugin:&lt;/p&gt;
@@ -135,10 +135,10 @@ want command is actually being ran.&lt;/p&gt;
     
     <item>
       <title>ECS</title>
-      <link>http://docs.tea-ci.org/plugins/ecs/</link>
+      <link>https://docs.tea-ci.org/plugins/ecs/</link>
       <pubDate>Sat, 13 Feb 2016 09:01:44 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/ecs/</guid>
+      <guid>https://docs.tea-ci.org/plugins/ecs/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deploying a docker container application to AWS EC2 Container Service (ECS).&lt;/p&gt;
@@ -182,10 +182,10 @@ want command is actually being ran.&lt;/p&gt;
     
     <item>
       <title>Scalingo</title>
-      <link>http://docs.tea-ci.org/plugins/scalingo/</link>
+      <link>https://docs.tea-ci.org/plugins/scalingo/</link>
       <pubDate>Sat, 13 Feb 2016 09:01:36 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/scalingo/</guid>
+      <guid>https://docs.tea-ci.org/plugins/scalingo/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deplying an application to Scalingo. You can override the
@@ -211,10 +211,10 @@ default configuration with the following parameters:&lt;/p&gt;
     
     <item>
       <title>Rancher</title>
-      <link>http://docs.tea-ci.org/plugins/rancher/</link>
+      <link>https://docs.tea-ci.org/plugins/rancher/</link>
       <pubDate>Sat, 13 Feb 2016 09:01:32 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/rancher/</guid>
+      <guid>https://docs.tea-ci.org/plugins/rancher/</guid>
       <description>&lt;p&gt;Use the rancher plugin to upgrade a service in &lt;a href=&#34;http://rancher.com&#34;&gt;rancher&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;The following parameters are used to configure this plugin:&lt;/p&gt;
@@ -247,10 +247,10 @@ default configuration with the following parameters:&lt;/p&gt;
     
     <item>
       <title>CodeDeploy</title>
-      <link>http://docs.tea-ci.org/plugins/codedeploy/</link>
+      <link>https://docs.tea-ci.org/plugins/codedeploy/</link>
       <pubDate>Sat, 13 Feb 2016 09:01:13 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/codedeploy/</guid>
+      <guid>https://docs.tea-ci.org/plugins/codedeploy/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deplying an application to CodeDeploy. You can override the
@@ -291,10 +291,10 @@ event to fail to a specific instance, defaults to &lt;code&gt;false&lt;/code&gt;
     
     <item>
       <title>OpsWorks</title>
-      <link>http://docs.tea-ci.org/plugins/opsworks/</link>
+      <link>https://docs.tea-ci.org/plugins/opsworks/</link>
       <pubDate>Sat, 13 Feb 2016 09:01:09 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/opsworks/</guid>
+      <guid>https://docs.tea-ci.org/plugins/opsworks/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deplying an application to OpsWorks. You can override the
@@ -342,10 +342,10 @@ default configuration with the following parameters:&lt;/p&gt;
     
     <item>
       <title>Engine Yard</title>
-      <link>http://docs.tea-ci.org/plugins/engineyard/</link>
+      <link>https://docs.tea-ci.org/plugins/engineyard/</link>
       <pubDate>Sat, 13 Feb 2016 09:00:52 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/engineyard/</guid>
+      <guid>https://docs.tea-ci.org/plugins/engineyard/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deplying an application to Engine Yard. You can override the
@@ -365,10 +365,10 @@ default configuration with the following parameters:&lt;/p&gt;
     
     <item>
       <title>cloudControl</title>
-      <link>http://docs.tea-ci.org/plugins/cloudcontrol/</link>
+      <link>https://docs.tea-ci.org/plugins/cloudcontrol/</link>
       <pubDate>Sat, 13 Feb 2016 09:00:48 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/cloudcontrol/</guid>
+      <guid>https://docs.tea-ci.org/plugins/cloudcontrol/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deplying an application to cloudControl. You can override
@@ -397,10 +397,10 @@ the default configuration with the following parameters:&lt;/p&gt;
     
     <item>
       <title>Boxfuse</title>
-      <link>http://docs.tea-ci.org/plugins/boxfuse/</link>
+      <link>https://docs.tea-ci.org/plugins/boxfuse/</link>
       <pubDate>Sat, 13 Feb 2016 09:00:42 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/boxfuse/</guid>
+      <guid>https://docs.tea-ci.org/plugins/boxfuse/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deplying an application to Boxfuse. You can override the
@@ -420,10 +420,10 @@ default configuration with the following parameters:&lt;/p&gt;
     
     <item>
       <title>BitBalloon</title>
-      <link>http://docs.tea-ci.org/plugins/bitballoon/</link>
+      <link>https://docs.tea-ci.org/plugins/bitballoon/</link>
       <pubDate>Sat, 13 Feb 2016 09:00:29 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/bitballoon/</guid>
+      <guid>https://docs.tea-ci.org/plugins/bitballoon/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deplying an application to Bitballoon. You can override the
@@ -450,10 +450,10 @@ default configuration with the following parameters:&lt;/p&gt;
     
     <item>
       <title>Elastic Beanstalk</title>
-      <link>http://docs.tea-ci.org/plugins/elastic_beanstalk/</link>
+      <link>https://docs.tea-ci.org/plugins/elastic_beanstalk/</link>
       <pubDate>Sat, 13 Feb 2016 09:00:25 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/elastic_beanstalk/</guid>
+      <guid>https://docs.tea-ci.org/plugins/elastic_beanstalk/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deplying an application to AWS Elastic Beanstalk. You can
@@ -494,10 +494,10 @@ override the default configuration with the following parameters:&lt;/p&gt;
     
     <item>
       <title>Deis</title>
-      <link>http://docs.tea-ci.org/plugins/deis/</link>
+      <link>https://docs.tea-ci.org/plugins/deis/</link>
       <pubDate>Sat, 13 Feb 2016 09:00:18 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/deis/</guid>
+      <guid>https://docs.tea-ci.org/plugins/deis/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deplying an application to Deis. You can override the
@@ -525,10 +525,10 @@ default configuration with the following parameters:&lt;/p&gt;
     
     <item>
       <title>Cloud 66</title>
-      <link>http://docs.tea-ci.org/plugins/cloud66/</link>
+      <link>https://docs.tea-ci.org/plugins/cloud66/</link>
       <pubDate>Sat, 13 Feb 2016 09:00:12 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/cloud66/</guid>
+      <guid>https://docs.tea-ci.org/plugins/cloud66/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deplying an application to Cloud 66. You can override the
@@ -548,10 +548,10 @@ default configuration with the following parameters:&lt;/p&gt;
     
     <item>
       <title>dotCloud</title>
-      <link>http://docs.tea-ci.org/plugins/dotcloud/</link>
+      <link>https://docs.tea-ci.org/plugins/dotcloud/</link>
       <pubDate>Sat, 13 Feb 2016 09:00:02 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/dotcloud/</guid>
+      <guid>https://docs.tea-ci.org/plugins/dotcloud/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deplying an application to dotCloud. You can override

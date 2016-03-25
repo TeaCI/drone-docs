@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Docker on Drone</title>
-    <link>http://docs.tea-ci.org/tags/docker/</link>
+    <link>https://docs.tea-ci.org/tags/docker/</link>
     <description>Recent content in Docker on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 21 Feb 2016 08:37:26 +0000</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>ECR</title>
-      <link>http://docs.tea-ci.org/plugins/ecr/</link>
+      <link>https://docs.tea-ci.org/plugins/ecr/</link>
       <pubDate>Sun, 21 Feb 2016 08:37:26 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/ecr/</guid>
+      <guid>https://docs.tea-ci.org/plugins/ecr/</guid>
       <description>
 
 &lt;p&gt;Use the Docker plugin to build and push Docker images to an AWS Elastic Container Registry.
@@ -161,10 +161,10 @@ Cannot connect to the Docker daemon. Is &#39;docker -d&#39; running on this host
     
     <item>
       <title>Docker</title>
-      <link>http://docs.tea-ci.org/plugins/docker/</link>
+      <link>https://docs.tea-ci.org/plugins/docker/</link>
       <pubDate>Sun, 21 Feb 2016 08:34:06 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/docker/</guid>
+      <guid>https://docs.tea-ci.org/plugins/docker/</guid>
       <description>
 
 &lt;p&gt;Use the Docker plugin to build and push Docker images to a registry.
@@ -347,10 +347,10 @@ time=&amp;quot;2015-12-17T08:06:57Z&amp;quot; level=fatal msg=&amp;quot;no such 
     
     <item>
       <title>Rancher</title>
-      <link>http://docs.tea-ci.org/plugins/rancher/</link>
+      <link>https://docs.tea-ci.org/plugins/rancher/</link>
       <pubDate>Sat, 13 Feb 2016 09:01:32 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/rancher/</guid>
+      <guid>https://docs.tea-ci.org/plugins/rancher/</guid>
       <description>&lt;p&gt;Use the rancher plugin to upgrade a service in &lt;a href=&#34;http://rancher.com&#34;&gt;rancher&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;The following parameters are used to configure this plugin:&lt;/p&gt;
@@ -383,10 +383,10 @@ time=&amp;quot;2015-12-17T08:06:57Z&amp;quot; level=fatal msg=&amp;quot;no such 
     
     <item>
       <title>Tutum</title>
-      <link>http://docs.tea-ci.org/plugins/tutum/</link>
+      <link>https://docs.tea-ci.org/plugins/tutum/</link>
       <pubDate>Sat, 13 Feb 2016 08:59:40 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/tutum/</guid>
+      <guid>https://docs.tea-ci.org/plugins/tutum/</guid>
       <description>&lt;p&gt;Use the tutum plugin to redeploy or update a service in &lt;a href=&#34;https://tutum.co&#34;&gt;tutum&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;The following parameters are used to configure this plugin:&lt;/p&gt;
@@ -418,10 +418,10 @@ time=&amp;quot;2015-12-17T08:06:57Z&amp;quot; level=fatal msg=&amp;quot;no such 
     
     <item>
       <title>Google Container Registry</title>
-      <link>http://docs.tea-ci.org/plugins/gcr/</link>
+      <link>https://docs.tea-ci.org/plugins/gcr/</link>
       <pubDate>Sat, 13 Feb 2016 08:59:33 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/gcr/</guid>
+      <guid>https://docs.tea-ci.org/plugins/gcr/</guid>
       <description>
 
 &lt;p&gt;Use this plugin to build and push Docker images to the Google Container Registry (GCR). Please read the GCR &lt;a href=&#34;https://cloud.google.com/container-registry/&#34;&gt;documentation&lt;/a&gt; before you begin. You will need to generate a &lt;a href=&#34;https://developers.google.com/console/help/new/#serviceaccounts&#34;&gt;JSON token&lt;/a&gt; to authenticate to the registry and push images.&lt;/p&gt;
@@ -555,10 +555,10 @@ Cannot connect to the Docker daemon. Is &#39;docker -d&#39; running on this host
     
     <item>
       <title>DockerHub</title>
-      <link>http://docs.tea-ci.org/plugins/dockerhub/</link>
+      <link>https://docs.tea-ci.org/plugins/dockerhub/</link>
       <pubDate>Sat, 13 Feb 2016 08:59:01 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/dockerhub/</guid>
+      <guid>https://docs.tea-ci.org/plugins/dockerhub/</guid>
       <description>&lt;p&gt;Use the DockerHub plugin to trigger a remote build after your build successfully completes.
 The following parameters are used to configuration this plugin:&lt;/p&gt;
 

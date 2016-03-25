@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Azure on Drone</title>
-    <link>http://docs.tea-ci.org/tags/azure/</link>
+    <link>https://docs.tea-ci.org/tags/azure/</link>
     <description>Recent content in Azure on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 13 Feb 2016 08:59:54 +0000</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/tags/azure/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/tags/azure/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Azure Web Apps</title>
-      <link>http://docs.tea-ci.org/plugins/azure_web_apps/</link>
+      <link>https://docs.tea-ci.org/plugins/azure_web_apps/</link>
       <pubDate>Sat, 13 Feb 2016 08:59:54 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/azure_web_apps/</guid>
+      <guid>https://docs.tea-ci.org/plugins/azure_web_apps/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for deplying an application to Azure Web Apps. You can override
@@ -45,10 +45,10 @@ the default configuration with the following parameters:&lt;/p&gt;
     
     <item>
       <title>Azure Storage</title>
-      <link>http://docs.tea-ci.org/plugins/azure_storage/</link>
+      <link>https://docs.tea-ci.org/plugins/azure_storage/</link>
       <pubDate>Sat, 13 Feb 2016 08:58:43 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/azure_storage/</guid>
+      <guid>https://docs.tea-ci.org/plugins/azure_storage/</guid>
       <description>
 
 &lt;p&gt;Use this plugin for publishing files and artifacts to Azure Storage. The plugin is power by &lt;a href=&#34;https://github.com/Azure/azure-batch-samples/tree/master/Python/Storage&#34;&gt;blobxfer&lt;/a&gt; - an upload tool from the Microsoft HFC team. The following parameters are required:&lt;/p&gt;

@@ -2,430 +2,430 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://docs.tea-ci.org/</loc>
+    <loc>https://docs.tea-ci.org/</loc>
     <lastmod>2016-02-21T08:37:52+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/containership/</loc>
+    <loc>https://docs.tea-ci.org/plugins/containership/</loc>
     <lastmod>2016-02-21T08:37:52+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/terraform/</loc>
+    <loc>https://docs.tea-ci.org/plugins/terraform/</loc>
     <lastmod>2016-02-21T08:37:46+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/ecr/</loc>
+    <loc>https://docs.tea-ci.org/plugins/ecr/</loc>
     <lastmod>2016-02-21T08:37:26+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/webhook/</loc>
+    <loc>https://docs.tea-ci.org/plugins/webhook/</loc>
     <lastmod>2016-02-21T08:35:14+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/downstream/</loc>
+    <loc>https://docs.tea-ci.org/plugins/downstream/</loc>
     <lastmod>2016-02-21T08:35:06+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/docker/</loc>
+    <loc>https://docs.tea-ci.org/plugins/docker/</loc>
     <lastmod>2016-02-21T08:34:06+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/devpi/</loc>
+    <loc>https://docs.tea-ci.org/plugins/devpi/</loc>
     <lastmod>2016-02-13T09:02:17+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/sftp/</loc>
+    <loc>https://docs.tea-ci.org/plugins/sftp/</loc>
     <lastmod>2016-02-13T09:02:03+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/nuget/</loc>
+    <loc>https://docs.tea-ci.org/plugins/nuget/</loc>
     <lastmod>2016-02-13T09:01:59+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/artifactory/</loc>
+    <loc>https://docs.tea-ci.org/plugins/artifactory/</loc>
     <lastmod>2016-02-13T09:01:55+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/coverage/</loc>
+    <loc>https://docs.tea-ci.org/plugins/coverage/</loc>
     <lastmod>2016-02-13T09:01:52+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/ecs/</loc>
+    <loc>https://docs.tea-ci.org/plugins/ecs/</loc>
     <lastmod>2016-02-13T09:01:44+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/scalingo/</loc>
+    <loc>https://docs.tea-ci.org/plugins/scalingo/</loc>
     <lastmod>2016-02-13T09:01:36+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/rancher/</loc>
+    <loc>https://docs.tea-ci.org/plugins/rancher/</loc>
     <lastmod>2016-02-13T09:01:32+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/bintray/</loc>
+    <loc>https://docs.tea-ci.org/plugins/bintray/</loc>
     <lastmod>2016-02-13T09:01:27+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/campfire/</loc>
+    <loc>https://docs.tea-ci.org/plugins/campfire/</loc>
     <lastmod>2016-02-13T09:01:22+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/sqwiggle/</loc>
+    <loc>https://docs.tea-ci.org/plugins/sqwiggle/</loc>
     <lastmod>2016-02-13T09:01:16+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/codedeploy/</loc>
+    <loc>https://docs.tea-ci.org/plugins/codedeploy/</loc>
     <lastmod>2016-02-13T09:01:13+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/opsworks/</loc>
+    <loc>https://docs.tea-ci.org/plugins/opsworks/</loc>
     <lastmod>2016-02-13T09:01:09+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/rubygems/</loc>
+    <loc>https://docs.tea-ci.org/plugins/rubygems/</loc>
     <lastmod>2016-02-13T09:00:59+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/engineyard/</loc>
+    <loc>https://docs.tea-ci.org/plugins/engineyard/</loc>
     <lastmod>2016-02-13T09:00:52+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/cloudcontrol/</loc>
+    <loc>https://docs.tea-ci.org/plugins/cloudcontrol/</loc>
     <lastmod>2016-02-13T09:00:48+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/boxfuse/</loc>
+    <loc>https://docs.tea-ci.org/plugins/boxfuse/</loc>
     <lastmod>2016-02-13T09:00:42+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/bitballoon/</loc>
+    <loc>https://docs.tea-ci.org/plugins/bitballoon/</loc>
     <lastmod>2016-02-13T09:00:29+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/elastic_beanstalk/</loc>
+    <loc>https://docs.tea-ci.org/plugins/elastic_beanstalk/</loc>
     <lastmod>2016-02-13T09:00:25+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/google_cloudstorage/</loc>
+    <loc>https://docs.tea-ci.org/plugins/google_cloudstorage/</loc>
     <lastmod>2016-02-13T09:00:21+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/deis/</loc>
+    <loc>https://docs.tea-ci.org/plugins/deis/</loc>
     <lastmod>2016-02-13T09:00:18+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/cloud66/</loc>
+    <loc>https://docs.tea-ci.org/plugins/cloud66/</loc>
     <lastmod>2016-02-13T09:00:12+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/github_release/</loc>
+    <loc>https://docs.tea-ci.org/plugins/github_release/</loc>
     <lastmod>2016-02-13T09:00:08+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/dotcloud/</loc>
+    <loc>https://docs.tea-ci.org/plugins/dotcloud/</loc>
     <lastmod>2016-02-13T09:00:02+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/cloudfoundry/</loc>
+    <loc>https://docs.tea-ci.org/plugins/cloudfoundry/</loc>
     <lastmod>2016-02-13T08:59:58+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/azure_web_apps/</loc>
+    <loc>https://docs.tea-ci.org/plugins/azure_web_apps/</loc>
     <lastmod>2016-02-13T08:59:54+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/anynines/</loc>
+    <loc>https://docs.tea-ci.org/plugins/anynines/</loc>
     <lastmod>2016-02-13T08:59:49+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/pypi/</loc>
+    <loc>https://docs.tea-ci.org/plugins/pypi/</loc>
     <lastmod>2016-02-13T08:59:44+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/tutum/</loc>
+    <loc>https://docs.tea-ci.org/plugins/tutum/</loc>
     <lastmod>2016-02-13T08:59:40+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/gcr/</loc>
+    <loc>https://docs.tea-ci.org/plugins/gcr/</loc>
     <lastmod>2016-02-13T08:59:33+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/ssh/</loc>
+    <loc>https://docs.tea-ci.org/plugins/ssh/</loc>
     <lastmod>2016-02-13T08:59:23+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/s3_sync/</loc>
+    <loc>https://docs.tea-ci.org/plugins/s3_sync/</loc>
     <lastmod>2016-02-13T08:59:18+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/gitter/</loc>
+    <loc>https://docs.tea-ci.org/plugins/gitter/</loc>
     <lastmod>2016-02-13T08:59:15+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/npm/</loc>
+    <loc>https://docs.tea-ci.org/plugins/npm/</loc>
     <lastmod>2016-02-13T08:59:09+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/slack_blame/</loc>
+    <loc>https://docs.tea-ci.org/plugins/slack_blame/</loc>
     <lastmod>2016-02-13T08:59:04+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/dockerhub/</loc>
+    <loc>https://docs.tea-ci.org/plugins/dockerhub/</loc>
     <lastmod>2016-02-13T08:59:01+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/git_push/</loc>
+    <loc>https://docs.tea-ci.org/plugins/git_push/</loc>
     <lastmod>2016-02-13T08:58:57+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/heroku/</loc>
+    <loc>https://docs.tea-ci.org/plugins/heroku/</loc>
     <lastmod>2016-02-13T08:58:53+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/email/</loc>
+    <loc>https://docs.tea-ci.org/plugins/email/</loc>
     <lastmod>2016-02-13T08:58:49+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/azure_storage/</loc>
+    <loc>https://docs.tea-ci.org/plugins/azure_storage/</loc>
     <lastmod>2016-02-13T08:58:43+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/s3/</loc>
+    <loc>https://docs.tea-ci.org/plugins/s3/</loc>
     <lastmod>2016-02-13T08:58:38+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/rsync/</loc>
+    <loc>https://docs.tea-ci.org/plugins/rsync/</loc>
     <lastmod>2016-02-13T08:58:35+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/hg/</loc>
+    <loc>https://docs.tea-ci.org/plugins/hg/</loc>
     <lastmod>2016-02-13T08:58:26+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/flowdock/</loc>
+    <loc>https://docs.tea-ci.org/plugins/flowdock/</loc>
     <lastmod>2016-02-13T08:58:22+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/irc/</loc>
+    <loc>https://docs.tea-ci.org/plugins/irc/</loc>
     <lastmod>2016-02-13T08:58:18+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/hipchat/</loc>
+    <loc>https://docs.tea-ci.org/plugins/hipchat/</loc>
     <lastmod>2016-02-13T08:58:14+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/slack/</loc>
+    <loc>https://docs.tea-ci.org/plugins/slack/</loc>
     <lastmod>2016-02-13T08:58:10+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/plugins/git/</loc>
+    <loc>https://docs.tea-ci.org/plugins/git/</loc>
     <lastmod>2016-02-13T08:58:07+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/community/overview/</loc>
+    <loc>https://docs.tea-ci.org/community/overview/</loc>
     <lastmod>2015-12-16T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/setup/remotes/bitbucket/</loc>
+    <loc>https://docs.tea-ci.org/setup/remotes/bitbucket/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/setup/overview/</loc>
+    <loc>https://docs.tea-ci.org/setup/overview/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/usage/overview/</loc>
+    <loc>https://docs.tea-ci.org/usage/overview/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/devs/libraries/</loc>
+    <loc>https://docs.tea-ci.org/devs/libraries/</loc>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/community/contributors_guide/</loc>
+    <loc>https://docs.tea-ci.org/community/contributors_guide/</loc>
     <lastmod>2015-12-28T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/setup/remotes/github/</loc>
+    <loc>https://docs.tea-ci.org/setup/remotes/github/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/setup/remotes/</loc>
+    <loc>https://docs.tea-ci.org/setup/remotes/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/usage/variables/</loc>
+    <loc>https://docs.tea-ci.org/usage/variables/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/devs/plugins/</loc>
+    <loc>https://docs.tea-ci.org/devs/plugins/</loc>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/setup/database/</loc>
+    <loc>https://docs.tea-ci.org/setup/database/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/setup/remotes/gitlab/</loc>
+    <loc>https://docs.tea-ci.org/setup/remotes/gitlab/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/usage/secrets/</loc>
+    <loc>https://docs.tea-ci.org/usage/secrets/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/devs/guides/</loc>
+    <loc>https://docs.tea-ci.org/devs/guides/</loc>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/setup/settings/</loc>
+    <loc>https://docs.tea-ci.org/setup/settings/</loc>
     <lastmod>2016-02-05T18:20:44-06:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/usage/cloning/</loc>
+    <loc>https://docs.tea-ci.org/usage/cloning/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/setup/remotes/gogs/</loc>
+    <loc>https://docs.tea-ci.org/setup/remotes/gogs/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/devs/cli/</loc>
+    <loc>https://docs.tea-ci.org/devs/cli/</loc>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/usage/caching/</loc>
+    <loc>https://docs.tea-ci.org/usage/caching/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/setup/upgrades/</loc>
+    <loc>https://docs.tea-ci.org/setup/upgrades/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/devs/api/builds/</loc>
+    <loc>https://docs.tea-ci.org/devs/api/builds/</loc>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/devs/api/repos/</loc>
+    <loc>https://docs.tea-ci.org/devs/api/repos/</loc>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/devs/api/user/</loc>
+    <loc>https://docs.tea-ci.org/devs/api/user/</loc>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/devs/api/users/</loc>
+    <loc>https://docs.tea-ci.org/devs/api/users/</loc>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/usage/services/</loc>
+    <loc>https://docs.tea-ci.org/usage/services/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/usage/build_test/</loc>
+    <loc>https://docs.tea-ci.org/usage/build_test/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/usage/deploy/</loc>
+    <loc>https://docs.tea-ci.org/usage/deploy/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/usage/notify/</loc>
+    <loc>https://docs.tea-ci.org/usage/notify/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/setup/proxy_network/</loc>
+    <loc>https://docs.tea-ci.org/setup/proxy_network/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/usage/matrix/</loc>
+    <loc>https://docs.tea-ci.org/usage/matrix/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/usage/artifacts/</loc>
+    <loc>https://docs.tea-ci.org/usage/artifacts/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://docs.tea-ci.org/setup/proxy_reverse/</loc>
+    <loc>https://docs.tea-ci.org/setup/proxy_reverse/</loc>
     <lastmod>2015-12-05T16:00:21-08:00</lastmod>
   </url>
   

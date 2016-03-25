@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Communities on Drone</title>
-    <link>http://docs.tea-ci.org/community/</link>
+    <link>https://docs.tea-ci.org/community/</link>
     <description>Recent content in Communities on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 16 Dec 2015 16:00:21 -0800</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/community/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/community/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Community</title>
-      <link>http://docs.tea-ci.org/community/overview/</link>
+      <link>https://docs.tea-ci.org/community/overview/</link>
       <pubDate>Wed, 16 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/community/overview/</guid>
+      <guid>https://docs.tea-ci.org/community/overview/</guid>
       <description>
 
 &lt;h1 id=&#34;news-and-announcements:68f80267fa3a50980dbb745a782b8dca&#34;&gt;News and Announcements&lt;/h1&gt;
@@ -56,10 +56,10 @@ the &lt;a href=&#34;http://discuss.drone.io/&#34;&gt;Drone Discussion&lt;/a&gt; 
     
     <item>
       <title>Contributor&#39;s Guide</title>
-      <link>http://docs.tea-ci.org/community/contributors_guide/</link>
+      <link>https://docs.tea-ci.org/community/contributors_guide/</link>
       <pubDate>Mon, 28 Dec 2015 16:00:21 -0800</pubDate>
       
-      <guid>http://docs.tea-ci.org/community/contributors_guide/</guid>
+      <guid>https://docs.tea-ci.org/community/contributors_guide/</guid>
       <description>
 
 &lt;p&gt;If you&amp;rsquo;d like to contribute to Drone, there is much to be done, regardless of

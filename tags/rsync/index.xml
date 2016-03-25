@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Rsync on Drone</title>
-    <link>http://docs.tea-ci.org/tags/rsync/</link>
+    <link>https://docs.tea-ci.org/tags/rsync/</link>
     <description>Recent content in Rsync on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 13 Feb 2016 08:58:35 +0000</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/tags/rsync/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/tags/rsync/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Rsync</title>
-      <link>http://docs.tea-ci.org/plugins/rsync/</link>
+      <link>https://docs.tea-ci.org/plugins/rsync/</link>
       <pubDate>Sat, 13 Feb 2016 08:58:35 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/rsync/</guid>
+      <guid>https://docs.tea-ci.org/plugins/rsync/</guid>
       <description>
 
 &lt;p&gt;Use the rsync plugin to deploy files to a server using rsync over ssh. The following parameters are used to configure this plugin:&lt;/p&gt;

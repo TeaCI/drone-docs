@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Artifacts on Drone</title>
-    <link>http://docs.tea-ci.org/tags/artifacts/</link>
+    <link>https://docs.tea-ci.org/tags/artifacts/</link>
     <description>Recent content in Artifacts on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 13 Feb 2016 09:01:27 +0000</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/tags/artifacts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/tags/artifacts/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Bintray</title>
-      <link>http://docs.tea-ci.org/plugins/bintray/</link>
+      <link>https://docs.tea-ci.org/plugins/bintray/</link>
       <pubDate>Sat, 13 Feb 2016 09:01:27 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/bintray/</guid>
+      <guid>https://docs.tea-ci.org/plugins/bintray/</guid>
       <description>
 
 &lt;p&gt;Use the Bintray plugin to publish one or more packages to a Bintray repository. You must supply the following parameters in a &lt;strong&gt;bintray&lt;/strong&gt; subsection of the .drone.yml &lt;strong&gt;publish&lt;/strong&gt; section.&lt;/p&gt;
@@ -176,10 +176,10 @@
     
     <item>
       <title>Google Cloud Storage</title>
-      <link>http://docs.tea-ci.org/plugins/google_cloudstorage/</link>
+      <link>https://docs.tea-ci.org/plugins/google_cloudstorage/</link>
       <pubDate>Sat, 13 Feb 2016 09:00:21 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/google_cloudstorage/</guid>
+      <guid>https://docs.tea-ci.org/plugins/google_cloudstorage/</guid>
       <description>&lt;p&gt;Use this plugin to upload files and build artifacts
 to the &lt;a href=&#34;https://cloud.google.com/storage/&#34;&gt;Google Cloud Storage (GCS)&lt;/a&gt; bucket.&lt;/p&gt;
 
@@ -237,10 +237,10 @@ environment:
     
     <item>
       <title>S3 Sync</title>
-      <link>http://docs.tea-ci.org/plugins/s3_sync/</link>
+      <link>https://docs.tea-ci.org/plugins/s3_sync/</link>
       <pubDate>Sat, 13 Feb 2016 08:59:18 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/s3_sync/</guid>
+      <guid>https://docs.tea-ci.org/plugins/s3_sync/</guid>
       <description>&lt;p&gt;Use the S3 sync plugin to synchronize files and folders with an Amazon S3 bucket. The following parameters are used to configure this plugin:&lt;/p&gt;
 
 &lt;ul&gt;
@@ -350,10 +350,10 @@ environment:
     
     <item>
       <title>S3</title>
-      <link>http://docs.tea-ci.org/plugins/s3/</link>
+      <link>https://docs.tea-ci.org/plugins/s3/</link>
       <pubDate>Sat, 13 Feb 2016 08:58:38 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/s3/</guid>
+      <guid>https://docs.tea-ci.org/plugins/s3/</guid>
       <description>&lt;p&gt;Use the S3 plugin to upload files and build artifacts to an S3 bucket. The following parameters are used to configure this plugin:&lt;/p&gt;
 
 &lt;ul&gt;

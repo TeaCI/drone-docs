@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Google on Drone</title>
-    <link>http://docs.tea-ci.org/tags/google/</link>
+    <link>https://docs.tea-ci.org/tags/google/</link>
     <description>Recent content in Google on Drone</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 13 Feb 2016 08:59:33 +0000</lastBuildDate>
-    <atom:link href="http://docs.tea-ci.org/tags/google/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://docs.tea-ci.org/tags/google/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Google Container Registry</title>
-      <link>http://docs.tea-ci.org/plugins/gcr/</link>
+      <link>https://docs.tea-ci.org/plugins/gcr/</link>
       <pubDate>Sat, 13 Feb 2016 08:59:33 +0000</pubDate>
       
-      <guid>http://docs.tea-ci.org/plugins/gcr/</guid>
+      <guid>https://docs.tea-ci.org/plugins/gcr/</guid>
       <description>
 
 &lt;p&gt;Use this plugin to build and push Docker images to the Google Container Registry (GCR). Please read the GCR &lt;a href=&#34;https://cloud.google.com/container-registry/&#34;&gt;documentation&lt;/a&gt; before you begin. You will need to generate a &lt;a href=&#34;https://developers.google.com/console/help/new/#serviceaccounts&#34;&gt;JSON token&lt;/a&gt; to authenticate to the registry and push images.&lt;/p&gt;
