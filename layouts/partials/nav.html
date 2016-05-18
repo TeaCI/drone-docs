@@ -8,6 +8,8 @@
 			<li><a href="{{.Site.BaseURL}}devs"{{if or (in .Params.menu "developers") (in .Params.menu "api") }} class="current-item"{{end}}>Developers</a></li>
 			<li><a href="{{.Site.BaseURL}}community/overview"{{if eq .Params.menu "community" }} class="current-item"{{end}}>Community</a></li>
 			<li><a href="{{.Site.BaseURL}}setup/overview" {{if eq .Params.menu "installation"}} class="current-item"{{end}}>Installation</a></li>
+			<li><a href="https://tea-ci.org/Alexpux/MINGW-packages" {{if eq .Params.menu "demo"}} class="current-item"{{end}}>Demo</a></li>
+			<li><a href="https://tea-ci.org/login" {{if eq .Params.menu "login"}} class="current-item"{{end}}>Login</a></li>
 		</ul>
 	</div>
 </nav>
