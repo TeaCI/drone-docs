@@ -125,13 +125,15 @@ build:
     - make check
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&#34;services:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Services&lt;/h1&gt;
+&lt;!--
+# Services
 
-&lt;p&gt;Drone supports launching separate, ephemeral Docker containers as part of the build process. This is useful, for example, if you require a database for running your unit tests.&lt;/p&gt;
+Drone supports launching separate, ephemeral Docker containers as part of the build process. This is useful, for example, if you require a database for running your unit tests.
 
-&lt;p&gt;Example .drone.yml configuration with a Postgres database:&lt;/p&gt;
+Example .drone.yml configuration with a Postgres database:
 
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+```yaml
+---
 build:
   image: teaci/msys32
   shell: mingw32
@@ -141,21 +143,27 @@ build:
     - make
     - make check
 
+--&gt;
+
+&lt;!--
 compose:
   database:
     image: postgres
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=mysecretpassword
-&lt;/code&gt;&lt;/pre&gt;
+```
+--&gt;
 
-&lt;h1 id=&#34;deployments:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Deployments&lt;/h1&gt;
+&lt;!--
+# Deployments
 
-&lt;p&gt;Drone supports a large number of publish and deployment capabilities through external plugins. Plugins are Docker containers that are automatically downloaded, attach to your build, and execute a very specific publish or deployment task.&lt;/p&gt;
+Drone supports a large number of publish and deployment capabilities through external plugins. Plugins are Docker containers that are automatically downloaded, attach to your build, and execute a very specific publish or deployment task.
 
-&lt;p&gt;Example .drone.yml configuration with the Docker publish plugin:&lt;/p&gt;
+Example .drone.yml configuration with the Docker publish plugin:
 
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+```yaml
+---
 build:
   image: teaci/msys32
   shell: mingw32
@@ -171,11 +179,12 @@ publish:
     password: password
     email: octocat@github.com
     repo: octocat/hello-world
-&lt;/code&gt;&lt;/pre&gt;
+```
 
-&lt;p&gt;First Drone runs your build commands inside the teaci/msys32 container:&lt;/p&gt;
+First Drone runs your build commands inside the teaci/msys32 container:
 
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+```yaml
+---
 build:
   image: teaci/msys32
   shell: mingw32
@@ -184,29 +193,34 @@ build:
     - ./configure
     - make
     - make check
-&lt;/code&gt;&lt;/pre&gt;
+```
 
-&lt;p&gt;Drone executes publish and deployment plugins upon successful completion of the build step. Plugins are executed in separate Docker containers but have access to your build workspace. This means any files created and stored in the &lt;code&gt;/drone&lt;/code&gt; workspace are available to plugins.&lt;/p&gt;
+Drone executes publish and deployment plugins upon successful completion of the build step. Plugins are executed in separate Docker containers but have access to your build workspace. This means any files created and stored in the `/drone` workspace are available to plugins.
 
-&lt;p&gt;The Docker plugin in our example runs &lt;code&gt;docker build&lt;/code&gt; and &lt;code&gt;docker publish&lt;/code&gt; after the build step successfully completes using the configuration parameters in the .drone.yml file:&lt;/p&gt;
+The Docker plugin in our example runs `docker build` and `docker publish` after the build step successfully completes using the configuration parameters in the .drone.yml file:
 
-&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+```yaml
+---
 publish:
   docker:
     username: octocat
     password: password
     email: octocat@github.com
     repo: octocat/hello-world
-&lt;/code&gt;&lt;/pre&gt;
+```
+--&gt;
 
-&lt;h1 id=&#34;local-testing:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Local Testing&lt;/h1&gt;
+&lt;!--
+# Local Testing
 
-&lt;p&gt;Download the &lt;a href=&#34;https://docs.tea-ci.org/devs/cli&#34;&gt;command line tools&lt;/a&gt; to build and test your code locally inside a Docker environment using the exact same build process as Drone. You should think of your &lt;code&gt;.drone.yml&lt;/code&gt; file as a &lt;code&gt;docker-compose.yml&lt;/code&gt; alternative that is optimized for repeatable, local testing.&lt;/p&gt;
+Download the [command line tools](/devs/cli) to build and test your code locally inside a Docker environment using the exact same build process as Drone. You should think of your `.drone.yml` file as a `docker-compose.yml` alternative that is optimized for repeatable, local testing.
 
-&lt;p&gt;Command to execute a local build from the command line:&lt;/p&gt;
+Command to execute a local build from the command line:
 
-&lt;pre&gt;&lt;code&gt;drone exec
-&lt;/code&gt;&lt;/pre&gt;
+```
+drone exec
+```
+--&gt;
 
 &lt;h1 id=&#34;getting-help:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Getting Help&lt;/h1&gt;
 
