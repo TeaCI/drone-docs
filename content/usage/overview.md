@@ -122,6 +122,7 @@ build:
     - make check
 ```
 
+<!--
 # Services
 
 Drone supports launching separate, ephemeral Docker containers as part of the build process. This is useful, for example, if you require a database for running your unit tests.
@@ -139,6 +140,9 @@ build:
     - make
     - make check
 
+-->
+
+<!--
 compose:
   database:
     image: postgres
@@ -146,7 +150,9 @@ compose:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=mysecretpassword
 ```
+-->
 
+<!--
 # Deployments
 
 Drone supports a large number of publish and deployment capabilities through external plugins. Plugins are Docker containers that are automatically downloaded, attach to your build, and execute a very specific publish or deployment task.
@@ -199,7 +205,9 @@ publish:
     email: octocat@github.com
     repo: octocat/hello-world
 ```
+-->
 
+<!--
 # Local Testing
 
 Download the [command line tools](/devs/cli) to build and test your code locally inside a Docker environment using the exact same build process as Drone. You should think of your `.drone.yml` file as a `docker-compose.yml` alternative that is optimized for repeatable, local testing.
@@ -209,6 +217,7 @@ Command to execute a local build from the command line:
 ```
 drone exec
 ```
+-->
 
 # Getting Help
 
