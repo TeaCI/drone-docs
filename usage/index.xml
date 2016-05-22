@@ -95,7 +95,7 @@ build:
 
 &lt;p&gt;&lt;code&gt;image: teaci/msys32&lt;/code&gt; with &lt;code&gt;shell: msys32&lt;/code&gt;, for target &lt;code&gt;i686-pc-msys&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;image: teaci/msys32&lt;/code&gt; with &lt;code&gt;shell: msys64&lt;/code&gt;, for target &lt;code&gt;x86_64-pc-msys&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;image: teaci/msys64&lt;/code&gt; with &lt;code&gt;shell: msys64&lt;/code&gt;, for target &lt;code&gt;x86_64-pc-msys&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;image: teaci/cygwin32&lt;/code&gt; with &lt;code&gt;shell: cygwin32&lt;/code&gt;, for target &lt;code&gt;i686-pc-cygwin&lt;/code&gt;.&lt;/p&gt;
 
