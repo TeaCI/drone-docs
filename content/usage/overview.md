@@ -90,7 +90,7 @@ We currently support the following combinations of images and shells:
 
 `image: teaci/msys32` with `shell: msys32`, for target `i686-pc-msys`.
 
-`image: teaci/msys32` with `shell: msys64`, for target `x86_64-pc-msys`.
+`image: teaci/msys64` with `shell: msys64`, for target `x86_64-pc-msys`.
 
 `image: teaci/cygwin32` with `shell: cygwin32`, for target `i686-pc-cygwin`.
 
