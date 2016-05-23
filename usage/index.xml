@@ -19,6 +19,8 @@
 
 &lt;h1 id=&#34;overview:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Overview&lt;/h1&gt;
 
+&lt;p&gt;Before configure your build you need to connect your github repository to Tea CI. Firstly &lt;a href=&#34;https://tea-ci.org/login&#34;&gt;login&lt;/a&gt; to Tea CI with your github account, then search for your repository with the top right bar on Tea CI web UI, click your repository name and jump to &lt;code&gt;https://tea-ci.org/&amp;lt;user_name&amp;gt;/&amp;lt;repo_name&amp;gt;&lt;/code&gt;, finally click the &lt;code&gt;ACTIVATE NOW&lt;/code&gt; button.&lt;/p&gt;
+
 &lt;p&gt;In order to configure your build you must include a &lt;code&gt;.drone.yml&lt;/code&gt; file in the root of your repository. This section provides a brief overview of the configuration file and build process.&lt;/p&gt;
 
 &lt;p&gt;Example .drone.yml configuration:&lt;/p&gt;
