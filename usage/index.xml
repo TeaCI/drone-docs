@@ -40,7 +40,7 @@ build:
 
 &lt;h1 id=&#34;hooks:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Hooks&lt;/h1&gt;
 
-&lt;p&gt;Once activated, every commit and pull request automatically send a hook from your version control system (ie GitHub) to Tea CI. These hooks instruct Tea CI to execute a new build.&lt;/p&gt;
+&lt;p&gt;Once activated, every commit and pull request &lt;strong&gt;automatically&lt;/strong&gt; send a hook from your version control system (ie GitHub) to Tea CI. These hooks instruct Tea CI to execute a new build.&lt;/p&gt;
 
 &lt;p&gt;When Tea CI receives a hook it fetches the &lt;code&gt;.drone.yml&lt;/code&gt; from your repository and uses this as a blueprint for build execution. For the purposes of this tutorial let&amp;rsquo;s assume your repository uses the following configuration:&lt;/p&gt;
 
@@ -57,7 +57,7 @@ build:
 
 &lt;h1 id=&#34;cloning:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Cloning&lt;/h1&gt;
 
-&lt;p&gt;Hooks specify commit details including branch and commit hash. Tea CI will automatically clone and checkout the commit into the build workspace:&lt;/p&gt;
+&lt;p&gt;Hooks specify commit details including branch and commit hash. Tea CI will &lt;strong&gt;automatically&lt;/strong&gt; clone and checkout the commit into the build workspace:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;$ git init
 Initialized empty Git repository in /drone/src/github.com/TeaCI/xz/.git/
