@@ -131,7 +131,7 @@ build:
     - make check
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h1 id=&#34;install-build-dependencies:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Install build dependencies&lt;/h1&gt;
+&lt;h1 id=&#34;build-dependencies:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Build dependencies&lt;/h1&gt;
 
 &lt;p&gt;&lt;code&gt;teaci/msys32&lt;/code&gt; and &lt;code&gt;teaci/msys64&lt;/code&gt; images has &lt;a href=&#34;https://msys2.github.io&#34;&gt;Msys2&lt;/a&gt; pre-installed, you can install &lt;a href=&#34;https://mirrors.tea-ci.org/msys2/mingw/&#34;&gt;thousands of open source libraries&lt;/a&gt; using &lt;code&gt;pacman&lt;/code&gt;.&lt;/p&gt;
 
