@@ -31,7 +31,7 @@ build:
 
 # Hooks
 
-Once activated, every commit and pull request automatically send a hook from your version control system (ie GitHub) to Tea CI. These hooks instruct Tea CI to execute a new build.
+Once activated, every commit and pull request **automatically** send a hook from your version control system (ie GitHub) to Tea CI. These hooks instruct Tea CI to execute a new build.
 
 When Tea CI receives a hook it fetches the `.drone.yml` from your repository and uses this as a blueprint for build execution. For the purposes of this tutorial let's assume your repository uses the following configuration:
 
@@ -49,7 +49,7 @@ build:
 
 # Cloning
 
-Hooks specify commit details including branch and commit hash. Tea CI will automatically clone and checkout the commit into the build workspace:
+Hooks specify commit details including branch and commit hash. Tea CI will **automatically** clone and checkout the commit into the build workspace:
 
 ```
 $ git init
