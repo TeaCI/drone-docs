@@ -94,8 +94,6 @@ We currently support the following combinations of images and shells:
 
 `image: teaci/msys64` with `shell: msys64`, for target `x86_64-pc-msys`.
 
-`image: teaci/cygwin32` with `shell: cygwin32`, for target `i686-pc-cygwin`.
-
 Note: while mingw32 shell and msys32 shell share the same image, usual Win32 application developers might only need the mingw32 shell to build "native" programs. The msys32 shell is mostly for msys2 package maintainers. The cygwin32 shell is mostly for cygwin package maintainers.
 
 # Pull
@@ -106,8 +104,8 @@ Use the `pull` attribute to instruct Drone to always pull the latest Docker imag
 ---
 build:
   image: teaci/msys32
-  shell: mingw32
   pull: true
+  shell: mingw32
 ```
 
 # Commands
@@ -120,13 +118,54 @@ Drone executes the following bash commands inside your build container:
 ---
 build:
   image: teaci/msys32
-  shell: mingw32
   pull: true
+  shell: mingw32
   commands:
     - ./configure
     - make
     - make check
 ```
+
+# Install build dependencies with pacman from Msys2
+
+`teaci/msys32` and `teaci/msys64` images has [Myss2](https://msys2.github.io) pre-installed, you can install [thousands of open source libraries](https://mirrors.tea-ci.org/msys2/mingw/) using pacman.
+
+```yaml
+---
+build:
+  image: teaci/msys32
+  pull: true
+  shell: mingw32
+  commands:
+    - pacman -S --noconfirm mingw-w64-i686-libpng
+    - ./configure
+    - make
+    - make check
+```
+
+# Matrix build
+
+You can use matrix build to compile both 32 bit binary and 64 bit binary at the same time. Refer [the documenation](http://docs.tea-ci.org/usage/matrix/) for more details.
+
+```yaml
+---
+build:
+  image: teaci/msys$$arch
+  pull: true
+  shell: mingw$$arch
+  commands:
+    - if [ $$arch = 32 ]; then target=i686; fi
+    - if [ $$arch = 64 ]; then target=x86_64; fi
+    - pacman -S --noconfirm mingw-w64-${target}-pkg-config
+    - ./autogen.sh
+    - ./configure
+    - make
+    - make check
+```
+
+# Playground
+
+Fork our [example code](https://github.com/teaci/xz) to get a quick start on Tea CI. Send pull request to our [playground](https://github.com/teaci/xz/pulls) to see how a pull request trigger a Tea CI build. You are also welcome to contribute more demo repositories.
 
 <!--
 # Services
@@ -228,3 +267,4 @@ drone exec
 # Getting Help
 
 Please use the community [chat room](https://gitter.im/TeaCI/drone) for support.
+Create an issue on [github repo](https://github.com/TeaCI/tea-ci/issues) if you found any bugs. If you need to extent your build time limitation, please drop a private message on gitter to @fracting.
