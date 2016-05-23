@@ -52,11 +52,14 @@ build:
 Hooks specify commit details including branch and commit hash. Tea CI will automatically clone and checkout the commit into the build workspace:
 
 ```
-git clone --depth=50 --recusive=true \
-    https://github.com/octocat/hello-world.git \
-    /drone/src/github.com/octocat/hello-world
-
-git checkout 7fd1a60
+$ git init
+Initialized empty Git repository in /drone/src/github.com/TeaCI/xz/.git/
+$ git remote add origin https://github.com/TeaCI/xz.git
+$ git fetch --no-tags --depth=50 origin +refs/heads/master:
+From https://github.com/TeaCI/xz
+ * branch            master     -> FETCH_HEAD
+ * [new branch]      master     -> origin/master
+$ git reset --hard -q b3bd814618d82341dd22f2f59da3a1b467724eb0
 ```
 
 # Images
