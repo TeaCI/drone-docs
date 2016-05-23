@@ -165,7 +165,7 @@ build:
 
 # Playground
 
-Fork our [example code](https://github.com/teaci/xz) to get a quick start on Tea CI. Send pull request to our [playground](https://github.com/teaci/xz/pulls) to see how a pull request trigger a Tea CI build. You are also welcome to contribute more demo repositories.
+Fork our [example code](https://github.com/teaci/xz) to get a quick start on Tea CI. Send pull request to our [playground](https://github.com/teaci/xz/pulls) to see how a pull request [trigger a Tea CI build](https://github.com/TeaCI/xz/pull/1). You are also welcome to contribute more demo repositories.
 
 [![Build Status](https://tea-ci.org/api/badges/TeaCI/xz/status.svg)](https://tea-ci.org/TeaCI/xz)
 
