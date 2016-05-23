@@ -126,9 +126,9 @@ build:
     - make check
 ```
 
-# Install build dependencies with pacman from Msys2
+# Install build dependencies
 
-`teaci/msys32` and `teaci/msys64` images has [Myss2](https://msys2.github.io) pre-installed, you can install [thousands of open source libraries](https://mirrors.tea-ci.org/msys2/mingw/) using pacman.
+`teaci/msys32` and `teaci/msys64` images has [Msys2](https://msys2.github.io) pre-installed, you can install [thousands of open source libraries](https://mirrors.tea-ci.org/msys2/mingw/) using `pacman`.
 
 ```yaml
 ---
@@ -166,6 +166,8 @@ build:
 # Playground
 
 Fork our [example code](https://github.com/teaci/xz) to get a quick start on Tea CI. Send pull request to our [playground](https://github.com/teaci/xz/pulls) to see how a pull request trigger a Tea CI build. You are also welcome to contribute more demo repositories.
+
+[![Build Status](https://tea-ci.org/api/badges/TeaCI/xz/status.svg)](https://tea-ci.org/TeaCI/xz)
 
 <!--
 # Services
