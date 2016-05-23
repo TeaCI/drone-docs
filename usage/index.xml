@@ -99,8 +99,6 @@ build:
 
 &lt;p&gt;&lt;code&gt;image: teaci/msys64&lt;/code&gt; with &lt;code&gt;shell: msys64&lt;/code&gt;, for target &lt;code&gt;x86_64-pc-msys&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;image: teaci/cygwin32&lt;/code&gt; with &lt;code&gt;shell: cygwin32&lt;/code&gt;, for target &lt;code&gt;i686-pc-cygwin&lt;/code&gt;.&lt;/p&gt;
-
 &lt;p&gt;Note: while mingw32 shell and msys32 shell share the same image, usual Win32 application developers might only need the mingw32 shell to build &amp;ldquo;native&amp;rdquo; programs. The msys32 shell is mostly for msys2 package maintainers. The cygwin32 shell is mostly for cygwin package maintainers.&lt;/p&gt;
 
 &lt;h1 id=&#34;pull:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Pull&lt;/h1&gt;
@@ -110,8 +108,8 @@ build:
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
 build:
   image: teaci/msys32
-  shell: mingw32
   pull: true
+  shell: mingw32
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h1 id=&#34;commands:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Commands&lt;/h1&gt;
@@ -123,13 +121,52 @@ build:
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
 build:
   image: teaci/msys32
-  shell: mingw32
   pull: true
+  shell: mingw32
   commands:
     - ./configure
     - make
     - make check
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;install-build-dependencies-with-pacman-from-msys2:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Install build dependencies with pacman from Msys2&lt;/h1&gt;
+
+&lt;p&gt;&lt;code&gt;teaci/msys32&lt;/code&gt; and &lt;code&gt;teaci/msys64&lt;/code&gt; images has &lt;a href=&#34;https://msys2.github.io&#34;&gt;Myss2&lt;/a&gt; pre-installed, you can install &lt;a href=&#34;https://mirrors.tea-ci.org/msys2/mingw/&#34;&gt;thousands of open source libraries&lt;/a&gt; using pacman.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: teaci/msys32
+  pull: true
+  shell: mingw32
+  commands:
+    - pacman -S --noconfirm mingw-w64-i686-libpng
+    - ./configure
+    - make
+    - make check
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;matrix-build:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Matrix build&lt;/h1&gt;
+
+&lt;p&gt;You can use matrix build to compile both 32 bit binary and 64 bit binary at the same time. Refer &lt;a href=&#34;http://docs.tea-ci.org/usage/matrix/&#34;&gt;the documenation&lt;/a&gt; for more details.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+build:
+  image: teaci/msys$$arch
+  pull: true
+  shell: mingw$$arch
+  commands:
+    - if [ $$arch = 32 ]; then target=i686; fi
+    - if [ $$arch = 64 ]; then target=x86_64; fi
+    - pacman -S --noconfirm mingw-w64-${target}-pkg-config
+    - ./autogen.sh
+    - ./configure
+    - make
+    - make check
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;playground:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Playground&lt;/h1&gt;
+
+&lt;p&gt;Fork our &lt;a href=&#34;https://github.com/teaci/xz&#34;&gt;example code&lt;/a&gt; to get a quick start on Tea CI. Send pull request to our &lt;a href=&#34;https://github.com/teaci/xz/pulls&#34;&gt;playground&lt;/a&gt; to see how a pull request trigger a Tea CI build. You are also welcome to contribute more demo repositories.&lt;/p&gt;
 
 &lt;!--
 # Services
@@ -230,7 +267,8 @@ drone exec
 
 &lt;h1 id=&#34;getting-help:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Getting Help&lt;/h1&gt;
 
-&lt;p&gt;Please use the community &lt;a href=&#34;https://gitter.im/TeaCI/drone&#34;&gt;chat room&lt;/a&gt; for support.&lt;/p&gt;
+&lt;p&gt;Please use the community &lt;a href=&#34;https://gitter.im/TeaCI/drone&#34;&gt;chat room&lt;/a&gt; for support.
+Create an issue on &lt;a href=&#34;https://github.com/TeaCI/tea-ci/issues&#34;&gt;github repo&lt;/a&gt; if you found any bugs. If you need to extent your build time limitation, please drop a private message on gitter to @fracting.&lt;/p&gt;
 </description>
     </item>
     
