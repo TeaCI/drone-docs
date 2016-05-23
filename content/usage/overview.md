@@ -128,7 +128,7 @@ build:
     - make check
 ```
 
-# Install build dependencies
+# Build dependencies
 
 `teaci/msys32` and `teaci/msys64` images has [Msys2](https://msys2.github.io) pre-installed, you can install [thousands of open source libraries](https://mirrors.tea-ci.org/msys2/mingw/) using `pacman`.
 
