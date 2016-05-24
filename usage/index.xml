@@ -167,6 +167,11 @@ build:
     - ./configure
     - make
     - make check
+
+matrix:
+  arch:
+    - 64
+    - 32
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;h1 id=&#34;playground:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Playground&lt;/h1&gt;
