@@ -166,6 +166,11 @@ build:
     - ./configure
     - make
     - make check
+
+matrix:
+  arch:
+    - 64
+    - 32
 ```
 
 # Playground
