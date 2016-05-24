@@ -80,7 +80,7 @@ build:
   image: teaci/msys32
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;The Tea CI project maintains several official docker images for our users. Currently we support two images: &lt;code&gt;teaci/cygwin32&lt;/code&gt; and &lt;code&gt;teaci/msys32&lt;/code&gt;. 64 bit support is ongoing.&lt;/p&gt;
+&lt;p&gt;The Tea CI project maintains several official docker images for our users. Currently we support two images: &lt;code&gt;teaci/msys64&lt;/code&gt; and &lt;code&gt;teaci/msys32&lt;/code&gt;. Cygwin support is ongoing.&lt;/p&gt;
 
 &lt;h1 id=&#34;shell:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Shell&lt;/h1&gt;
 
