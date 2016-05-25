@@ -178,7 +178,7 @@ matrix:
 
 &lt;p&gt;Fork our &lt;a href=&#34;https://github.com/teaci/xz&#34;&gt;example code&lt;/a&gt; to get a quick start on Tea CI. Send pull request to our &lt;a href=&#34;https://github.com/teaci/xz/pulls&#34;&gt;playground&lt;/a&gt; to see how a pull request &lt;a href=&#34;https://github.com/TeaCI/xz/pull/1&#34;&gt;trigger a Tea CI build&lt;/a&gt;. You are also welcome to contribute more demo repositories.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://tea-ci.org/TeaCI/xz&#34;&gt;&lt;img src=&#34;https://tea-ci.org/api/badges/TeaCI/xz/status.svg&#34; alt=&#34;Build Status&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://tea-ci.org/TeaCI/xz&#34;&gt;&lt;img src=&#34;https://tea-ci.org/api/badges/TeaCI/xz/status.svg?branch=master&#34; alt=&#34;Build Status&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;!--
 # Services
