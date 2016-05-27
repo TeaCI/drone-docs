@@ -7,7 +7,11 @@ menu = "usage"
 toc = true
 +++
 
+> DO_NOT_USE: There is a known security issue about secret, see https://github.com/TeaCI/tea-ci/issues/7 . The only workaround is to disable pull request for Tea CI, by editing settings in Tea CI web UI.
+
+<!---
 > WARNING: drone does not prevent you from inadvertently exposing your secrets to the world. Please read this section of the documentation carefully to ensure you follow best practices and avoid exposing sensitive data.
+-->
 
 
 # Overview
