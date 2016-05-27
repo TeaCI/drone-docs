@@ -19,6 +19,7 @@ Example .drone.yml configuration:
 
 ```yaml
 ---
+# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
 build:
   image: teaci/msys32
   shell: mingw32
@@ -37,6 +38,7 @@ When Tea CI receives a hook it fetches the `.drone.yml` from your repository and
 
 ```yaml
 ---
+# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
 build:
   image: teaci/msys32
   shell: mingw32
@@ -70,6 +72,7 @@ Example .drone.yml configuration uses the Tea CI official msys32 image:
 
 ```yaml
 ---
+# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
 build:
   image: teaci/msys32
 ```
@@ -84,6 +87,7 @@ Example .drone.yml configuration uses the Tea CI official msys32 image using min
 
 ```yaml
 ---
+# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
 build:
   image: teaci/msys32
   shell: mingw32
@@ -107,6 +111,7 @@ Use the `pull` attribute to instruct Tea CI to always pull the latest Docker ima
 
 ```yaml
 ---
+# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
 build:
   image: teaci/msys32
   pull: true
@@ -121,6 +126,7 @@ Tea CI executes the following bash commands inside your build container:
 
 ```yaml
 ---
+# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
 build:
   image: teaci/msys32
   pull: true
@@ -137,12 +143,13 @@ build:
 
 ```yaml
 ---
+# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
 build:
   image: teaci/msys32
   pull: true
   shell: mingw32
   commands:
-    - pacman -S --noconfirm mingw-w64-i686-libpng
+    - pacman -S --needed --noconfirm --noprogressbar mingw-w64-i686-libpng
     - ./configure
     - make
     - make check
@@ -154,6 +161,7 @@ You can use matrix build to compile both 32 bit binary and 64 bit binary at the 
 
 ```yaml
 ---
+# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
 build:
   image: teaci/msys$$arch
   pull: true
@@ -161,7 +169,7 @@ build:
   commands:
     - if [ $$arch = 32 ]; then target=i686; fi
     - if [ $$arch = 64 ]; then target=x86_64; fi
-    - pacman -S --noconfirm mingw-w64-${target}-pkg-config
+    - pacman -S --needed --noconfirm --noprogressbar mingw-w64-${target}-pkg-config
     - ./autogen.sh
     - ./configure
     - make
