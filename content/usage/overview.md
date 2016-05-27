@@ -137,6 +137,24 @@ build:
     - make check
 ```
 
+# Cmd
+
+Tea CI does not support Windows cmd shell directly, however msys2 has a cmd wrapper. Use `cmd /c "command arg1 arg2"` in msys2 shell:
+
+```yaml
+---
+# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
+build:
+  image: teaci/msys32
+  shell: mingw32
+  commands:
+    - cmd /c dir
+    - cmd /c "echo %WINDIR%"
+    - ./configure
+    - make
+    - make check
+```
+
 # Build dependencies
 
 `teaci/msys32` and `teaci/msys64` images has [Msys2](https://msys2.github.io) pre-installed, you can install [thousands of open source libraries](https://mirrors.tea-ci.org/msys2/mingw/) using `pacman`.
