@@ -396,7 +396,7 @@ publish:
       <description>
 
 &lt;blockquote&gt;
-&lt;p&gt;DO_NOT_USE: There is a known security issue about secret, see &lt;a href=&#34;https://github.com/TeaCI/tea-ci/issues/7&#34;&gt;https://github.com/TeaCI/tea-ci/issues/7&lt;/a&gt; . The only workaround is to disable pull request for Tea CI, by editing settings in Tea CI web UI.&lt;/p&gt;
+&lt;p&gt;DO_NOT_USE: There is a known security issue about secret, see &lt;a href=&#34;https://github.com/TeaCI/tea-ci/issues/7&#34;&gt;https://github.com/TeaCI/tea-ci/issues/7&lt;/a&gt; . The current workaround is to disable &lt;code&gt;Pull Request Hooks&lt;/code&gt; in Tea CI web UI settings.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;!---
