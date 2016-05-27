@@ -396,8 +396,12 @@ publish:
       <description>
 
 &lt;blockquote&gt;
-&lt;p&gt;WARNING: drone does not prevent you from inadvertently exposing your secrets to the world. Please read this section of the documentation carefully to ensure you follow best practices and avoid exposing sensitive data.&lt;/p&gt;
+&lt;p&gt;DO_NOT_USE: There is a known security issue about secret, see &lt;a href=&#34;https://github.com/TeaCI/tea-ci/issues/7&#34;&gt;https://github.com/TeaCI/tea-ci/issues/7&lt;/a&gt; . The only workaround is to disable pull request for Tea CI, by editing settings in Tea CI web UI.&lt;/p&gt;
 &lt;/blockquote&gt;
+
+&lt;!---
+&gt; WARNING: drone does not prevent you from inadvertently exposing your secrets to the world. Please read this section of the documentation carefully to ensure you follow best practices and avoid exposing sensitive data.
+--&gt;
 
 &lt;h1 id=&#34;overview:0d943d142dc6bcdd2e544b095a49f72b&#34;&gt;Overview&lt;/h1&gt;
 
