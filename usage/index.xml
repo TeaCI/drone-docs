@@ -28,6 +28,7 @@
 &lt;p&gt;Example .drone.yml configuration:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
 build:
   image: teaci/msys32
   shell: mingw32
@@ -45,6 +46,7 @@ build:
 &lt;p&gt;When Tea CI receives a hook it fetches the &lt;code&gt;.drone.yml&lt;/code&gt; from your repository and uses this as a blueprint for build execution. For the purposes of this tutorial let&amp;rsquo;s assume your repository uses the following configuration:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
 build:
   image: teaci/msys32
   shell: mingw32
@@ -76,6 +78,7 @@ $ git reset --hard -q b3bd814618d82341dd22f2f59da3a1b467724eb0
 &lt;p&gt;Example .drone.yml configuration uses the Tea CI official msys32 image:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
 build:
   image: teaci/msys32
 &lt;/code&gt;&lt;/pre&gt;
@@ -89,6 +92,7 @@ build:
 &lt;p&gt;Example .drone.yml configuration uses the Tea CI official msys32 image using mingw32 shell:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
 build:
   image: teaci/msys32
   shell: mingw32
@@ -111,6 +115,7 @@ build:
 &lt;p&gt;Use the &lt;code&gt;pull&lt;/code&gt; attribute to instruct Tea CI to always pull the latest Docker image. This helps ensure you are always testing your code against the latest image. We recommend you always using &lt;code&gt;pull: true&lt;/code&gt; with our official Docker image like teaci/msys32 and teaci/cygwin32.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
 build:
   image: teaci/msys32
   pull: true
@@ -124,6 +129,7 @@ build:
 &lt;p&gt;Tea CI executes the following bash commands inside your build container:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
 build:
   image: teaci/msys32
   pull: true
@@ -139,12 +145,13 @@ build:
 &lt;p&gt;&lt;code&gt;teaci/msys32&lt;/code&gt; and &lt;code&gt;teaci/msys64&lt;/code&gt; images has &lt;a href=&#34;https://msys2.github.io&#34;&gt;Msys2&lt;/a&gt; pre-installed, you can install &lt;a href=&#34;https://mirrors.tea-ci.org/msys2/mingw/&#34;&gt;thousands of open source libraries&lt;/a&gt; using &lt;code&gt;pacman&lt;/code&gt;.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
 build:
   image: teaci/msys32
   pull: true
   shell: mingw32
   commands:
-    - pacman -S --noconfirm mingw-w64-i686-libpng
+    - pacman -S --needed --noconfirm --noprogressbar mingw-w64-i686-libpng
     - ./configure
     - make
     - make check
@@ -155,6 +162,7 @@ build:
 &lt;p&gt;You can use matrix build to compile both 32 bit binary and 64 bit binary at the same time. Refer &lt;a href=&#34;http://docs.tea-ci.org/usage/matrix/&#34;&gt;the documenation&lt;/a&gt; for more details.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
+# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
 build:
   image: teaci/msys$$arch
   pull: true
@@ -162,7 +170,7 @@ build:
   commands:
     - if [ $$arch = 32 ]; then target=i686; fi
     - if [ $$arch = 64 ]; then target=x86_64; fi
-    - pacman -S --noconfirm mingw-w64-${target}-pkg-config
+    - pacman -S --needed --noconfirm --noprogressbar mingw-w64-${target}-pkg-config
     - ./autogen.sh
     - ./configure
     - make
