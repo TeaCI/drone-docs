@@ -412,6 +412,7 @@ publish:
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
 environment:
   HEROKU_TOKEN: pa$$word
+# DO NOT confuse &amp;quot;:&amp;quot; with &amp;quot;=&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Reference secrets in your &lt;code&gt;.drone.yml&lt;/code&gt; file using the &lt;code&gt;$$&lt;/code&gt; notation:&lt;/p&gt;
