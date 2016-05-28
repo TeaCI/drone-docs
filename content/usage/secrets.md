@@ -24,6 +24,7 @@ Start with a plaintext YAML file that defines your secrets. For demonstration pu
 ---
 environment:
   HEROKU_TOKEN: pa$$word
+# DO NOT confuse ":" with "="
 ```
 
 Reference secrets in your `.drone.yml` file using the `$$` notation:
