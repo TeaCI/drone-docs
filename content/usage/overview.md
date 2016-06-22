@@ -19,7 +19,8 @@ Example .drone.yml configuration:
 
 ```yaml
 ---
-# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
+# Build configuration for https://www.tea-ci.org
+
 build:
   image: teaci/msys32
   shell: mingw32
@@ -38,7 +39,8 @@ When Tea CI receives a hook it fetches the `.drone.yml` from your repository and
 
 ```yaml
 ---
-# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
+# Build configuration for https://www.tea-ci.org
+
 build:
   image: teaci/msys32
   shell: mingw32
@@ -72,7 +74,8 @@ Example .drone.yml configuration uses the Tea CI official msys32 image:
 
 ```yaml
 ---
-# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
+# Build configuration for https://www.tea-ci.org
+
 build:
   image: teaci/msys32
 ```
@@ -87,7 +90,8 @@ Example .drone.yml configuration uses the Tea CI official msys32 image using min
 
 ```yaml
 ---
-# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
+# Build configuration for https://www.tea-ci.org
+
 build:
   image: teaci/msys32
   shell: mingw32
@@ -111,7 +115,8 @@ Use the `pull` attribute to instruct Tea CI to always pull the latest Docker ima
 
 ```yaml
 ---
-# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
+# Build configuration for https://www.tea-ci.org
+
 build:
   image: teaci/msys32
   pull: true
@@ -126,7 +131,8 @@ Tea CI executes the following bash commands inside your build container:
 
 ```yaml
 ---
-# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
+# Build configuration for https://www.tea-ci.org
+
 build:
   image: teaci/msys32
   pull: true
@@ -143,7 +149,8 @@ Tea CI does not support Windows cmd shell directly, however msys2 has a cmd wrap
 
 ```yaml
 ---
-# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
+# Build configuration for https://www.tea-ci.org
+
 build:
   image: teaci/msys32
   shell: mingw32
@@ -161,7 +168,12 @@ build:
 
 ```yaml
 ---
-# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
+# Build configuration for https://www.tea-ci.org
+# Tea CI is a fork of Drone CI with Msys2 support
+# Feel free to share Tea CI to more open source developers
+# http://docs.tea-ci.org/usage/overview/
+# Please add your project to https://github.com/TeaCI/tea-ci/wiki/Msys2-on-Wine#use-msys2-in-tea-ci
+
 build:
   image: teaci/msys32
   pull: true
@@ -179,7 +191,12 @@ You can use matrix build to compile both 32 bit binary and 64 bit binary at the 
 
 ```yaml
 ---
-# Build configure for https://www.tea-ci.org (fork of Drone CI with Msys2 support)
+# Build configuration for https://www.tea-ci.org
+# Tea CI is a fork of Drone CI with Msys2 support
+# Feel free to share Tea CI to more open source developers
+# http://docs.tea-ci.org/usage/overview/
+# Please add your project to https://github.com/TeaCI/tea-ci/wiki/Msys2-on-Wine#use-msys2-in-tea-ci
+
 build:
   image: teaci/msys$$arch
   pull: true
