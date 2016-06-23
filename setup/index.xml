@@ -142,10 +142,10 @@ Configure a Database&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Drone ships as a single binary file and is distributed as a minimalist 20 MB Docker image. Download the official Drone image from DockerHub:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;sudo docker pull drone/drone:0.4
+&lt;pre&gt;&lt;code&gt;sudo docker pull teaci/drone:0.4.2.5
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;For a full list of available tags, see the &lt;a href=&#34;https://hub.docker.com/r/drone/drone/&#34;&gt;drone/drone&lt;/a&gt; Docker Hub repo.&lt;/p&gt;
+&lt;p&gt;For a full list of available tags, see the &lt;a href=&#34;https://hub.docker.com/r/teaci/drone/&#34;&gt;teaci/drone&lt;/a&gt; Docker Hub repo.&lt;/p&gt;
 
 &lt;h1 id=&#34;configure:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Configure&lt;/h1&gt;
 
@@ -177,7 +177,7 @@ REMOTE_CONFIG=https://github.com?client_id=....&amp;amp;client_secret=....
 	--publish=80:8000 \
 	--detach=true \
 	--name=drone \
-	teaci/drone:0.4.2
+	teaci/drone:0.4.2.5
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Please note configuration parameters are provided to Docker using the &lt;code&gt;--env-file&lt;/code&gt; flag. Any changes to the &lt;code&gt;dronerc&lt;/code&gt; file require you to stop, remove and re-create the container:&lt;/p&gt;
