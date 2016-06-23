@@ -177,7 +177,7 @@ REMOTE_CONFIG=https://github.com?client_id=....&amp;amp;client_secret=....
 	--publish=80:8000 \
 	--detach=true \
 	--name=drone \
-	drone/drone:0.4
+	teaci/drone:0.4.2
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Please note configuration parameters are provided to Docker using the &lt;code&gt;--env-file&lt;/code&gt; flag. Any changes to the &lt;code&gt;dronerc&lt;/code&gt; file require you to stop, remove and re-create the container:&lt;/p&gt;
