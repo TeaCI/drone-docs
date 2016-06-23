@@ -12,10 +12,10 @@ toc = true
 Drone ships as a single binary file and is distributed as a minimalist 20 MB Docker image. Download the official Drone image from DockerHub:
 
 ```
-sudo docker pull drone/drone:0.4
+sudo docker pull teaci/drone:0.4.2.5
 ```
 
-For a full list of available tags, see the [drone/drone](https://hub.docker.com/r/drone/drone/) Docker Hub repo.
+For a full list of available tags, see the [teaci/drone](https://hub.docker.com/r/teaci/drone/) Docker Hub repo.
 
 # Configure
 
@@ -49,7 +49,7 @@ sudo docker run \
 	--publish=80:8000 \
 	--detach=true \
 	--name=drone \
-	teaci/drone:0.4.2
+	teaci/drone:0.4.2.5
 ```
 
 Please note configuration parameters are provided to Docker using the `--env-file` flag. Any changes to the `dronerc` file require you to stop, remove and re-create the container:
