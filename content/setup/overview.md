@@ -49,7 +49,7 @@ sudo docker run \
 	--publish=80:8000 \
 	--detach=true \
 	--name=drone \
-	drone/drone:0.4
+	teaci/drone:0.4.2
 ```
 
 Please note configuration parameters are provided to Docker using the `--env-file` flag. Any changes to the `dronerc` file require you to stop, remove and re-create the container:
