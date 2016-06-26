@@ -9,7 +9,7 @@ toc = true
 
 # Overview
 
-Tea CI is a continuous integration service for Windows developers, free for open source projects. Tea CI runs a [fork of Drone CI](https://github.com/TeaCI/drone) with additional support of Msys2 and Wine in order to compile Windows software. Any documentation for Drone CI should be a good reference for Tea CI. This documentation might mix the keyword Drone CI and Tea CI.
+Tea CI is a continuous integration service for Windows developers, free for open source projects. Tea CI runs a [fork of Drone CI](https://github.com/TeaCI/drone) with additional support of Cygwin/Msys2 on Wine in order to compile Windows software. Any documentation for Drone CI should be a good reference for Tea CI. This documentation might mix the keyword Drone CI and Tea CI.
 
 Before configure your build you need to connect your github repository to Tea CI. Firstly [login](https://tea-ci.org/login) to Tea CI with your github account, then search for your repository with the top right bar on Tea CI web UI, click your repository name and jump to `https://tea-ci.org/<user_name>/<repo_name>`, finally click the `ACTIVATE NOW` button.
 
@@ -107,7 +107,11 @@ We currently support the following combinations of images and shells:
 
 `image: teaci/msys64` with `shell: msys64`, for target `x86_64-pc-msys`.
 
-Note: while mingw32 shell and msys32 shell share the same image, usual Win32 application developers might only need the mingw32 shell to build "native" programs. The msys32 shell is mostly for msys2 package maintainers. The cygwin32 shell is mostly for cygwin package maintainers.
+`image: teaci/cygwin32` with `shell: cygwin32`, for target `i686-pc-cygwin`.
+
+`image: teaci/cygwin64` with `shell: cygwin64`, for target `x86_64-pc-cygwin`.
+
+Note: while mingw32 shell and msys32 shell share the same image, usual Win32 application developers might only need the mingw32 shell to build "native" programs. The msys32 shell is mostly for Msys2 package maintainers. The cygwin32 shell is mostly for Cygwin package maintainers.
 
 # Pull
 
@@ -145,7 +149,7 @@ build:
 
 # Cmd
 
-Tea CI does not support Windows cmd shell directly, however msys2 has a cmd wrapper. Use `cmd /c "command arg1 arg2"` in msys2 shell:
+Tea CI does not support Windows cmd shell directly, however Msys2 has a cmd wrapper. Use `cmd /c "command arg1 arg2"` in Msys2 shell:
 
 ```yaml
 ---
@@ -169,7 +173,7 @@ build:
 ```yaml
 ---
 # Build configuration for https://www.tea-ci.org
-# Tea CI is a fork of Drone CI with Msys2 support
+# Tea CI is a fork of Drone CI with Cygwin/Msys2 support
 # Feel free to share Tea CI to more open source developers
 # http://docs.tea-ci.org/usage/overview/
 # Please add your project to https://github.com/TeaCI/tea-ci/wiki/Msys2-on-Wine#use-msys2-in-tea-ci
@@ -192,7 +196,7 @@ You can use matrix build to compile both 32 bit binary and 64 bit binary at the 
 ```yaml
 ---
 # Build configuration for https://www.tea-ci.org
-# Tea CI is a fork of Drone CI with Msys2 support
+# Tea CI is a fork of Drone CI with Cygwin/Msys2 support
 # Feel free to share Tea CI to more open source developers
 # http://docs.tea-ci.org/usage/overview/
 # Please add your project to https://github.com/TeaCI/tea-ci/wiki/Msys2-on-Wine#use-msys2-in-tea-ci
