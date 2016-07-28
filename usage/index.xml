@@ -208,7 +208,7 @@ build:
     - make check
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;If you are using &lt;code&gt;shell: sh&lt;/code&gt; for Linux build, then you need &lt;code&gt;apt-get&lt;/code&gt; rather then &lt;code&gt;pacman&lt;/code&gt; for installing dependencies, which might bring some inconvenience for matrix build configuration, but anyway it is doable.&lt;/p&gt;
+&lt;p&gt;If you are using &lt;code&gt;shell: sh&lt;/code&gt; for Linux build, then you need &lt;code&gt;apt-get&lt;/code&gt; rather then &lt;code&gt;pacman&lt;/code&gt; for installing dependencies because teaci/msys32 is based on Ubuntu docker image, which might bring some inconvenience for matrix build configuration, but anyway it is doable. If you do not like teaci/msys32, you can also use any other image from &lt;a href=&#34;https://hub.docker.com/explore/&#34;&gt;https://hub.docker.com/explore/&lt;/a&gt; or build your own image. However, matrix support is incomplete until Tea CI upgrades to Drone 0.5: &lt;a href=&#34;http://readme.drone.io/0.5/usage/matrix/&#34;&gt;http://readme.drone.io/0.5/usage/matrix/&lt;/a&gt;, as a result currently there is no way to control &lt;code&gt;image&lt;/code&gt; and &lt;code&gt;shell&lt;/code&gt; as a group in matrix build.&lt;/p&gt;
 
 &lt;h1 id=&#34;matrix-build:68f80267fa3a50980dbb745a782b8dca&#34;&gt;Matrix build&lt;/h1&gt;
 
