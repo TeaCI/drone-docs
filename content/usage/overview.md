@@ -209,7 +209,7 @@ build:
     - make check
 ```
 
-If you are using `shell: sh` for Linux build, then you need `apt-get` rather then `pacman` for installing dependencies, which might bring some inconvenience for matrix build configuration, but anyway it is doable.
+If you are using `shell: sh` for Linux build, then you need `apt-get` rather then `pacman` for installing dependencies because teaci/msys32 is based on Ubuntu docker image, which might bring some inconvenience for matrix build configuration, but anyway it is doable. If you do not like teaci/msys32, you can also use any other image from https://hub.docker.com/explore/ or build your own image. However, matrix support is incomplete until Tea CI upgrades to Drone 0.5: http://readme.drone.io/0.5/usage/matrix/, as a result currently there is no way to control `image` and `shell` as a group in matrix build.
 
 # Matrix build
 
