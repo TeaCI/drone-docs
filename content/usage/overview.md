@@ -166,6 +166,26 @@ build:
     - make check
 ```
 
+# Native Linux Shell
+
+Tea CI supports Linux build as well, just set `shell: sh` in .drone.yml:
+
+```yaml
+---
+# Build configuration for https://www.tea-ci.org
+
+build:
+  image: teaci/msys32
+  shell: sh
+  commands:
+    - ./configure
+    - make
+    - make check
+```
+
+You can also try to play with matrix build in order to build both Linux binary and Windows binary in Tea CI.
+
+
 # Build dependencies
 
 `teaci/msys32` and `teaci/msys64` images has [Msys2](https://msys2.github.io) pre-installed, you can install [thousands of open source libraries](https://mirrors.tea-ci.org/msys2/mingw/) using `pacman`.
@@ -188,6 +208,8 @@ build:
     - make
     - make check
 ```
+
+If you are using `shell: sh` for Linux build, then you need `apt-get` rather then `pacman` for installing dependencies, which might bring some inconvenience for matrix build configuration, but anyway it is doable.
 
 # Matrix build
 
