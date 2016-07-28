@@ -51,6 +51,7 @@
 <li><a href="#pull:68f80267fa3a50980dbb745a782b8dca">Pull</a></li>
 <li><a href="#commands:68f80267fa3a50980dbb745a782b8dca">Commands</a></li>
 <li><a href="#cmd:68f80267fa3a50980dbb745a782b8dca">Cmd</a></li>
+<li><a href="#native-linux-shell:68f80267fa3a50980dbb745a782b8dca">Native Linux Shell</a></li>
 <li><a href="#build-dependencies:68f80267fa3a50980dbb745a782b8dca">Build dependencies</a></li>
 <li><a href="#matrix-build:68f80267fa3a50980dbb745a782b8dca">Matrix build</a></li>
 <li><a href="#playground:68f80267fa3a50980dbb745a782b8dca">Playground</a></li>
@@ -212,6 +213,24 @@ build:
     - make check
 </code></pre>
 
+<h1 id="native-linux-shell:68f80267fa3a50980dbb745a782b8dca">Native Linux Shell</h1>
+
+<p>Tea CI supports Linux build as well, just set <code>shell: sh</code> in .drone.yml:</p>
+
+<pre><code class="language-yaml">---
+# Build configuration for https://www.tea-ci.org
+
+build:
+  image: teaci/msys32
+  shell: sh
+  commands:
+    - ./configure
+    - make
+    - make check
+</code></pre>
+
+<p>You can also try to play with matrix build in order to build both Linux binary and Windows binary in Tea CI.</p>
+
 <h1 id="build-dependencies:68f80267fa3a50980dbb745a782b8dca">Build dependencies</h1>
 
 <p><code>teaci/msys32</code> and <code>teaci/msys64</code> images has <a href="https://msys2.github.io">Msys2</a> pre-installed, you can install <a href="https://mirrors.tea-ci.org/msys2/mingw/">thousands of open source libraries</a> using <code>pacman</code>.</p>
@@ -233,6 +252,8 @@ build:
     - make
     - make check
 </code></pre>
+
+<p>If you are using <code>shell: sh</code> for Linux build, then you need <code>apt-get</code> rather then <code>pacman</code> for installing dependencies, which might bring some inconvenience for matrix build configuration, but anyway it is doable.</p>
 
 <h1 id="matrix-build:68f80267fa3a50980dbb745a782b8dca">Matrix build</h1>
 
